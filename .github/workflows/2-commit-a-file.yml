@@ -1,0 +1,45 @@
+name: Step 2, Commit a file
+
+# This step listens for the learner to commit a file to branch `my-first-branch`
+# This step sets `STEP` to 3
+# This step closes <details id=2> and opens <details id=3>
+
+# This action will run every time there's a push to `my-first-branch`
+# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - my-first-branch
+
+jobs:
+  update_to_step_3:
+    name: On commit a file
+
+    # We will only run this action when:
+    # 1. This repository isn't the template repository
+    # 2. The STEP is currently '2' (see lower `if`s)
+    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: ${{ github.repository_owner != 'githublearn' }}
+
+    # We'll run Ubuntu for performance instead of Mac or Windows
+    runs-on: ubuntu-latest
+
+    steps:
+      # We'll need to check out the repository so that we can edit the README
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Let's get all the branches
+
+      # Update README to close <details id=2>
+      # and open <details id=3>
+      # and set STEP to '3'
+      - name: Update to step 3
+        run: ./.github/script/update-for-step.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_STEP: 2
+          TO_STEP: 3
+          BRANCH_NAME: my-first-branch

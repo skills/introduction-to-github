@@ -1,0 +1,45 @@
+name: Step 4, Merge your pull request
+
+# This step listens for the learner to merge a pull request with branch `my-first-branch`
+# This step sets `STEP` to x
+# This step closes <details id=4> and opens <details id=x>
+
+# This will run every time we create push a commit to `main`
+# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_to_step_x:
+    name: On merge your pull request
+
+    # We will only run this action when:
+    # 1. This repository isn't the template repository
+    # 2. The STEP is currently '4' (see lower `if`s)
+    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: ${{ github.repository_owner != 'githublearn' }}
+
+    # We'll run Ubuntu for performance instead of Mac or Windows
+    runs-on: ubuntu-latest
+
+    steps:
+      # We'll need to check out the repository so that we can edit the README
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Let's get all the branches
+
+      # Update README to close <details id=4>
+      # and open <details id=X>
+      # and set STEP to X
+      - name: Update to step X
+        run: ./.github/script/update-for-step.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_STEP: 4
+          TO_STEP: X
+          BRANCH_NAME: my-first-branch
