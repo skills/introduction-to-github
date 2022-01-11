@@ -1,7 +1,7 @@
 name: Step 2, Commit a file
 
 # This step listens for the learner to commit a file to branch `my-first-branch`
-# This step sets `STEP` to 3
+# This step sets STEP to 3
 # This step closes <details id=2> and opens <details id=3>
 
 # This action will run every time there's a push to `my-first-branch`
@@ -13,12 +13,12 @@ on:
       - my-first-branch
 
 jobs:
-  update_to_step_3:
+  on_commit_a_file:
     name: On commit a file
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # 2. The STEP is currently '2' (see lower `if`s)
+    # 2. The STEP is currently '2' (see update-step.sh)
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ github.repository_owner != 'githublearn' }}
@@ -37,7 +37,7 @@ jobs:
       # and open <details id=3>
       # and set STEP to '3'
       - name: Update to step 3
-        run: ./.github/script/update-for-step.sh
+        run: ./.github/script/update-step.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FROM_STEP: 2

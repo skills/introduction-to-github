@@ -1,7 +1,7 @@
 name: Step 4, Merge your pull request
 
 # This step listens for the learner to merge a pull request with branch `my-first-branch`
-# This step sets `STEP` to x
+# This step sets STEP to x
 # This step closes <details id=4> and opens <details id=x>
 
 # This will run every time we create push a commit to `main`
@@ -13,12 +13,12 @@ on:
       - main
 
 jobs:
-  update_to_step_x:
+  on_merge_your_pull_request:
     name: On merge your pull request
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # 2. The STEP is currently '4' (see lower `if`s)
+    # 2. The STEP is currently '4' (see update-step.sh)
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ github.repository_owner != 'githublearn' }}
@@ -37,7 +37,7 @@ jobs:
       # and open <details id=X>
       # and set STEP to X
       - name: Update to step X
-        run: ./.github/script/update-for-step.sh
+        run: ./.github/script/update-step.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FROM_STEP: 4

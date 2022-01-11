@@ -13,27 +13,29 @@ _If you are looking for a quick and fun introduction to GitHub, you've found it.
 
 <!-- 
   <<< Author notes: Start of the course >>> 
-  Include start button, a note about actions minutes, and tell the learner why they should take the course.
-  Each step should be wrapped in <details>/<summary>, with an `id` set. The start <details> should have `open` as well.
+  Include start button, a note about actions minutes,
+  and tell the learner why they should take the course.
+  Each step should be wrapped in <details>/<summary>, with an `id` set.
+  The start <details> should have `open` as well.
+  Do not use quotes on the <details> tag attributes.
 -->
 
 <details id=0 open>
-<summary><strong>⛳️ Start</strong></summary>
+<summary><strong>:golf: Start</strong></summary>
   
 **To start this course: [<img width="150" alt="Use this template" src="https://user-images.githubusercontent.com/1221423/148581131-555c0fb8-5361-4450-a760-75fa6219a2fc.png">](https://github.com/githublearn/introduction-to-github/generate)**
   
 > <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
 > We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+> After you make your own repository, wait about 20 seconds and refresh. I will go to the next step.
 
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Learn’s “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
-- 😄 **Who is this for**: New developers, new GitHub users, and students.
-- 📚 **What you'll learn**: We'll introduce _repositories_, _branches_, _commits_, and _pull requests_.
-- 🛠 **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
-- ⏪ **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
-- ⏰ **How long**: This course is 4 steps and takes less than one hour.
-
-After you make your own repository, wait about 20 seconds and refresh. I will go to the next step.
+- **Who is this for**: New developers, new GitHub users, and students.
+- **What you'll learn**: We'll introduce _repositories_, _branches_, _commits_, and _pull requests_.
+- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+- **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
+- **How long**: This course is 4 steps and takes less than one hour.
 
 </details>
 
@@ -46,11 +48,11 @@ After you make your own repository, wait about 20 seconds and refresh. I will go
 -->
 
 <details id=1>
-<summary><strong>🌲 Step 1: Create a branch</strong></summary>
+<summary><strong>:evergreen_tree: Step 1: Create a branch</strong></summary>
 
 ### :wave: Welcome to "Introduction to GitHub"!
 
-**What is _GitHub_**: GitHub is a collaboration platform that uses [Git](https://help.github.com/articles/github-glossary/#git) for versioning. GitHub is popular for [open-source](https://help.github.com/articles/github-glossary/#open-source) software.
+**What is _GitHub_**: GitHub is a collaboration platform that uses [Git](https://docs.github.com/en/get-started/quickstart/github-glossary#git) for versioning. GitHub is popular for [open-source](https://docs.github.com/en/get-started/quickstart/github-glossary#open-source) software.
 <br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=w3jLJU7DT5E)
 
 **What is a _repository_**: A [repository](https://docs.github.com/en/get-started/quickstart/github-glossary#repository) is a project containing files and folders. A repository tracks versions of files and folders.
@@ -65,7 +67,7 @@ After you make your own repository, wait about 20 seconds and refresh. I will go
 1. Navigate to the **Code** tab
 1. Click **Branch: main** in the drop-down
 1. In the field, enter a name for your branch: `my-first-branch`
-1. Click **Create branch: <name>** or press the <kbd>Enter</kbd> key to create your branch
+1. Click **Create branch: my-first-branch** or press the <kbd>Enter</kbd> key to create your branch
 1. Wait about 20 seconds then refresh this page for the next step
 
 </details>
@@ -77,7 +79,7 @@ After you make your own repository, wait about 20 seconds and refresh. I will go
 -->
 
 <details id=2>
-<summary><strong>🥸 Step 2: Commit a file</strong></summary>
+<summary><strong>:pencil: Step 2: Commit a file</strong></summary>
 
 ### :tada: You created a branch!
 
@@ -113,7 +115,7 @@ The following steps will guide you through the process of committing a change on
 -->
 
 <details id=3>
-<summary><strong>🤲 Step 3: Open a pull request</strong></summary>
+<summary><strong>:raised_hands: Step 3: Open a pull request</strong></summary>
 
 ### Nice work making that commit :sparkles:
 
@@ -143,13 +145,13 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 -->
 
 <details id=4>
-<summary><strong>💃🏻 Step 4: Merge your pull request</strong></summary>
+<summary><strong>:dancer: Step 4: Merge your pull request</strong></summary>
 
 ### Nicely done friend! :sparkles:
 
 You successfully created a pull request. You can now merge your pull request.
 
-**What is a _merge_**: A [merge](https://help.github.com/articles/github-glossary/#merge) adds the changes in your pull request and branch into the `main` branch.
+**What is a _merge_**: A [merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge) adds the changes in your pull request and branch into the `main` branch.
 <br>:tv: [Video: Understanding the GitHub flow](https://www.youtube.com/watch?v=PBI2Rz-ZOxU)
 
 ### :keyboard: Activity: Merge the pull request
@@ -167,7 +169,7 @@ You successfully created a pull request. You can now merge your pull request.
 -->
 
 <details id=X>
-<summary><strong>🏁 Finish</strong></summary>
+<summary><strong>:checkered_flag: Finish</strong></summary>
 
 ### Congratulations friend, you've completed this course!
 

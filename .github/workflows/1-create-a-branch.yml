@@ -1,7 +1,7 @@
 name: Step 1, Create a branch
 
 # This step listens for the learner to create branch `my-first-branch`
-# This step sets `STEP` to 2
+# This step sets STEP to 2
 # This step closes <details id=1> and opens <details id=2>
 
 # This will run every time we create a branch or tag
@@ -11,12 +11,12 @@ on:
   create:
 
 jobs:
-  update_to_step_2:
+  on_create_a_branch:
     name: On create a branch
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # 2. The STEP is currently '1' (see lower `if`s)
+    # 2. The STEP is currently '1' (see update-step.sh)
     # 3. The event is a branch
     # 4. The branch name is `my-first-branch`
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
@@ -37,7 +37,7 @@ jobs:
       # and open <details id=2>
       # and set STEP to '2'
       - name: Update to step 2
-        run: ./.github/script/update-for-step.sh
+        run: ./.github/script/update-step.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FROM_STEP: 1
