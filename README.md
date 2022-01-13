@@ -26,7 +26,7 @@ _If you are looking for a quick and fun introduction to GitHub, you've found it.
 **To start this course: [<img width="150" alt="Use this template" src="https://user-images.githubusercontent.com/1221423/148581131-555c0fb8-5361-4450-a760-75fa6219a2fc.png">](https://github.com/githublearn/introduction-to-github/generate)**
   
 > <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
-> We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+> We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).<br>
 > After you make your own repository, wait about 20 seconds and refresh. I will go to the next step.
 
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Learn’s “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
