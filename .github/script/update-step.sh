@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Make sure this file is executable
+# chmod a+x .github/script/update-step.sh
 
 echo "Check that we are on FROM_STEP"
 if [ "$(cat .github/script/STEP)" != $FROM_STEP ]
