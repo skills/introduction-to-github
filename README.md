@@ -145,7 +145,7 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 -->
 
 <details id=4>
-<summary><strong>:dancer: Step 4: Merge your pull request</strong></summary>
+<summary><strong>:shipit: Step 4: Merge your pull request</strong></summary>
 
 ### Nicely done friend! :sparkles:
 
