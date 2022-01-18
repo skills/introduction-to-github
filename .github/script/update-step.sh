@@ -28,7 +28,7 @@ git config user.name github-actions
 git config user.email github-actions@github.com
 git add README.md
 git add .github/script/STEP
-git commit -m "Update to $TO_STEP in STEP and README.md"
+git commit --message="Update to $TO_STEP in STEP and README.md"
 git push
 
 echo "If BRANCH_NAME, update that branch as well"
