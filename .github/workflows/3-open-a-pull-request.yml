@@ -13,6 +13,11 @@ on:
       - opened
       - reopened
 
+permissions:
+  # Need `contents: read` to checkout the repository
+  # Need `contents: write` to update the step metadata
+  contents: write
+
 jobs:
   on_open_a_pull_request:
     name: On open a pull request
