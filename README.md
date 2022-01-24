@@ -9,11 +9,11 @@
 
 # Introduction to GitHub
 
-_If you are looking for a quick and fun introduction to GitHub, you've found it. This class will get you started using GitHub in less than an hour._
+_This quick and fun introduction will get you started using GitHub in less than an hour._
 
 <!-- 
   <<< Author notes: Start of the course >>> 
-  Include start button, a note about actions minutes,
+  Include start button, a note about Actions minutes,
   and tell the learner why they should take the course.
   Each step should be wrapped in <details>/<summary>, with an `id` set.
   The start <details> should have `open` as well.
@@ -32,8 +32,8 @@ _If you are looking for a quick and fun introduction to GitHub, you've found it.
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Learn’s “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
 - **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce _repositories_, _branches_, _commits_, and _pull requests_.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
+- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
 - **How long**: This course is 4 steps and takes less than one hour.
 
@@ -52,13 +52,13 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 ### :wave: Welcome to "Introduction to GitHub"!
 
-**What is _GitHub_**: GitHub is a collaboration platform that uses [Git](https://docs.github.com/en/get-started/quickstart/github-glossary#git) for versioning. GitHub is popular for [open-source](https://docs.github.com/en/get-started/quickstart/github-glossary#open-source) software.
+**What is GitHub?**: GitHub is a collaboration platform that uses [Git](https://docs.github.com/get-started/quickstart/github-glossary#git) for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
 <br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=w3jLJU7DT5E)
 
-**What is a _repository_**: A [repository](https://docs.github.com/en/get-started/quickstart/github-glossary#repository) is a project containing files and folders. A repository tracks versions of files and folders.
+**What is a repository?**: A [repository](https://docs.github.com/get-started/quickstart/github-glossary#repository) is a project containing files and folders. A repository tracks versions of files and folders.
 <br>:tv: [Video: Exploring a repository](https://www.youtube.com/watch?v=R8OAwrcMlRw)
 
-**What is a _branch_**: A [branch](https://docs.github.com/en/get-started/quickstart/github-glossary#branch) is a parallel version of your repository. You can make edits in your branch without impacting the `main` version. Branches allow us to separate our work from the `main` branch. In other words, everyone's work is safe while you contribute.
+**What is a branch?**: A [branch](https://docs.github.com/en/get-started/quickstart/github-glossary#branch) is a parallel version of your repository. You can make edits in your branch without impacting the `main` version. Branches allow us to separate our work from the `main` branch. In other words, everyone's work is safe while you contribute.
 <br>:tv: [Video: Branches](https://www.youtube.com/watch?v=xgQmu81G1yY)
 
 ### :keyboard: Activity: Your first branch
@@ -85,7 +85,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 Creating a branch allows you to edit to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
-**What is a _commit_**: A commit is a set of changes to the files and folders in your project. A commit exists in a branch.
+**What is a commit?**: A [commit](https://docs.github.com/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits) is a set of changes to the files and folders in your project. A commit exists in a branch.
 
 ### :keyboard: Activity: Your first commit
 
@@ -121,7 +121,7 @@ The following steps will guide you through the process of committing a change on
 
 Now that you’ve created a commit, it’s time to share your proposed change through a pull request!
 
-**What is a _pull request_**: Collaboration happens on a pull request. The pull request shows the changes in your branch to other people. This pull request is going to keep the changes you just made on your branch and propose applying them to the `main` branch.
+**What is a pull request?**: Collaboration happens on a pull request. The pull request shows the changes in your branch to other people. This pull request is going to keep the changes you just made on your branch and propose applying them to the `main` branch.
 <br>:tv: [Video: Introduction to pull requests](https://youtu.be/kJr-PIfLDl4)
 
 ### :keyboard: Activity: Create a pull request
