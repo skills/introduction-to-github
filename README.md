@@ -63,12 +63,12 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 ### :keyboard: Activity: Your first branch
 
-1. Open a new browser tab, and work on the steps in your second tab while you read the instructions in this tab
-1. Navigate to the **Code** tab
-1. Click **Branch: main** in the drop-down
-1. In the field, enter a name for your branch: `my-first-branch`
-1. Click **Create branch: my-first-branch** or press the <kbd>Enter</kbd> key to create your branch
-1. Wait about 20 seconds then refresh this page for the next step
+1. Open a new browser tab, and work on the steps in your second tab while you read the instructions in this tab.
+1. Navigate to the **Code** tab.
+1. Click **Branch: main** in the drop-down.
+1. In the field, enter a name for your branch: `my-first-branch`.
+1. Click **Create branch: my-first-branch** or press the <kbd>Enter</kbd> key to create your branch.
+1. Wait about 20 seconds then refresh this page for the next step.
 
 </details>
 
@@ -92,17 +92,17 @@ Creating a branch allows you to edit to your project without changing the `main`
 The following steps will guide you through the process of committing a change on GitHub.
 
 1. Create a new file on this branch called `PROFILE.md`.
-   - Make sure you are on the "Code" tab
-   - In the branch drop-down, select `my-first-branch`
-   - Click **Create new file**
-   - In the "file name" field, type `PROFILE.md`
+   - Make sure you are on the "Code" tab.
+   - In the branch drop-down, select `my-first-branch`.
+   - Click **Create new file**.
+   - In the "file name" field, type `PROFILE.md`.
 1. When you’re done naming the file, add the following content to your file:
    ```md
    Welcome to my GitHub profile!
    ```
 1. After adding the text, you can commit the change by entering a brief commit message `Add PROFILE.md` in the text-entry field below the file edit view.
-1. After you’ve entered a commit message, click **Commit new file**
-1. Wait about 20 seconds then refresh this page for the next step
+1. After you’ve entered a commit message, click **Commit new file**.
+1. Wait about 20 seconds then refresh this page for the next step.
 
 </details>
 
@@ -127,13 +127,13 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 ### :keyboard: Activity: Create a pull request
 
 1. Open a pull request:
-   - From the "Pull requests" tab, click **New pull request**
-   - In the "base:" drop-down menu, make sure the "main" branch is selected
-   - In the "compare:" drop-down menu, select `my-first-branch`
-1. When you’ve selected your branch, enter a title for your pull request: `Add my first file`
-1. The next field helps you provide a description of the changes you made. Feel free to add a description of what you’ve accomplished so far. As a reminder, you have: created a branch, created a file and made a commit, and opened a pull request
-1. Click **Create pull request**
-1. Wait about 20 seconds then refresh this page for the next step
+   - From the "Pull requests" tab, click **New pull request**.
+   - In the "base:" drop-down menu, make sure the "main" branch is selected.
+   - In the "compare:" drop-down menu, select `my-first-branch`.
+1. When you’ve selected your branch, enter a title for your pull request: `Add my first file`.
+1. The next field helps you provide a description of the changes you made. Feel free to add a description of what you’ve accomplished so far. As a reminder, you have: created a branch, created a file and made a commit, and opened a pull request.
+1. Click **Create pull request**.
+1. Wait about 20 seconds then refresh this page for the next step.
 
 </details>
 
@@ -156,10 +156,10 @@ You successfully created a pull request. You can now merge your pull request.
 
 ### :keyboard: Activity: Merge the pull request
 
-1. Click **Merge pull request**
-1. Click **Confirm merge**
-1. Once your branch has been merged, you don't need it anymore and you may click **Delete branch**
-1. Wait about 20 seconds then refresh this page for the next step
+1. Click **Merge pull request**.
+1. Click **Confirm merge**.
+1. Once your branch has been merged, you don't need it anymore and you may click **Delete branch**.
+1. Wait about 20 seconds then refresh this page for the next step.
 
 </details>
 
@@ -177,22 +177,22 @@ You successfully created a pull request. You can now merge your pull request.
 
 Here's a recap of all the tasks you've accomplished in your repository:
 
-- You learned about GitHub, repositories, branches, commits, and pull requests
-- You created a branch, a commit, and a pull request
-- You merged a pull request
+- You learned about GitHub, repositories, branches, commits, and pull requests.
+- You created a branch, a commit, and a pull request.
+- You merged a pull request.
 - You made your first contribution! :tada:
 
 ### What's next?
 
 - If you'd like the contents of your `PROFILE.md` file to be on your GitHub profile:
-  - Make a new branch
-  - Edit the contents into this `README.md` file
-  - Delete `PROFILE.md` on your branch
-  - Open and merge a pull request using your branch
-- We'd love to hear what you thought of this course [in our community forum](https://github.community/c/education/github-learning-lab/34)
-- [Take another GitHub Learn Course](https://github.com/githublearn)
-- [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started)
-- To find projects to contribute to, check out [GitHub Explore](https://github.com/explore)
+  - Make a new branch.
+  - Edit the contents into this `README.md` file.
+  - Delete `PROFILE.md` on your branch.
+  - Open and merge a pull request using your branch.
+- We'd love to hear what you thought of this course [in our community forum](https://github.community/c/education/github-learning-lab/34).
+- [Take another GitHub Learn Course](https://github.com/githublearn).
+- [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
+- To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
 
 </details>
 
