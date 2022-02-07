@@ -35,7 +35,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 - **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
 - **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
-- **How long**: This course is 4 steps and takes less than one hour.
+- **How long**: This course is four steps long and takes less than one hour to complete.
 
 </details>
 
@@ -50,7 +50,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 <details id=1>
 <summary><strong>:evergreen_tree: Step 1: Create a branch</strong></summary>
 
-### :wave: Welcome to "Introduction to GitHub"!
+### Welcome to "Introduction to GitHub"! :wave:
 
 **What is GitHub?**: GitHub is a collaboration platform that uses [Git](https://docs.github.com/get-started/quickstart/github-glossary#git) for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
 <br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=w3jLJU7DT5E)
@@ -81,7 +81,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 <details id=2>
 <summary><strong>:pencil: Step 2: Commit a file</strong></summary>
 
-### :tada: You created a branch!
+### You created a branch! :tada:
 
 Creating a branch allows you to edit to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
@@ -147,7 +147,7 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 <details id=4>
 <summary><strong>:shipit: Step 4: Merge your pull request</strong></summary>
 
-### Nicely done friend! :sparkles:
+### Nicely done friend! :sunglasses:
 
 You successfully created a pull request. You can now merge your pull request.
 
@@ -190,7 +190,7 @@ Here's a recap of all the tasks you've accomplished in your repository:
   - Delete `PROFILE.md` on your branch.
   - Open and merge a pull request using your branch.
 - We'd love to hear what you thought of this course [in our community forum](https://github.community/c/education/github-learning-lab/34).
-- [Take another GitHub Learn Course](https://github.com/githublearn).
+- [Take another GitHub Learn course](https://github.com/githublearn).
 - [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
 
