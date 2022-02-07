@@ -74,7 +74,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 <!-- 
   <<< Author notes: Step 2 >>>
-  Start this step by acknowledging the first step.
+  Start this step by acknowledging the previous step.
   Define terms and link to docs.github.com.
 -->
 
