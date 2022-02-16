@@ -23,7 +23,7 @@ _This quick and fun introduction will get you started using GitHub in less than 
 <details id=0 open>
 <summary><strong>:golf: Start</strong></summary>
   
-[![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/githublearn/introduction-to-github/generate)
+### [![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/githublearn/introduction-to-github/generate)
   
 > <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
 > We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).<br>
