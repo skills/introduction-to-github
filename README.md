@@ -146,7 +146,7 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 -->
 
 <details id=4>
-<summary><h2>:shipit: Step 4: Merge your pull request</h2></summary>
+<summary><h2>:squirrel: Step 4: Merge your pull request</h2></summary>
 
 _Nicely done friend! :sunglasses:_
 
