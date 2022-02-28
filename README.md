@@ -21,12 +21,13 @@ _This quick and fun introduction will get you started using GitHub in less than 
 -->
 
 <details id=0 open>
-<summary><strong>:golf: Start</strong></summary>
+<summary><h2>:golf: Start</h2></summary>
   
-### [![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/githublearn/introduction-to-github/generate)
-  
-> <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
+[![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/githublearn/introduction-to-github/generate)
+
+> When you select **Start course** or **Use this template**, you will be prompted to create a new repository.
 > We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).<br>
+> <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
 > After you make your own repository, wait about 20 seconds and refresh. I will go to the next step.
 
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Learn’s “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
@@ -48,9 +49,9 @@ People use GitHub to build some of the most advanced technologies in the world. 
 -->
 
 <details id=1>
-<summary><strong>:evergreen_tree: Step 1: Create a branch</strong></summary>
+<summary><h2>:evergreen_tree: Step 1: Create a branch</h2></summary>
 
-### Welcome to "Introduction to GitHub"! :wave:
+_Welcome to "Introduction to GitHub"! :wave:_
 
 **What is GitHub?**: GitHub is a collaboration platform that uses [Git](https://docs.github.com/get-started/quickstart/github-glossary#git) for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
 <br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=w3jLJU7DT5E)
@@ -79,9 +80,9 @@ People use GitHub to build some of the most advanced technologies in the world. 
 -->
 
 <details id=2>
-<summary><strong>:pencil: Step 2: Commit a file</strong></summary>
+<summary><h2>:pencil: Step 2: Commit a file</h2></summary>
 
-### You created a branch! :tada:
+_You created a branch! :tada:_
 
 Creating a branch allows you to edit to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
@@ -115,9 +116,9 @@ The following steps will guide you through the process of committing a change on
 -->
 
 <details id=3>
-<summary><strong>:raised_hands: Step 3: Open a pull request</strong></summary>
+<summary><h2>:raised_hands: Step 3: Open a pull request</h2></summary>
 
-### Nice work making that commit :sparkles:
+_Nice work making that commit :sparkles:_
 
 Now that you’ve created a commit, it’s time to share your proposed change through a pull request!
 
@@ -145,9 +146,9 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 -->
 
 <details id=4>
-<summary><strong>:shipit: Step 4: Merge your pull request</strong></summary>
+<summary><h2>:shipit: Step 4: Merge your pull request</h2></summary>
 
-### Nicely done friend! :sunglasses:
+_Nicely done friend! :sunglasses:_
 
 You successfully created a pull request. You can now merge your pull request.
 
@@ -169,9 +170,9 @@ You successfully created a pull request. You can now merge your pull request.
 -->
 
 <details id=X>
-<summary><strong>:checkered_flag: Finish</strong></summary>
+<summary><h2>:checkered_flag: Finish</h2></summary>
 
-### Congratulations friend, you've completed this course!
+_Congratulations friend, you've completed this course!_
 
 <img src=https://octodex.github.com/images/collabocats.jpg alt=celebrate width=300 align=right>
 
