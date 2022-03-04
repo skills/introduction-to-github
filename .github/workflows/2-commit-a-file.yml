@@ -41,7 +41,7 @@ jobs:
       # and open <details id=3>
       # and set STEP to '3'
       - name: Update to step 3
-        uses: githublearn/action-update-step@v1.0.1
+        uses: githublearn/action-update-step@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
