@@ -42,9 +42,10 @@ jobs:
       # and open <details id=1>
       # and set STEP to '1'
       - name: Update to step 1
-        run: ./.github/script/update-step.sh
+        uses: githublearn/action-update-step@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: $${{ env.GITHUB_REPOSITORY }}
           FROM_STEP: 0
           TO_STEP: 1
           BRANCH_NAME: my-first-branch
