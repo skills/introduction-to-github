@@ -42,7 +42,7 @@ jobs:
       # and set STEP to '1'
       - name: Update to step 1
         uses: githublearn/action-update-step@v1.0.1
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           FROM_STEP: 0
