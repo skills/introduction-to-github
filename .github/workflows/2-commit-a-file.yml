@@ -23,7 +23,6 @@ jobs:
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # 2. The STEP is currently '2' (see update-step.sh)
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ github.repository_owner != 'githublearn' }}
@@ -42,9 +41,10 @@ jobs:
       # and open <details id=3>
       # and set STEP to '3'
       - name: Update to step 3
-        run: ./.github/script/update-step.sh
-        env:
+        uses: githublearn/action-update-step@v1.0.1
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           FROM_STEP: 2
           TO_STEP: 3
           BRANCH_NAME: my-first-branch
