@@ -45,7 +45,7 @@ jobs:
         uses: githublearn/action-update-step@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: $${{ env.GITHUB_REPOSITORY }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
           FROM_STEP: 0
           TO_STEP: 1
           BRANCH_NAME: my-first-branch
