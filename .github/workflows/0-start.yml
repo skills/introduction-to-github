@@ -12,6 +12,7 @@ on:
     branches:
       - main
 
+# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
