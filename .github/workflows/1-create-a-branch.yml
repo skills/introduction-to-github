@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
   create:
 
+# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
@@ -25,7 +26,7 @@ jobs:
     # 3. The branch name is `my-first-branch`
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ github.repository_owner != 'githublearn' && github.ref_type == 'branch' && github.ref_name == 'my-first-branch' }}
+    if: ${{ !github.event.repository.is_template && github.ref_type == 'branch' && github.ref_name == 'my-first-branch' }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
@@ -37,14 +38,12 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches
 
-      # Update README to close <details id=1>
-      # and open <details id=2>
+      # Update README to close <details id=1> and open <details id=2>
       # and set STEP to '2'
       - name: Update to step 2
-        uses: githublearn/action-update-step@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-          FROM_STEP: 1
-          TO_STEP: 2
-          BRANCH_NAME: my-first-branch
+        uses: githublearn/action-update-step@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 1
+          to_step: 2
+          branch_name: my-first-branch

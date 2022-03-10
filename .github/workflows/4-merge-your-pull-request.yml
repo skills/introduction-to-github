@@ -12,6 +12,7 @@ on:
     branches:
       - main
 
+# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
@@ -25,7 +26,7 @@ jobs:
     # 1. This repository isn't the template repository
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ github.repository_owner != 'githublearn' }}
+    if: ${{ !github.event.repository.is_template }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
@@ -37,14 +38,12 @@ jobs:
         with:
           fetch-depth: 0 # Let's get all the branches
 
-      # Update README to close <details id=4>
-      # and open <details id=X>
+      # Update README to close <details id=4> and open <details id=X>
       # and set STEP to X
       - name: Update to step X
-        uses: githublearn/action-update-step@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-          FROM_STEP: 4
-          TO_STEP: X
-          BRANCH_NAME: my-first-branch
+        uses: githublearn/action-update-step@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 4
+          to_step: X
+          branch_name: my-first-branch

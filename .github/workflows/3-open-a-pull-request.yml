@@ -13,6 +13,7 @@ on:
       - opened
       - reopened
 
+# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
@@ -27,7 +28,7 @@ jobs:
     # 2. The head branch name is `my-first-branch`
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ github.repository_owner != 'githublearn' && github.head_ref == 'my-first-branch' }}
+    if: ${{ !github.event.repository.is_template && github.head_ref == 'my-first-branch' }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
@@ -40,14 +41,12 @@ jobs:
           fetch-depth: 0 # Let's get all the branches
           ref: my-first-branch # Important, as normally `pull_request` event won't grab other branches
 
-      # Update README to close <details id=3>
-      # and open <details id=4>
+      # Update README to close <details id=3> and open <details id=4>
       # and set STEP to '4'
       - name: Update to step 4
-        uses: githublearn/action-update-step@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-          FROM_STEP: 3
-          TO_STEP: 4
-          BRANCH_NAME: my-first-branch
+        uses: githublearn/action-update-step@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 3
+          to_step: 4
+          branch_name: my-first-branch
