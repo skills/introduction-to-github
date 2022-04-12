@@ -41,7 +41,7 @@ jobs:
       # Update README to close <details id=1> and open <details id=2>
       # and set STEP to '2'
       - name: Update to step 2
-        uses: githublearn/action-update-step@v1
+        uses: skills/action-update-step@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 1
