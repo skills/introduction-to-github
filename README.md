@@ -5,8 +5,6 @@
   Add your open source license, GitHub uses Creative Commons Attribution 4.0 International.
 -->
 
-<img src=https://user-images.githubusercontent.com/1221423/156946910-a79dadd3-b4b6-4ca3-97bd-98ff8b3afc72.svg width=300 align=right>
-
 # Introduction to GitHub
 
 _This quick and fun introduction will get you started using GitHub in less than an hour._
@@ -21,7 +19,7 @@ _This quick and fun introduction will get you started using GitHub in less than 
 -->
 
 <details id=0 open>
-<summary><h2>:golf: Start</h2></summary>
+<summary><h2>Start</h2></summary>
   
 [![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/skills/introduction-to-github/generate)
 
@@ -49,7 +47,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 -->
 
 <details id=1>
-<summary><h2>:evergreen_tree: Step 1: Create a branch</h2></summary>
+<summary><h2>Step 1: Create a branch</h2></summary>
 
 _Welcome to "Introduction to GitHub"! :wave:_
 
@@ -80,7 +78,7 @@ _Welcome to "Introduction to GitHub"! :wave:_
 -->
 
 <details id=2>
-<summary><h2>:pencil: Step 2: Commit a file</h2></summary>
+<summary><h2>Step 2: Commit a file</h2></summary>
 
 _You created a branch! :tada:_
 
@@ -116,7 +114,7 @@ The following steps will guide you through the process of committing a change on
 -->
 
 <details id=3>
-<summary><h2>:raised_hands: Step 3: Open a pull request</h2></summary>
+<summary><h2>Step 3: Open a pull request</h2></summary>
 
 _Nice work making that commit :sparkles:_
 
@@ -146,7 +144,7 @@ Now that you’ve created a commit, it’s time to share your proposed change th
 -->
 
 <details id=4>
-<summary><h2>:chipmunk: Step 4: Merge your pull request</h2></summary>
+<summary><h2>Step 4: Merge your pull request</h2></summary>
 
 _Nicely done friend! :sunglasses:_
 
@@ -170,7 +168,7 @@ You successfully created a pull request. You can now merge your pull request.
 -->
 
 <details id=X>
-<summary><h2>:checkered_flag: Finish</h2></summary>
+<summary><h2>Finish</h2></summary>
 
 _Congratulations friend, you've completed this course!_
 
