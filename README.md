@@ -9,6 +9,8 @@
 
 _Get started using GitHub in less than an hour._
 
+<!--step0-->
+
 <!-- 
   <<< Author notes: Start of the course >>> 
   Include start button, a note about Actions minutes,
@@ -17,17 +19,7 @@ _Get started using GitHub in less than an hour._
   The start <details> should have `open` as well.
   Do not use quotes on the <details> tag attributes.
 -->
-
-<details id=0 open>
-<summary><h2>Start</h2></summary>
   
-[![start-course](https://user-images.githubusercontent.com/1221423/154366775-5491926f-9ed1-4a4a-a229-0810c0ed7e5e.svg)](https://github.com/skills/introduction-to-github/generate)
-
-> When you select **Start course** or **Use this template**, you will be prompted to create a new repository.
-> We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).<br>
-> <em>Optional:</em> For this course, set "owner" and "repository name" to your login name.<br>
-> After you make your own repository, wait about 20 seconds and refresh. I will go to the next step.
-
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
 - **Who is this for**: New developers, new GitHub users, and students.
@@ -36,7 +28,22 @@ People use GitHub to build some of the most advanced technologies in the world. 
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
 - **How long**: This course is four steps long and takes less than one hour to complete.
 
+## How to start this course
+
+1. Above these instructions, right-click **Use this template** and open the link in a new tab.
+![Use this template](https://user-images.githubusercontent.com/1221423/169618716-fb17528d-f332-4fc5-a11a-eaa23562665e.png)
+
+2. In the new tab, follow the prompts to create a new repository.
+  - For owner, choose your personal account or an organization to host the repository.
+  - We recommend creating a public repository—private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+
+![Create a new repository](https://user-images.githubusercontent.com/1221423/169618722-406dc508-add4-4074-83f0-c7a7ad87f6f3.png)
+
+3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
+
 </details>
+
+<!--endstep0-->
 
 <!-- 
   <<< Author notes: Step 1 >>> 
