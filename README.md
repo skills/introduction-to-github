@@ -9,8 +9,6 @@
 
 _Get started using GitHub in less than an hour._
 
-<!--step0-->
-
 <!-- 
   <<< Author notes: Start of the course >>> 
   Include start button, a note about Actions minutes,
@@ -19,7 +17,9 @@ _Get started using GitHub in less than an hour._
   The start <details> should have `open` as well.
   Do not use quotes on the <details> tag attributes.
 -->
-  
+
+<!--step0-->
+
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
 - **Who is this for**: New developers, new GitHub users, and students.
