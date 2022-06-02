@@ -110,7 +110,7 @@ The following steps will guide you through the process of committing a change on
 5. For commits, you can enter a short commit message that describes what you changes you made. This helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. Enter `Adding PROFILE.md` in the first text-entry field below **Commit new file**. Then, if you want to confirm what your screen should look like, expand the dropdown below.
    <details>
    <summary> Expand to see the screenshot.</summary>
-   ![screenshot of adding a new file with a commit message](/images/commit-full-screen.png)
+   <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
    </details>
 6. In this lesson, we'll ignore the other fields and click **Commit new file**.
 7. Move on to Step 3! 
