@@ -71,7 +71,7 @@ On additional branches, you can make edits without impacting the `main` version.
 1. Open a new browser tab, and navigate to this same repository. Then, work on the steps in your second tab while you read the instructions in this tab.
 2. Navigate to the **Code** tab.
 3. Click on the **main** branch drop-down.
-   ![image showing my-new-branch entry](images/my-new-branch.png)
+   <img alt="image showing my-new-branch entry" src="/images/my-new-branch.png"/>
 4. In the field, enter a name for your branch: `my-first-branch`.
 5. Click **Create branch: my-first-branch** to create your branch.
 6. Move on to Step 2!
@@ -100,13 +100,13 @@ The following steps will guide you through the process of committing a change on
 
 1. On the **Code** tab, make sure you're on your new branch `my-first-branch`.
 2. Select the **Add file** drop-down and click **Create new file**.
-   ![create new file option](/images/create-new-file.png)
+   <img alt="create new file option" src="/images/create-new-file.png"/>
 3. In the **Name your file...** field, enter `PROFILE.md`.
 4. In the **Edit new file** area, copy the following content to your file:
    ```
    Welcome to my GitHub profile!
    ```
-   ![profile.md file screenshot](/images/my-profile-file.png)
+   <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
 5. For commits, you can enter a short commit message that describes what you changes you made. This helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. Enter `Adding PROFILE.md` in the first text-entry field below **Commit new file**. Then, if you want to confirm what your screen should look like, expand the dropdown below.
    <details>
    <summary> Expand to see the screenshot.</summary>
@@ -148,15 +148,15 @@ You may have noticed after your commit that a message displayed indicating your 
 2. Click **New pull request**.
 3. In the **base:** dropdown, make sure **main** is selected.
 4. Select the **compare:** dropdown, and click `my-first-branch`.
-   ![screenshot showing both branch selections](/images/pull-request-branches.png)
+   <img alt="screenshot showing both branch selections" src="/images/pull-request-branches.png"/>
 5. Click **Create pull request**.
 6. Enter a title for your pull request: `Add my first file`.
 7. The next field helps you provide a description of the changes you made. Feel free to add a description of what you’ve accomplished so far. As a reminder, you have: created a branch, created a file and made a commit!
-   ![screenshot showing pull request](/images/Pull-request-description.png)
+   <img alt="screenshot showing pull request" src="/images/Pull-request-description.png"/>
 8. Click **Create pull request**.
 9. Move on to Step 4! 
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one. As a perk, you may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
-   ![screenshot of an example of an actions line](/images/Actions-to-step-4.png)
+   <img alt="screenshot of an example of an actions line" src="/images/Actions-to-step-4.png"/>
 
 </details>
 
@@ -185,7 +185,7 @@ As noted in the previous step, you may have seen evidence of an action running w
 1. Click **Merge pull request**.
 1. Click **Confirm merge**.
 1. Once your branch has been merged, you don't need it anymore. To delete this branch, click **Delete branch**.
-   ![screenshot showing delete branch button](/images/delete-branch.png)
+   <img alt="screenshot showing delete branch button" src="/images/delete-branch.png"/>
 2. Check out the **Finish** step to see what you can learn next!
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
 
