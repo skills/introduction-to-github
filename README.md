@@ -71,7 +71,7 @@ On additional branches, you can make edits without impacting the `main` version.
 1. Open a new browser tab, and navigate to this same repository. Then, work on the steps in your second tab while you read the instructions in this tab.
 2. Navigate to the **Code** tab.
 3. Click on the **main** branch drop-down.<br>
-   <img alt="image showing my-first-branch entry" src="/images/my-new-branch.png"/>
+   <img alt="image showing my-first-branch entry" src="/images/my-first-branch.png"/>
 4. In the field, enter a name for your branch: `my-first-branch`.
 5. Click **Create branch: my-first-branch** to create your branch.
 6. Move on to Step 2!<br>
