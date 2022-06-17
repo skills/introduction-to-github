@@ -90,7 +90,7 @@ On additional branches, you can make edits without impacting the `main` version.
 
 _You created a branch! :tada:_
 
-Creating a branch allows you to edit to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
+Creating a branch allows you to make edits to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
 **What is a commit?**: A [commit](https://docs.github.com/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits) is a set of changes to the files and folders in your project. A commit exists in a branch.
 
