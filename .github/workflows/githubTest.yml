@@ -1,0 +1,151 @@
+name: Git Test
+
+on: 
+  repository_dispatch:
+    types: 
+      [test_pr]
+
+jobs:
+  runTests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+
+    - name: Install octokit/core.js
+      run: npm install @octokit/core
+    
+    - name: Install xmlhttprequest
+      run: npm install xmlhttprequest
+
+    - name: Setup Python environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: '>=3.7'
+
+    - name: Setup Git environment
+      run: |
+        git config --global user.email "byucomputingbootcamptests@gmail.com"
+        git config --global user.name "BYU Computing Bootcamp Tests"
+    
+    - name: Setup SSH in case SSH is used
+      uses: MrSquaare/ssh-setup-action@v1
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      #Get Repository that isn't currently being checked
+    - name: Get a Pull Request's Repo Name that isn't already being checked
+      run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} full_name > repo.txt
+
+    - name: Save Repository name as Output Variable
+      id: repo
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: repo.txt
+    
+    - name: Get the Pull Request's Number
+      run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} number > number.txt
+
+    - name: Save Repository Number as Output Variable
+      id: number
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: number.txt
+
+    - name: Add "currentlyBeingChecked" label
+      run: node .cbc/addLabel.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} currentlyBeingChecked
+
+      #INSERT TESTING CODE HERE!
+
+    - name : Get Step File
+      id: getStepFile
+      run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} .github/script/STEP > step
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Got step file"
+
+    - name: Read Step File
+      id: readStepFile
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: step
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Read step file"
+
+    - name: Assert correct step
+      id: checkStepFile
+      uses: therussiankid92/gat@v1.5
+      with:
+        assertion: should.equal
+        actual: ${{ steps.output.outputs.content }}
+        expected: ${{ secrets.LAST_STEP }}
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Last step found"
+    
+      #Issue Badge  
+    - name: Get email.txt
+      id: getEmail
+      run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} email.txt > email.txt
+
+    - name: Save Email as Output Variable
+      id: userEmail
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: email.txt
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Email found - ${{ steps.userEmail.outputs.content }}"
+
+    - name: Issue Badge
+      id: issueBadge
+      run: node .cbc/badgeAPI.js ${{secrets.USERNAME}} ${{secrets.PASSWORD}} ${{ steps.userEmail.outputs.content }}
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Badge Issued. Congratulations!"
+    
+      #INSERT FAILURE COMMENTS HERE
+
+    - name: Failure Comment
+      if: always() && steps.getStepFile.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - step file not found"
+
+    - name: Failure Comment
+      if: always() && steps.readStepFile.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - step file not readable"
+
+    - name: Failure Comment
+      if: always() && steps.checkStepFile.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - step file incorrect"
+    
+
+      #Failure Output for Issue Badge
+    - name: Failure Comment
+      if: always() && steps.getEmail.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - No email.txt found"
+
+    - name: Failure Comment
+      if: always() && steps.issueBadge.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Badge issue failed - Email Address wasn't valid"
+
+      #Close Pull Request
+    - name: Close Pull Request
+      if: always()
+      uses: peter-evans/close-pull@v1
+      with:
+        pull-request-number:  ${{ steps.number.outputs.content }}
+        comment: Auto-closing pull request after submission
+        delete-branch: false
+
+    - name: Remove Previous Labels
+      if: always()
+      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
+      
+    - name: Add "checkComplete" label
+      if: always()
+      run: node .cbc/addLabel.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} checkComplete

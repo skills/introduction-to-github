@@ -1,0 +1,22 @@
+name: Trigger PR Test Runs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0/5 * * * *'
+
+jobs:
+  triggerRuns:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+
+    - name: Install octokit/core.js
+      run: npm install @octokit/core
+
+    - name: Trigger makeTest.yml for each PR
+      run: node .cbc/triggerRunForAllPRs.js ${{ secrets.AUTH_TOKEN }}
