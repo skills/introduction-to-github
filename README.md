@@ -20,6 +20,8 @@ _Get started using GitHub in less than an hour._
 
 <!--step0-->
 
+**Hey, Friend! If you got here from the BYU Computing Bootcamp, great! We've made some modifications to this repository so that you can still get the badge for it at the end. Just follow these instructions here, and then when you get to the final step, there will be a few extra things you'll need to do to get the badge.**
+
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
 - **Who is this for**: New developers, new GitHub users, and students.
@@ -225,6 +227,8 @@ Check out these resources to learn more or get involved:
 - [Take another GitHub Skills course](https://github.com/skills).
 - [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
+
+**For those of you in the BYU Computing Bootcamp, you may want to obtain the badge, from Badgr! To do this, you'll need to fork this template repository. Once you've done that, you'll need to add your email to the email.txt file, and then copy the contents of your .github/script/STEP file from the repository you created earlier to your newly forked template repository. Then you'll need to make a pull request from your forked repository to this repository. This will award you the badge! Good luck!**
 
 </details>
 
