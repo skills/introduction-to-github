@@ -1,4 +1,4 @@
-name: Git Test
+name: GitHub Test
 
 on: 
   repository_dispatch:
