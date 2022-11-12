@@ -90,7 +90,7 @@ On additional branches, you can make edits without impacting the `main` version.
 
 _You created a branch! :tada:_
 
-Creating a branch allows you to edit to your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
+Creating a branch allows you to edit your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
 **What is a commit?**: A [commit](https://docs.github.com/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits) is a set of changes to the files and folders in your project. A commit exists in a branch.
 
@@ -107,7 +107,7 @@ The following steps will guide you through the process of committing a change on
    Welcome to my GitHub profile!
    ```
    <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
-5. For commits, you can enter a short commit message that describes what you changes you made. This helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. Enter `Adding PROFILE.md` in the first text-entry field below **Commit new file**. Then, if you want to confirm what your screen should look like, expand the dropdown below.
+5. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field below **Commit new file**. Then, if you want to confirm what your screen should look like, expand the dropdown below.
    <details>
    <summary> Expand to see the screenshot.</summary>
    <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
@@ -214,7 +214,7 @@ Here's a recap of your accomplishments:
 
   If you'd like to make a profile README, use the simplified instructions below or follow the instructions in the [Managing your profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme) article.
   1. Make a new public repository with a name that matches your GitHub username.
-  2. Create a file named `README.md` in it's root. The "root" means not inside any folder in your repository.
+  2. Create a file named `README.md` in its root. The "root" means not inside any folder in your repository.
   3. Edit the contents of the `README.md` file.
   4. If you created a new branch for your file, open and merge a pull request on your branch.
   5. We'd love to see your new profile! Share your profile on social media and tag us!
