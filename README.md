@@ -9,10 +9,7 @@
 
 _Get started using GitHub in less than an hour._
 
-//Try something.//
-<!--
-Try something more.
->
+
 
 <!-- 
   <<< Author notes: Start of the course >>> 
