@@ -36,7 +36,7 @@ jobs:
     steps:
       # We'll need to check out the repository so that we can edit the README
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Let's get all the branches
           ref: my-first-branch # Important, as normally `pull_request` event won't grab other branches
