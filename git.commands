@@ -1,0 +1,48 @@
+git commit -m "Second commit"
+git commit -m "Third commit"
+git log
+
+git branch
+git branch my-feature
+git branch
+
+git checkout my-feature
+git log
+
+git commit -m "Fourth commit"
+git commit -m "Fifth commit"
+git log
+
+git checkout master
+git log
+git branch my-second-feature
+git commit -m "Sixth commit"
+git commit -m "Seventh commit"
+git log
+
+git checkout my-feature
+git branch bug-fix
+git branch
+
+git commit -m "Eighth commit"
+git commit -m "Ninth commit"
+git log
+
+git checkout bug-fix
+git commit -m "Tenth commit"
+git log
+
+git checkout my-feature
+git log
+
+git merge bug-fix
+git checkout my-feature
+git log
+git commit -m "Eleventh commit"
+git log
+
+git checkout master
+git log
+
+git merge my-feature
+git log
