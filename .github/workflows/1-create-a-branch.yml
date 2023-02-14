@@ -34,20 +34,16 @@ jobs:
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # 2. The event is a branch
-    # 3. The branch name is `my-first-branch`
-    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ !github.event.repository.is_template && github.ref_type == 'branch' && github.ref_name == 'my-first-branch' }}
-
-    # We will only run this action when:
-    # 1. This repository isn't the template repository
     # 2. The STEP is currently 1
+    # 3. The event is a branch
+    # 4. The branch name is `my-first-branch`
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
     if: >-
       ${{ !github.event.repository.is_template
-          && needs.get_current_step.outputs.current_step == 1 }}
+          && needs.get_current_step.outputs.current_step == 1
+          && github.ref_type == 'branch'
+          && github.ref_name == 'my-first-branch' }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
