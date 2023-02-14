@@ -34,6 +34,7 @@ jobs:
 
   on_open_a_pull_request:
     name: On open a pull request
+    needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository

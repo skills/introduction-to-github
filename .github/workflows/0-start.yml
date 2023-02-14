@@ -33,6 +33,7 @@ jobs:
 
   on_start:
     name: On start
+    needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository

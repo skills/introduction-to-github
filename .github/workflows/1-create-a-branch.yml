@@ -31,6 +31,7 @@ jobs:
 
   on_create_a_branch:
     name: On create a branch
+    needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
