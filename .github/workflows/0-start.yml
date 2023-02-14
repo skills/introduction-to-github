@@ -36,9 +36,12 @@ jobs:
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
+    # 2. The STEP is currently 0
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ !github.event.repository.is_template }}
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 0 }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
