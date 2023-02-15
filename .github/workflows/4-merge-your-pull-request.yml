@@ -19,6 +19,8 @@ permissions:
   contents: write
 
 jobs:
+  # Get the current step from .github/script/STEP so we can
+  # limit running the main job when the learner is on the same step.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest
