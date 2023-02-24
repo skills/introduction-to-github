@@ -9,7 +9,7 @@
 
 _Get started using GitHub in less than an hour._
 
-**Course Tips:**
+**Course tips:**
 
 * Glossary terms will be _emphasised_ and linked to their definition. 
 * This course includes optional video links. Look for the :tv: emoji and follow the link to the video.
