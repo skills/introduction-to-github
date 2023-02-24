@@ -9,10 +9,6 @@
 
 _Get started using GitHub in less than an hour._
 
-**Course tips:**
-
-* Glossary terms will be _emphasised_ and linked to their definition. 
-* This course includes optional video links. Look for the :tv: emoji and follow the link to the video.
 
 <!-- 
   <<< Author notes: Start of the course >>> 
@@ -33,6 +29,11 @@ People use GitHub to build some of the most advanced technologies in the world. 
 - **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
 - **How long**: This course is four steps long and takes less than one hour to complete.
+
+**Course tips:**
+
+* Glossary terms will be _emphasised_ and linked to their definition. 
+* This course includes optional video links. Look for the :tv: emoji and follow the link to the video.
 
 ## How to start this course
 
