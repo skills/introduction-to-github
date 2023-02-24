@@ -44,7 +44,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
    - Name the repository something easy for you to recognize and remember.
    ![Create a new repository](/images/create-new-repository.png)
 
-3. After your new repository is created, wait about 20 seconds, then refresh your new repository page. Follow the step-by-step instructions in the new repository's README.
+3. After your new repository is created, wait about 20 seconds, then refresh your new repository page. Follow the step-by-step instructions in the new repository's README. [GitHub Actions](https://docs.github.com/en/actions) will automatically close this welcome and open the first step.
 
 </details>
 
@@ -81,16 +81,20 @@ Branches allow you to separate your work from the `main` branch. In other words,
 
 1. Open a new browser tab and navigate to your newly made repository repository. Then, work on the steps in your second tab while you read the instructions in this tab.
 2. Navigate to the **< > Code** tab in the header menu of your repository.
-  ![code-tab](_images/code-tab.png)
+  ![code-tab](/images/code-tab.png)
 
 3. Click on the **main** branch drop-down.<br>
   ![main-branch-dropdown](/images/main-branch-dropdown.png)
   
 4. In the field, enter a name for your branch: `my-first-branch`.
 5. Click **Create branch: my-first-branch** to create your branch.
+
   ![create-branch-button](/images/create-branch-button.png)
+  
 The branch will automatically switch to the one you have just created. The **main** branch drop-down bar will reflect your new branch and display the new branch name.
+
 6. Move on to Step 2!<br>
+
    **Note**: If you made a public repository, and want to confirm you correctly set up your first branch, wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
 
 </details>
@@ -133,6 +137,7 @@ The following steps will guide you through the process of committing a change on
    </details>
 6. In this lesson, we'll ignore the other fields and click **Commit new file**.
 7. Move on to Step 3! <br>
+
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
 
 </details>
@@ -148,11 +153,11 @@ The following steps will guide you through the process of committing a change on
 <details id=3>
 <summary><h2>Step 3: Open a pull request</h2></summary>
 
-_Nice work making that commit :sparkles:_
+_Nice work making that commit! :sparkles:_
 
 Now that you have made a change to the project and created a commit, it’s time to share your proposed change through a pull request!
 
-**What is a pull request?**: Collaboration happens on a _[pull request[(https://docs.github.com/en/get-started/quickstart/github-glossary#pull-request)_. The pull request shows the changes in your branch to other people and allows people to accept, reject, or suggest additional changes to your branch. In a side by side comparison, this pull request is going to keep the changes you just made on your branch and propose applying them to the `main` project branch. For more information about pull requests, see "[About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)" or watch the video linked below.
+**What is a pull request?**: Collaboration happens on a _[pull request](https://docs.github.com/en/get-started/quickstart/github-glossary#pull-request)_. The pull request shows the changes in your branch to other people and allows people to accept, reject, or suggest additional changes to your branch. In a side by side comparison, this pull request is going to keep the changes you just made on your branch and propose applying them to the `main` project branch. For more information about pull requests, see "[About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)" or watch the video linked below.
 <br>:tv: [Video: Introduction to pull requests](https://youtu.be/kJr-PIfLDl4)
 
 ### :keyboard: Activity: Create a pull request
@@ -174,6 +179,7 @@ To create a pull request automatically, click **Compare & pull request**, and th
    <img alt="screenshot showing pull request" src="/images/Pull-request-description.png"/>
 8. Click **Create pull request**. You will automatically be navigated to your new pull request.
 9. Move on to Step 4! <br>
+
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one. As a perk, you may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.<br>
    <img alt="screenshot of an example of an actions line" src="/images/Actions-to-step-4.png"/>
 
@@ -193,7 +199,7 @@ _Nicely done! :sunglasses:_
 
 You successfully created a pull request. You can now merge your pull request.
 
-**What is a _merge_**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)" or watch the video linked below.
+**What is a merge?**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)" or watch the video linked below.
 <br>:tv: [Video: Understanding the GitHub flow](https://www.youtube.com/watch?v=PBI2Rz-ZOxU)
 
 As noted in the previous step, you may have seen evidence of GitHub Action running which automatically progresses your instructions to the next step. You'll have to wait for it to finish before you can merge your pull request. It will be ready when the merge pull request button is green.
