@@ -188,14 +188,14 @@ To create a pull request automatically, click **Compare & pull request**, and th
 <details id=4>
 <summary><h2>Step 4: Merge your pull request</h2></summary>
 
-_Nicely done friend! :sunglasses:_
+_Nicely done! :sunglasses:_
 
 You successfully created a pull request. You can now merge your pull request.
 
-**What is a _merge_**: A [merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge) adds the changes in your pull request and branch into the `main` branch.
+**What is a _merge_**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)" or watch the video linked below.
 <br>:tv: [Video: Understanding the GitHub flow](https://www.youtube.com/watch?v=PBI2Rz-ZOxU)
 
-As noted in the previous step, you may have seen evidence of an action running which automatically progresses your instructions to the next step. You'll have to wait for it to finish before you can merge your pull request. It will be ready when the merge pull request button is green.
+As noted in the previous step, you may have seen evidence of GitHub Action running which automatically progresses your instructions to the next step. You'll have to wait for it to finish before you can merge your pull request. It will be ready when the merge pull request button is green.
 
 ![screenshot of green merge pull request button](/images/Green-merge-pull-request.png)
 ### :keyboard: Activity: Merge the pull request
@@ -217,7 +217,7 @@ As noted in the previous step, you may have seen evidence of an action running w
 <details id=X>
 <summary><h2>Finish</h2></summary>
 
-_Congratulations friend, you've completed this course and joined the world of developers!_
+_Congratulations, you've completed this course and joined the world of developers!_
 
 <img src=https://octodex.github.com/images/collabocats.jpg alt=celebrate width=300 align=right>
 
@@ -230,12 +230,11 @@ Here's a recap of your accomplishments:
 
 ### What's next?
 
-  If you'd like to make a profile README, use the simplified instructions below or follow the instructions in the [Managing your profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme) article.
+  If you'd like to make a profile README, use the quickstart instructions below or follow the instructions in the [Managing your profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme) article.
   1. Make a new public repository with a name that matches your GitHub username.
   2. Create a file named `README.md` in its root. The "root" means not inside any folder in your repository.
   3. Edit the contents of the `README.md` file.
   4. If you created a new branch for your file, open and merge a pull request on your branch.
-  5. We'd love to see your new profile! Share your profile on social media and tag us!
   6. Lastly, we'd love to hear what you thought of this course [in our discussion board](https://github.com/skills/.github/discussions).
 
 Check out these resources to learn more or get involved:
