@@ -42,7 +42,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
    - For owner, choose your personal account or an organization to host the repository.
    - We recommend creating a public repository—private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
    - Name the repository something easy for you to recognize and remember.
-   ![Create a new repository](https://user-images.githubusercontent.com/77312589/221031205-fcb0e995-6420-4429-bc13-a5ee14cf5747.png)
+   ![Create a new repository](/images/create-new-repository.png)
 
 3. After your new repository is created, wait about 20 seconds, then refresh your new repository page. Follow the step-by-step instructions in the new repository's README.
 
@@ -73,21 +73,22 @@ Branches allow you to separate your work from the `main` branch. In other words,
 <br>:tv: [Video: Branches](https://www.youtube.com/watch?v=xgQmu81G1yY)
 
 **What is a profile README?**: A _[profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)_ is essentially an "About me" section on your GitHub profile where you can share information about yourself with the community on GitHub.com. GitHub shows your profile README at the top of your profile page. For more information, see "[Managing your profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)".
-  ![profile-readme-example](https://user-images.githubusercontent.com/77312589/221041661-4ac433c4-0565-4e0d-b9db-b813d075a7d9.png)
+
+  ![profile-readme-example](/images/profile-readme-example.png)
 
 
 ### :keyboard: Activity: Your first branch
 
 1. Open a new browser tab and navigate to your newly made repository repository. Then, work on the steps in your second tab while you read the instructions in this tab.
 2. Navigate to the **< > Code** tab in the header menu of your repository.
-  ![code-tab](https://user-images.githubusercontent.com/77312589/221233313-f96f57a6-fad0-4a3d-b851-8aa1576c4c22.png)
+  ![code-tab](_images/code-tab.png)
 
 3. Click on the **main** branch drop-down.<br>
-<!--    <img alt="image showing my-first-branch entry" src="/images/my-first-branch.png"/> -->
-  ![main-branch-dropdown](https://user-images.githubusercontent.com/77312589/221047456-f32b4c05-b0e7-4636-9b0b-1ac2d72395fe.png)
+  ![main-branch-dropdown](/images/main-branch-dropdown.png)
+  
 4. In the field, enter a name for your branch: `my-first-branch`.
 5. Click **Create branch: my-first-branch** to create your branch.
-  ![create-branch-button](https://user-images.githubusercontent.com/77312589/221047488-1c82d3cd-5df7-4027-9654-9f0e5af33b8c.png)
+  ![create-branch-button](/images/create-branch-button.png)
 The branch will automatically switch to the one you have just created. The **main** branch drop-down bar will reflect your new branch and display the new branch name.
 6. Move on to Step 2!<br>
    **Note**: If you made a public repository, and want to confirm you correctly set up your first branch, wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
