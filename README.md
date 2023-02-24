@@ -74,7 +74,9 @@ Branches allow you to separate your work from the `main` branch. In other words,
 ### :keyboard: Activity: Your first branch
 
 1. Open a new browser tab and navigate to your newly made repository repository. Then, work on the steps in your second tab while you read the instructions in this tab.
-2. Navigate to the **Code** tab.
+2. Navigate to the **< > Code** tab at the top of the page, beneath your repo header.
+  ![code-tab](https://user-images.githubusercontent.com/77312589/221233313-f96f57a6-fad0-4a3d-b851-8aa1576c4c22.png)
+
 3. Click on the **main** branch drop-down.<br>
 <!--    <img alt="image showing my-first-branch entry" src="/images/my-first-branch.png"/> -->
   ![main-branch-dropdown](https://user-images.githubusercontent.com/77312589/221047456-f32b4c05-b0e7-4636-9b0b-1ac2d72395fe.png)
@@ -100,13 +102,13 @@ _You created a branch! :tada:_
 
 Creating a branch allows you to edit your project without changing the `main` branch. Now that you have a branch, it’s time to create a file and make your first commit!
 
-**What is a commit?**: A [commit](https://docs.github.com/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits) is a set of changes to the files and folders in your project. A commit exists in a branch.
+**What is a commit?**: A [commit](https://docs.github.com/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits) is a set of changes to the files and folders in your project. A commit exists in a branch. For more information, see "[About commits](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits)".
 
 ### :keyboard: Activity: Your first commit
 
-The following steps will guide you through the process of committing a change on GitHub. Committing a change requires first adding a new file to your new branch. 
+The following steps will guide you through the process of committing a change on GitHub. A commit records changes in renaming, changing content within, creating a new file, and any other changes made to your project. For this exercise, committing a change requires first adding a new file to your new branch. 
 
-1. On the **Code** tab, make sure you're on your new branch `my-first-branch`.
+1. On the **< > Code** tab at the top of the page, beneath your repo header, make sure you're on your new branch `my-first-branch`.
 2. Select the **Add file** drop-down and click **Create new file**.<br>
    ![create new file option](/images/create-new-file.png)
 3. In the **Name your file...** field, enter `PROFILE.md`.
