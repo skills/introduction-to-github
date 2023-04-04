@@ -33,7 +33,6 @@ People use GitHub to build some of the most advanced technologies in the world. 
 **Course tips:**
 
 * Glossary terms will be _emphasised_ and linked to their definition. 
-* This course includes optional video links. Look for the :tv: emoji and follow the link to the video.
 
 ## How to start this course
 
