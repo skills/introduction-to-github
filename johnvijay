@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="d-flex flex-row p-4">
+
+            <div>
+                <img src="https://as1.ftcdn.net/v2/jpg/04/92/50/88/1000_F_492508849_ovvrfl4OkZUMnTExcxHG3YSVchUZts9o.jpg" class="img" />
+                <p class="text-center">PROFILE</p>
+            </div>
+
+
+            <div class="pl-4">
+                <h1 class="h1">CAROLINE<br>THOMPSON</h1>
+                <p>ART DIRECTOR</p>
+            </div>
+
+
+
+            <div class="vertical"></div>
+
+
+            <div class="pl-5">
+                <p>Advertising campaigns are my forte.I have been in the industriy for 6 years.</p>
+                <p>Address:Los Angeles,California<br>Phone:+(87)834 2934 2344<br>Website:carolinethompson.com</p>
+            </div>
+
+        </div>
+
+
+
+
+        <hr class="line" />
+
+
+
+
+        <div class="d-flex flex-row p-4">
+
+            <div>
+                <img src="https://as2.ftcdn.net/v2/jpg/02/27/06/11/1000_F_227061163_8yiQmH1xgGP9S0lMQvUCTWDlUkaSb6xa.jpg" class="img" />
+                <p class="text-center">WORK</p>
+            </div>
+
+
+
+
+            <div class="pl-5">
+
+
+                <p class="pb-5">2022 - 2023</p>
+
+                <p class="pb-5">2021-2022</p>
+                <p>2020 - 2021</p>
+            </div>
+
+
+
+            <div class="pl-5">
+                <h1 class="h">Cretive Minds Graphic Design Studeo California - Senior Atr Director</h1>
+                <p>Generating and developing idea to present to the cliint</p>
+
+                <h1 class="h">Mega Glants Publishing and Studio - Junior Atr Director</h1>
+                <p>Working on Designs to produce an effective Advertising campaigns</p>
+
+                <h1 class="h">Big ideas Inc - Assistant Art Director</h1>
+                <p>Commissioning specialists such as artists.to work on projects </p>
+
+            </div>
+
+
+        </diV>
+
+
+        <hr class="line" />
+
+
+        <div class="d-flex flex-row pl-4">
+
+            <div>
+                <img src="https://as2.ftcdn.net/v2/jpg/04/69/08/85/1000_F_469088534_PzforWxZR202yrDlXMtxXm5bsAprBBRa.jpg " class="img" />
+                <p class="text-center">SKILLS & AWARDS</p>
+            </div>
+
+
+
+            <div>
+                <p>UI/UX</p>
+                <p>Growth Marketing</p>
+
+                <p>Typography</p>
+
+                <p>video roduction</p>
+                <p>Print Design</p>
+            </div>
+
+            <div class="vertical_1"> </div>
+
+
+
+
+            <div class="pl-5">
+                <p class="pb-4">2019</p>
+                <p class="pb-4">2019</p>
+                <p class="pt-0">2019</p>
+            </div>
+
+
+
+            <div class="pl-3">
+                <h1 class="h">Suiton Design Awards</h1>
+                <p>10 Graphic Designer</p>
+
+                <h1 class="h"> Graphic London Award</h1>
+                <p>Wining Entry Poster Design</p>
+                <h1 class="h">LA Creative Award</h1>
+                <p>Winning Entry: Ad Campaign</p>
+
+
+            </div>
+
+        </div>
+
+
+        <hr class="line" />
+
+
+
+
+
+
+        <div class="d-flex flex-row p-4">
+
+            <div>
+                <img src="https://as1.ftcdn.net/v2/jpg/01/40/62/16/1000_F_140621690_lCjpTdvOoqdovvUlh89F5FM1gODHMIdx.jpghttps://as1.ftcdn.net/v2/jpg/01/40/62/16/1000_F_140621690_lCjpTdvOoqdovvUlh89F5FM1gODHMIdx.jpg" class="img" />
+                <p>INTERESTS</p>
+            </div>
+
+            <div class="pl-5">
+                <img src="https://as2.ftcdn.net/v2/jpg/01/63/91/51/1000_F_163915196_rpszYhZQ3iGWlh32rxFIEQs3iTROCmKu.jpg" class="img" />
+                <p>Internet</p>
+            </div>
+
+
+            <div class="pl-5">
+                <img src="https://as2.ftcdn.net/v2/jpg/01/82/67/91/1000_F_182679114_YFL5kCB1ZQ4RgCVTVzervoElwojXbu6z.jpg" class="img" />
+                <p>Sketching</p>
+            </div>
+
+
+            <div class="pl-5">
+                <img src="https://as1.ftcdn.net/v2/jpg/04/43/27/02/1000_F_443270281_6lLujsJlHK8F7n8fqFV8c4Qnh0SkueJD.jpg" class="img" />
+                <p class="text-center">Movies</p>
+            </div>
+
+
+            <div class="pl-5">
+                <img src="https://as2.ftcdn.net/v2/jpg/05/67/06/89/1000_F_567068987_slf47gXvk2BJEUIdw2z48HAwaI2igOC2.jpg" class="img" />
+                <p class="text-center">Music</p>
+            </div>
+
+
+        </div>
+
+
+
+
+        <hr class="line" />
+
+
+
+        <div class="d-flex flex-row p-4">
+
+            <div class="pr-5">
+                <img src="https://as2.ftcdn.net/v2/jpg/05/66/32/21/1000_F_566322114_egx4SsyL0T0aCnTkTFupaKT1BQGgQlpE.jpg" class="img" />
+                <p class="text-center">EDUCATION</p>
+            </div>
+
+
+
+            <div class="pr-5">
+                <p class="pb-5">2016-2020</p>
+                <p>2013-2016</p>
+            </div>
+
+            <div>
+                <h1 class="h">Alabarma Colege of Design and Technology - Cum Laude</h1>
+                <p>Bachelor of Arts Major in Advertising</p>
+
+                <h1 class="h">Helena all Girls Senior High School - Valediction</h1>
+                <p>President of Art and Design Club</p>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</body>
+
+</html>
