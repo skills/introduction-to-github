@@ -35,7 +35,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 ## How to start this course
 
-<!-- For new repository, run in JavaScript:
+<!-- For start course, run in JavaScript:
 'https://github.com/new?' + new URLSearchParams({
   template_owner: 'skills',
   template_name: 'introduction-to-github',
