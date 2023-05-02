@@ -35,19 +35,22 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 ## How to start this course
 
-1. Right-click **Start course** and open the link in a new tab.
-   
-   [![start-course](https://user-images.githubusercontent.com/1221423/218596841-0645fe1a-4aaf-4f51-9ab3-8aa2d3fdd487.svg)](https://github.com/skills/introduction-to-github/generate)
-   
-2. In the new tab, follow the prompts to create a new repository.
+<!-- For new repository, run in JavaScript:
+'https://github.com/new?' + new URLSearchParams({
+  template_owner: 'skills',
+  template_name: 'introduction-to-github',
+  owner: '@me',
+  name: 'skills-introduction-to-github',
+  description: 'My clone repository',
+  visibility: 'public',
+}).toString()
+-->
 
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository—private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   - Name the repository something easy for you to recognize and remember.
-   
-   ![Create a new repository](/images/create-new-repository.png)
-   
-3. After your new repository is created, wait about 20 seconds, then refresh your new repository page. Follow the step-by-step instructions in the new repository's README. [GitHub Actions](https://docs.github.com/en/actions) will automatically close this welcome and open the first step.
+[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=My+clone+repository&visibility=public)
+
+1. Right-click **Start course** and open the link in a new tab.
+2. In the new tab, follow the prompts to create a new repository. For owner, we recommend your personal account.
+3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
 
 </details>
 
