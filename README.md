@@ -1,5 +1,5 @@
-<!-- 
-  <<< Author notes: Header of the course >>> 
+<!--
+  <<< Author notes: Header of the course >>>
   Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
   In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
   Add your open source license, GitHub uses Creative Commons Attribution 4.0 International.
@@ -9,8 +9,8 @@
 
 _Get started using GitHub in less than an hour._
 
-<!-- 
-  <<< Author notes: Start of the course >>> 
+<!--
+  <<< Author notes: Start of the course >>>
   Include start button, a note about Actions minutes,
   and tell the learner why they should take the course.
   Each step should be wrapped in <details>/<summary>, with an `id` set.
@@ -31,7 +31,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 
 **Course tips:**
 
-* Glossary terms will be _emphasised_ and linked to their definition. 
+* Glossary terms will be _emphasised_ and linked to their definition.
 
 ## How to start this course
 
@@ -49,13 +49,16 @@ People use GitHub to build some of the most advanced technologies in the world. 
 [![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=My+clone+repository&visibility=public)
 
 1. Right-click **Start course** and open the link in a new tab.
-2. In the new tab, follow the prompts to create a new repository. For owner, we recommend your personal account.
+2. In the new tab, most of the prompts will automatically fill in for you.
+   - For owner, choose your personal account or an organization to host the repository.
+   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+   - Scroll down and click the **Create repository** button at the bottom of the form.
 3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
 
 </details>
 
-<!-- 
-  <<< Author notes: Step 1 >>> 
+<!--
+  <<< Author notes: Step 1 >>>
   Choose 3-5 steps for your course.
   The first step is always the hardest, so pick something easy!
   Link to docs.github.com for further explanations.
@@ -86,26 +89,26 @@ Branches allow you to separate your work from the `main` branch. In other words,
 2. Navigate to the **< > Code** tab in the header menu of your repository.
 
    ![code-tab](/images/code-tab.png)
-   
+
 3. Click on the **main** branch drop-down.
 
    ![main-branch-dropdown](/images/main-branch-dropdown.png)
-   
+
 4. In the field, enter a name for your branch: `my-first-branch`.
 5. Click **Create branch: my-first-branch** to create your branch.
 
    ![create-branch-button](/images/create-branch-button.png)
-   
-   The branch will automatically switch to the one you have just created. 
+
+   The branch will automatically switch to the one you have just created.
    The **main** branch drop-down bar will reflect your new branch and display the new branch name.
-   
+
 6. Move on to Step 2!
 
    **Note**: If you made a public repository, and want to confirm you correctly set up your first branch, wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
 
 </details>
 
-<!-- 
+<!--
   <<< Author notes: Step 2 >>>
   Start this step by acknowledging the previous step.
   Define terms and link to docs.github.com.
@@ -122,33 +125,33 @@ Creating a branch allows you to edit your project without changing the `main` br
 
 ### :keyboard: Activity: Your first commit
 
-The following steps will guide you through the process of committing a change on GitHub. A commit records changes in renaming, changing content within, creating a new file, and any other changes made to your project. For this exercise, committing a change requires first adding a new file to your new branch. 
+The following steps will guide you through the process of committing a change on GitHub. A commit records changes in renaming, changing content within, creating a new file, and any other changes made to your project. For this exercise, committing a change requires first adding a new file to your new branch.
 
 1. On the **< > Code** tab in the header menu of your repository, make sure you're on your new branch `my-first-branch`.
 
 2. Select the **Add file** drop-down and click **Create new file**.
 
    ![create new file option](/images/create-new-file.png)
-   
+
 3. In the **Name your file...** field, enter `PROFILE.md`.
 
    **Note:** `.md` is a file extension that creates a Markdown file. You can learn more about Markdown by visiting "[Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)" in our docs or by taking the "[Communicating using Markdown](https://github.com/skills/communicate-using-markdown)" Skills course.
-   
+
 4. In the **Edit new file** area, copy the following content to your file:
 
    ```
    Welcome to my GitHub profile!
    ```
-   
+
    <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
-   
+
 5. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field below **Commit new file** at the bottom of the page. Then, if you want to confirm what your screen should look like, expand the dropdown below.
 
    <details>
    <summary> Expand to see the screenshot.</summary>
    <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
    </details>
-   
+
 6. In this lesson, we'll ignore the other fields and click **Commit new file**.
 7. Move on to Step 3!
 
@@ -156,8 +159,8 @@ The following steps will guide you through the process of committing a change on
 
 </details>
 
-<!-- 
-  <<< Author notes: Step 3 >>> 
+<!--
+  <<< Author notes: Step 3 >>>
   Just a historic note: the previous version of this step forced the learner
   to write a pull request description,
   checked that `main` was the receiving branch,
@@ -187,24 +190,24 @@ To create a pull request automatically, click **Compare & pull request**, and th
 4. Select the **compare:** dropdown, and click `my-first-branch`.
 
    <img alt="screenshot showing both branch selections" src="/images/pull-request-branches.png" />
-   
+
 5. Click **Create pull request**.
 6. Enter a title for your pull request. By default, the title will automatically be the name of your branch. For this exercise, let's edit the field to say `Add my first file`.
 7. The next field helps you provide a description of the changes you made. Here, you can add a description of what you’ve accomplished so far. As a reminder, you have: created a new branch, created a file, and made a commit.
 
    <img alt="screenshot showing pull request" src="/images/Pull-request-description.png" />
-   
+
 8. Click **Create pull request**. You will automatically be navigated to your new pull request.
 9. Move on to Step 4!
 
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one. As a perk, you may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
-   
+
    <img alt="screenshot of an example of an actions line" src="/images/Actions-to-step-4.png"/>
 
 </details>
 
-<!-- 
-  <<< Author notes: Step 4 >>> 
+<!--
+  <<< Author notes: Step 4 >>>
   Just a historic note: The previous version of this step required responding
   to a pull request review before merging. The previous version also handled
   if users accidentally closed without merging.
@@ -230,15 +233,15 @@ As noted in the previous step, you may have seen evidence of GitHub Actions runn
 3. Once your branch has been merged, you don't need it anymore. To delete this branch, click **Delete branch**.
 
    <img alt="screenshot showing delete branch button" src="/images/delete-branch.png"/>
-   
+
 4. Check out the **Finish** step to see what you can learn next!
 
    **Note**: Like before, you can wait about 20 seconds, then refresh this page (the one you're following instructions from) and [GitHub Actions](https://docs.github.com/en/actions) will automatically close this step and open the next one.
 
 </details>
 
-<!-- 
-  <<< Author notes: Finish >>> 
+<!--
+  <<< Author notes: Finish >>>
   Review what we learned, ask for feedback, provide next steps.
 -->
 
