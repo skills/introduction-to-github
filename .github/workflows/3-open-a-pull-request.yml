@@ -60,7 +60,7 @@ jobs:
 
       # In README.md, switch step 3 for step 4.
       - name: Update to step 4
-        uses: skills-dev/action-update-step
+        uses: skills-dev/action-update-step@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 3
