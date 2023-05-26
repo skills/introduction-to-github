@@ -34,7 +34,7 @@ The following steps will guide you through the process of committing a change on
 
    <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
 
-5. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field below **Commit new file** at the bottom of the page. Then, if you want to confirm what your screen should look like, expand the dropdown below.
+5. Click **Commit changes...** in the upper right corner above the contents box. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field titled "Commit message". 
 
    <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
 
