@@ -38,5 +38,5 @@ The following steps will guide you through the process of committing a change on
 
    <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
 
-6. In this lesson, we'll ignore the other fields and click **Commit new file**.
+6. In this lesson, we'll ignore the other fields and click **Commit changes**.
 7. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
