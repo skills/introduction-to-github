@@ -36,6 +36,12 @@ In this course, you will:
 3. Open a pull request
 4. Merge your pull request
 
+#In this course, you will:
+
+1.
+2.
+3.
+
 ### How to start this course
 
 <!-- For start course, run in JavaScript:
