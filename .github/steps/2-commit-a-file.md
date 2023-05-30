@@ -26,7 +26,7 @@ The following steps will guide you through the process of committing a change on
 
    **Note:** `.md` is a file extension that creates a Markdown file. You can learn more about Markdown by visiting "[Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)" in our docs or by taking the "[Communicating using Markdown](https://github.com/skills/communicate-using-markdown)" Skills course.
 
-4. In the **Edit new file** area, copy the following content to your file:
+4. In the **Enter file contents here** area, copy the following content to your file:
 
    ```
    Welcome to my GitHub profile!
@@ -34,9 +34,9 @@ The following steps will guide you through the process of committing a change on
 
    <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
 
-5. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field below **Commit new file** at the bottom of the page. Then, if you want to confirm what your screen should look like, expand the dropdown below.
+5. Click **Commit changes...** in the upper right corner above the contents box. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field titled "Commit message". 
 
    <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
 
-6. In this lesson, we'll ignore the other fields and click **Commit new file**.
+6. In this lesson, we'll ignore the other fields and click **Commit changes**.
 7. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
