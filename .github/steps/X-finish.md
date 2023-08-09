@@ -24,7 +24,7 @@ If you'd like to make a profile README, use the quickstart instructions below or
 2. Create a file named `README.md` in its root. The "root" means not inside any folder in your repository.
 3. Edit the contents of the `README.md` file.
 4. If you created a new branch for your file, open and merge a pull request on your branch.
-5. Lastly, we'd love to hear what you thought of this course [in our discussion board](https://github.com/skills/.github/discussions).
+5. Lastly, we'd love to hear what you thought of this course [in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github).
 
 Check out these resources to learn more or get involved:
 
