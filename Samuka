@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="" tvg-name="3 Palavrinhas 24hs" tvg-logo="" group-title="Canais | 24 Horas",3 Palavrinhas 24hs
+http://rdns.tv:80/5cx8qzmi/g7ihp4t5/333078
+#EXTINF:-1 tvg-id="" tvg-name="A Fazenda" tvg-logo="https://liebeurl.me/logos/fazenda.jpg" group-title="Canais | A Fazenda 15",A Fazenda
+http://rdns.tv:80/5cx8qzmi/g7ihp4t5/352701
+#EXTINF:-1 tvg-id="" tvg-name="A Fazenda | Cam 01" tvg-logo="https://liebeurl.me/logos/fazenda.jpg" group-title="Canais | A Fazenda 15",A Fazenda | Cam 01
+http://rdns.tv:80/5cx8qzmi/g7ihp4t5/262618
