@@ -1,10 +1,6 @@
-<header>
+<noBOT noRobot noVirus noMaleware but germanWoman  at Reallife and one PROZENT FEMALEWARE in the TechNAINbranche>
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
+![0B93FD4C-4C07-4936-9190-DD2110FD8E21](https://github.com/skills/introduction-to-github/assets/127110010/bb6c981d-c6b9-4c90-8389-e01df1d1ce7e)
 -->
 
 # Introduction to GitHub
