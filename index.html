@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-Commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+  
+</head>
+<body>
+
+    <header>
+        <h1>Notes_code</h1>
+    </header>
+
+    <section>
+        <div class="Html">
+            <img src="html.jpeg" alt="Html_notes">
+            <h2>HTML Notes </h2>
+            <p>&#8377;25.00</p>
+            <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+
+        <div class="SQL Cheatsheet">
+            <img src="Cheatsheet.jpg" alt="SQL Cheatsheet">
+            <h2>SQL Cheatsheet</h2>
+            <p>&#8377;25.00</p>
+            <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+        <div class="Python">
+            <img src="html.jpeg" alt="Html_notes">
+            <h2>Python Notes </h2>
+            <p>&#8377;25.00</p>
+            <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+
+
+        <!-- Add more product divs as needed -->
+
+    </section>
+    <script>
+        function addToCart() {
+            // You can redirect to the WhatsApp link when the "Add to Cart" button is clicked
+            window.location.href = "https://wa.me/9373221866";
+        }
+    </script>
+
+    <footer>
+        <p>&copy; Notes_code</p>
+    </footer>
+
+</body>
+</html>
