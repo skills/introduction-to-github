@@ -1,0 +1,41 @@
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String nome, sexo, estadoCivil;
+        int idade;
+        double salario;
+
+        // Validação do nome
+            {
+            System.out.println("Digite o nome (mais que 3 caracteres): ");
+            nome = scanner.next();
+        } while (nome.length() <= 3);
+
+        // Validação da idade
+            {
+            System.out.println("Digite a idade (entre 0 e 150): ");
+            idade = scanner.nextInt();
+        } while (idade < 0 || idade > 150);
+
+        // Validação do salário
+            {
+            System.out.println("Digite o salário (maior que zero): ");
+            salario = scanner.nextDouble();
+        } while (salario <= 0);
+
+        // Validação do sexo
+            {
+            System.out.println("Digite o sexo ('f' ou 'm'): ");
+            sexo = scanner.next().toLowerCase();
+        } while (!sexo.equals("f") && !sexo.equals("m"));
+
+        // Validação do estado civil
+            {
+            System.out.println("Digite o estado civil ('s', 'c', 'v', 'd'): ");
+            estadoCivil = scanner.next().toLowerCase();
+        } while (!estadoCivil.equals("s") && !estadoCivil.equals("c") && !estadoCivil.equals("v") && !estadoCivil.equals("d"));
+
+        System.out.println("Cadastro realizado com sucesso!");
+        scanner.close();
+    }
+}
