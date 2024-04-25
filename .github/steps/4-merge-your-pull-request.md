@@ -23,7 +23,7 @@ As noted in the previous step, you may have seen evidence of GitHub Actions runn
 2. Click **Confirm merge**.
 3. Once your branch has been merged, you don't need it anymore. To delete this branch, click **Delete branch**.
 
-   <img alt="screenshot showing delete branch button" src="../../images/delete-branch.png"/>
+   ![screenshot showing delete branch button](../../images/delete-branch.png)
 
 4. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
 
