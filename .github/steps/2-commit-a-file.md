@@ -23,7 +23,7 @@ The following steps will guide you through the process of committing a change on
 
 2. Select the **Add file** drop-down and click **Create new file**.
 
-   ![create new file option](/images/create-new-file.png)
+   ![create new file option](../../images/create-new-file.png)
 
 3. In the **Name your file...** field, enter `PROFILE.md`.
 
@@ -33,11 +33,11 @@ The following steps will guide you through the process of committing a change on
    Welcome to my GitHub profile!
    ```
 
-   <img alt="profile.md file screenshot" src="/images/my-profile-file.png"/>
+   ![profile.md file screenshot](../../images/my-profile-file.png)
 
 5. Click **Commit changes...** in the upper right corner above the contents box. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field titled "Commit message".
 
-   <img alt="screenshot of adding a new file with a commit message" src="/images/commit-full-screen.png" />
+   ![screenshot of adding a new file with a commit message](../../images/commit-full-screen.png)
 
 6. In this lesson, we'll ignore the other fields and click **Commit changes**.
 7. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
