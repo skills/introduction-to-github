@@ -18,7 +18,7 @@ Now that you have made a change to the project and created a commit, it’s time
 
 You may have noticed after your commit that a message displayed indicating your recent push to your branch and providing a button that says **Compare & pull request**.
 
-![screenshot of message and button](../../images/compare-and-pull-request.png)
+![screenshot of message and button](/images/compare-and-pull-request.png)
 
 To create a pull request automatically, click **Compare & pull request**, and then skip to step 6 below. If you don't click the button, the instructions below walk you through manually setting up the pull request.
 
@@ -27,13 +27,13 @@ To create a pull request automatically, click **Compare & pull request**, and th
 3. In the **base:** dropdown, make sure **main** is selected.
 4. Select the **compare:** dropdown, and click `my-first-branch`.
 
-   ![screenshot showing both branch selections](../../images/pull-request-branches.png)
+   ![screenshot showing both branch selections](/images/pull-request-branches.png")
 
 5. Click **Create pull request**.
 6. Enter a title for your pull request. By default, the title will automatically be the name of your branch. For this exercise, let's edit the field to say `Add my first file`.
 7. The next field helps you provide a description of the changes you made. Here, you can add a description of what you’ve accomplished so far. As a reminder, you have: created a new branch, created a file, and made a commit.
 
-   ![screenshot showing pull request](../../images/Pull-request-description.png)
+   ![screenshot showing pull request](/images/Pull-request-description.png)
 
 8. Click **Create pull request**. You will automatically be navigated to your new pull request.
 9. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
@@ -41,4 +41,4 @@ To create a pull request automatically, click **Compare & pull request**, and th
 > [!NOTE]
 > You may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
 > 
-> ![screenshot of an example of an actions line](../../images/Actions-to-step-4.png)
+> ![screenshot of an example of an actions line](/images/Actions-to-step-4.png)
