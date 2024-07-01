@@ -27,17 +27,18 @@ To create a pull request automatically, click **Compare & pull request**, and th
 3. In the **base:** dropdown, make sure **main** is selected.
 4. Select the **compare:** dropdown, and click `my-first-branch`.
 
-   <img alt="screenshot showing both branch selections" src="/images/pull-request-branches.png" />
+   ![screenshot showing both branch selections](/images/pull-request-branches.png)
 
 5. Click **Create pull request**.
 6. Enter a title for your pull request. By default, the title will automatically be the name of your branch. For this exercise, let's edit the field to say `Add my first file`.
 7. The next field helps you provide a description of the changes you made. Here, you can add a description of what you’ve accomplished so far. As a reminder, you have: created a new branch, created a file, and made a commit.
 
-   <img alt="screenshot showing pull request" src="/images/Pull-request-description.png" />
+   ![screenshot showing pull request](/images/Pull-request-description.png)
 
 8. Click **Create pull request**. You will automatically be navigated to your new pull request.
 9. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
 
-   **Note**: You may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
-
-   <img alt="screenshot of an example of an actions line" src="/images/Actions-to-step-4.png"/>
+> [!NOTE]
+> You may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
+> 
+> ![screenshot of an example of an actions line](/images/Actions-to-step-4.png)
