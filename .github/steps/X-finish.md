@@ -5,7 +5,7 @@
 
 ## Finish
 
-_Congratulations, you've completed this course and joined the world of developers!_
+_Congratulations ✨🎉, you've completed this course and joined the world of developers!_
 
 <img src=https://octodex.github.com/images/collabocats.jpg alt=celebrate width=300 align=right>
 

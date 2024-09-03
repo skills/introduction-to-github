@@ -29,3 +29,5 @@ As noted in the previous step, you may have seen evidence of GitHub Actions runn
 
 > [!NOTE]
 > Check out the **Finish** step to see what you can learn next!
+
+  [Let's Go-Merge your all learning](.github/steps/X-finish.md)

@@ -23,7 +23,7 @@ Branches allow you to separate your work from the `main` branch. In other words,
 
 ![profile-readme-example](/images/profile-readme-example.png)
 
-### :keyboard: Activity: Your first branch
+### keyboard: Activity: Your first branch
 
 1. Open a new browser tab and navigate to your newly made repository. Then, work on the steps in your second tab while you read the instructions in this tab.
 2. Navigate to the **< > Code** tab in the header menu of your repository.
@@ -43,3 +43,8 @@ Branches allow you to separate your work from the `main` branch. In other words,
    The **main** branch drop-down bar will reflect your new branch and display the new branch name.
 
 6. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+
+
+    
+   [Commit to next Lesson- Commiting a file](.github/steps/2-commit-a-file.md)
+

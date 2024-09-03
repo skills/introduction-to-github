@@ -42,3 +42,6 @@ To create a pull request automatically, click **Compare & pull request**, and th
 > You may see evidence of GitHub Actions running on the tab with the pull request opened! The image below shows a line you might see on your pull request after the Action finishes running.
 > 
 > ![screenshot of an example of an actions line](/images/Actions-to-step-4.png)
+
+
+[Commit to next lesson-Merge your pull request](.github/steps/4-merge-your-pull-request.md)
