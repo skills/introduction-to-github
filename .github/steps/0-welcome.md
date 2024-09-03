@@ -41,8 +41,17 @@ Open-source software (OSS) is software with source code that anyone can inspect,
 - **VLC Media Player**: A versatile media player that supports a wide range of audio and video formats.
 - **TensorFlow**: An open-source machine learning library developed by Google, widely used in research and industry.
 
-### Types of OSS -
+### Types of Softwares -
+The two main types of software are:-
+1. **Proprietary Software**
+   - **Description**: This type of software is owned by an individual or organization. The source code is not made available to the public, and users must typically pay for a license to use it. Proprietary software often includes restrictions on modification and redistribution.
+   - **Examples**: Microsoft Windows, Adobe Photoshop, Microsoft Office
 
+2. **Open-Source Software**
+   - **Description**: Open-source software is freely available for anyone to use, modify, and distribute. The source code is accessible to the public, which encourages collaboration and transparency. Licensing for open-source software allows users to study, change, and share the software, often under specific terms.
+   - **Examples**: Linux, Mozilla Firefox, LibreOffice
+
+These categories define how software is licensed and distributed, impacting its accessibility and potential for modification.
 
 ### The Impact of Open Source
 
