@@ -99,4 +99,4 @@ Happy coding!
 
 ## Next Lesson
 
-[Commit to next Lesson- Creating a branch](.github/steps/1-create-a-branch.md)
+[Commit to next Lesson- Creating a branch](1-create-a-branch.md)
