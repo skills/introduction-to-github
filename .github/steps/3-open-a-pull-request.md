@@ -44,4 +44,4 @@ To create a pull request automatically, click **Compare & pull request**, and th
 > ![screenshot of an example of an actions line](/images/Actions-to-step-4.png)
 
 
-[Commit to next lesson-Merge your pull request](.github/steps/4-merge-your-pull-request.md)
+[Commit to next lesson-Merge your pull request✅](4-merge-your-pull-request.md)

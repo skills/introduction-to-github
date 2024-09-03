@@ -46,5 +46,5 @@ Branches allow you to separate your work from the `main` branch. In other words,
 
 
     
-   [Commit to next Lesson- Commiting a file](2-commit-a-file.md)
+   [Commit to next Lesson- Commiting a file✅](2-commit-a-file.md)
 
