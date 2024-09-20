@@ -1,0 +1,9 @@
+# Function to subtract two numbers
+def subtract_numbers(a, b):
+    return a - b
+
+# Example usage
+num1 = 15
+num2 = 8
+result = subtract_numbers(num1, num2)
+print(f"The result of {num1} minus {num2} is {result}")
