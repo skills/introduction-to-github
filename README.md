@@ -27,7 +27,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 - **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
 - **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
-- **How long**: This course takes less than one hour to complete.
+- **How long**: This course takes less than one hour to complete.  sf as lkahewrusah lfjhds.f haewuh zsdkjhf laue szdf asd
 
 In this course, you will:
 
