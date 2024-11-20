@@ -35,7 +35,7 @@ In this course, you will:
 2. Commit a file
 3. Open a pull request
 4. Merge your pull request
-
+End
 ### How to start this course
 
 <!-- For start course, run in JavaScript:
