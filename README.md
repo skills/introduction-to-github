@@ -1,4 +1,34 @@
-<header>
+using UnityEngine;
+
+public class CarController : MonoBehaviour
+{
+    public float speed = 10f;
+    public float rotationSpeed = 100f;
+
+    void Update()
+    {
+        float move = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float rotate = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+
+        transform.Translate(0, move, 0);
+        transform.Rotate(0, 0, -rotate);
+    }
+}
+using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    public Transform target;
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
+
+    void LateUpdate()
+    {
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
+    }
+}
 
 <!--
   <<< Author notes: Course header >>>
