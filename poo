@@ -1,0 +1,193 @@
+import tkinter as tk
+from tkinter import messagebox
+from datetime import datetime
+import json
+
+class Examen:
+    def __init__(self, nume, materie, data):
+        self.nume = nume
+        self.materie = materie
+        self.data = data
+
+    def zile_ramase(self):
+        """Calculează câte zile mai sunt până la examen."""
+        try:
+            data_examen = datetime.strptime(self.data, "%d-%m-%Y")
+            diferenta = (data_examen - datetime.now()).days
+            if diferenta < 0:
+                return "Examen trecut"
+            return f"{diferenta} zile rămase"
+        except ValueError:
+            return "Dată invalidă"
+
+    def __str__(self):
+        return f"{self.nume} - {self.materie} - {self.data}"
+    #Transforma un obiectele într-un sir
+
+class GestionareExamen:
+    def __init__(self):
+        self.examine = []
+#inițializează o listă goală self.examine, care va conține toate examenele.
+    
+    def adauga_examen(self, nume, materie, data):
+        examen = Examen(nume, materie, data)
+        self.examine.append(examen)
+#  Creează un nou obiect Examen folosind datele primite și îl adaugă în lista self.examine.
+
+    def sterge_examen(self, index):
+        if 0 <= index < len(self.examine):
+            del self.examine[index]
+#    Verifică dacă indexul este valid si sterge examenul corespunzător indexului din lista self.examine.
+           
+    def afiseaza_examene(self):
+        return "\n".join(str(examen) for examen in self.examine)
+#Creează o listă formatată din toate examenele si  convertește fiecare examen într-un string
+
+    def salveaza_examene(self):
+        """Salvează examenele într-un fișier JSON."""
+        examene_data = [{"nume": examen.nume, "materie": examen.materie, "data": examen.data} for examen in self.examine]
+        with open("examene.json", "w") as f:
+            json.dump(examene_data, f)
+            #Transformă fiecare examen într-un dicționar si salvează lista de dicționare într-un fișier JSON.      
+
+    def incarca_examene(self):
+        """Încarcă examenele dintr-un fișier JSON."""
+        try:
+            with open("examene.json", "r") as f:
+                examene_data = json.load(f)
+                for examen_data in examene_data:
+                    self.adauga_examen(examen_data["nume"], examen_data["materie"], examen_data["data"])
+        except FileNotFoundError:
+            pass
+  # încărca examenele salvate într-un fișier JSON și de a le adăuga în lista self.examine. 
+     
+ 
+# Funcții pentru interfața grafică
+#Functie pentru adăugarea unui examen pe baza datelor introduse  în câmpuril casutele de text 
+def adauga_examen_gui():
+    """Adaugă un examen direct pe fereastra principală."""
+    nume = nume_entry.get()
+    materie = materie_entry.get()
+    data = data_entry.get()
+
+    if not nume or not materie or not data:
+        messagebox.showwarning("Atenție", "Completați toate câmpurile.")
+        return
+
+    try:
+        # Verificăm dacă data este validă
+        datetime.strptime(data, "%d-%m-%Y")
+    except ValueError:
+        messagebox.showwarning("Atenție", "Data nu are formatul corect (DD-MM-YYYY).")
+        return
+
+    gestionare.adauga_examen(nume, materie, data)
+    refresh_listbox()
+    messagebox.showinfo("Succes", "Examenul a fost adăugat cu succes!")
+    
+#funcția șterge examenul selectat din lista de examene.
+def sterge_examen_gui():
+    """Sterge examenul selectat direct pe fereastra principală."""
+    selected = listbox.curselection()
+    if not selected:
+        messagebox.showwarning("Atenție", "Selectați un examen pentru a-l șterge.")
+        return
+    index = selected[0]
+    gestionare.sterge_examen(index)
+    refresh_listbox()
+    messagebox.showinfo("Succes", "Examenul a fost șters cu succes!")
+
+def calculeaza_zile_ramase():
+    """Calculează câte zile mai sunt până la examenul selectat și le afișează."""
+    selected = listbox.curselection()
+    if not selected:
+        messagebox.showwarning("Atenție", "Selectați un examen pentru a calcula zilele rămase.")
+        return
+    index = selected[0]
+    examen = gestionare.examine[index]
+    zile = examen.zile_ramase()
+    messagebox.showinfo("Zile Rămase", f"{examen.nume}: {zile}")
+
+def refresh_listbox():
+    """Actualizează lista de examene afișată pe fereastra principală."""
+    listbox.delete(0, tk.END)
+    if not gestionare.examine:
+        listbox.insert(tk.END, "Nu există examene programate.")
+    else:
+        for examen in gestionare.examine:
+            listbox.insert(tk.END, str(examen))
+
+# Creează instanța gestionării examenelor și încarcă examenele salvate
+gestionare = GestionareExamen()
+gestionare.incarca_examene()  # Încarcă examenele din fișier la deschidere
+
+root = tk.Tk()
+root.title("Programare Examene")
+root.configure(bg="#ADD8E6")  # Fundal albastru deschis
+
+# Creează eticheta pentru titlu
+title_label = tk.Label(root, text="Aplicație de Gestionare a Examenelor", font=("Arial", 20, "bold"), bg="#ADD8E6")
+title_label.pack(pady=20)
+
+# Câmpuri pentru introducerea datelor examenului
+form_frame = tk.Frame(root, bg="#ADD8E6")
+form_frame.pack(pady=10)
+#Creează un cadru pentru organizarea câmpurilor de introducere a datelor 
+
+nume_label = tk.Label(form_frame, text="Numele examenului:", font=("Arial", 14), bg="#ADD8E6")
+nume_label.grid(row=0, column=0, padx=10, pady=10)
+nume_entry = tk.Entry(form_frame, font=("Arial", 14), width=30)
+nume_entry.grid(row=0, column=1, padx=10, pady=10)
+
+materie_label = tk.Label(form_frame, text="Materia examenului:", font=("Arial", 14), bg="#ADD8E6")
+materie_label.grid(row=1, column=0, padx=10, pady=10)
+materie_entry = tk.Entry(form_frame, font=("Arial", 14), width=30)
+materie_entry.grid(row=1, column=1, padx=10, pady=10)
+
+data_label = tk.Label(form_frame, text="Data examenului (DD-MM-YYYY):", font=("Arial", 14), bg="#ADD8E6")
+data_label.grid(row=2, column=0, padx=10, pady=10)
+data_entry = tk.Entry(form_frame, font=("Arial", 14), width=30)
+data_entry.grid(row=2, column=1, padx=10, pady=10)
+
+# Butoane pentru adăugare, ștergere, calcularea zilelor și ieșire
+button_frame = tk.Frame(root, bg="#ADD8E6")
+button_frame.pack(pady=20)
+#Creează un cadru pentru organizarea butoanelor
+
+add_button = tk.Button(button_frame, text="Adaugă Examen", font=("Arial", 14), command=adauga_examen_gui, bg="white", fg="black", width=15)
+add_button.grid(row=0, column=0, padx=10)
+
+
+delete_button = tk.Button(button_frame, text="Șterge Examen", font=("Arial", 14), command=sterge_examen_gui, bg="white", fg="black", width=15)
+delete_button.grid(row=0, column=1, padx=10)
+
+calc_button = tk.Button(button_frame, text="Câte zile rămase", font=("Arial", 14), command=calculeaza_zile_ramase, bg="white", fg="black", width=15)
+calc_button.grid(row=0, column=2, padx=10)
+
+# Buton de ieșire care salvează examenele înainte de a închide aplicația
+def iesire():
+    """Salvează examenele și închide aplicația."""
+    gestionare.salveaza_examene()
+    messagebox.showinfo("Ieșire", "Examenele au fost salvate. Aplicația se va închide acum.")
+    root.quit()
+
+exit_button = tk.Button(button_frame, text="Ieșire", font=("Arial", 14), command=iesire, bg="white", fg="black", width=15)
+exit_button.grid(row=0, column=3, padx=10)
+
+# Creează lista de examene
+frame = tk.Frame(root, bg="#ADD8E6")
+frame.pack(pady=10)
+
+listbox = tk.Listbox(frame, font=("Arial", 14), width=60, height=10)
+listbox.pack(side=tk.LEFT, padx=10)
+
+scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=listbox.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+listbox.config(yscrollcommand=scrollbar.set)
+
+# Populează lista la start
+refresh_listbox()
+
+# Rulează aplicația
+root.mainloop()
