@@ -1,0 +1,823 @@
+%macro RunReport(Facility_ID, all_services_flag, ReportVersion, state_report = 0, special_report = 0);	
+
+	/* 
+	Facility codes
+
+	All  - All services
+	JHC1 - John Hunter Childrens
+	LACI - Lady Cilento
+	MCH1 - Monash Childrens
+	PMH2 - Princess Margaret (not currently in ePPOC)
+	RCH1 - Royal Children's Hospital
+	SCH1 - Sydney Childrens
+	SVH4 - St Vincent's Brisbane
+	WES1 - Westmead Childrens
+	*/
+
+  *** Step 1 - Set up;
+  * Setting up the SAS system options;
+  options nodate noxsync noxwait xmin;
+  options nomprint nomlogic nosymbolgen;
+  options nocentre nodate ps=max ls=max;
+
+  *Allow SAS to interact with the R system;
+  proc options option = RLANG;
+  run;
+
+  %let prev_report_type = Annual Report;
+  %let report_type      = Mid Year  Report;
+  %let year             = 2024;
+  %let prev_report_year = 2023;
+
+  *** macros for EOP;
+  %let ReportType       = 1;   *** Outcomes report;
+  %let ReportLevel      = 2;   *** Ambulatory;
+  %let DataCollection   = 2;   *** Paediatric;
+  %let ReportPeriod     = 2;   *** 1 = Annual Report / 2 = MinYearReport;
+  %let ReportYear       = 24;  
+
+  *** create library containing maps, including BMI percentiles;
+  libname Maps "R:\Data\Maps";
+
+  * Initialising the report macros;
+  filename RptMacro 'R:\Data\SAS Macros - paeds\2024 Mid Year Report';
+  options sasautos = (RptMacro sasautos) mautosource;
+
+  * cleaning up data from previous report runs;
+  %CleanUpAfterYourself;
+
+  *Assign the path name to be added in the include statements for the R code;
+  %let filepath = R:\Data\R Code - paeds\2024 Mid Year Report;
+
+  *Assign the path to pass to R for where to set its working directory;
+  %let RWorkingDir = "R:/Data/Graphs - paeds";
+
+  * NOTE: This is also defined in LetThereBeMAcros;
+  %let compare_name = "All services";
+
+  *For Enterprise One report - every xth patient to select (good to set as the number of data submitting facilities);
+  %let every_x_patients = 5;  *** select every 9th patient for E1 report; 
+                               *** prior to 2018 MY report, this was 7; 
+                               *** 2018 MY - 2019 MY this was 6;
+                               *** 2019 Annual onwards this was 8;
+
+  %DefineServiceGroups;
+
+  * Assigning the data library;
+  libname all "R:\Data\Processed data - paeds";
+
+  **********************************;
+  *** SET REPORTING PERIOD DATES ***;
+  **********************************;
+  %let report_start_date = 01JUL2023;
+  %let report_end_date   = 30JUN2024;
+
+  ******************************************************************************************************;
+  *** Step 2: Define global macro variables (report parameters) and create the datasets for this report ;
+  ******************************************************************************************************;
+
+  %LetThereBeMacroVariables;
+  %LetThereBeData; /*create_report_datasets now within LetThereBeData*/
+
+  %fig_BMProfileGraphs_a;
+  %fig_BM_TimeSeries_a;
+
+  * ----------------------------------------------------------------------------------------------------;
+  * TABLE of demographic information                                                                    ;
+  * ----------------------------------------------------------------------------------------------------;
+
+  proc sql;
+
+		create table tmp_demog_info as
+		select compress(put(round(mean(Female_flag)*100, .1), 8.1))       as pct_female,
+			   compress(put(round(mean(Age), .1), 8.1))                   as avg_age,
+			   compress(put(round(mean(indigenous_flag)*100, .1), 8.1))   as pct_indigenous,
+			   compress(put(round(mean(HighestSEIFA_flag)*100, .1), 8.1)) as pct_highestdisad
+		from rpt_ds_patref
+		;
+
+		create table tmp_demog_info_all as
+		select compress(put(round(mean(Female_flag)*100, .1), 8.1))       as pct_female,
+			   compress(put(round(mean(Age), .1), 8.1))                   as avg_age,
+			   compress(put(round(mean(indigenous_flag)*100, .1), 8.1))   as pct_indigenous,
+			   compress(put(round(mean(HighestSEIFA_flag)*100, .1), 8.1)) as pct_highestdisad
+		from rpt_ds_patref_all
+		;
+
+	quit;
+
+
+	data tmp_combined_demog;
+		set tmp_demog_info
+			tmp_demog_info_all
+			;
+	run;
+
+	proc transpose data = tmp_combined_demog
+					out = tbl_combined_demog_almost;
+					var _ALL_;
+	run;
+
+	data tbl_combined_demog;
+		set tbl_combined_demog_almost; *(rename = (COL1 = serv COL2 = All));
+
+		FORMAT serv_fmt $100. all_fmt $100.;
+
+		if _NAME_ = "avg_age" then do;
+			serv_fmt = COL1;
+			all_fmt  = COL2;
+		end;
+		else do;
+			if not missing(COL1) then serv_fmt = compress(cat(COL1, "pct"));
+			else serv_fmt = "-";
+
+			if not missing(COL2) then all_fmt = compress(cat(COL2, "pct"));
+			else all_fmt = "-";
+		end;
+
+		table_row = compress(serv_fmt || &tab. || all_fmt || &tab. || &tab.);
+		if _n_ = 4 then table_row = compress(serv_fmt || &tab. || all_fmt);
+	run;
+	
+    * ----------------------------------------------------------------------------------------------------;
+    * TABLE of clinical characteristics (carer reported)                                                  ;
+    * ----------------------------------------------------------------------------------------------------;
+	
+	proc sql;
+
+		create table tmp_clinchar_Cx as
+		select compress(put(round(mean(a.Flag_AnyMedsDaily)*100, .1), 8.1))                 as pct_AnyMedDaily,
+			   compress(put(round(mean(a.Flag_DailyOpioidWOCodeine)*100, .1), 8.1))         as pct_OpioidNoCodeineDaily,
+		       compress(put(round(mean(a.Flag_OutsideHealthyWeightRange)*100, .1), 8.1))    as pct_OutsideHealthyWeight,
+		       compress(put(round(mean(b.Flag_PainMoreThan12Months)*100, .1), 8.1))         as pct_PainMoreThan12Months,
+		       compress(put(round(mean(a.SchoolDaysMissed_LastFortnight), .1), 8.1))        as avg_SchoolMissed_LastFN,
+			   compress(put(round(mean(a.WPAI_OverallWorkImpairment), .1), 8.1))            as avg_PctWorkImpairment
+			   
+		from rpt_ds_cqx_ref as a, rpt_ds_patref as b
+		;
+
+		create table tmp_clinchar_Cx_all as
+		select compress(put(round(mean(a.Flag_AnyMedsDaily)*100, .1), 8.1))                 as pct_AnyMedDaily,
+			   compress(put(round(mean(a.Flag_DailyOpioidWOCodeine)*100, .1), 8.1))         as pct_OpioidNoCodeineDaily,
+		       compress(put(round(mean(a.Flag_OutsideHealthyWeightRange)*100, .1), 8.1))    as pct_OutsideHealthyWeight,
+		       compress(put(round(mean(b.Flag_PainMoreThan12Months)*100, .1), 8.1))         as pct_PainMoreThan12Months,
+		       compress(put(round(mean(a.SchoolDaysMissed_LastFortnight), .1), 8.1))        as avg_SchoolMissed_LastFN,
+			   compress(put(round(mean(a.WPAI_OverallWorkImpairment), .1), 8.1))            as avg_PctWorkImpairment
+			   
+		from rpt_ds_cqx_ref_all as a, rpt_ds_patref_all as b
+		;
+
+	quit;
+
+	data tmp_combined_clinchar_Cx_nearly;
+		set tmp_clinchar_Cx
+			tmp_clinchar_Cx_all
+			;
+	run;
+
+	proc transpose data = tmp_combined_clinchar_Cx_nearly
+					out = tbl_combined_clinchar_Cx_almost;
+					var _ALL_;
+	run;
+
+	data tbl_combined_clinchar_Cx;
+		set tbl_combined_clinchar_Cx_almost; *(rename = (COL1 = serv COL2 = All));
+
+		    format serv_fmt $10. all_fmt $10.;
+
+			if not missing(COL1) then serv_fmt = cat(COL1, "");
+			else serv_fmt = "-";
+
+			if COL1 = "." then serv_fmt = "-";
+
+			if not missing(COL2) then all_fmt = cat(COL2, "");
+			else all_fmt = "-";		
+
+			if COL2 = "." then serv_fmt = "-";
+
+		table_row = compress(serv_fmt || "pct" ||&tab. || all_fmt ||  "pct" || &tab. || &tab. );
+		if _n_ = 5 then table_row = compress(serv_fmt ||&tab. || all_fmt || &tab. || &tab. );
+		if _n_ = 6 then table_row = compress(serv_fmt || "pct" || &tab. || all_fmt || "pct");
+
+	run;     
+
+	* ----------------------------------------------------------------------------------------------------;
+    * TABLE of Services provided                                                                         ;
+    * ----------------------------------------------------------------------------------------------------;
+
+	proc sql;
+
+		* number of episodes started;
+		create table n_ep as
+		select compress(put(max(count(a.FacilityID), 0), 8.0)) as serv
+		from rpt_ds_epstart as a
+		;
+
+		* number of episodes started - all services;
+		create table n_ep_all as
+		select compress(put(max(count(FacilityID), 0), 8.0)) as allserv
+		from rpt_ds_epstart_all
+		;
+
+		* median wait time - this service;
+		create table wait_time as
+		select compress(put(median(WaitTime), 8.1)) as serv
+		from rpt_ds_epstart
+		;
+
+		* median wait time - all services;
+		create table wait_time_all as
+		select compress(put(median(WaitTime), 8.1)) as allserv
+		from rpt_ds_epstart_all
+		;
+
+		* number of pathways starting during the reporting period;
+		create table n_pathstart as
+		select compress(put(max(count(FacilityID), 0), 8.0)) as serv
+		from rpt_ds_pathstart
+		;
+
+		* number of pathways starting during the reporting period  - all services;
+		create table n_pathstart_all as
+		select compress(put(max(count(FacilityID), 0), 8.0)) as allserv
+		from rpt_ds_pathstart_all
+		;
+
+		* pathway delivery mode - in clinic care;
+		create table pct_InClinic as
+		select compress(put(round(mean(Flag_Delivery_InClinic)*100, .1), 8.1)) as serv
+		from rpt_ds_pathstart
+		;
+
+		create table pct_InClinic_all as
+		select compress(put(round(mean(Flag_Delivery_InClinic)*100, .1), 8.1)) as allserv
+		from rpt_ds_pathstart_all
+		;
+
+		* pathway delivery mode - remote care;
+		create table pct_Remote as
+		select compress(put(round(mean(Flag_Delivery_Remote)*100, .1), 8.1)) as serv
+		from rpt_ds_pathstart
+		;
+
+		create table pct_Remote_all as
+		select compress(put(round(mean(Flag_Delivery_Remote)*100, .1), 8.1)) as allserv
+		from rpt_ds_pathstart_all
+		;
+
+		* treatment pathway type - group program;
+		create table pct_Group as
+		select compress(put(round(mean(Flag_PathType_Group)*100, .1), 8.1)) as serv
+		from rpt_ds_pathstart
+		;
+
+		create table pct_Group_all as
+		select compress(put(round(mean(Flag_PathType_Group)*100, .1), 8.1)) as allserv
+		from rpt_ds_pathstart_all
+		;
+
+		* treatment pathway type - individual program;
+		create table pct_Individ as
+		select  compress(put(round(mean(Flag_PathType_Individ)*100, .1), 8.1)) as serv
+		from rpt_ds_pathstart
+		;
+
+		create table pct_Individ_all as
+		select  compress(put(round(mean(Flag_PathType_Individ)*100, .1), 8.1)) as allserv
+		from rpt_ds_pathstart_all
+		;
+
+		* number of episodes ending during the reporting period;
+		create table n_epend as
+		select compress(put(max(count(FacilityID), 0), 8.0)) as serv
+		from rpt_ds_epend
+		;
+
+		* number of episodes ending during the reporting period;
+		create table n_epend_all as
+		select  compress(put(max(count(FacilityID), 0), 8.0)) as allserv
+		from rpt_ds_epend_all
+		;
+
+		* number of episodes ending during the reporting period;
+		create table n_epend as
+		select compress(put(max(count(FacilityID), 0), 8.0)) as serv
+		from rpt_ds_epend
+		;
+
+		* number of episodes ending during the reporting period;
+		create table n_epend_all as
+		select  compress(put(max(count(FacilityID), 0), 8.0)) as allserv
+		from rpt_ds_epend_all
+		;
+
+		* treatment pathway type - individual program;
+		create table avg_EpLength as
+		select  compress(put(round(mean(EpisodeLength), .1), 8.1)) as serv
+		from rpt_ds_epend
+		;
+
+		create table avg_EpLength_all as
+		select  compress(put(round(mean(EpisodeLength), .1), 8.1)) as allserv
+		from rpt_ds_epend_all
+		;
+
+	quit;
+
+	* overcoming an issue with proc sql median wait time;
+	data wait_time;
+		set wait_time;
+		if Serv = 0 then serv = .;
+	run;
+
+	data es_servicesprov_this;
+		length serv $64.;
+		set n_ep
+			wait_time
+			n_pathstart
+			pct_InClinic
+			pct_Remote
+			pct_Group
+			pct_Individ
+			n_epend
+			avg_EpLength
+			;
+	run;
+
+	data es_servicesprov_all;
+		set n_ep_all
+			wait_time_all
+			n_pathstart_all
+			pct_InClinic_all
+			pct_Remote_all
+			pct_Group_all
+			pct_Individ_all
+			n_epend_all
+			avg_EpLength_all
+			;
+	run;
+
+	data tbl_servicesprov;
+		merge es_servicesprov_this
+		      es_servicesprov_all
+			  ;		
+		table_row = compress(serv ||&tab. || allserv || &tab. || &tab. );
+		if _n_ in (4 5 6 7) then table_row = compress(serv || "pct" ||&tab. || allserv ||  "pct" || &tab. || &tab. );
+		if _n_ = 9 then table_row = compress(serv || &tab. || allserv );
+	run;
+
+
+	*-------------------------------------------------------------------------------;
+	* TABLE Indicator summary                                                       ;
+	*-------------------------------------------------------------------------------; 
+	proc format;
+		value yesno_forty
+				0-<40  = "No"
+				40-100 = "Yes"
+				. = "-"
+				;
+		
+		value yesno_fifty
+				0-<50  = "No"
+				50-100 = "Yes"
+				. = "-"
+				;	
+		
+		value yesno_sixty
+				0-<60  = "No"
+				60-100 = "Yes"
+				. = "-"
+				;	
+		
+		value yesno_seventy
+				0-<70  = "No"
+				70-100 = "Yes"
+				. = "-"
+				;
+
+		value nadash
+				. = "     -"
+				;
+
+	    value $ nadashc
+				"." = "     -"
+				;
+	run;	
+
+	proc sql;
+		
+		create table  tmp_ind_summary_pt2 as
+		select compress(put(BM_WaitTime_Pct    , 8.1)) as bm1_score,
+			   compress(put(BM_AvgPain_Pct     , 8.1)) as ind1_score,
+			   compress(put(BM_PedsQL_Pct      , 8.1)) as ind2_score,
+		       compress(put(BM_FDI_Pct         , 8.1)) as ind3_score
+		from fig_bm_ts_editedforgraphing
+		where TimePeriod = 0;
+		;	    
+
+		create table  tmp_ind_summary_pt3 as
+		select compress(put(BM_WaitTime_Pct_all , 8.1)) as bm1_score_all,
+               compress(put(BM_AvgPain_Pct_all  , 8.1)) as ind1_score_all,
+			   compress(put(BM_PedsQL_Pct_all   , 8.1)) as ind2_score_all,
+		       compress(put(BM_FDI_Pct_all      , 8.1)) as ind3_score_all
+		from fig_bm_ts_editedforgraphing
+		where TimePeriod = 0;
+		;		
+		
+		create table  tmp_ind_summary_pt4 as
+		select count(BM_WaitTime_Pct)              as bm1_servicesongraph,
+			   count(BM_AvgPain_Pct)               as ind1_servicesongraph,
+			   count(BM_PedsQL_Pct)                as ind2_servicesongraph,
+		       count(BM_FDI_Pct)                   as ind3_servicesongraph
+		from fig_bm_editedforgraphing
+		;
+
+		create table  tmp_ind_summary_Denoms_LHS as
+		select compress(put(BM_WaitTime_Denom , 8.0)) as bm1_denom_LHS,
+			   compress(put(BM_AvgPain_Denom  , 8.0)) as ind1_denom_LHS,
+			   compress(put(BM_PedsQL_Denom   , 8.0)) as ind2_denom_LHS,
+		       compress(put(BM_FDI_Denom      , 8.0)) as ind3_denom_LHS
+		from fig_bm_ts_editedforgraphing
+		where TimePeriod = 0;
+		;	
+
+		create table  tmp_ind_summary_Denoms_RHS as
+		select compress(put(BM_WaitTime_Denom_all , 8.0)) as bm1_denom_RHS,
+			   compress(put(BM_AvgPain_Denom_all  , 8.0)) as ind1_denom_RHS,
+			   compress(put(BM_PedsQL_Denom_all   , 8.0)) as ind2_denom_RHS,
+		       compress(put(BM_FDI_Denom_all      , 8.0)) as ind3_denom_RHS
+		from fig_bm_ts_editedforgraphing
+		where TimePeriod = 0;
+		
+	quit;
+	
+	proc transpose data = tmp_ind_summary_pt2 out = tmp_ind_summary_pt2a; var _ALL_;
+	proc transpose data = tmp_ind_summary_pt3 out = tmp_ind_summary_pt3a; var _ALL_;
+	proc transpose data = tmp_ind_summary_pt4 out = tmp_ind_summary_pt4a; var _ALL_;
+	proc transpose data = tmp_ind_summary_Denoms_LHS out = tmp_ind_summary_Denoms_LHSa; var _ALL_;
+	proc transpose data = tmp_ind_summary_Denoms_RHS out = tmp_ind_summary_Denoms_RHSa; var _ALL_;
+	run;	  
+
+	/*
+	data tbl_bmsummary;
+		merge tmp_ind_summary_pt2a (rename = (COL1 = Pct_LHS         _NAME_ = Var2))
+			  tmp_ind_summary_pt3a (rename = (COL1 = Pct_RHS         _NAME_ = Var3))
+			  tmp_ind_summary_pt4a (rename = (COL1 = ServicesOnGraph _NAME_ = Var4))
+			;	
+		table_row = compress(put(Pct_LHS, $nadashc.)|| "pct" || &tab. ||  put(Pct_RHS, $nadashc.) || "pct" || &tab. ||  ServicesOnGraph || &tab. || &tab. );
+		if _n_ = 4 then table_row = compress(put(Pct_LHS, $nadashc.)|| "pct" || &tab. ||  put(Pct_RHS, $nadashc.) || "pct" || &tab. ||  ServicesOnGraph );
+  	run;
+	*/
+
+	data tbl_bmsummary;
+		merge tmp_ind_summary_pt2a (rename = (COL1 = Pct_LHS          _NAME_ = Var2))
+			  tmp_ind_summary_pt3a (rename = (COL1 = Pct_RHS          _NAME_ = Var3))
+			  tmp_ind_summary_Denoms_LHSa (rename = (COL1 = Denom_LHS _NAME_ = Var5))
+			  tmp_ind_summary_Denoms_RHSa (rename = (COL1 = Denom_RHS _NAME_ = Var6))
+			;	
+		table_row = compress(put(Denom_LHS, $nadashc.)|| &tab. || put(Pct_LHS, $nadashc.)|| "pct" || &tab. ||  put(Denom_RHS, $nadashc.)|| &tab. ||put(Pct_RHS, $nadashc.) || "pct" ||  &tab. || &tab. );
+		if _n_ = 4 then table_row = compress(put(Denom_LHS, $nadashc.)|| &tab. || put(Pct_LHS, $nadashc.)|| "pct" || &tab. ||  put(Denom_RHS, $nadashc.)|| &tab. ||put(Pct_RHS, $nadashc.) || "pct");
+  	run;
+
+	*-------------------------------------------------------------------------------; 
+	* Assessment tools                                                              ;
+	*-------------------------------------------------------------------------------; 
+
+	proc sql;
+
+		* this report;
+		select compress(put(round(mean(Derived_BPIPainSeverity), .1), 8.1))    into :PainSeverity_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(Derived_PedsQLTotal), .1), 8.1))        into :PedsQL_Total_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(Derived_PedsQLPsychosocial), .1), 8.1)) into :PedsQL_Psych_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(Derived_PedsQLPhysical), .1), 8.1))     into :PedsQL_Phys_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(PedsQLSleep), .1), 8.1))                into :PedsQL_Sleep_Mean_LHS
+		from rpt_ds_pqx_ref;
+	
+		select compress(put(round(mean(PedsQL_Impaired)*100, .1), 8.1))        into :ImpairedHRQOL_Pct_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(Derived_FDITotal), .1), 8.1))           into :FDI_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+		select compress(put(round(mean(Derived_BAPTotal), .1), 8.1))           into :BAPQWorry_Mean_LHS
+		from rpt_ds_pqx_ref;
+
+
+		* all services;
+		select compress(put(round(mean(Derived_BPIPainSeverity), .1), 8.1))    into :PainSeverity_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(Derived_PedsQLTotal), .1), 8.1))        into :PedsQL_Total_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(Derived_PedsQLPsychosocial), .1), 8.1)) into :PedsQL_Psych_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(Derived_PedsQLPhysical), .1), 8.1))     into :PedsQL_Phys_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(PedsQLSleep), .1), 8.1))                into :PedsQL_Sleep_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+	
+		select compress(put(round(mean(PedsQL_Impaired)*100, .1), 8.1))        into :ImpairedHRQOL_Pct_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(Derived_FDITotal), .1), 8.1))           into :FDI_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+		select compress(put(round(mean(Derived_BAPTotal), .1), 8.1))           into :BAPQWorry_Mean_RHS
+		from rpt_ds_pqx_ref_all;
+
+	quit;
+
+	
+ 
+    ************************************************************************** ;
+    *** Step 4: Preparing the ePPOC Report Word Template to receive the output ;
+    ************************************************************************** ;
+    filename sas2word dde 'winword|system';
+
+    * Starting up Microsoft Word;
+    %openword;
+
+    * Opening the ePPOC Report Template;
+    * open the template ;
+    data _null_;
+       file sas2word;
+       put '[FileClose 2]'; * close new doc word has created, 2=do not save;
+       put '[FileNew.Template="' "T:\Reporting\2024 Reports\2024 Mid Year Report\Templates\Paediatric\ExecSummaryTemplate.docx" '"]';
+       *put '[ChDefaultDir "' "C:\temp" '",0]'; *Create report locally, save to server at last step in code;
+       *put '[FileSaveAs.Name="' "&longname &report_year. ExecutiveSummary.docx" '"]';*,.Format=0]; *0 stands for word document;
+       *put '[ChDefaultDir "' "C:\Reports\&foldername..&Facility_ID" '",0]';
+	   put '[ChDefaultDir "' "T:\Reporting\2024 Reports\2024 Mid Year report\02 Paediatric reports\&foldername..&Facility_ID" '",0]';
+       put '[FileSaveAs.Name="' "&longname. &year. &report_type. Exec Summary.3.10.&ReportLevel..&DataCollection..&ReportPeriod..&ReportYear..&ReportVersion..&Facility_ID..docx" '"]'; *,.Format=0]; *save report to shared drive;
+    run;	
+
+	data _null_;
+  		file sas2word;
+		set parameters;
+		put '[EditGoto.Destination="ServiceName"]';
+		put FacilityName;
+	run;
+
+	proc sql;
+		select facility into: ShortName
+		from parameters;
+	quit;
+
+	data _null_;
+  		file sas2word;
+		set parameters;
+		put '[EditGoto.Destination="ServiceName2"]';
+		put Facility;
+	run;
+
+	proc sql;
+		
+		select max(count(FacilityID), 0) into :Number_ReferralQuests
+		from rpt_ds_patref
+		;
+
+		select max(count(FacilityID), 0) into :Number_ReferralQuests_all
+		from rpt_ds_patref_all
+		;
+	quit;
+
+	data _null_;
+		file sas2word;
+
+		put '[EditGoto.Destination="Number_RefQuests"]';
+		put "%sysfunc(strip(&Number_ReferralQuests.))";
+				
+		put '[EditGoto.Destination="Number_RefQuests_All"]';
+		put "%sysfunc(strip(&Number_ReferralQuests_all.))";
+
+	run;
+
+  %macro writeTable(bookmark , table);
+		
+	data _null_;
+  		file sas2word;
+		put "[EditGoto.Destination="&bookmark."]";
+	run;
+
+	data _null_;
+  		file sas2word;
+		set &table.;
+		put table_row;
+	run;
+
+  %mend;
+
+  %writeTable(bookmark = "DemographicInfo"  , table = tbl_combined_demog);
+  %writeTable(bookmark = "ClinChar_Cx"      , table = tbl_combined_clinchar_Cx);
+  %writeTable(bookmark = "ServicesProvided" , table = tbl_servicesprov);
+  %writeTable(bookmark = "BM_Ind"           , table = tbl_bmsummary);
+
+  proc format;
+
+		*---------------------------------------------------;
+		* AUTHOR: Samuel allingham (samallin@uow.edu.au)    ;
+	    * DATE:   22 September 2020                         ;
+	    * NOTE:   These formats determine the colour of the ;
+        *         icon to be included in the ExecSummary    ;
+		*---------------------------------------------------;
+
+		value BPISeverity 
+				0-<4.5      = "BlueSquare.png"
+                4.5-<6.5    = "OrangeSquare.png"
+                6.5-10      = "RedSquare.png"	
+				;
+	
+		value FDISev
+				 0 -<13  = "BlueSquare.png"			
+				13 - 29  = "OrangeSquare.png"
+				29<- 60  = "RedSquare.png"	
+				;
+				
+	run;
+
+
+  data _null_;
+  		file sas2word;
+
+  		put '[EditGoto.Destination="PainSev_LHS"]';
+		put "%sysfunc(strip(&PainSeverity_Mean_LHS.))";
+		put " ";
+		if &PainSeverity_Mean_LHS ne "."  then put '[InsertPicture.Name="'"T:\Reporting\Icons\%sysfunc(putn(&PainSeverity_Mean_LHS., BPISeverity.))"'"]';
+			
+		put '[EditGoto.Destination="PainSev_RHS"]';
+		put "%sysfunc(strip(&PainSeverity_Mean_RHS.))";
+		put " ";
+		if &PainSeverity_Mean_RHS ne "."  then put '[InsertPicture.Name="'"T:\Reporting\Icons\%sysfunc(putn(&PainSeverity_Mean_RHS., BPISeverity.))"'"]';
+
+		* PedsQL - Total;
+		put '[EditGoto.Destination="PedsQL_Total_LHS"]';
+		put "%sysfunc(strip(&PedsQL_Total_Mean_LHS.))";
+		put " ";	
+			
+		put '[EditGoto.Destination="PedsQL_Total_RHS"]';
+		put "%sysfunc(strip(&PedsQL_Total_Mean_RHS.))";
+		put " ";
+
+		* PedsQL - Psychological;
+		put '[EditGoto.Destination="PedsQL_Psych_LHS"]';
+		put "%sysfunc(strip(&PedsQL_Psych_Mean_LHS.))";
+		put " ";	
+			
+		put '[EditGoto.Destination="PedsQL_Psych_RHS"]';
+		put "%sysfunc(strip(&PedsQL_Psych_Mean_RHS.))";
+		put " ";
+
+		* PedsQL - Physical;
+		put '[EditGoto.Destination="PedsQL_Phys_LHS"]';
+		put "%sysfunc(strip(&PedsQL_Phys_Mean_LHS.))";
+		put " ";	
+			
+		put '[EditGoto.Destination="PedsQL_Phys_RHS"]';
+		put "%sysfunc(strip(&PedsQL_Phys_Mean_RHS.))";
+		put " ";
+
+		* PedsQL - Sleep;
+		put '[EditGoto.Destination="PedsQL_Sleep_LHS"]';
+		put "%sysfunc(strip(&PedsQL_Sleep_Mean_LHS.))";
+		put " ";	
+			
+		put '[EditGoto.Destination="PedsQL_Sleep_RHS"]';
+		put "%sysfunc(strip(&PedsQL_Sleep_Mean_RHS.))";
+		put " ";
+
+		* Impaired Health Related Quality of Life;
+		put '[EditGoto.Destination="ImpairedHRQOL_LHS"]';
+		put "%sysfunc(strip(&ImpairedHRQOL_Pct_LHS.))";
+		put "pct ";	
+			
+		put '[EditGoto.Destination="ImpairedHRQOL_RHS"]';
+		put "%sysfunc(strip(&ImpairedHRQOL_Pct_RHS.))";
+		put "pct ";
+
+		* FDI;
+		put '[EditGoto.Destination="FDI_LHS"]';
+		put "%sysfunc(strip(&FDI_Mean_LHS.))";
+		put " ";	
+		if &FDI_Mean_LHS ne "."  then put '[InsertPicture.Name="'"T:\Reporting\Icons\%sysfunc(putn(&FDI_Mean_LHS., FDISev.))"'"]';
+			
+		put '[EditGoto.Destination="FDI_RHS"]';
+		put "%sysfunc(strip(&FDI_Mean_RHS.))";
+		put " ";
+		if &FDI_Mean_RHS ne "."  then put '[InsertPicture.Name="'"T:\Reporting\Icons\%sysfunc(putn(&FDI_Mean_RHS., FDISev.))"'"]';
+
+		* Pain Related Worry;
+		put '[EditGoto.Destination="Worry_LHS"]';
+		put "%sysfunc(strip(&BAPQWorry_Mean_LHS.))";
+		put " ";	
+			
+		put '[EditGoto.Destination="Worry_RHS"]';
+		put "%sysfunc(strip(&BAPQWorry_Mean_RHS.))";
+		put " ";
+
+    run;
+
+	/*
+	 data _null_;
+  		file sas2word;
+
+		put '[EditGoto.Destination="EEnd_OC_Pct"]';
+		put "%sysfunc(round(&obt_ependout., 1))";
+
+		put '[EditGoto.Destination="EEnd_OC_Pct_All"]';
+		put "%sysfunc(round(&obt_ependout_all., 1))";
+
+		put '[EditGoto.Destination="PDis_OC_Pct"]';
+		put "%sysfunc(round(&obt_pdisout., 1))";
+
+		put '[EditGoto.Destination="PDis_OC_Pct_All"]';
+		put "%sysfunc(round(&obt_pdisout_all., 1))";
+	run;
+	*/
+
+	data _null_;
+  		file sas2word;
+
+		put '[EditGoto.Destination="fig_WaitTime"]';
+		put '[InsertPicture.Name="'"C:\temp\BM_WaitTime_Pct.emf"'"]';
+
+		put '[EditGoto.Destination="fig_AvgPain"]';
+		put '[InsertPicture.Name="'"C:\temp\BM_AvgPain_Pct.emf"'"]';
+
+		put '[EditGoto.Destination="fig_PedsQL"]';
+		put '[InsertPicture.Name="'"C:\temp\BM_PedsQL_Pct.emf"'"]';
+		
+		put '[EditGoto.Destination="fig_FDI"]';
+		put '[InsertPicture.Name="'"C:\temp\BM_FDI_Pct.emf"'"]';
+
+	run;
+
+
+	* Edit replace to improve the presentation of the executive summary;
+    data _null_;
+	    file sas2word;
+	    put '[EditGoto.Destination="ServiceName2"]';
+	    put '[EditReplace Find:="pct", Replace:="'"%"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:="_pct", Replace:="'"%"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:="_lb", Replace:="'"("'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:="_rb", Replace:="'")"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:=". (.%)", Replace:="'"-"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:=". of 0 (.%)", Replace:="'"-"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:="(.)", Replace:="'"(-)"'", ReplaceAll:=1, MatchCase:= False]';
+	    put '[EditReplace Find:="0 (.%)", Replace:="'"-"'", ReplaceAll:=1, MatchCase:= False]';
+		put '[EditReplace Find:=".%", Replace:="'"-"'", ReplaceAll:=1, MatchCase:= False]';
+		put '[EditReplace Find:="-%", Replace:="'"-"'", ReplaceAll:=1, MatchCase:= False]';
+    run;
+
+    data _null_;
+	  file sas2word;
+	  set parameters;
+	  
+	  *file created locally, saves at [C:\Documents and Settings];
+	  *if &state_report = 1 then put '[ChDefaultDir "' "S:\CHSD Shared\AHSRI programs\ePPOC\Reporting\&report_year. Reports\&report_year. &report_type.\State reports" '",0]';
+	  *else if &all_services_flag = 1 then put '[ChDefaultDir "' "S:\CHSD Shared\AHSRI programs\ePPOC\Reporting\&report_year. Reports\&report_year. &report_type." '",0]';
+	  *else put '[ChDefaultDir "' "S:\CHSD Shared\AHSRI programs\ePPOC\Reporting\EOP Reports\&foldername..&Facility_ID" '",0]';  *** used for 2019 Mid Year Report;
+	  *else put '[ChDefaultDir "' "S:\CHSD Shared\AHSRI programs\ePPOC\Reporting\&report_year. Reports\&report_year. &report_type.\Reports\&foldername..&Facility_ID" '",0]';
+	  *if &all_services_flag = 1 then do;
+	  *  if &state_report = 0 then do;
+	  *    if &NZ_report = 0 then put '[FileSaveAs.Name="' "&longname. &report_year. &report_type. - Aust.docx" '"]'; *,.Format=0]; *save report to shared drive;
+	  *    if &NZ_report = 1 then put '[FileSaveAs.Name="' "&longname. &report_year. &report_type. - NZ.docx" '"]'; *,.Format=0]; *save report to shared drive;
+	  *	end;
+	  *	else if &state_report = 1 then put '[FileSaveAs.Name="' "&longname. &report_year. &report_type..docx" '"]'; *,.Format=0]; *save report to shared drive;
+	  *end;
+	  *put '[ChDefaultDir "' "C:\Reports\&foldername..&Facility_ID" '",0]';
+	  *put '[FileSaveAs.Name="' "&longname. &report_year. &report_type..3.&ReportType..&ReportLevel..&DataCollection..&ReportPeriod..&ReportYear..&ReportVersion..&Facility_ID..docx" '"]'; *,.Format=0]; *save report to shared drive;
+	  put '[FileSave]';
+	  put '[FileClose 2]';
+	  put '[FileExit 2]';
+	run;
+
+%mend;
+
+%RunReport(Facility_ID = JHC1, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = LACI, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = PCP1, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = RCH1, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = SCH1, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = WES1, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = STC1, all_services_flag = 0, ReportVersion = 1);
+
+%RunReport(Facility_ID = IPP2, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = TTH2, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = SSC2, all_services_flag = 0, ReportVersion = 1);
+
+
+
+%RunReport(Facility_ID = TCM2, all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = E1,   all_services_flag = 0, ReportVersion = 1);
+%RunReport(Facility_ID = ACIP, all_services_flag = 0, ReportVersion = 1, state_report = 1, special_report = 1);
+%RunReport(Facility_ID = PIPP, all_services_flag = 0, ReportVersion = 1, special_report = 1);
