@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Форма </title>
+    <style>
+        html {
+            font-size: 16px;
+        }
+        body {
+            margin: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 450px;
+            width: 95%;
+            margin: auto;
+            padding: 40px;
+            box-shadow:0 0 10px 1px black;
+            margin-top: 50px;
+        }
+        #form {
+        
+        }
+            input {
+            display: block;
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.4rem;
+            outline: none;
+            font-size: 1rem;
+            letter-spacing: 0.75px;
+            border: none;
+            border-bottom: 1.5px solid black;
+            border-radius: 0;
+            transition: 0.2s ease;
+        }
+        input:focus {
+            border-color: chartreuse;
+        }
+        form-heading {
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.75px;
+        }
+        #submit {
+            border: none;
+            background-color: gold;
+            color: white;
+            text-shadow: 0 0 2px rebeccapurple;
+            border-radius: 50px;
+            padding: 0.6rem;
+            width: 150px;
+            margin-left: calc(100% - 150px);
+            box-shadow: 2px 2px 10px 0 rosybrown;
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin-top: 1.5rem;
+        }
+        #submite:active {
+            transform: translate(2px , 2px);
+            box-shadow: none;
+        }
+        label {
+            display: block;
+            font-size: 1rem;
+            letter-spacing: 0.75px;
+            color: aquamarine;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0px 1000px white inset;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h3 class="form heading"> form </h3>
+    <form id="form" action="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0" method="post">
+        <div class="field">
+            <label form="name"> name </label>
+    <input type="text" id="name">
+    </div>
+    <div class="field">
+        <label form="email"> email </label>
+    <input type="email " id="email">
+    </div>
+    <input type="submit" id="submit">
+    </form>
+    </div>
+    
+    <script>
+        var input = [].slice.call(document.querySelectorAll('input'));
+        input.forEach(function(input) {
+            if(input.getAttribute('type ') !==  'submit') {
+                console.log(input);
+                if(input.value != '' ) {
+                    var label = document.querySelector('label[for="' + input.id + '"]');
+                    label.classList.add('focused');
+                }
+                input.addEventListener('focusin' , focusinInputHandler, false);
+                input.addEventListener('focusout', focusoutInputHandler, false);
+            }
+        })
+        function focusinInputHandler() {
+            var label = document.querySelector('label[for="' + this.id + '"]');
+            label.classList.add('focused')
+           // console.log(label);
+            //console.log(this.id + 'focus in')
+        }
+        function focusoutInputHandler() {
+            var label = document.querySelector('label[for="' + this.id + '"]');
+            if(this.value == '')
+            label.classList.remove('focused');
+           // console.log(this.id + 'focus out')
+        }
+    </script>
+</body>
+</html>
