@@ -21,9 +21,9 @@ The following steps will guide you through the process of committing a change on
 
 1. On the **< > Code** tab in the header menu of your repository, make sure you're on your new branch `my-first-branch`.
 
-2. Select the **Add file** drop-down and click **Create new file**.
+2. Select the **Plus (+) button** drop-down and click **Create new file**.
 
-   ![create new file option](/images/create-new-file.png)
+   ![create new file option](/images/create-new-file-2025.png)
 
 3. In the **Name your file...** field, enter `PROFILE.md`.
 
