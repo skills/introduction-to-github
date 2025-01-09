@@ -36,7 +36,25 @@ In this course, you will:
 3. Open a pull request
 4. Merge your pull request
 
+### What is a bug 
+
+A bug in GitHub is a problem in a repository's code that can be demonstrated. To report a bug in GitHub, you can:
+1. Validate your code.
+2. Search for existing issues.
+3. Check if the issue has been fixed.
+4. Create a minimal, complete, and verifiable example to demonstrate the problem.
+
+### How to create an issue
+ - Go to the repository's main page.
+ - Click Issues under the repository name .
+ - Click New issue.
+ - If the repository uses issue templates, click Get started next to the issue type.
+ - Type a title for the issue in the Title field 
+
+You can use GitHub Issues to track work, give and receive feedback, collaborate on ideas, and communicate with others. 
+
 ### How to start this course
+
 
 <!-- For start course, run in JavaScript:
 'https://github.com/new?' + new URLSearchParams({
