@@ -15,6 +15,7 @@ CREATE TABLE Coach (
     Person integer  NOT NULL,
     Id integer  NOT NULL,
     Salary integer  NOT NULL,
+    sd;lngfjdskjlbgkjsdbgjksbkgskjg
     Experience timestamp  NOT NULL,
     Successes varchar2(300)  NOT NULL,
     HeadMaster integer  NULL,
