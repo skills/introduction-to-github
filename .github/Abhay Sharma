@@ -1,0 +1,529 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> d;
+        for (int i = 0;; ++i) {
+            int x = nums[i];
+            int y = target - x;
+            if (d.contains(y)) {
+                return {d[y], i};
+            }
+            d[x] = i;
+        }
+    }
+};
+**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode();
+        int carry = 0;
+        ListNode* cur = dummy;
+        while (l1 || l2 || carry) {
+            int s = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+            carry = s / 10;
+            cur->next = new ListNode(s % 10);
+            cur = cur->next;
+            l1 = l1 ? l1->next : nullptr;
+            l2 = l2 ? l2->next : nullptr;
+        }
+        return dummy->next;
+    }
+};
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int cnt[128]{};
+        int ans = 0, n = s.size();
+        for (int l = 0, r = 0; r < n; ++r) {
+            ++cnt[s[r]];
+            while (cnt[s[r]] > 1) {
+                --cnt[s[l++]];
+            }
+            ans = max(ans, r - l + 1);
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    int p1 = 0, p2 = 0;
+
+    // Get the smaller value between nums1[p1] and nums2[p2] and move the
+    // pointer forward.
+
+    int getMin(vector<int>& nums1, vector<int>& nums2) {
+        if (p1 < nums1.size() && p2 < nums2.size()) {
+            return nums1[p1] < nums2[p2] ? nums1[p1++] : nums2[p2++];
+        } else if (p1 < nums1.size()) {
+            return nums1[p1++];
+        } else if (p2 < nums2.size()) {
+            return nums2[p2++];
+        }
+        return -1;
+    }
+
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m = int(nums1.size()), n = int(nums2.size());
+
+        if ((m + n) % 2 == 0) {
+            for (int i = 0; i < (m + n) / 2 - 1; ++i) {
+                int _ = getMin(nums1, nums2);
+            }
+            return (double)(getMin(nums1, nums2) + getMin(nums1, nums2)) / 2;
+        } else {
+            for (int i = 0; i < (m + n) / 2; ++i) {
+                int _ = getMin(nums1, nums2);
+            }
+            return getMin(nums1, nums2);
+        }
+
+        return -1;
+    }
+};
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        vector<vector<bool>> f(n, vector<bool>(n, true));
+        int k = 0, mx = 1;
+        for (int i = n - 2; ~i; --i) {
+            for (int j = i + 1; j < n; ++j) {
+                f[i][j] = false;
+                if (s[i] == s[j]) {
+                    f[i][j] = f[i + 1][j - 1];
+                    if (f[i][j] && mx < j - i + 1) {
+                        mx = j - i + 1;
+                        k = i;
+                    }
+                }
+            }
+        }
+        return s.substr(k, mx);
+    }
+};
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) {
+            return s;
+        }
+        vector<string> g(numRows);
+        int i = 0, k = -1;
+        for (char c : s) {
+            g[i] += c;
+            if (i == 0 || i == numRows - 1) {
+                k = -k;
+            }
+            i += k;
+        }
+        string ans;
+        for (auto& t : g) {
+            ans += t;
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    int reverse(int x) {
+        int ans = 0;
+        for (; x; x /= 10) {
+            if (ans < INT_MIN / 10 || ans > INT_MAX / 10) {
+                return 0;
+            }
+            ans = ans * 10 + x % 10;
+        }
+        return ans;
+    }
+};
+class Solution {
+    public int myAtoi(String s) {
+        if (s == null) return 0;
+        int n = s.length();
+        if (n == 0) return 0;
+        int i = 0;
+        while (s.charAt(i) == ' ') {
+            // 仅包含空格
+            if (++i == n) return 0;
+        }
+        int sign = 1;
+        if (s.charAt(i) == '-') sign = -1;
+        if (s.charAt(i) == '-' || s.charAt(i) == '+') ++i;
+        int res = 0, flag = Integer.MAX_VALUE / 10;
+        for (; i < n; ++i) {
+            // 非数字，跳出循环体
+            if (s.charAt(i) < '0' || s.charAt(i) > '9') break;
+            // 溢出判断
+            if (res > flag || (res == flag && s.charAt(i) > '7'))
+                return sign > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            res = res * 10 + (s.charAt(i) - '0');
+        }
+        return sign * res;
+    }
+}
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || (x && x % 10 == 0)) {
+            return false;
+        }
+        int y = 0;
+        for (; y < x; x /= 10) {
+            y = y * 10 + x % 10;
+        }
+        return x == y || x == y / 10;
+    }
+};
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int m = s.size(), n = p.size();
+        int f[m + 1][n + 1];
+        memset(f, 0, sizeof f);
+        function<bool(int, int)> dfs = [&](int i, int j) -> bool {
+            if (j >= n) {
+                return i == m;
+            }
+            if (f[i][j]) {
+                return f[i][j] == 1;
+            }
+            int res = -1;
+            if (j + 1 < n && p[j + 1] == '*') {
+                if (dfs(i, j + 2) or (i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j))) {
+                    res = 1;
+                }
+            } else if (i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j + 1)) {
+                res = 1;
+            }
+            f[i][j] = res;
+            return res == 1;
+        };
+        return dfs(0, 0);
+    }
+};
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int l = 0, r = height.size() - 1;
+        int ans = 0;
+        while (l < r) {
+            int t = min(height[l], height[r]) * (r - l);
+            ans = max(ans, t);
+            if (height[l] < height[r]) {
+                ++l;
+            } else {
+                --r;
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    string intToRoman(int num) {
+        vector<string> cs = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        vector<int> vs = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        string ans;
+        for (int i = 0; i < cs.size(); ++i) {
+            while (num >= vs[i]) {
+                num -= vs[i];
+                ans += cs[i];
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char, int> nums{
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000},
+        };
+        int ans = nums[s.back()];
+        for (int i = 0; i < s.size() - 1; ++i) {
+            int sign = nums[s[i]] < nums[s[i + 1]] ? -1 : 1;
+            ans += sign * nums[s[i]];
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        int n = nums.size();
+        for (int i = 0; i < n - 2 && nums[i] <= 0; ++i) {
+            if (i && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int x = nums[i] + nums[j] + nums[k];
+                if (x < 0) {
+                    ++j;
+                } else if (x > 0) {
+                    --k;
+                } else {
+                    ans.push_back({nums[i], nums[j++], nums[k--]});
+                    while (j < k && nums[j] == nums[j - 1]) {
+                        ++j;
+                    }
+                    while (j < k && nums[k] == nums[k + 1]) {
+                        --k;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        int n = nums.size();
+        for (int i = 0; i < n - 2 && nums[i] <= 0; ++i) {
+            if (i && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int x = nums[i] + nums[j] + nums[k];
+                if (x < 0) {
+                    ++j;
+                } else if (x > 0) {
+                    --k;
+                } else {
+                    ans.push_back({nums[i], nums[j++], nums[k--]});
+                    while (j < k && nums[j] == nums[j - 1]) {
+                        ++j;
+                    }
+                    while (j < k && nums[k] == nums[k + 1]) {
+                        --k;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int ans = 1 << 30;
+        int n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            int j = i + 1, k = n - 1;
+            while (j < k) {
+                int t = nums[i] + nums[j] + nums[k];
+                if (t == target) return t;
+                if (abs(t - target) < abs(ans - target)) ans = t;
+                if (t > target)
+                    --k;
+                else
+                    ++j;
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) {
+            return {};
+        }
+        vector<string> d = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> ans = {""};
+        for (auto& i : digits) {
+            string s = d[i - '2'];
+            vector<string> t;
+            for (auto& a : ans) {
+                for (auto& b : s) {
+                    t.push_back(a + b);
+                }
+            }
+            ans = move(t);
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<vector<int>> ans;
+        if (n < 4) {
+            return ans;
+        }
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < n - 3; ++i) {
+            if (i && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i + 1; j < n - 2; ++j) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int k = j + 1, l = n - 1;
+                while (k < l) {
+                    long long x = (long long) nums[i] + nums[j] + nums[k] + nums[l];
+                    if (x < target) {
+                        ++k;
+                    } else if (x > target) {
+                        --l;
+                    } else {
+                        ans.push_back({nums[i], nums[j], nums[k++], nums[l--]});
+                        while (k < l && nums[k] == nums[k - 1]) {
+                            ++k;
+                        }
+                        while (k < l && nums[l] == nums[l + 1]) {
+                            --l;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* fast = dummy;
+        ListNode* slow = dummy;
+        while (n--) {
+            fast = fast->next;
+        }
+        while (fast->next) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        slow->next = slow->next->next;
+        return dummy->next;
+    }
+};
+class Solution {
+public:
+    bool isValid(string s) {
+        string stk;
+        for (char c : s) {
+            if (c == '(' || c == '{' || c == '[')
+                stk.push_back(c);
+            else if (stk.empty() || !match(stk.back(), c))
+                return false;
+            else
+                stk.pop_back();
+        }
+        return stk.empty();
+    }
+
+    bool match(char l, char r) {
+        return (l == '(' && r == ')') || (l == '[' && r == ']') || (l == '{' && r == '}');
+    }
+};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if (!list1) return list2;
+        if (!list2) return list1;
+        if (list1->val <= list2->val) {
+            list1->next = mergeTwoLists(list1->next, list2);
+            return list1;
+        } else {
+            list2->next = mergeTwoLists(list1, list2->next);
+            return list2;
+        }
+    }
+};
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        function<void(int, int, string)> dfs = [&](int l, int r, string t) {
+            if (l > n || r > n || l < r) return;
+            if (l == n && r == n) {
+                ans.push_back(t);
+                return;
+            }
+            dfs(l + 1, r, t + "(");
+            dfs(l, r + 1, t + ")");
+        };
+        dfs(0, 0, "");
+        return ans;
+    }
+};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        auto cmp = [](ListNode* a, ListNode* b) { return a->val > b->val; };
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq;
+        for (auto head : lists) {
+            if (head) {
+                pq.push(head);
+            }
+        }
+        ListNode* dummy = new ListNode();
+        ListNode* cur = dummy;
+        while (!pq.empty()) {
+            ListNode* node = pq.top();
+            pq.pop();
+            if (node->next) {
+                pq.push(node->next);
+            }
+            cur->next = node;
+            cur = cur->next;
+        }
+        return dummy->next;
+    }
+};
