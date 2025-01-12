@@ -9,7 +9,7 @@
 
 # Introduction to GitHub
 
-_Get started using GitHub in less than an hour._
+we had made changes to this part 
 
 </header>
 
