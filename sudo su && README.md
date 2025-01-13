@@ -1,4 +1,4 @@
-<header>
+sudo su && <header>
 
 <!--
   <<< Author notes: Course header >>>
