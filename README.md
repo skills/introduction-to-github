@@ -1,4 +1,4 @@
-<header>
+@GitHub
 
 <!--
   <<< Author notes: Course header >>>
