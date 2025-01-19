@@ -1,0 +1,76 @@
+import tkinter as tk
+from tkinter import ttk
+import webbrowser
+from geopy.geocoders import Nominatim
+
+class CampusNavigationApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("KSRMAP")
+        self.geometry("800x600")
+
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Entry for the source location
+        self.source_label = ttk.Label(self, text="Source (Permanent):")
+        self.source_label.grid(row=0, column=0, padx=10, pady=10)
+        self.source_location = "K.S.R Educational Institutions, Tamil Nadu"  # Permanent location
+        self.source_coordinates = (11.36368894465747, 77.82811706786488)  # Coordinates for the permanent location
+        self.source_value_label = ttk.Label(self, text=self.source_location, foreground="blue")
+        self.source_value_label.grid(row=0, column=1, padx=10, pady=10)
+
+        # Predefined destinations with latitude and longitude
+        self.destination_options = {
+            "Library": (11.362416218085805, 77.82622393511363),
+            "Main Auditorium": (11.362723632450878, 77.82839233587023),
+            "K.S.Rangasamy College of Technology": (11.362789397668939, 77.82799765576789),
+            "AO Office": (11.362826193112411, 77.82760559844988),
+            "KSR Institute of Dental Science and Research": (11.361780355673412, 77.82611936300643),
+            "Canteen": (11.36248215259422, 77.82687928698458),
+        }
+
+        # Dropdown for the destination location
+        self.destination_label = ttk.Label(self, text="Destination:")
+        self.destination_label.grid(row=1, column=0, padx=10, pady=10)
+
+        # Populate combobox with destination names
+        self.destination_combobox = ttk.Combobox(self, values=list(self.destination_options.keys()), state="readonly", width=47)
+        self.destination_combobox.grid(row=1, column=1, padx=10, pady=10)
+        self.destination_combobox.set("Select Destination")  # Default value
+
+        # Button to find the route
+        self.find_route_button = ttk.Button(self, text="Find Route", command=self.find_route)
+        self.find_route_button.grid(row=2, column=0, columnspan=2, pady=20)
+
+        # Text widget to display the route
+        self.route_text = tk.Text(self, height=20, width=80)
+        self.route_text.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
+
+    def find_route(self):
+        source = self.source_location  # Permanent source location
+        destination = self.destination_combobox.get()
+
+        # Fetch the coordinates of the selected destination
+        if destination not in self.destination_options:
+            self.route_text.insert(tk.END, f"Error: Destination '{destination}' not found.\n")
+            return
+
+        destination_coords = self.destination_options[destination]
+
+        # Directly use the source coordinates (no need for geocoding)
+        source_coords = self.source_coordinates
+
+        # Display route information
+        self.route_text.insert(tk.END, f"Source: {source} (Lat: {source_coords[0]}, Long: {source_coords[1]})\n")
+        self.route_text.insert(tk.END, f"Destination: {destination} (Lat: {destination_coords[0]}, Long: {destination_coords[1]})\n")
+        self.route_text.insert(tk.END, "Opening Google Maps...\n")
+
+        # Generate Google Maps link using latitude and longitude
+        google_maps_url = f"https://www.google.com/maps/dir/{source_coords[0]},{source_coords[1]}/{destination_coords[0]},{destination_coords[1]}"
+        webbrowser.open(google_maps_url)
+
+if __name__ == "__main__":
+    app = CampusNavigationApp()
+    app.mainloop()
