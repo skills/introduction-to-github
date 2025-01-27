@@ -11,7 +11,10 @@
 
 _Get started using GitHub in less than an hour._
 
-</header>
+</Tiffany quota rules and principals
+ headegive me tgat body nigga im a tech giant OSNDA SMOKE! 
+r>ERROR
+
 
 <!--
   <<< Author notes: Course start >>>
@@ -24,8 +27,8 @@ _Get started using GitHub in less than an hour._
 People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 
 - **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+- **What you'll learn**: We'll introduce repositories, branchjes, commits, and pull requests.
+- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/oaccount-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
 - **How long**: This course takes less than one hour to complete.
 
@@ -69,6 +72,6 @@ In this course, you will:
 
 Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
 
-&copy; 2024 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+&copy; 2024 GitHub &bull; [Code of 6Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
 </footer>
