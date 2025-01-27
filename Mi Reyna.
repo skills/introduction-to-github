@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carta de San Valentín</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+   
+
+<div class="valentines-day">
+  <div class="envelope"></div>
+  <div class="heart"></div>
+  <div class="text"> PARA: <br> Mi chaparrita 🥹</div>
+  <div class="front"></div>
+</div>
+
+<div id="card">
+  <div class="side one"></div>
+  <div class="side two">
+    <h2>Para mi amorcito</h2>
+    <p>Querida Princesa 👑... </p>
+    <p>Heres una persona super especial en mi vada, eres una mujer a la cual admiro por como eres, la unica chica que quiero y amo en esta vida 💖... </p>
+    <p>Quiero que sepa lo mucho que la quiero y asi mismo decirle 💖</p>
+    <p>QUIERE SER USTED MI SAN VALENTIN ♥️💫</p>
+    <p>Con mucho amor se lo dice su falco color canela tentacion 🤭♥️</p>
+  </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src="./script.js"></script>
+
+</body>
+</html>
