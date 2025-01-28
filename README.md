@@ -14,7 +14,7 @@ _Get started using GitHub in less than an hour._
 </Tiffany yes !
 quota rules and principals
  headegive me tgat body nigga im a tech giant OSNDA SMOKE! 
-r>ERROR
+r>ERROR 
 
 
 <!--
@@ -28,7 +28,9 @@ come !!!
 GAMETIME!
 
 
-People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
+People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole hell yea  tgey got mr fucked it! 
+come on imna show you repisitory 
+community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
 GET OUT MT FYCJUBG FACE!
 - **Who is this for**: New developers, new GitHub users, and students.
 - **What you'll learn**: We'll introduce repositories, branchjes, commits, and pull requests.
