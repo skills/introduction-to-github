@@ -1,0 +1,139 @@
+<html>
+<head>
+    <title>HOME ME</title>
+    <link rel="stylesheet" href="home.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- NAVIGATION BAR -->
+        <div class="container-navbar">
+            <ul class="ul-navbar">
+                <li class="li-navbar">
+                    <a href="home1.html" class="a-navbar">HOME</a>
+                </li>
+                <li class="li-navbar">
+                    <a href="about1.html" class="a-navbar">ABOUT ME</a>
+                </li>
+                <li class="li-navbar">
+                    <a href="contact1.html" class="a-navbar">CONTACT ME</a>
+                </li>
+            </ul>
+        </div>
+        <!-- NAVIGATION BAR SELESAI -->
+
+        <!-- CONTENT 1 -->
+        <div class="container-content">
+            <a href="https://www.youtube.com/watch?v=z0P19YbE3T0" class="a-content">
+                <img src="Nopal.JPG" class="img-content" />
+            </a>
+
+        </div>
+        <!-- CONTENT 1 END -->
+
+        <!-- FOOTER -->
+        <div class="container-footer">
+            <h1 class="h1-footer">Website ini dibuat sepenuh hati 😍</h1>
+        </div>
+        <!-- FOOTER END -->
+    </div>
+</body>
+
+</html>
+
+
+*,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+     
+}
+
+.container-navbar {
+    background-color: #333;
+    width: 100%;
+    height: 10vh;
+}
+
+.ul-navbar {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.li-navbar {
+    list-style-type: none;
+    padding: 20px;
+    margin: 5px;
+    color: white;
+    font-size: 24px;
+}   
+
+.li-navbar:hover {
+    background-color: black;
+    transition: .1s ease-in-out;
+    transition-delay: .1,5s;
+    border-radius: 20px;
+}
+
+.a-navbar {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container-content {
+    height: 80%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.a-content {
+    width: 720px;
+    height: 480px;
+    background-color: black;
+    text-decoration: none;
+    font-size: 30px;
+    border-radius: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+   
+}
+
+.img-content {
+    width: 80%;
+    height: 90%;
+    border-radius: 80px;
+    box-shadow: 0px 0px 14px 14px rgba(255,255,255,0.72);
+    -webkit-box-shadow: 0px 0px 14px 14px rgba(255,255,255,0.72);
+    -moz-box-shadow: 0px 0px 14px 14px rgba(255,255,255,0.72);
+}
+
+.container-footer {
+    height: 10vh;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1-footer {
+    font-size: 40px;
+    color: white;
+}
+
+
+
+
+
+
+
