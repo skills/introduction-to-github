@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffccd5;
+            background-image: url('https://placekitten.com/800/600');
+            background-size: cover;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        h1 {
+            color: #d63384;
+        }
+
+        p {
+            color: #555;
+        }
+
+        button {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #c9184a;
+        }
+
+        #heart {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: url('https://example.com/heart-image.jpg') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="initial-card">
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <div id="heart"></div>
+        <div class="buttons">
+            <button onclick="answerYes()">Aceptar</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+    <div class="card" id="thanks-card" style="display: none;">
+        <h1>¡Gracias por aceptar! ❤️</h1>
+        <p>Eres la persona más especial para mí, y no puedo esperar para celebrar este día contigo. ¡Te quiero muchísimo! 💕</p>
+    </div>
+    <script>
+        function answerYes() {
+            document.getElementById('initial-card').style.display = 'none';
+            document.getElementById('thanks-card').style.display = 'block';
+        }
+
+        document.getElementById("noBtn").addEventListener("mouseover", function() {
+            this.style.position = "absolute";
+            this.style.top = Math.random() * window.innerHeight + "px";
+            this.style.left = Math.random() * window.innerWidth + "px";
+        });
+    </script>
+</body>
+</html>
