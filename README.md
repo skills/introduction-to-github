@@ -73,3 +73,4 @@ Get help: [Post in our discussion board](https://github.com/orgs/skills/discussi
 
 </footer>
 this is the text iam adding to readme.md
+copying this to readme filr
