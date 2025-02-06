@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .yes {
+            background-color: lightgreen;
+        }
+        .no {
+            background-color: lightcoral;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>¿Querés ser mi San Valentín??</h2>
+    <div class="buttons">
+        <button class="yes" onclick="decirSi()">Sí</button>
+        <button class="no" onclick="moverNo()" id="noBtn">No</button>
+    </div>
+    <p id="mensaje" style="font-size: 20px; margin-top: 20px; color: red;"></p>
+</div>
+
+<script>
+    function decirSi() {
+        document.getElementById("mensaje").innerText = "Sabía que ibas a decir que sí, TE AMOOO ❤️";
+    }
+
+    function moverNo() {
+        let btnNo = document.getElementById("noBtn");
+        let maxWidth = window.innerWidth - btnNo.clientWidth - 40;
+        let maxHeight = window.innerHeight - btnNo.clientHeight - 40;
+        
+        let randomX = Math.floor(Math.random() * maxWidth);
+        let randomY = Math.floor(Math.random() * maxHeight);
+        
+        btnNo.style.left = randomX + "px";
+        btnNo.style.top = randomY + "px";
+    }
+</script>
+
+</body>
+</html>
