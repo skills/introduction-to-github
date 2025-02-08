@@ -1,4 +1,79 @@
 <header>
+from moviepy.editor import ColorClip, TextClip, CompositeVideoClip, concatenate_videoclips
+from moviepy.video.fx.all import fadein, fadeout
+
+# Video settings
+width, height = 720, 1280  # Video resolution
+fps = 24                   # Frames per second
+
+def create_scene(text, duration, bg_color):
+    """
+    Creates a scene with a colored background and centered text.
+    """
+    # Create a background clip
+    background = ColorClip(size=(width, height), color=bg_color, duration=duration)
+    # Create a text clip
+    txt_clip = TextClip(
+        text,
+        fontsize=70,
+        color='black',
+        font="Arial-Bold",
+        method='caption',
+        size=(width-100, None)
+    ).set_duration(duration).set_position('center')
+    # Combine background and text
+    scene = CompositeVideoClip([background, txt_clip])
+    return scene
+
+# Define each scene based on the storyboard
+
+# Scene 1: Introduction (Signature Piece Remix Challenge)
+scene1 = create_scene(
+    "Signature Piece Remix Challenge\nOne item. Three iconic looks.",
+    duration=3,
+    bg_color=(240, 240, 240)
+)
+
+# Scene 2: Look #1 – Casual Vibes
+scene2 = create_scene(
+    "Casual Vibes",
+    duration=9,
+    bg_color=(220, 220, 255)
+)
+
+# Scene 3: Look #2 – Edgy Evening
+scene3 = create_scene(
+    "Edgy Evening",
+    duration=9,
+    bg_color=(255, 220, 220)
+)
+
+# Scene 4: Look #3 – Chic & Professional
+scene4 = create_scene(
+    "Chic & Professional",
+    duration=7,
+    bg_color=(220, 255, 220)
+)
+
+# Scene 5: Call-to-Action
+scene5 = create_scene(
+    "Which look is your favorite?\nTag @YourHandle in your remix challenge!",
+    duration=3,
+    bg_color=(240, 240, 240)
+)
+
+# Optionally, add fade in/out transitions for each scene
+scene1 = scene1.fx(fadein, 0.5).fx(fadeout, 0.5)
+scene2 = scene2.fx(fadein, 0.5).fx(fadeout, 0.5)
+scene3 = scene3.fx(fadein, 0.5).fx(fadeout, 0.5)
+scene4 = scene4.fx(fadein, 0.5).fx(fadeout, 0.5)
+scene5 = scene5.fx(fadein, 0.5).fx(fadeout, 0.5)
+
+# Concatenate all scenes into a final video
+final_video = concatenate_videoclips([scene1, scene2, scene3, scene4, scene5])
+
+# Write the result to a file
+final_video.write_videofile("signature_piece_remix_challenge_demo.mp4", fps=fps)
 
 <!--
   <<< Author notes: Course header >>>
