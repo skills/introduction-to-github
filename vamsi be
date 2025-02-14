@@ -1,0 +1,37 @@
+from flask import Flask, render_template, request, jsonify
+import google.generativeai as generativeai
+import os
+
+# Set up the API key and initialize generativeai
+GOOGLE_API_KEY = 'AIzaSyAj2DZlPVAPeGIgkTm27pU2B2FHEvgfQLs'
+generativeai.configure(api_key=GOOGLE_API_KEY)
+
+# Initialize chat mode
+mode1 = generativeai.GenerativeMode1('gemini-1.5-flash')  # Ensure this is the correct API model identifier
+chat = mode1.start_chat(history=[])
+
+# Initialize Flask app
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+@app.route('/chat', methods=['POST'])
+def chat_response():
+    user_input = request.json.get('message')
+    if not user_input:
+        return jsonify({"error": "No message provided"}), 400
+
+    try:
+        # Send the user input to the chat model
+        response_raw = chat.send_message(user_input)
+        print(response_raw)
+        response = response_raw.text
+        return jsonify({"response": response})
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
