@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMA Ibnu'Aqil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="logo.jpg">
+</head> 
+<body>
+    <nav class="navbar" style="background-color: #156c26;">
+        <div class="container d-flex align-items-center">
+            <a class="navbar-brand text-white d-flex align-items-center" href="#">
+                <img src="logo.jpg" alt="Logo SMA Ibnu Aqil" width="50" height="50" class="me-2">
+                SMA IBNU'AQIL
+            </a>
+        </div>
+    </nav>
+    <div class="text-center position-relative">
+        <img src="gambarGedungjpg.jpg" alt="Gedung SMA Ibnu Aqil"
+            class="img-fluid w-100" style="max-height: 500px; object-fit: cover;">
+        <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
+            <h1>SMA IBNU'AQIL</h1>
+            <p>Serba Bisa, Pasti Bisa SUKSES!</p>
+            <a class="btn text-white btn-lg" style="background-color: #156c26;" href="#">Pelajari Lebih Lanjut</a>
+        </div>
+    </div>
+    <div class="text-center py-5" style="background-color: #50c878; color: white;">
+        <h1>Daftar Sekarang di SMA IBNU'AQIL</h1>
+        <p class="lead">Pendidikan Agama Islam untuk Masa Depan Gemilang</p>
+        <a class="btn text-white btn-lg" style="background-color: #156c26;" href="#form-pendaftaran">Daftar Sekarang</a>
+    </div>
+    <div class="container text-center my-5">
+        <h2>Lokasi SMA IBNU'AQIL</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.547667284179!2d106.75168387499338!3d-6.578624393414845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c4e5e598cc95%3A0x3fdb26f15a14bf98!2sIbnu%20Aqil%20Laladon!5e0!3m2!1sid!2sid!4v1739796791753!5m2!1sid!2sid" 
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+
+</body>
+</html>
