@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Mejores Accesorios para iPhone 16</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .product {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .product a {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .product a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Los Mejores Accesorios para iPhone 16</h1>
+    </header>
+    <div class="container">
+        <!-- Producto 1: Funda -->
+        <div class="product">
+            <h2>Funda para iPhone 16</h2>
+            <p>Protege tu iPhone 16 con esta funda resistente y elegante. Disponible en varios colores.</p>
+            <a href="https://amzn.to/4b8ZpFz" target="_blank">Comprar en Amazon</a>
+        </div>
+
+        <!-- Producto 2: Cargador rápido -->
+        <div class="product">
+            <h2>Cargador Rápido para iPhone 16</h2>
+            <p>Cargador rápido USB-C con 2 cables de 6 pies. Compatible con iPhone 16, 15, iPad Pro y más.</p>
+            <a href="https://amzn.to/41i7naW" target="_blank">Comprar en Amazon</a>
+        </div>
+
+        <!-- Producto 3: Malla anti-polvo -->
+        <div class="product">
+            <h2>Malla Anti-Polvo para iPhone 16 Pro</h2>
+            <p>Protege el altavoz de tu iPhone 16 Pro con estas mallas adhesivas anti-polvo. Incluye 5 piezas.</p>
+            <a href="https://amzn.to/3QtPlNB" target="_blank">Comprar en Amazon</a>
+        </div>
+    </div>
+</body>
+</html> 
