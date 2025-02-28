@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeautyBazaar - Your Ultimate Beauty Destination</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #ff6f61;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #444;
+      padding: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.1rem;
+    }
+
+    nav a:hover {
+      color: #ff6f61;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+      color: #fff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .hero .cta-button {
+      background: #ff6f61;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+    }
+
+    .hero .cta-button:hover {
+      background: #e65a50;
+    }
+
+    /* Products Section */
+    .products {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .product-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .product-item h3 {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .product-item p {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .product-item .price {
+      font-size: 1.2rem;
+      color: #ff6f61;
+      font-weight: bold;
+    }
+
+    .product-item button {
+      background: #ff6f61;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .product-item button:hover {
+      background: #e65a50;
+    }
+
+    /* Bulk Order Section */
+    .bulk-order {
+      background: #444;
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .bulk-order h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .bulk-order p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .bulk-order .cta-button {
+      background: #ff6f61;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+    }
+
+    .bulk-order .cta-button:hover {
+      background: #e65a50;
+    }
+
+    /* Shopping Cart */
+    #cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    #cart h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    #cart-items {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    #cart-items li {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    #cart-total {
+      font-weight: bold;
+    }
+
+    #cart button {
+      background: #ff6f61;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #cart button:hover {
+      background: #e65a50;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>BeautyBazaar</h1>
+    <p>Your Ultimate Beauty Destination</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#products">Shop Now</a>
+    <a href="#bulk-order">Bulk Orders</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Discover the Beauty of Savings</h2>
+    <p>Shop the latest beauty products at unbeatable prices.</p>
+    <a href="#products" class="cta-button">Explore Products</a>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product-item">
+        <img src="https://via.placeholder.com/250" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>Description of product 1.</p>
+        <p class="price">$19.99</p>
+        <button onclick="addToCart('Product 1', 19.99)">Add to Cart</button>
+      </div>
+      <div class="product-item">
+        <img src="https://via.placeholder.com/250" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>Description of product 2.</p>
+        <p class="price">$29.99</p>
+        <button onclick="addToCart('Product 2', 29.99)">Add to Cart</button>
+      </div>
+      <div class="product-item">
+        <img src="https://via.placeholder.com/250" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>Description of product 3.</p>
+        <p class="price">$39.99</p>
+        <button onclick="addToCart('Product 3', 39.99)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bulk Order Section -->
+  <section id="bulk-order" class="bulk-order">
+    <h2>Need Products in Bulk?</h2>
+    <p>We offer wholesale pricing for businesses. Contact us today!</p>
+    <a href="#contact" class="cta-button">Request a Quote</a>
+  </section>
+
+  <!-- Shopping Cart -->
+  <div id="cart">
+    <h3>Shopping Cart</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+    <button onclick="checkout()">Checkout</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 BeautyBazaar. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Shopping Cart -->
+  <script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price: price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+    }
+
+    function checkout() {
+      alert(`Thank you for your purchase! Total: $${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`);
+      cart = [];
+      updateCart();
+    }
+  </script>
+</body>
+</html>
