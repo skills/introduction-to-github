@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main(){ 
+int num1, num2,sum,diff,prod;
+printf("Enter an integer: /n");
+scanf("%d", num1);
+printf("Enter a second integer: /n");
+scanf("%d", num2);
+sum=num1+num2;
+diff=num1-num2;
+prod=num1*num2;
+printf("/nSum, difference and products of the two numbers is: ", sum,diff,prod);
+return 0;
+}
