@@ -1,9 +1,3 @@
-<!--
-  <<< Author notes: Step 2 >>>
-  Start this step by acknowledging the previous step.
-  Define terms and link to docs.github.com.
--->
-
 ## Step 2: Commit a file
 
 _You created a branch! :tada:_
@@ -23,7 +17,7 @@ The following steps will guide you through the process of committing a change on
 
 2. Select the **Add file** drop-down and click **Create new file**.
 
-   ![create new file option](/images/create-new-file.png)
+   ![screenshot of the create new file option](https://github.com/user-attachments/assets/cfb062cd-be60-4f12-948c-0946a6fe01da)
 
 3. In the **Name your file...** field, enter `PROFILE.md`.
 
@@ -33,11 +27,21 @@ The following steps will guide you through the process of committing a change on
    Welcome to my GitHub profile!
    ```
 
-   ![profile.md file screenshot](/images/my-profile-file.png)
+   ![screenshot for adding the profile.md file](https://github.com/user-attachments/assets/e00540be-4334-4d0d-adc2-9893b5477a91)
 
 5. Click **Commit changes...** in the upper right corner above the contents box. For commits, you can enter a short commit message that describes what changes you made. This message helps others know what's included in your commit. GitHub offers a simple default message, but let's change it slightly for practice. First, enter `Add PROFILE.md` in the first text-entry field titled "Commit message".
 
-   ![screenshot of adding a new file with a commit message](/images/commit-full-screen.png)
+   ![screenshot of adding a new file with a commit message](https://github.com/user-attachments/assets/6ab299ce-8039-4734-a707-d7c3cd7077a0)
 
 6. In this lesson, we'll ignore the other fields and click **Commit changes**.
-7. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+
+7. Wait a moment for the bot to check your work. You will see a comment with progress info and the next lesson.
+
+<details>
+<summary>Having trouble? 🤷</summary><br/>
+
+If you don't get feedback, here are some things to check:
+- Make sure you are on the `my-first-branch` branch.
+- Ensure the `PROFILE.md` file is created and in the root folder.
+
+</details>
