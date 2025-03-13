@@ -6,10 +6,13 @@
   In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
   Add your open source license, GitHub uses MIT license.
 -->
+# GitHubはじめの一歩
 
-# Introduction to GitHub
+１時間ちょっとでGitHubをはじめましょう。
 
-_Get started using GitHub in less than an hour._
+> # Introduction to GitHub
+> 
+> _Get started using GitHub in less than an hour._
 
 </header>
 
@@ -18,23 +21,37 @@ _Get started using GitHub in less than an hour._
   Include start button, a note about Actions minutes,
   and tell the learner why they should take the course.
 -->
+GitHubは、世界最先端の技術開発に広く利用されています。データ視覚化からゲーム開発に至るまで、GitHubにはコミュニティとツール群が備わっており、開発をより効率的に進めることができます。GitHub Skillsの「GitHubはじめの一歩」コースでは、1時間以内に貢献を開始するために必要な基本事項を網羅的に解説します。
 
-## Welcome
+* 対象者: 新規開発者、GitHub新規ユーザー、学生。
+* 学習内容: リポジトリ、ブランチ、コミット、プルリクエストの基本を紹介します。
+* 作成物: Profile READMEとして利用可能なMarkdownファイルを作成します。
+* 前提条件: 特になし。GitHub利用初日における最適な入門コースです。
+* 所要時間: 1時間以内に完了します。
 
-People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
+> ## Welcome
+> 
+> People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” course guides you through everything you need to start contributing in less than an hour.
+> 
+> - **Who is this for**: New developers, new GitHub users, and students.
+> - **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
+> - **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+> - **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
+> - **How long**: This course takes less than one hour to complete.
 
-- **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
-- **Prerequisites**: None. This course is a great introduction for your first day on GitHub.
-- **How long**: This course takes less than one hour to complete.
+このコースでやること: 
 
-In this course, you will:
+1. ブランチの作成
+2. ファイルのコミット
+3. プルリクエストの作成
+4. プルリクエストのマージ
 
-1. Create a branch
-2. Commit a file
-3. Open a pull request
-4. Merge your pull request
+> In this course, you will:
+> 
+> 1. Create a branch
+> 2. Commit a file
+> 3. Open a pull request
+> 4. Merge your pull request
 
 ### How to start this course
 
@@ -49,7 +66,16 @@ In this course, you will:
 }).toString()
 -->
 
-[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=My+clone+repository&visibility=public)
+
+[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=imachange&template_name=introduction-to-github-ja&owner=%40me&name=skills-introduction-to-github&description=My+clone+repository&visibility=public)
+> [![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=My+clone+repository&visibility=public)
+
+1. **Start course**を右クリックし、新しいタブでリンクを開いてください。
+2. 新しいタブでは、ほとんどの入力欄が自動的に入力されます。
+  - 「owner（所有者）」には、リポジトリをホストする個人アカウントまたは組織を選択してください。
+  - プライベートリポジトリはActionsの実行時間を使用するため、パブリックリポジトリの作成をおすすめします。
+  - 下にスクロールし、フォームの一番下にある「Create repository（リポジトリを作成）」ボタンをクリックしてください。
+3. 新しいリポジトリが作成されたら、約20秒待ってからページを更新してください。新しいリポジトリのREADMEに記載されているステップ・バイ・ステップの手順に従ってください。
 
 1. Right-click **Start course** and open the link in a new tab.
 2. In the new tab, most of the prompts will automatically fill in for you.
