@@ -16,34 +16,24 @@ permissions:
   actions: write
   issues: write
 
+env:
+  REVIEW_FILE: ".github/steps/x-review.md"
+
 jobs:
-  find_lesson:
-    name: Find lesson by issue title
-    runs-on: ubuntu-latest
-    if: |
-      !github.event.repository.is_template
-
-    outputs:
-      issue-url: ${{ steps.get-issue-url-by-title.outputs.ISSUE_URL }}
-
-    steps:
-      - id: get-issue-url-by-title
-        run: |
-          issue_url=$(gh issue list --repo ${{ github.repository }} --search "in:title Course:" --json url,title --jq '.[].url')
-          echo "ISSUE_URL=$issue_url" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  find_exercise:
+    name: Find Exercise Issue
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@dev
 
   check_step_work:
     name: Check step work
-    needs: find_lesson
+    needs: find_exercise
     runs-on: ubuntu-latest
     if: |
       !github.event.repository.is_template &&
       github.head_ref == 'my-first-branch' &&
       github.event.pull_request.merged == true
     env:
-      ISSUE_URL: ${{ needs.find_lesson.outputs.issue-url }}
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
     steps:
       - name: Get response templates
@@ -65,12 +55,12 @@ jobs:
 
   post_review_content:
     name: Post review content
-    needs: [find_lesson, check_step_work]
+    needs: [find_exercise, check_step_work]
     runs-on: ubuntu-latest
     if: |
       !github.event.repository.is_template
     env:
-      ISSUE_URL: ${{ needs.find_lesson.outputs.issue-url }}
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
     steps:
       - name: Checkout
@@ -79,78 +69,28 @@ jobs:
       - name: Create comment - add review content
         run: |
           gh issue comment "$ISSUE_URL" \
-            --body-file .github/steps/x-review.md
+            --body-file ${{ env.REVIEW_FILE }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  finish_course:
-    name: Finish course
-    needs: [find_lesson, post_review_content]
+  finish_exercise:
+    name: Finish Exercise
+    needs: [find_exercise, post_review_content]
+    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@dev
+    with:
+      issue-url: ${{ needs.find_exercise.outputs.issue-url }}
+
+
+  disable_workflow:
+    name: Disable this workflow
+    needs: [find_exercise, post_review_content]
     runs-on: ubuntu-latest
-    env:
-      ISSUE_URL: ${{ needs.find_lesson.outputs.issue-url }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Get response templates
-        uses: actions/checkout@v4
-        with:
-          repository: skills/response-templates
-          path: skills-response-templates
-
-      - name: Configure Git user
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
-
-      - name: Build message - congratulations
-        id: build-message-congratulations
-        uses: skills/action-text-variables@v1
-        with:
-          template-file: skills-response-templates/readme/congratulations.md
-          template-vars: |
-            login=${{ github.actor }}
-
-      - name: Update README - congratulations
-        run: |
-          # Add "Congratulations" to the start of the README
-          orig_readme=$(cat README.md)
-          new_readme="${{ steps.build-message-congratulations.outputs.updated-text }} $orig_readme"
-
-          # Update file and push
-          echo "$new_readme" > README.md
-          git add README.md
-          git commit --message="Congratulations!🎉"
-          git push
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build message - lesson finished
-        id: build-finish-message
-        uses: skills/action-text-variables@v1
-        with:
-          template-file: skills-response-templates/step-feedback/lesson-finished.md
-          template-vars: |
-            login=${{ github.actor }}
-            repo_full_name=${{ github.repository }}
-
-      - name: Create comment - lesson finished
-        run: |
-          gh issue comment "$ISSUE_URL" \
-            --body "${{ steps.build-finish-message.outputs.updated-text }}"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Close issue
-        run: gh issue close "$ISSUE_URL"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Disable current workflow
         run: gh workflow disable "${{github.workflow}}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
