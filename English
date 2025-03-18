@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аляска - Природа и Культура</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #0077cc;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 10px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #0077cc;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Добро пожаловать на сайт о Аляске!</h1>
+    <nav>
+        <a href="#nature">Природа</a>
+        <a href="#culture">Культура</a>
+        <a href="#attractions">Достопримечательности</a>
+    </nav>
+</header>
+
+<div class="container">
+    <section id="nature">
+        <h2>Природа Аляски</h2>
+        <img src="https://example.com/alaska-nature.jpg" alt="Природа Аляски">
+        <p>Аляска известна своими потрясающими пейзажами, включая горы, ледники и обширные леса. Здесь можно увидеть уникальную флору и фауну.</p>
+    </section>
+
+    <section id="culture">
+        <h2>Культура Аляски</h2>
+        <img src="https://example.com/alaska-culture.jpg" alt="Культура Аляски">
+        <p>Культура Аляски разнообразна и включает в себя традиции коренных народов, а также влияние европейских и американских культур.</p>
+    </section>
+
+    <section id="attractions">
+        <h2>Достопримечательности</h2>
+        <img src="https://example.com/alaska-attractions.jpg" alt="Достопримечательности Аляски">
+        <p>На Аляске много интересных мест для посещения, включая национальные парки, исторические памятники и живописные города.</p>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2023 Сайт о Аляске. Все права защищены.</p>
+</footer>
+
+</body>
+</html>
