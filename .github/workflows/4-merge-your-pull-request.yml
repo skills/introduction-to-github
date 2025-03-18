@@ -39,8 +39,9 @@ jobs:
       - name: Get response templates
         uses: actions/checkout@v4
         with:
-          repository: skills/response-templates
-          path: skills-response-templates
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: dev # TODO: change to tag
 
       - name: Nothing to check
         run: echo "The workflow was triggered, so it passes."
@@ -48,7 +49,7 @@ jobs:
       - name: Update comment - step finished - final review next
         run: |
           gh issue comment "$ISSUE_URL" \
-            --body-file skills-response-templates/step-feedback/lesson-review.md \
+            --body-file exercise-toolkit/markdown-templates/step-feedback/lesson-review.md \
             --edit-last
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

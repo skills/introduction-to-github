@@ -45,8 +45,9 @@ jobs:
       - name: Get response templates
         uses: actions/checkout@v4
         with:
-          repository: skills/response-templates
-          path: skills-response-templates
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: dev # TODO: change to tag
 
       - name: Update comment - congratulate first PR
         run: |
@@ -104,7 +105,7 @@ jobs:
         id: build-message-step-results
         uses: skills/action-text-variables@v1
         with:
-          template-file: skills-response-templates/step-feedback/step-results.md
+          template-file: exercise-toolkit/markdown-templates/step-feedback/step-results.md
           template-vars: '{
             "step_number": 3,
             "passed": ${{ steps.check-user-work.outputs.passed }},
@@ -131,7 +132,7 @@ jobs:
         id: build-message-step-finish
         uses: skills/action-text-variables@v1
         with:
-          template-file: skills-response-templates/step-feedback/step-finished-prepare-next-step.md
+          template-file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
           template-vars: |
             next_step_number=4
 
@@ -156,8 +157,9 @@ jobs:
       - name: Get response templates
         uses: actions/checkout@v4
         with:
-          repository: skills/response-templates
-          path: skills-response-templates
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: dev # TODO: change to tag
 
       - name: Create comment - add step content
         run: |
@@ -169,7 +171,7 @@ jobs:
       - name: Create comment - watching for progress
         run: |
           gh issue comment "$ISSUE_URL" \
-            --body-file skills-response-templates/step-feedback/watching-for-progress.md
+            --body-file exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
