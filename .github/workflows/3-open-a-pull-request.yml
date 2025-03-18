@@ -26,7 +26,7 @@ env:
 jobs:
   find_exercise:
     name: Find Exercise Issue
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@dev
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@main # TODO: Change to tag
 
   check_step_work:
     name: Check step work
@@ -47,7 +47,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: dev # TODO: change to tag
+          ref: main # TODO: change to tag
 
       - name: Update comment - congratulate first PR
         run: |
@@ -159,7 +159,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: dev # TODO: change to tag
+          ref: main # TODO: change to tag
 
       - name: Create comment - add step content
         run: |
