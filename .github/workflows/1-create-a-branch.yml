@@ -52,7 +52,7 @@ jobs:
         id: build-message-step-finish
         uses: skills/action-text-variables@v1
         with:
-          template-file: exercise-toolkit/markdown-templates/step-finished-prepare-next-step.md
+          template-file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
           template-vars: |
             next_step_number=2
 
