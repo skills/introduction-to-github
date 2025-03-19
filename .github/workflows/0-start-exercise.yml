@@ -17,7 +17,7 @@ env:
 jobs:
   start_exercise:
     name: Start Exercise
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@main # TODO: Change to tag
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
     with:
       exercise-title: "Introduction to GitHub"
       intro-message: "If you are new to GitHub, you might find your fellow developers use ___**issues**___  to organize their work and collaborate. We will do the same! That's another lesson, but today, we will introduce you to the basics."
@@ -39,8 +39,8 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: main # TODO: Change to tag
-
+          ref: v0.1.0
+          
       - name: Create comment - add step content
         run: |
           gh issue comment "$ISSUE_URL" \
