@@ -55,7 +55,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check contents of 'PROFILE.md' # TODO: Change to the table check
+      - name: Check contents of 'PROFILE.md'
         run: |
           if [ ! -s "PROFILE.md" ]; then
             message="Your PROFILE.md file is empty. Please edit the file, add content and commit again."
