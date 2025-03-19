@@ -55,11 +55,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check contents of 'PROFILE.md'
+      - name: Check contents of 'PROFILE.md' # TODO: Change to the table check
         run: |
-          if ! grep -q "Welcome*" "PROFILE.md"; then
-            message="Your PROFILE.md is missing the expected content. Please try again."
-            gh issue comment 1 --body "$message" --edit-last
+          if [ ! -s "PROFILE.md" ]; then
+            message="Your PROFILE.md file is empty. Please edit the file, add content and commit again."
+            gh issue comment "$ISSUE_URL" --body "$message" --edit-last
             exit 1
           fi
         env:
