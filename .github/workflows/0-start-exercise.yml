@@ -16,6 +16,7 @@ env:
 
 jobs:
   start_exercise:
+    if: !github.event.repository.is_template
     name: Start Exercise
     uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
     with:
@@ -40,7 +41,7 @@ jobs:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
           ref: v0.1.0
-          
+
       - name: Create comment - add step content
         run: |
           gh issue comment "$ISSUE_URL" \
