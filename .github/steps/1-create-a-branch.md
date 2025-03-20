@@ -28,23 +28,29 @@ GitHub shows your profile README at the top of your profile page. For more infor
 
 ### :keyboard: Activity: Your first branch
 
-1. Open a new browser tab and navigate to your newly made repository. Then, work on the steps in your second tab while you read the instructions in this tab.
+1. Open a new browser tab and navigate to your newly made repository (your copy of this exercise). Then, work on the steps in your second tab while you read the instructions in this tab.
 
-2. Navigate to the **< > Code** tab in the header menu of your repository.<br/>
+2. Navigate to the **< > Code** tab in the header menu of your repository.
+
    ![screenshot highlighting the code tab](https://github.com/user-attachments/assets/8e1283ea-9cea-4a7e-8359-a7617734ff9a)
 
-3. Click on the **main** branch drop-down.<br/>
-   ![screenshot highlighting the branch selection](https://github.com/user-attachments/assets/1a07c958-cebf-4ca5-805e-22c1725635ba)
+3. Click on the **main** branch drop-down.
 
-4. In the text box **Find or create a branch...", enter `my-first-branch`.
-   - Note: This is checked to continue with the next step. :wink: 
+   <img width="300" alt="screenshot highlighting the branch selection" src="https://github.com/user-attachments/assets/1a07c958-cebf-4ca5-805e-22c1725635ba">
 
-5. Click the text **Create branch: `my-first-branch` from main** to create your branch.<br/>
-   ![screenshot highlighting the create branch prompt](https://github.com/user-attachments/assets/99d19ff5-4482-4210-ae45-84e7b7c47632)<br/>
-   The branch will automatically switch to the one you just created.
-   The **main** branch drop-down menu will display your new branch name.
+4. In the text box **Find or create a branch...**, enter `my-first-branch`.
+   
+   > **Note:** This is checked to continue with the next step. :wink: 
 
-6. Wait a moment for the bot to check your work. You will see a comment with progress info and the next lesson.
+5. Click the text **Create branch: `my-first-branch` from main** to create your branch.
+   
+   <img width="300" alt="screenshot highlighting the create branch prompt" src="https://github.com/user-attachments/assets/99d19ff5-4482-4210-ae45-84e7b7c47632">
+
+   - The branch will automatically switch to the one you just created.
+   - The **main** branch drop-down menu will display your new branch name.
+
+6. Now that your branch is pushed to GitHub, Mona should already be busy checking your work. Give her a moment and keep watch in the comments. You will see her respond with progress info and the next lesson.
+
 
 <details>
 <summary>Having trouble? 🤷</summary><br/>

@@ -8,8 +8,6 @@ on:
   push:
     branches:
       - "my-first-branch"
-    paths:
-      - PROFILE.md
 
 permissions:
   contents: read
