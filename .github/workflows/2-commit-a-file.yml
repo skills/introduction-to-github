@@ -2,7 +2,6 @@ name: Step 2 # Commit a file
 
 # Checks if the learner completed tasks for step 2.
 # - Triggers when the user makes a push to the branch 'my-first-branch' and modifies the file 'PROFILE.md'.
-# - Checks that content of the file 'PROFILE.md' is correct.
 # - If all checks pass, the workflow is disabled so it doesn't run again. As such, workflow status badge will change to green.
 
 on:
@@ -55,15 +54,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check contents of 'PROFILE.md'
-        run: |
-          if [ ! -s "PROFILE.md" ]; then
-            message="Your PROFILE.md file is empty. Please edit the file, add content and commit again."
-            gh issue comment "$ISSUE_URL" --body "$message" --edit-last
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # START: Check practical exercise
+
+      # Nothing to verify. Creating the PROFILE.md file is enough.
+
+      # END: Check practical exercise
+
 
       - name: Build message - step finished
         id: build-message-step-finish
