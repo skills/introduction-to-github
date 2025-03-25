@@ -1,11 +1,6 @@
-<!--
-  <<< Author notes: Finish >>>
-  Review what we learned, ask for feedback, provide next steps.
--->
+## Review
 
-## Finish
-
-_Congratulations, you've completed this course and joined the world of developers!_
+_Congratulations, you've completed this Exercise and joined the world of developers!_
 
 <img src=https://octodex.github.com/images/collabocats.jpg alt=celebrate width=300 align=right>
 
@@ -24,11 +19,11 @@ If you'd like to make a profile README, use the quickstart instructions below or
 2. Create a file named `README.md` in its root. The "root" means not inside any folder in your repository.
 3. Edit the contents of the `README.md` file.
 4. If you created a new branch for your file, open and merge a pull request on your branch.
-5. Lastly, we'd love to hear what you thought of this course [in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github).
+5. Lastly, we'd love to hear what you thought of this exercise [in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github).
 
 Check out these resources to learn more or get involved:
 
 - Are you a student? Check out the [Student Developer Pack](https://education.github.com/pack).
-- [Take another GitHub Skills course](https://github.com/skills).
+- [Take another GitHub Skills exercise](https://skills.github.com).
 - [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).

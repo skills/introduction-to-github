@@ -1,64 +1,97 @@
-name: Step 4, Merge your pull request
+name: Step 4 # Merge your pull request
 
-# This step listens for the learner to merge a pull request with branch `my-first-branch`.
-# This workflow updates from step 4 to step X.
+# Checks if the learner completed tasks for step 4.
+# - Triggers when the user merges the pull request.
+# - If all checks pass, the workflow is disabled so it doesn't run again. As such, workflow status badge will change to green.
 
-# This will run every time we create push a commit to `main`.
-# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
+    types:
+      - closed
 
-# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository.
-  # Need `contents: write` to update the step metadata.
   contents: write
+  actions: write
+  issues: write
+
+env:
+  REVIEW_FILE: ".github/steps/x-review.md"
 
 jobs:
-  # Get the current step to only run the main job when the learner is on the same step.
-  get_current_step:
-    name: Check current step number
+  find_exercise:
+    name: Find Exercise Issue
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
+
+  check_step_work:
+    name: Check step work
+    needs: find_exercise
     runs-on: ubuntu-latest
+    if: |
+      !github.event.repository.is_template &&
+      github.head_ref == 'my-first-branch' &&
+      github.event.pull_request.merged == true
+    env:
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
+
     steps:
-      - name: Checkout
+      - name: Get response templates
         uses: actions/checkout@v4
-      - id: get_step
+        with:
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: v0.1.0
+
+      - name: Nothing to check
+        run: echo "The workflow was triggered, so it passes."
+
+      - name: Update comment - step finished - final review next
         run: |
-          echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
-    outputs:
-      current_step: ${{ steps.get_step.outputs.current_step }}
+          gh issue comment "$ISSUE_URL" \
+            --body-file exercise-toolkit/markdown-templates/step-feedback/lesson-review.md \
+            --edit-last
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  on_merge_your_pull_request:
-    name: On merge your pull request
-    needs: get_current_step
+  post_review_content:
+    name: Post review content
+    needs: [find_exercise, check_step_work]
+    runs-on: ubuntu-latest
+    if: |
+      !github.event.repository.is_template
+    env:
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
-    # We will only run this action when:
-    # 1. This repository isn't the template repository.
-    # 2. The step is currently 4.
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: >-
-      ${{ !github.event.repository.is_template
-          && needs.get_current_step.outputs.current_step == 4 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    # We'll run Ubuntu for performance instead of Mac or Windows.
+      - name: Create comment - add review content
+        run: |
+          gh issue comment "$ISSUE_URL" \
+            --body-file ${{ env.REVIEW_FILE }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  finish_exercise:
+    name: Finish Exercise
+    needs: [find_exercise, post_review_content]
+    uses: skills/exercise-toolkit/.github/workflows/finish-exercise.yml@v0.1.0
+    with:
+      issue-url: ${{ needs.find_exercise.outputs.issue-url }}
+
+
+  disable_workflow:
+    name: Disable this workflow
+    needs: [find_exercise, post_review_content]
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Let's get all the branches.
+      - name: Disable current workflow
+        run: gh workflow disable "${{github.workflow}}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # In README.md, switch step 4 for step X.
-      - name: Update to step X
-        uses: skills/action-update-step@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          from_step: 4
-          to_step: X
-          branch_name: my-first-branch

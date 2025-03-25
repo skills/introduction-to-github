@@ -1,66 +1,105 @@
-name: Step 1, Create a branch
+name: Step 1 # Create a branch
 
-# This step listens for the learner to create branch `my-first-branch`.
-# This workflow updates from step 1 to step 2.
+# Checks if the learner completed tasks for step 1.
+# - Triggers when the user creates a new branch 'my-first-branch'.
+# - Checks that the branch name is 'my-first-branch'.
+# - If all checks pass, the workflow is disabled so it doesn't run again. As such, workflow status badge will change to green.
 
-# This will run every time we create a branch or tag.
-# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
-  workflow_dispatch:
-  create:
+  push:
+    branches:
+      - "my-first-branch"
 
-# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository.
-  # Need `contents: write` to update the step metadata.
-  contents: write
+  contents: read
+  actions: write
+  issues: write
+
+env:
+  STEP_2_FILE: ".github/steps/2-commit-a-file.md"
 
 jobs:
-  # Get the current step to only run the main job when the learner is on the same step.
-  get_current_step:
-    name: Check current step number
+  find_exercise:
+    name: Find Exercise Issue
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
+
+  check_step_work:
+    name: Check step work
     runs-on: ubuntu-latest
+    needs: find_exercise
+    env:
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
+
     steps:
-      - name: Checkout
+
+      - name: Get response templates
         uses: actions/checkout@v4
-      - id: get_step
+        with:
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: v0.1.0
+
+
+      - name: Update comment - checking work
         run: |
-          echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
-    outputs:
-      current_step: ${{ steps.get_step.outputs.current_step }}
+          gh issue comment "$ISSUE_URL" \
+            --body-file exercise-toolkit/markdown-templates/step-feedback/checking-work.md \
+            --edit-last
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  on_create_a_branch:
-    name: On create a branch
-    needs: get_current_step
+      - name: Build message - step finished
+        id: build-message-step-finish
+        uses: skills/action-text-variables@v1
+        with:
+          template-file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
+          template-vars: |
+            next_step_number=2
 
-    # We will only run this action when:
-    # 1. This repository isn't the template repository.
-    # 2. The step is currently 1.
-    # 3. The event is a branch.
-    # 4. The branch name is `my-first-branch`.
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: >-
-      ${{ !github.event.repository.is_template
-          && needs.get_current_step.outputs.current_step == 1
-          && github.ref_type == 'branch'
-          && github.ref_name == 'my-first-branch' }}
+      - name: Update comment - step finished
+        run: |
+          gh issue comment "$ISSUE_URL" \
+            --body "$ISSUE_BODY" \
+            --edit-last
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_BODY: ${{ steps.build-message-step-finish.outputs.updated-text }}
 
-    # We'll run Ubuntu for performance instead of Mac or Windows.
+  post_next_step_content:
+    name: Post next step content
+    needs: [find_exercise, check_step_work]
     runs-on: ubuntu-latest
+    env:
+      ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
     steps:
-      # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Let's get all the branches.
 
-      # In README.md, switch step 1 for step 2.
-      - name: Update to step 2
-        uses: skills/action-update-step@v2
+      - name: Get response templates
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          from_step: 1
-          to_step: 2
-          branch_name: my-first-branch
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          ref: v0.1.0
+
+      - name: Create comment - add step content
+        run: |
+          gh issue comment "$ISSUE_URL" \
+            --body-file ${{ env.STEP_2_FILE }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create comment - watching for progress
+        run: |
+          gh issue comment "$ISSUE_URL" \
+            --body-file exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Disable current workflow and enable next one
+        run: |
+          gh workflow disable "Step 1"
+          gh workflow enable "Step 2"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
