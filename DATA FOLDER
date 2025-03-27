@@ -1,0 +1,16 @@
+Sales Raw Data Set:
+
+CREATE EXTERNAL TABLE VideoGames (Name string, Platform string, Year_of_Release int, Genre string, Publisher string, NA_Sales float, EU_Sales float, JP_Sales float, Other_Sales float, Global_Sales float, Critic_Score int, Critic_Count int, User_Score float, User_Count int, Developer String, Rating string)
+
+
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE LOCATION '/Sales'
+TBLPROPERTIES("skip.header.line.count"="1");
+
+Retrieval Instructions:
+
+1. Log into Azure Portal
+2. Select Storage Accounts, casandra3hdistorage
+3. Click on Blob Containers, casandra-container
+4. Select Sales.csv
