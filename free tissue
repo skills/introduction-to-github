@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>限时福利领取</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>限时福利领取</h2>
+        <p>填写以下信息，即可领取您的免费纸巾！</p>
+        <form id="scamForm">
+            <input type="text" placeholder="姓名" id="name" required>
+            <input type="tel" placeholder="手机号" id="phone" required>
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("scamForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 阻止默认提交行为
+            // 获取输入的内容
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+
+            // 弹出提示框显示提交成功
+            alert("您的资料已提交！\n姓名: " + name + "\n手机号: " + phone);
+        });
+    </script>
+</body>
+</html>
