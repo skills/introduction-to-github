@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>عالم لولو ملكتي</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f9f3ff;color:#444;margin:0;padding:0;text-align:center;}
+    .container{max-width:600px;margin:20px auto;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);padding:20px;}
+    .hidden{display:none;}
+    .btn{background:#d17fcc;color:#fff;border:none;padding:10px 15px;margin:5px;border-radius:8px;cursor:pointer;}
+    .btn:hover{background:#b04fa1;}
+    .section{margin-top:20px;text-align:right;}
+    ul{list-style:none;padding:0;}
+    li{margin:8px 0;display:flex;justify-content:space-between;align-items:center;}
+    .message-box{background:#fff0f5;padding:15px;border-radius:10px;margin-top:10px;text-align:right;}
+    .progress{background:#eee;border-radius:5px;overflow:hidden;margin:5px 0;}
+    .progress-bar{height:10px;background:#d17fcc;width:0%;}
+    label{display:block;margin-top:10px;}
+    input[type=range]{width:100%;}
+  </style>
+</head>
+<body>
+  <div id="role-selection" class="container">
+    <h1>مرحبا بك في عالم لولو ملكتي</h1>
+    <button class="btn" onclick="selectRole('queen')">أنا الملكة 👑</button>
+    <button class="btn" onclick="selectRole('serse7')">أنا السرسوح 🐑</button>
+  </div>
+
+  <!-- Queen Interface -->
+  <div id="queen-interface" class="container hidden">
+    <h2>واجهة الملكة 👑</h2>
+
+    <!-- Tasks -->
+    <div class="section">
+      <h3>مهام اليوم</h3>
+      <ul id="tasks-list"></ul>
+      <input id="task-input" type="text" placeholder="أضف مهمة جديدة…" />
+      <input id="task-duration" type="number" placeholder="مدة (دقائق)" style="width:120px;margin-right:5px;"/>
+      <button class="btn" onclick="addTask()">أضف</button>
+      <div id="timer" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- Gift Balance -->
+    <div class="section">
+      <h3>رصيد الهدايا: <span id="gift-balance">0</span> د.ع</h3>
+      <div id="gifts-progress"></div>
+      <button class="btn" onclick="requestGift()">أطالب هدية</button>
+    </div>
+
+    <!-- Satisfaction -->
+    <div class="section">
+      <h3>رضا الملكة اليوم</h3>
+      <label>التقييم: <span id="satisfaction-value">5</span></label>
+      <input id="satisfaction-range" type="range" min="1" max="10" value="5" oninput="$('#satisfaction-value').textContent=this.value"/>
+      <textarea id="satisfaction-reason" placeholder="اكتبي سبب تقييمك..." rows="2" style="width:100%;"></textarea>
+      <button class="btn" onclick="saveSatisfaction()">احفظ الرضا</button>
+    </div>
+
+    <!-- Long Messages -->
+    <div class="section">
+      <h3>رسائل غزل طويلة</h3>
+      <button class="btn" onclick="showLongMessage()">افتح رسالة حب</button>
+      <div id="long-message" class="message-box hidden"></div>
+    </div>
+  </div>
+
+  <!-- Serse7 Interface -->
+  <div id="serse7-interface" class="container hidden">
+    <h2>واجهة السرسوح 🐑</h2>
+
+    <!-- Report Tasks -->
+    <div class="section">
+      <h3>المهام المنجزة</h3>
+      <ul id="report-tasks"></ul>
+    </div>
+
+    <!-- Gift Requests -->
+    <div class="section">
+      <h3>طلبات هدايا الملكة</h3>
+      <ul id="gift-requests"></ul>
+    </div>
+
+    <!-- Satisfaction Display -->
+    <div class="section">
+      <h3>رضا الملكة اليوم</h3>
+      <p>التقييم: <span id="disp-sat-value">-</span> / 10</p>
+      <p>السبب: <span id="disp-sat-reason">-</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Helpers
+    const $ = id=>document.getElementById(id);
+
+    // Role selection
+    function selectRole(r){
+      $('role-selection').classList.add('hidden');
+      if(r==='queen') $('queen-interface').classList.remove('hidden');
+      else $('serse7-interface').classList.remove('hidden');
+      renderAll();
+    }
+
+    // Data
+    let data = JSON.parse(localStorage.getItem('luluData')||'{}');
+    data.tasks = data.tasks||[];
+    data.completed = data.completed||[];
+    data.giftBalance = data.giftBalance||0;
+    data.giftRequests = data.giftRequests||[];
+    data.usedLong = data.usedLong||[];
+    data.satisfaction = data.satisfaction||{value:5,reason:''};
+
+    function save(){ localStorage.setItem('luluData', JSON.stringify(data)); }
+
+    // Tasks
+    function renderTasks(){
+      $('tasks-list').innerHTML='';
+      data.tasks.forEach((t,i)=>{
+        let li=document.createElement('li');
+        li.textContent = t.text + ' ('+t.duration+'د)';
+        let start=document.createElement('button');
+        start.textContent='▶'; start.onclick=()=>startTimer(i);
+        let done=document.createElement('button');
+        done.textContent='✔'; done.onclick=()=>completeTask(i);
+        li.append(start, done);
+        $('tasks-list').appendChild(li);
+      });
+    }
+    function addTask(){
+      let txt=$('task-input').value.trim();
+      let dur=parseInt($('task-duration').value)||0;
+      if(!txt) return;
+      data.tasks.push({text:txt,duration:dur*60});
+      $('task-input').value=''; $('task-duration').value='';
+      save(); renderTasks(); renderReport();
+    }
+    let timerInterval;
+    function startTimer(i){
+      clearInterval(timerInterval);
+      updateTimer();
+      function updateTimer(){
+        let t = data.tasks[i].duration--;
+        if(t<0){ clearInterval(timerInterval); $('timer').textContent='انتهى الوقت'; return; }
+        $('timer').textContent='الوقت المتبقي: '+Math.floor(t/60)+' : '+('0'+t%60).slice(-2);
+      }
+      timerInterval = setInterval(updateTimer,1000);
+    }
+    function completeTask(i){
+      data.completed.push(data.tasks[i]);
+      data.tasks.splice(i,1);
+      data.giftBalance++;
+      save(); renderAll();
+      alert('برافو! دينار +1 أضيف لحصالتك');
+    }
+
+    // Report for serse7
+    function renderReport(){
+      $('report-tasks').innerHTML = data.completed.map(t=>`<li>${t.text}</li>`).join('');
+    }
+
+    // Gifts
+    function renderGifts(){
+      $('gift-balance').textContent = data.giftBalance;
+      let html='';
+      [['أكل',5],['كاش',10],['شي ان',20]].forEach(([name,thr])=>{
+        let p=Math.min(100,(data.giftBalance/thr)*100);
+        html+=`<div>${name}: <div class="progress"><div class="progress-bar" style="width:${p}%"></div></div></div>`;
+      });
+      $('gifts-progress').innerHTML=html;
+    }
+    function requestGift(){
+      let req=prompt('اكتب طلب الهدية مع رسالة:');
+      if(req){
+        data.giftRequests.push(req);
+        save(); renderGifts(); renderRequests();
+      }
+    }
+    function renderRequests(){
+      $('gift-requests').innerHTML = data.giftRequests.map(r=>`<li>${r}</li>`).join('');
+    }
+
+    // Long messages
+    const longMsgs = [
+      "أنتِ الأجمل في حياتي وأعز ما لدي...",
+      "كل يوم يزداد شوقي إليكِ بلا حدود...",
+      "يا بطلة قلبي، تبقين سيدة قلبي إلى الأبد...",
+      "بوجودكِ يزهر عالمي وتطيب أيامي...",
+      "أحبكِ فوق ما تصفين يا نور العين...",
+      "صورتك في خاطري أجمل لوحة رسمت...",
+      "صوتكِ لحنٌ أدخل البهجة إلى وجداني...",
+      "في حضوركِ أجد الأمان والسعادة بلا انتهاء...",
+      "كل كلمة منكِ بلسم يداوي جروحي...",
+      "أنتِ قصيدتي الأبدية ونوري في الليالي..."
+    ];
+    function showLongMessage(){
+      let idx=longMsgs.findIndex(m=>!data.usedLong.includes(m));
+      if(idx<0) return alert('لا رسائل متبقية اليوم');
+      let msg=longMsgs[idx];
+      data.usedLong.push(msg);
+      $('long-message').textContent=msg;
+      $('long-message').classList.remove('hidden');
+      save();
+    }
+
+    // Satisfaction
+    function renderSatisfaction(){
+      $('satisfaction-range').value = data.satisfaction.value;
+      $('satisfaction-value').textContent = data.satisfaction.value;
+      $('satisfaction-reason').value = data.satisfaction.reason;
+      $('disp-sat-value').textContent = data.satisfaction.value;
+      $('disp-sat-reason').textContent = data.satisfaction.reason||'-';
+    }
+    function saveSatisfaction(){
+      data.satisfaction.value = +$('satisfaction-range').value;
+      data.satisfaction.reason = $('satisfaction-reason').value.trim();
+      save(); renderSatisfaction();
+      alert('تم حفظ رضا الملكة!');
+    }
+
+    // Render all
+    function renderAll(){
+      renderTasks(); renderReport(); renderGifts(); renderRequests(); renderSatisfaction();
+    }
+
+    window.onload = renderAll;
+  </script>
+</body>
+</html>
