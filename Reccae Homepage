@@ -1,0 +1,54 @@
+import React from "react";
+import { Sparkles } from "lucide-react";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-peach to-white px-6 py-12 text-gray-800 font-sans">
+      <header className="text-center mb-12">
+        <h1 className="text-5xl font-extrabold text-peach drop-shadow-md tracking-wide">
+          <span className="inline-flex items-center justify-center gap-2">
+            <Sparkles className="h-6 w-6 text-lavender" /> Reccea
+          </span>
+        </h1>
+        <p className="mt-3 text-lg text-gray-600 italic">Find the best skincare & cosmetic product prices across platforms</p>
+      </header>
+
+      <main className="max-w-xl mx-auto">
+        <input
+          type="text"
+          placeholder="Search for a product (e.g. vitamin c serum)"
+          className="w-full border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-lavender shadow-md"
+        />
+
+        <div className="mt-10 space-y-6">
+          {/* Sample product result */}
+          <div className="p-5 border rounded-2xl shadow-lg bg-white hover:bg-mint transition">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="font-semibold text-lg">Minimalist Vitamin C Serum</h2>
+                <p className="text-sm text-gray-500">30ml</p>
+              </div>
+              <div className="text-right">
+                <p className="text-xl font-bold text-green-600">₹599</p>
+                <a
+                  href="#"
+                  className="text-sm text-blue-600 hover:underline"
+                >View on Nykaa</a>
+              </div>
+            </div>
+          </div>
+          {/* Add more dynamic results here later */}
+        </div>
+      </main>
+
+      <footer className="mt-16 text-center text-sm text-gray-500">
+        © 2025 <span className="font-semibold text-peach">Reccea</span>. All rights reserved.
+      </footer>
+    </div>
+  );
+}
+
+const peach = {
+  "--tw-text-opacity": "1",
+  color: "rgb(252 213 206 / var(--tw-text-opacity))",
+};
