@@ -1,0 +1,64 @@
+{
+    "@class": "Potential",
+    "@module": "matgl.apps.pes",
+    "@model_version": 3,
+    "metadata": null,
+    "kwargs": {
+        "model": {
+            "@class": "CHGNet",
+            "@module": "matgl.models._chgnet",
+            "@model_version": 1,
+            "init_args": {
+                "element_types": null,
+                "dim_state_feats": null,
+                "non_linear_bond_embedding": false,
+                "non_linear_angle_embedding": false,
+                "cutoff": 6.0,
+                "threebody_cutoff": 3.0,
+                "cutoff_exponent": 5,
+                "max_f": 32,
+                "learn_basis": false,
+                "num_blocks": 5,
+                "shared_bond_weights": "both",
+                "final_mlp_type": "mlp",
+                "final_hidden_dims": [
+                    128,
+                    128,
+                    128
+                ],
+                "final_dropout": 0.0,
+                "pooling_operation": "sum",
+                "readout_field": "atom_feat",
+                "activation_type": "swish",
+                "is_intensive": false,
+                "num_targets": 1,
+                "num_site_targets": 1,
+                "task_type": "regression",
+                "angle_update_hidden_dims": [],
+                "atom_conv_hidden_dims": [
+                    128
+                ],
+                "bond_conv_hidden_dims": [
+                    128
+                ],
+                "bond_update_hidden_dims": [
+                    128
+                ],
+                "conv_dropout": 0.0,
+                "dim_angle_embedding": 128,
+                "dim_atom_embedding": 128,
+                "dim_bond_embedding": 128,
+                "dim_state_embedding": null,
+                "layer_bond_weights": null,
+                "max_n": 63,
+                "normalization": "layer",
+                "normalize_hidden": false
+            }
+        },
+        "data_mean": "tensor(0.)",
+        "data_std": "tensor(1.)",
+        "element_refs": "tensor([ -3.4524,  -0.2535,  -3.1356,  -3.5818,  -7.5282,  -8.2669,  -7.7537,\n         -8.3183,  -5.6419,  -0.0301,  -1.9928,  -1.5805,  -4.3933,  -6.2148,\n         -6.3137,  -5.6612,  -3.6236,  -0.0632,  -1.7023,  -3.7368,  -6.8803,\n         -9.4099,  -9.5156,  -9.5164,  -9.0957,  -7.9901,  -6.4274,  -5.5935,\n         -3.3122,  -0.8411,  -3.2124,  -4.8460,  -4.6307,  -4.8599,  -3.1515,\n          0.8167,  -1.5970,  -3.4679,  -7.7371,  -9.5454, -10.5613,  -9.9911,\n         -6.7590,  -8.2281,  -7.0194,  -5.0765,  -1.8264,  -0.3508,  -2.5801,\n         -3.9090,  -4.0772,  -3.8814,  -2.4899,   3.0526,  -2.2544,  -3.9207,\n         -7.2230,  -7.4592,  -6.5778,  -6.7207,  -5.1486,  -6.7854, -11.7604,\n        -16.2078,  -6.4504,  -6.4809,  -6.3964,  -6.3873,  -6.3777,  -2.8369,\n         -6.4433, -10.6572, -12.3228, -11.8578, -10.5498,  -9.1838,  -8.1969,\n         -6.0177,  -2.7653,   0.6777,  -1.6524,  -3.1770,  -3.3326,   0.0000,\n          0.0000,   0.0000,   0.0000,   0.0000,  -4.2516,  -9.0753, -10.3286,\n        -12.5580, -12.7219, -14.3059])",
+        "calc_forces": true,
+        "calc_stresses": true,
+        "calc_hessian": false,
+        "calc_magmom": true
