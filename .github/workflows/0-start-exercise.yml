@@ -1,4 +1,4 @@
-name: Step 0 # Start Exercise
+name: Passo 0 # Iniciar Exercício
 
 on:
   push:
@@ -6,9 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write # Update Readme
-  actions: write # Disable/enable workflows
-  issues: write # Create issue and comment on issues
+  contents: write # Atualizar Readme
+  actions: write # Desativar/ativar workflows
+  issues: write # Criar issue e comentar em issues
 
 
 env:
@@ -18,15 +18,15 @@ jobs:
   start_exercise:
     if: |
       !github.event.repository.is_template
-    name: Start Exercise
+    name: Iniciar Exercício
     uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
     with:
-      exercise-title: "Introduction to GitHub"
-      intro-message: "If you are new to GitHub, you might find your fellow developers use ___**issues**___  to organize their work and collaborate. We will do the same! That's another lesson, but today, we will introduce you to the basics."
+      exercise-title: "Introdução ao GitHub"
+      intro-message: "Se você é novo no GitHub, você pode perceber que seus colegas desenvolvedores usam ___**issues**___ para organizar seu trabalho e colaborar. Nós faremos o mesmo! Isso é outra lição, mas hoje, vamos apresentar a você os conceitos básicos."
 
 
   post_next_step_content:
-    name: Post next step content
+    name: Publicar conteúdo do próximo passo
     runs-on: ubuntu-latest
     needs: [start_exercise]
     env:
@@ -36,29 +36,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get response templates
+      - name: Obter modelos de resposta
         uses: actions/checkout@v4
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
           ref: v0.1.0
 
-      - name: Create comment - add step content
+      - name: Criar comentário - adicionar conteúdo do passo
         run: |
           gh issue comment "$ISSUE_URL" \
             --body-file ${{ env.STEP_1_FILE }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create comment - watching for progress
+      - name: Criar comentário - observando o progresso
         run: |
           gh issue comment "$ISSUE_URL" \
             --body-file exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Disable current workflow and enable next one
+      - name: Desativar workflow atual e ativar o próximo
         run: |
-          gh workflow enable "Step 1"
+          gh workflow enable "Passo 1"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,33 +1,33 @@
-## Step 4: Merge your pull request
+## Passo 4: Fazer merge do seu pull request
 
-_Nicely done! :sunglasses:_
+_Muito bem feito! :sunglasses:_
 
-You successfully created a pull request. Now it's time to merge it!
+Você criou um pull request com sucesso. Agora é hora de fazer o merge!
 
-**What is a merge?**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)."
+**O que é um merge?**: Um _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adiciona as alterações do seu pull request e branch ao branch `main`. Para mais informações sobre merges, veja "[Fazendo merge de um pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)."
 
-![screenshot of green merge pull request button](https://github.com/user-attachments/assets/ce2f04cb-8a71-411f-8dc8-827a2bc23a30)
+![captura de tela do botão verde de merge pull request](https://github.com/user-attachments/assets/ce2f04cb-8a71-411f-8dc8-827a2bc23a30)
 
-### :keyboard: Activity: Merge the pull request
+### :keyboard: Atividade: Fazer merge do pull request
 
-1. Click **Merge pull request**.
+1. Clique em **Fazer merge do pull request**.
 
-   > **Note:** You may see workflows running on your new pull request, causing the merge button to be inactive. Just wait a moment for them to finish and the merge button will activate.
+   > **Nota:** Você pode ver workflows sendo executados no seu novo pull request, fazendo com que o botão de merge esteja inativo. Apenas aguarde um momento para que eles terminem e o botão de merge será ativado.
 
-2. Click **Confirm merge**.
+2. Clique em **Confirmar merge**.
 
-   > **Tip:** Did you notice this dialog looks similar to adding a file? A merge is also a kind of commit!
+   > **Dica:** Você notou que este diálogo se parece com a adição de um arquivo? Um merge também é um tipo de commit!
 
-3. Once your branch has been merged, you don't need it anymore. To delete this branch, click **Delete branch**.
+3. Uma vez que seu branch foi mesclado, você não precisa mais dele. Para excluir este branch, clique em **Excluir branch**.
 
-   ![screenshot showing delete branch button](https://github.com/user-attachments/assets/0fda948e-14e0-4643-aa53-d9f9f364cddd)
+   ![captura de tela mostrando o botão excluir branch](https://github.com/user-attachments/assets/0fda948e-14e0-4643-aa53-d9f9f364cddd)
 
-4. Now that your work is merged, Mona will confirm and share some final review content. Nice work! 🎉
+4. Agora que seu trabalho foi mesclado, Mona irá confirmar e compartilhar algum conteúdo final de revisão. Bom trabalho! 🎉
 
 <details>
-<summary>Having trouble? 🤷</summary><br/>
+<summary>Está com problemas? 🤷</summary><br/>
 
-If you don't get feedback, here are some things to check:
-- Make sure you completed the previous lessons. If they haven't passed, the merge button will be gray.
+Se você não receber feedback, aqui estão algumas coisas para verificar:
+- Certifique-se de que você completou as lições anteriores. Se elas não foram aprovadas, o botão de merge estará cinza.
 
 </details>

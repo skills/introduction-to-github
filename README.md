@@ -1,51 +1,51 @@
-# Introduction to GitHub
+# Introdução ao GitHub
 
-_Get started using GitHub in less than an hour._
+_Comece a usar o GitHub em menos de uma hora._
 
-## Welcome
+## Bem-vindo
 
-People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” exercise guides you through everything you need to start contributing in less than an hour.
+As pessoas usam o GitHub para construir algumas das tecnologias mais avançadas do mundo. Seja visualizando dados ou criando um novo jogo, há toda uma comunidade e conjunto de ferramentas no GitHub que podem ajudá-lo a fazer isso ainda melhor. O exercício "Introdução ao GitHub" do GitHub Skills orienta você por tudo o que você precisa para começar a contribuir em menos de uma hora.
 
-- **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
-- **Prerequisites**: None. This exercise is a great introduction for your first day on GitHub.
-- **How long**: This exercise takes less than one hour to complete.
+- **Para quem é isso**: Novos desenvolvedores, novos usuários do GitHub e estudantes.
+- **O que você vai aprender**: Vamos introduzir repositórios, branches, commits e pull requests.
+- **O que você vai construir**: Vamos criar um pequeno arquivo Markdown que você pode usar como seu [README de perfil](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+- **Pré-requisitos**: Nenhum. Este exercício é uma ótima introdução para seu primeiro dia no GitHub.
+- **Quanto tempo leva**: Este exercício leva menos de uma hora para ser concluído.
 
-In this exercise, you will:
+Neste exercício, você irá:
 
-1. Create a branch
-2. Commit a file
-3. Open a pull request
-4. Merge your pull request
+1. Criar um branch
+2. Fazer commit de um arquivo
+3. Abrir um pull request
+4. Fazer merge do seu pull request
 
-### How to start this exercise
+### Como iniciar este exercício
 
-1. Right-click **Copy Exercise** and open the link in a new tab.
+1. Clique com o botão direito em **Copiar Exercício** e abra o link em uma nova aba.
 
    <a id="copy-exercise" href="https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=Exercise:+Introduction+to+GitHub&visibility=public">
-      <img src="https://img.shields.io/badge/📠_Copy_Exercise-008000" height="25pt"/>
+      <img src="https://img.shields.io/badge/📠_Copiar_Exercício-008000" height="25pt"/>
    </a>
 
-2. In the new tab, most of the prompts will automatically fill in for you.
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   - Scroll down and click the **Create repository** button at the bottom of the form.
+2. Na nova aba, a maioria dos campos será preenchida automaticamente.
+   - Para proprietário, escolha sua conta pessoal ou uma organização para hospedar o repositório.
+   - Recomendamos criar um repositório público, pois repositórios privados [usam minutos de Actions](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+   - Role para baixo e clique no botão **Criar repositório** na parte inferior do formulário.
 
-3. After your new repository is created, wait about 20 seconds for the exercise to be prepared and buttons updated. You will continue working from your copy of the exercise.
-   - The **Copy Exercise** button will deactivate, changing to gray.
-   - The **Start Exercise** button will activate, changing to green.
-   - You will likely need to refresh the page.
+3. Depois que seu novo repositório for criado, aguarde cerca de 20 segundos para que o exercício seja preparado e os botões atualizados. Você continuará trabalhando a partir da sua cópia do exercício.
+   - O botão **Copiar Exercício** será desativado, mudando para cinza.
+   - O botão **Iniciar Exercício** será ativado, mudando para verde.
+   - Provavelmente será necessário atualizar a página.
 
-4. Click **Start Exercise**. Follow the step-by-step instructions and feedback will be provided as you progress.
+4. Clique em **Iniciar Exercício**. Siga as instruções passo a passo e feedback será fornecido conforme você avança.
 
    <a id="start-exercise">
-      <img src="https://img.shields.io/badge/🚀_Start_Exercise-AAA" height="25pt"/>
+      <img src="https://img.shields.io/badge/🚀_Iniciar_Exercício-AAA" height="25pt"/>
    </a>
 
-> [!IMPORTANT]
-> The **Start Exercise** button will activate after copying the repository. You will probably need to refresh the page.
+> [!IMPORTANTE]
+> O botão **Iniciar Exercício** será ativado após copiar o repositório. Você provavelmente precisará atualizar a página.
 
 ---
 
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+&copy; 2025 GitHub &bull; [Código de Conduta](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [Licença MIT](https://gh.io/mit)
