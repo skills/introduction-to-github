@@ -19,7 +19,7 @@ jobs:
     if: |
       !github.event.repository.is_template
     name: Iniciar Exercício
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
+    uses: dev-pods/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
     with:
       exercise-title: "Introdução ao GitHub"
       intro-message: "Se você é novo no GitHub, você pode perceber que seus colegas desenvolvedores usam ___**issues**___ para organizar seu trabalho e colaborar. Nós faremos o mesmo! Isso é outra lição, mas hoje, vamos apresentar a você os conceitos básicos."
@@ -39,7 +39,7 @@ jobs:
       - name: Obter modelos de resposta
         uses: actions/checkout@v4
         with:
-          repository: skills/exercise-toolkit
+          repository: dev-pods/exercise-toolkit
           path: exercise-toolkit
           ref: v0.1.0
 

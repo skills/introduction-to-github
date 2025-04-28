@@ -21,7 +21,7 @@ env:
 jobs:
   find_exercise:
     name: Encontrar Issue do Exercício
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
+    uses: dev-pods/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
 
   check_step_work:
     name: Verificar trabalho do passo
@@ -39,7 +39,7 @@ jobs:
       - name: Obter modelos de resposta
         uses: actions/checkout@v4
         with:
-          repository: skills/exercise-toolkit
+          repository: dev-pods/exercise-toolkit
           path: exercise-toolkit
           ref: v0.1.0
 
@@ -89,7 +89,7 @@ jobs:
       - name: Obter modelos de resposta
         uses: actions/checkout@v4
         with:
-          repository: skills/exercise-toolkit
+          repository: dev-pods/exercise-toolkit
           path: exercise-toolkit
           ref: v0.1.0
 
