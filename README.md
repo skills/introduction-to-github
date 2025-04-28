@@ -23,7 +23,7 @@ Neste exercício, você irá:
 
 1. Clique com o botão direito em **Copiar Exercício** e abra o link em uma nova aba.
 
-   <a id="copy-exercise" href="https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=Exercise:+introducao-ao-github&visibility=public">
+   <a id="copy-exercise" href="https://github.com/new?template_owner=skills&template_name=introducao-ao-github&owner=%40me&name=introducao-ao-github&description=Exercicio:+Introducao+ao+GitHub&visibility=public">
       <img src="https://img.shields.io/badge/📠_Copiar_Exercício-008000" height="25pt"/>
    </a>
 
