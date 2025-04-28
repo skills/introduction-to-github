@@ -1,0 +1,154 @@
+import React, { useState } from 'react';
+
+const initialAttendance = Array.from({ length: 60 }, (_, index) => ({
+    id: index + 1,
+    name: `Person ${index + 1}`,
+    shift: 'General',
+    area: 'ASP',
+}));
+
+const shifts = ['A', 'B', 'C', 'General', 'Off'];
+const areas = ['ASP', 'GDP', 'BRP', 'Housekeeping', 'Painting'];
+
+const AttendanceApp = () => {
+    const [attendanceData, setAttendanceData] = useState(initialAttendance);
+
+    const handleNameChange = (id, newName) => {
+        setAttendanceData(prevData =>
+            prevData.map(person =>
+                person.id === id ? { ...person, name: newName } : person
+            )
+        );
+    };
+
+    const handleShiftChange = (id, newShift) => {
+        setAttendanceData(prevData =>
+            prevData.map(person =>
+                person.id === id ? { ...person, shift: newShift } : person
+            )
+        );
+    };
+
+    const handleAreaChange = (id, newArea) => {
+        setAttendanceData(prevData =>
+            prevData.map(person =>
+                person.id === id ? { ...person, area: newArea } : person
+            )
+        );
+    };
+
+    const calculateSummary = () => {
+        const shiftSummary = {};
+        const areaSummary = {};
+
+        shifts.forEach(shift => (shiftSummary[shift] = 0));
+        areas.forEach(area => (areaSummary[area] = 0));
+
+        attendanceData.forEach(person => {
+            shiftSummary[person.shift]++;
+            areaSummary[person.area]++;
+        });
+
+        return { shiftSummary, areaSummary };
+    };
+
+    const { shiftSummary, areaSummary } = calculateSummary();
+
+    const handleSaveChanges = () => {
+        // In a real application, you would send this data to your backend
+        console.log('Saving changes:', attendanceData);
+        alert('Changes Saved!');
+    };
+
+    return (
+        <div className="font-mono bg-white text-blue-900 min-h-screen p-6">
+            <header className="mb-4 border-b-2 border-blue-500 pb-2">
+                <h1 className="text-2xl font-bold">Attendance Blueprint</h1>
+            </header>
+
+            <div className="overflow-x-auto shadow-md rounded-md border border-blue-300">
+                <table className="min-w-full bg-white">
+                    <thead className="bg-blue-100 border-b border-blue-300">
+                        <tr>
+                            <th className="py-2 px-4 text-left text-blue-700 uppercase tracking-wider">Name</th>
+                            <th className="py-2 px-4 text-left text-blue-700 uppercase tracking-wider">Shift</th>
+                            <th className="py-2 px-4 text-left text-blue-700 uppercase tracking-wider">Area</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {attendanceData.map(person => (
+                            <tr key={person.id} className="hover:bg-blue-50">
+                                <td className="py-2 px-4 border-r border-blue-200">
+                                    <input
+                                        type="text"
+                                        className="w-full text-blue-800 focus:outline-none bg-transparent"
+                                        value={person.name}
+                                        onChange={(e) => handleNameChange(person.id, e.target.value)}
+                                    />
+                                </td>
+                                <td className="py-2 px-4 border-r border-blue-200">
+                                    <select
+                                        className="w-full text-blue-800 focus:outline-none bg-blue-50 rounded-sm"
+                                        value={person.shift}
+                                        onChange={(e) => handleShiftChange(person.id, e.target.value)}
+                                    >
+                                        {shifts.map(shift => (
+                                            <option key={shift} value={shift}>{shift}</option>
+                                        ))}
+                                    </select>
+                                </td>
+                                <td className="py-2 px-4">
+                                    <select
+                                        className="w-full text-blue-800 focus:outline-none bg-blue-50 rounded-sm"
+                                        value={person.area}
+                                        onChange={(e) => handleAreaChange(person.id, e.target.value)}
+                                    >
+                                        {areas.map(area => (
+                                            <option key={area} value={area}>{area}</option>
+                                        ))}
+                                    </select>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="mt-8 border-t-2 border-blue-500 pt-4">
+                <h2 className="text-xl font-semibold mb-2 text-blue-800">Summary of the Day</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h3 className="font-semibold text-blue-700 mb-1">Shift Summary</h3>
+                        <div className="grid grid-cols-5 gap-2">
+                            {Object.entries(shiftSummary).map(([shift, count]) => (
+                                <div key={shift} className="bg-blue-100 rounded-md p-2 text-center text-blue-800 border border-blue-200">
+                                    <div className="text-sm">{shift}</div>
+                                    <div className="font-bold">{count}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-blue-700 mb-1">Area Summary</h3>
+                        <div className="grid grid-cols-3 gap-2">
+                            {Object.entries(areaSummary).map(([area, count]) => (
+                                <div key={area} className="bg-blue-100 rounded-md p-2 text-center text-blue-800 border border-blue-200">
+                                    <div className="text-sm">{area}</div>
+                                    <div className="font-bold">{count}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mt-6">
+                <button onClick={handleSaveChanges} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default AttendanceApp;
