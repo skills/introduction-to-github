@@ -1,6 +1,6 @@
 # Introdução ao GitHub
 
-_Comece a usar o GitHub em menos de uma hora._
+_Comece a usar o GitHub em menos de uma hora ou menos._
 
 ## Bem-vindo
 
