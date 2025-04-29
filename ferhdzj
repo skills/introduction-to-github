@@ -1,0 +1,5 @@
+<!DOCTYPE html PUBLIC"-//w3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>Mi primera página con estilo</tittle>
+<link rel="sylesheet"href=miestilo.css">
