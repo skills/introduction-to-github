@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monster Munch Quest</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    canvas {
+      display: block;
+      background: #aeefff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Game Variables
+    const gravity = 0.6;
+    let score = 0;
+
+    // Assets (placeholder colors/shapes)
+    const monster = {
+      x: 50,
+      y: 300,
+      width: 40,
+      height: 40,
+      color: 'purple',
+      velocityY: 0,
+      jumping: false
+    };
+
+    const snacks = [];
+    const obstacles = [];
+
+    // Add snacks and obstacles
+    function spawnItems() {
+      for (let i = 0; i < 5; i++) {
+        snacks.push({
+          x: 300 + i * 200,
+          y: 300,
+          width: 20,
+          height: 20,
+          color: 'orange'
+        });
+        obstacles.push({
+          x: 400 + i * 200,
+          y: 320,
+          width: 30,
+          height: 30,
+          color: 'green'
+        });
+      }
+    }
+
+    function drawRect(obj) {
+      ctx.fillStyle = obj.color;
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+    }
+
+    function drawScore() {
+      ctx.fillStyle = '#000';
+      ctx.font = '20px Arial';
+      ctx.fillText('Score: ' + score, 10, 30);
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Gravity
+      if (monster.y < 300) {
+        monster.velocityY += gravity;
+      } else {
+        monster.velocityY = 0;
+        monster.y = 300;
+        monster.jumping = false;
+      }
+      monster.y += monster.velocityY;
+
+      // Move snacks and obstacles
+      snacks.forEach(snack => {
+        snack.x -= 3;
+        drawRect(snack);
+      });
+      obstacles.forEach(obs => {
+        obs.x -= 3;
+        drawRect(obs);
+      });
+
+      // Collision detection
+      snacks.forEach((snack, index) => {
+        if (
+          monster.x < snack.x + snack.width &&
+          monster.x + monster.width > snack.x &&
+          monster.y < snack.y + snack.height &&
+          monster.y + monster.height > snack.y
+        ) {
+          score++;
+          snacks.splice(index, 1);
+        }
+      });
+
+      obstacles.forEach(obs => {
+        if (
+          monster.x < obs.x + obs.width &&
+          monster.x + monster.width > obs.x &&
+          monster.y < obs.y + obs.height &&
+          monster.y + monster.height > obs.y
+        ) {
+          alert('Game Over! Skormu: ' + score);
+          document.location.reload();
+        }
+      });
+
+      drawRect(monster);
+      drawScore();
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.code === 'Space' && !monster.jumping) {
+        monster.velocityY = -12;
+        monster.jumping = true;
+      }
+    });
+
+    spawnItems();
+    gameLoop();
+  </script>
+</body>
+</html>
