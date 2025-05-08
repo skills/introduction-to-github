@@ -1,51 +1,104 @@
-# Introduction to GitHub
+#include <Servo.h>
 
-_Get started using GitHub in less than an hour._
 
-## Welcome
+// Definición de pines para los servomotores
+#define PIN_LEFT_LEG  8
+#define PIN_RIGHT_LEG 7
+#define PIN_LEFT_FOOT 6
+#define PIN_RIGHT_FOOT 5
 
-People use GitHub to build some of the most advanced technologies in the world. Whether you’re visualizing data or building a new game, there’s a whole community and set of tools on GitHub that can help you do it even better. GitHub Skills’ “Introduction to GitHub” exercise guides you through everything you need to start contributing in less than an hour.
+// Velocidades para los motores (90 = detenido)
+#define SPEED_STOP 90
+#define SPEED_SLOW 80  // o 100 dependiendo de la dirección
+#define SPEED_FAST 70  // o 110 dependiendo de la dirección
 
-- **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: We'll introduce repositories, branches, commits, and pull requests.
-- **What you'll build**: We'll make a short Markdown file you can use as your [profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
-- **Prerequisites**: None. This exercise is a great introduction for your first day on GitHub.
-- **How long**: This exercise takes less than one hour to complete.
+// Crear objetos Servo para cada motor
+Servo leftLeg;
+Servo rightLeg;
+Servo leftFoot;
+Servo rightFoot;
 
-In this exercise, you will:
+void setup() {
+  // Adjuntar servos a los pines correspondientes
+  leftLeg.attach(PIN_LEFT_LEG);
+  rightLeg.attach(PIN_RIGHT_LEG);
+  leftFoot.attach(PIN_LEFT_FOOT);
+  rightFoot.attach(PIN_RIGHT_FOOT);
+ 
+  // Iniciar todos los motores detenidos
+  //stopAll();
+ 
+  // Pequeña pausa para inicialización
+  delay(1000);
+}
 
-1. Create a branch
-2. Commit a file
-3. Open a pull request
-4. Merge your pull request
+void loop() {
+  // Ejemplo de secuencia de movimientos
+ /* walkForward(2000);  // Caminar hacia adelante por 2 segundos
+  turnRight(1000);    // Girar a la derecha por 1 segundo
+  walkBackward(2000); // Caminar hacia atrás por 2 segundos
+  turnLeft(1000);     // Girar a la izquierda por 1 segundo
+  stopAll();
+  delay(2000);        // Esperar 2 segundos
 
-### How to start this exercise
+  */
+   stopAll();
+   delay(5000);
+}
 
-1. Right-click **Copy Exercise** and open the link in a new tab.
+// Función para detener todos los motores
+void stopAll() {
+  //leftLeg.write(90);
+ //rightLeg.write(45);
+ // leftFoot.write(90);
+  // rightFoot.write(90);
+}
 
-   <a id="copy-exercise" href="https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=Exercise:+Introduction+to+GitHub&visibility=public">
-      <img src="https://img.shields.io/badge/📠_Copy_Exercise-008000" height="25pt"/>
-   </a>
+// Función para caminar hacia adelante
+void walkForward(int tiempo) {
+  // Piernas: una adelante, otra atrás
+  leftLeg.write(5);
+  rightLeg.write(6);
+  // Pies: compensar movimiento
+  leftFoot.write(7);
+  rightFoot.write(8);
+ 
+  delay(tiempo);
+  stopAll();
+}
 
-2. In the new tab, most of the prompts will automatically fill in for you.
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   - Scroll down and click the **Create repository** button at the bottom of the form.
+// Función para caminar hacia atrás
+void walkBackward(int tiempo) {
+  // Invertir direcciones de walkForward
+  leftLeg.write(5);
+  rightLeg.write(6);
+  leftFoot.write(7);
+  rightFoot.write(8);
+ 
+  delay(tiempo);
+  stopAll();
+}
 
-3. After your new repository is created, wait about 20 seconds for the exercise to be prepared and buttons updated. You will continue working from your copy of the exercise.
-   - The **Copy Exercise** button will deactivate, changing to gray.
-   - The **Start Exercise** button will activate, changing to green.
-   - You will likely need to refresh the page.
+// Función para girar a la derecha
+void turnRight(int duration) {
+  // Todos los motores en la misma dirección
+  leftLeg.write(5);
+  rightLeg.write(6);
+  leftFoot.write(7);
+  rightFoot.write(8);
+ 
+  delay(duration);
+  stopAll();
+}
 
-4. Click **Start Exercise**. Follow the step-by-step instructions and feedback will be provided as you progress.
-
-   <a id="start-exercise">
-      <img src="https://img.shields.io/badge/🚀_Start_Exercise-AAA" height="25pt"/>
-   </a>
-
-> [!IMPORTANT]
-> The **Start Exercise** button will activate after copying the repository. You will probably need to refresh the page.
-
----
-
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+// Función para girar a la izquierda
+void turnLeft(int duration) {
+  // Todos los motores en dirección opuesta
+  leftLeg.write(5);
+  rightLeg.write(6);
+  leftFoot.write(7);
+  rightFoot.write(8);
+ 
+  delay(duration);
+  stopAll();
+}
