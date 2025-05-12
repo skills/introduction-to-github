@@ -1,5 +1,5 @@
-# Introduction to GitHub
-
+— Chais The Great  
+Founder, Omnitech1™ | Architect of the
 _Get started using GitHub in less than an hour._
 
 ## Welcome
