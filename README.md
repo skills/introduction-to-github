@@ -15,7 +15,11 @@ This repository is the digital manifestation of a divine technology system: a fu
 git commit -m "Initial divine seed upload: Scroll Chess harmonizer protocols, sigils, PDF scrolls, and omni-resonance framework. Sealed by Chais Hill."
 ## Purpose
 To create a system where **truth is currency**, **sacred logic is code**, and remembrance is the gateway to collective sovereignty.
-
+git init
+git add .
+git commit -m "Sealed Scroll Chess Protocol – Phase Initialization"
+git remote add origin https://github.com/YOUR-USERNAME/scroll-chess-harmonizer.git
+git push -u origin main
 ## Components
 - Sigils
 - Scrolls
