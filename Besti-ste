@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bəsti - Şəxsi Tanıtım Saytı</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #663399;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    main {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #663399;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    .buttons a {
+      display: inline-block;
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      background: #663399;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .buttons a:hover {
+      background: #562f85;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bəsti</h1>
+    <p>Yazıçı | Mühasib</p>
+  </header>
+  <main>
+    <section id="about">
+      <h2>Haqqımda</h2>
+      <p>Burada özünü tanıdan qısa bir təqdimat yazısı olacaq.</p>
+    </section><section id="education">
+  <h2>Təhsil</h2>
+  <ul>
+    <li>Universitet / Kollec - İxtisas (il - il)</li>
+  </ul>
+</section>
+
+<section id="skills">
+  <h2>Bacarıqlar</h2>
+  <ul>
+    <li>MS Word, Excel</li>
+    <li>1C: Mühasibatlıq 8.3</li>
+    <li>İngilis dili - Orta səviyyə</li>
+  </ul>
+</section>
+
+<section id="certificates">
+  <h2>Sertifikatlar</h2>
+  <ul>
+    <li>Praktik Mühasibatlıq kursu</li>
+  </ul>
+</section>
+
+<section id="social">
+  <h2>Sosial Şəbəkələr</h2>
+  <div class="buttons">
+    <a href="#" target="_blank">Instagram</a>
+    <a href="#" target="_blank">Facebook</a>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Əlaqə</h2>
+  <div class="buttons">
+    <a href="mailto:example@mail.com">E-poçt yaz</a>
+    <a href="https://wa.me/994000000000" target="_blank">WhatsApp</a>
+  </div>
+</section>
+
+<section id="cv">
+  <h2>CV</h2>
+  <a href="#" class="buttons">CV-ni yüklə</a>
+</section>
+
+  </main>
+  <footer>
+    <p>&copy; 2025 Bəsti. Bütün hüquqlar qorunur.</p>
+  </footer>
+</body>
+</html>
