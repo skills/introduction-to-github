@@ -1,0 +1,138 @@
+html_content = """
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC RENOV - Rénovation et Construction</title>
+  <meta name="description" content="CC RENOV - Experts en rénovation et construction en France. Transformez vos idées en réalité avec notre équipe professionnelle.">
+  <meta name="keywords" content="rénovation, construction, bâtiment, maison, CC RENOV, artisan, entreprise de rénovation, France, travaux">
+  <meta name="author" content="CC RENOV">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: gold;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #222;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: gold;
+      text-decoration: none;
+      padding: 15px;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      color: gold;
+      border-bottom: 2px solid gold;
+      padding-bottom: 10px;
+    }
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 20px;
+    }
+    form input, form textarea, form button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1em;
+    }
+    .contact-buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 15px;
+      background: gold;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bienvenue chez CC RENOV</h1>
+    <p>Experts en rénovation et construction en France</p>
+  </header>
+
+  <nav>
+    <a href="#accueil">Accueil</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Projets</a>
+    <a href="#avis">Avis</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="accueil">
+    <h2>Votre Idée, Notre Mission</h2>
+    <p>CC RENOV transforme vos idées en réalité. Avec une équipe passionnée et expérimentée, nous réalisons des projets sur mesure, de la rénovation complète aux petits travaux de finition.</p>
+  </section>
+
+  <section id="services">
+    <h2>Nos Services</h2>
+    <ul>
+      <li>Rénovation intérieure et extérieure</li>
+      <li>Peinture, plâtrerie, carrelage</li>
+      <li>Toiture et isolation</li>
+      <li>Installation électrique et plomberie</li>
+      <li>Aménagement de combles et extensions</li>
+    </ul>
+  </section>
+
+  <section id="portfolio">
+    <h2>Nos Projets</h2>
+    <p>Voici quelques-unes de nos réalisations :</p>
+    <img src="project1.jpg" alt="Projet 1" style="width:100%; margin-top:20px;">
+    <img src="project2.jpg" alt="Projet 2" style="width:100%; margin-top:20px;">
+  </section>
+
+  <section id="avis">
+    <h2>Vos Avis</h2>
+    <blockquote>« Très professionnel et rapide. Je recommande ! »</blockquote>
+    <blockquote>« Mon appartement a été transformé, merci CC RENOV ! »</blockquote>
+  </section>
+
+  <section id="contact">
+    <h2>Contactez-Nous</h2>
+    <p>📞 Téléphone : <a href="tel:+33652769523">+33 6 52 76 95 23</a><br>
+       💬 WhatsApp : <a href="https://wa.me/33652769523" target="_blank">Envoyer un message</a><br>
+       📸 Instagram : <a href="https://instagram.com/ccrenov" target="_blank">@ccrenov</a><br>
+       ✉️ Email : <a href="mailto:ccrenov60@gmail.com">ccrenov60@gmail.com</a></p>
+
+    <div class="contact-buttons">
+      <a href="tel:+33652769523">📞 Appeler</a>
+      <a href="https://wa.me/33652769523" target="_blank">💬 WhatsApp</a>
+      <a href="https://instagram.com/ccrenov" target="_blank">📸 Instagram</a>
+    </div>
+
+    <form action="#" method="post">
+      <input type="text" name="nom" placeholder="Votre nom" required>
+      <input type="email" name="email" placeholder="Votre email" required>
+      <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 CC RENOV. Tous droits réservés.
+  </footer>
+</body>
+</html>
+"""
