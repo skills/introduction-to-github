@@ -1,0 +1,45 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+  "name": "Go",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.23-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.codespaces",
+        "github.vscode-github-actions",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "github.copilot-workspace",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.remotehub",
+        "golang.Go"
+      ]
+    }
+  },
+  "tasks": {
+    "build": "go build .",
+    "test": "go test ./...",
+    "run": "go run ."
+  },
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "go install -v golang.org/x/tools/cmd/goimports@latest"
+
+  // Configure tool-specific properties.
+  // "customizations": {},
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
