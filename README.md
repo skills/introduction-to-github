@@ -33,7 +33,7 @@ In this exercise, you will:
    - Scroll down and click the **Create repository** button at the bottom of the form.
 
 3. After your new repository is created, wait about 20 seconds for the exercise to be prepared and buttons updated. You will continue working from your copy of the exercise.
-   - The **Copy Exercise** button will deactivate, changing to gray.
+   - The 48607460** button will deactivate, changing to gray.
    - The **Start Exercise** button will activate, changing to green.
    - You will likely need to refresh the page.
 
