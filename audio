@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>@##
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Auditif en Ligne</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  #instructions {
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  #result {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Test Auditif en Ligne</h1>
+<div id="instructions">
+  Cliquez sur "J'entends" lorsque vous entendez le son. Assurez-vous d'utiliser un casque ou des écouteurs pour de meilleurs résultats.
+</div>
+<button id="playBtn">Jouer le son</button>
+<button id="hearBtn" disabled>J'entends</button>
+
+<div id="result"></div>
+
+<script>
+  const playBtn = document.getElementById('playBtn');
+  const hearBtn = document.getElementById('hearBtn');
+  const resultDiv = document.getElementById('result');
+
+  let audioContext;
+  let oscillator;
+
+  function jouerSon(frequence) {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    oscillator = audioContext.createOscillator();
+    oscillator.type = 'sin';
+    oscillator.frequency.value = frequence;
+    oscillator.connect(audioContext.destination);
+    oscillator.start();
+    setTimeout(() => {
+      oscillator.stop();
+    }, 1000); // jouer pour 1 seconde
+  }
+
+  // Liste des fréquences à tester (en Hz)
+  const fréquences = [250, 500, 1000, 2000, 4000, 8000];
+
+  let index = 0;
+  let résultats = [];
+
+  playBtn.onclick = () => {
+    if (index >= fréquences.length) {
+      resultDiv.innerHTML = "Test terminé.<br>Résultats : " + résultats.join(', ');
+      return;
+    }
+    jouerSon(fréquences[index]);
+    hearBtn.disabled = false;
+    results.push({ fréquence: fréquences[index], entendu: null });
+  };
+
+  hearBtn.onclick = () => {
+    resultados[resultados.length - 1].entendu = true;
+    index++;
+    hearBtn.disabled = true;
+    if (index < fréquences.length) {
+      resultDiv.innerHTML = "Prochain son à tester : " + fréquences[index] + " Hz";
+    } else {
+      resultDiv.innerHTML = "Test terminé. Vous avez entendu les sons aux fréquences : " + résultats.map(r => r.entendu ? r.fréquence + "Hz" : "").filter(Boolean).join(', ');
+    }
+  };
+</script>
+
+</body>
+</html>
