@@ -1,0 +1,77 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+
+export default function RealEstateCRM() {
+  const [clients, setClients] = useState([]);
+  const [offers, setOffers] = useState([]);
+  const [newClient, setNewClient] = useState({ name: "", phone: "", email: "", type: "", zone: "", budgetMin: "", budgetMax: "", propertyType: "", rooms: "", floor: "", notes: "", status: "General" });
+  const [newOffer, setNewOffer] = useState({ address: "", zone: "", price: "", propertyType: "", rooms: "", surface: "", floor: "", description: "" });
+
+  const handleAddClient = () => {
+    setClients([...clients, newClient]);
+    setNewClient({ name: "", phone: "", email: "", type: "", zone: "", budgetMin: "", budgetMax: "", propertyType: "", rooms: "", floor: "", notes: "", status: "General" });
+  };
+
+  const handleAddOffer = () => {
+    setOffers([...offers, newOffer]);
+    setNewOffer({ address: "", zone: "", price: "", propertyType: "", rooms: "", surface: "", floor: "", description: "" });
+  };
+
+  const matchedClients = (offer) => {
+    return clients.filter(client =>
+      client.zone === offer.zone &&
+      parseInt(client.budgetMin) <= parseInt(offer.price) &&
+      parseInt(client.budgetMax) >= parseInt(offer.price) &&
+      client.propertyType === offer.propertyType
+    );
+  };
+
+  return (
+    <div className="p-4 grid gap-4">
+      <h1 className="text-2xl font-serif">CRM Imobiliar – Clienți și Oferte</h1>
+
+      <Card>
+        <CardContent className="grid gap-2 p-4">
+          <h2 className="text-xl font-serif">Adaugă Client</h2>
+          {Object.keys(newClient).map((key) => (
+            <Input key={key} placeholder={key} value={newClient[key]} onChange={(e) => setNewClient({ ...newClient, [key]: e.target.value })} />
+          ))}
+          <Button onClick={handleAddClient}>Adaugă Client</Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="grid gap-2 p-4">
+          <h2 className="text-xl font-serif">Adaugă Ofertă</h2>
+          {Object.keys(newOffer).map((key) => (
+            key === "description" ?
+              <Textarea key={key} placeholder={key} value={newOffer[key]} onChange={(e) => setNewOffer({ ...newOffer, [key]: e.target.value })} /> :
+              <Input key={key} placeholder={key} value={newOffer[key]} onChange={(e) => setNewOffer({ ...newOffer, [key]: e.target.value })} />
+          ))}
+          <Button onClick={handleAddOffer}>Adaugă Ofertă</Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="grid gap-2 p-4">
+          <h2 className="text-xl font-serif">Oferte și Potriviri</h2>
+          {offers.map((offer, index) => (
+            <div key={index} className="border p-2 rounded">
+              <p><strong>{offer.address}</strong> – {offer.price} € ({offer.zone})</p>
+              <p>{offer.propertyType}, {offer.rooms} camere, {offer.surface} mp</p>
+              <p className="text-sm italic">Potriviri:</p>
+              <ul className="list-disc pl-5">
+                {matchedClients(offer).map((client, i) => (
+                  <li key={i}>{client.name} – {client.phone} ({client.budgetMin}-{client.budgetMax} €)</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
