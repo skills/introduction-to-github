@@ -1,0 +1,272 @@
+<html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Empresa Javier</title>
+    <style>
+        body {
+            background-color: #ccffcc; /* Fondo verde claro */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2e8b57;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .producto {
+            background-color: white;
+            border: 2px solid #2e8b57;
+            border-radius: 10px;
+            margin: 15px;
+            width: 220px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .producto img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .producto h3 {
+            margin: 10px 0 5px;
+        }
+        .producto p {
+            margin: 5px 0 15px;
+        }
+        .producto button {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .producto button:hover {
+            background-color: #246b45;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Tienda Javier</h1>
+    <p>¡Respuestos de motos al mejor precio!</p>
+</header>
+
+<div class="contenedor">
+    <!-- Producto 1 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\amortiguadores.jpg" alt="amortiguador">
+        <p>Precio: $15.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\aros.jpg"
+        <h3>Aros</h3>
+        <p>Precio: $35.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\carburador.jpg"
+        <h3>Carburador</h3>
+        <p>Precio: $12.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\faros.jpg"
+        <h3>Faros</h3>
+        <p>Precio: $4.90</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\parrilla.jpg"
+        <h3>Parrilla</h3>
+        <p>Precio: $10.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\kit de arrastre.jpeg"
+        <h3>Kit de arrastre</h3>
+        <p>Precio: $6.30</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\bateria.jpeg"
+        <h3>Bateria</h3>
+        <p>Precio: $12.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 8 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\bujia.jpeg"
+        <h3>Bujia</h3>
+        <p>Precio: $1.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 9 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga.jpeg"
+        <h3>Balancinas</h3>
+        <p>Precio: $7.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 10 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (1).jpeg"
+        <h3>Chasis</h3>
+        <p>Precio: $20.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 11 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (2).jpeg"
+        <h3>Montura</h3>
+        <p>Precio: $8.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 12 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (3).jpeg"
+        <h3>Tanque</h3>
+        <p>Precio: $15.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 13 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (4).jpeg"
+        <h3>Velocimetro</h3>
+        <p>Precio: $8.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 14 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (5).jpeg"
+        <h3>Volantes</h3>
+        <p>Precio: $2.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 15 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (6).jpeg"
+        <h3>Guias</h3>
+        <p>Precio: $7.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 16 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga.png"
+        <h3>Barras</h3>
+        <p>Precio: $12.75</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 17 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (7).jpeg"
+        <h3>Embrague</h3>
+        <p>Precio: $2.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 18 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (8).jpeg"
+        <h3>Bomba de freno</h3>
+        <p>Precio: $2.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 19 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (9).jpeg"
+        <h3>Zapatas</h3>
+        <p>Precio: $4.25</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 20 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (10).jpeg"
+        <h3>Llanta</h3>
+        <p>Precio: $12.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 21 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (11).jpeg"
+        <h3>Catalina</h3>
+        <p>Precio: $2.50</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 22 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (12).jpeg"
+        <h3>Porta catalina</h3>
+        <p>Precio: $5.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 23 -->
+    <div class="producto">
+        <img src="C:\Users\USER1\Pictures\descarga (13).jpeg"
+        <h3>Rodamentos</h3>
+        <p>Precio: $3.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 24 -->
+    <div class="producto">
+        <img src="plumones.jpg" alt="plumones">
+        <h3>Plumones</h3>
+        <p>Precio: $1.80</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 25 -->
+    <div class="producto">
+        <img src="papel.jpg" alt="papel bond">
+        <h3>Papel Bond</h3>
+        <p>Precio: $1.00</p>
+        <button>Agregar al carrito</button>
+    </div>
+
+    <!-- Agregar más productos aquí -->
+
+</div>
+
+</body>
+</html>
