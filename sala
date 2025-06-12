@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha de Matérias - Escola</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Planilha de Matérias da Escola</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Segunda-feira</th>
+                    <th>Terça-feira</th>
+                    <th>Quarta-feira</th>
+                    <th>Quinta-feira</th>
+                    <th>Sexta-feira</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true">Matéria 1</td>
+                    <td contenteditable="true">Matéria 2</td>
+                    <td contenteditable="true">Matéria 3</td>
+                    <td contenteditable="true">Matéria 4</td>
+                    <td contenteditable="true">Matéria 5</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Matéria 6</td>
+                    <td contenteditable="true">Matéria 7</td>
+                    <td contenteditable="true">Matéria 8</td>
+                    <td contenteditable="true">Matéria 9</td>
+                    <td contenteditable="true">Matéria 10</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="saveButton">Salvar Planilha</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
