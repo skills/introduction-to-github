@@ -1,0 +1,5 @@
+Hi! I'm Athanogs, a passionate Computer Science student on a journey to become a well-rounded software engineer.
+I enjoy exploring new technologies, solving real-world problems through code, and building projects that make an impact.
+This GitHub is where I share my learning, university work, and personal experiments in programming and software development.
+
+Let's build something awesome!
