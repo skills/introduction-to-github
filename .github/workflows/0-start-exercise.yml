@@ -19,7 +19,7 @@ jobs:
     if: |
       !github.event.repository.is_template
     name: Start Exercise
-    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.1.0
+    uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.4.0
     with:
       exercise-title: "Introduction to GitHub"
       intro-message: "If you are new to GitHub, you might find your fellow developers use ___**issues**___  to organize their work and collaborate. We will do the same! That's another lesson, but today, we will introduce you to the basics."
