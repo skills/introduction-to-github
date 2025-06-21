@@ -1,4 +1,4 @@
-# Introduction to GitHub
+# Introduction to GitHub - Fixed Typo
 
 _Get started using GitHub in less than an hour._
 
