@@ -51,13 +51,21 @@ jobs:
           path: exercise-toolkit
           ref: v0.6.0
 
+      - name: Find last comment
+        id: find-last-comment
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          direction: last
+
       - name: Update comment - checking work
-        run: |
-          gh issue comment "$ISSUE_URL" \
-            --body-file exercise-toolkit/markdown-templates/step-feedback/checking-work.md \
-            --edit-last
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: GrantBirki/comment@v2.1.1
+        with:
+          comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
+          file: exercise-toolkit/markdown-templates/step-feedback/checking-work.md
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
 
       # START: Check practical exercise
       - name: Check PR title for keyphrase
@@ -73,19 +81,24 @@ jobs:
         id: check-pr-description
         continue-on-error: true
         run: |
-          if [ -n "${{ github.event.pull_request.body }}" ]; then
+          if [ -n "$PR_BODY" ]; then
             echo "STEP_MESSAGE=Description is not empty" >> $GITHUB_ENV
           else
             echo "STEP_MESSAGE=Description is empty" >> $GITHUB_ENV
             exit 1
           fi
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
       # END: Check practical exercise
-      - name: Build message - step results
-        id: build-message-step-results
-        uses: skills/action-text-variables@v2
+
+      - name: Update comment - step results
+        uses: GrantBirki/comment@v2.1.1
         with:
-          template-file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          template-vars: |
+          comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
+          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          vars: |
             step_number: 3
             passed: ${{ !contains(steps.*.outcome, 'failure') }}
             results_table:
@@ -93,15 +106,6 @@ jobs:
                 passed: ${{ steps.check-pr-title.outcome == 'success' }}
               - description: ${{ steps.check-pr-description.outputs.STEP_MESSAGE }}
                 passed: ${{ steps.check-pr-description.outcome == 'success' }}
-
-      - name: Create comment - step results
-        run: |
-          gh issue comment "$ISSUE_URL" \
-            --body "$COMMENT_BODY" \
-            --edit-last
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMENT_BODY: ${{ steps.build-message-step-results.outputs.updated-text }}
 
       - name: Fail job if not all checks passed
         if: contains(steps.*.outcome, 'failure')
