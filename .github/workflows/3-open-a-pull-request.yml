@@ -84,9 +84,9 @@ jobs:
         continue-on-error: true
         run: |
           if [ -n "$PR_BODY" ]; then
-            echo "STEP_MESSAGE=Description is not empty" >> $GITHUB_ENV
+            echo "STEP_MESSAGE=Pull request description" >> $GITHUB_OUTPUT
           else
-            echo "STEP_MESSAGE=Description is empty" >> $GITHUB_ENV
+            echo "STEP_MESSAGE=Pull request description is empty" >> $GITHUB_OUTPUT
             exit 1
           fi
         env:
