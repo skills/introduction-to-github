@@ -1,0 +1,29 @@
+import gradio as gr
+from PIL import Image
+import tempfile
+
+# Versione con anteprima immagine e link per il download forzando il formato PNG
+def convert_jpeg_to_png(image: Image.Image):
+    # Salvo un file temporaneo come PNG
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+    image.save(temp_file.name, format="PNG")
+
+    # Per l'anteprima serve un oggetto di tipo PIL.Image
+    preview_image = Image.open(temp_file.name)
+
+    return preview_image, temp_file.name 
+
+# Il trucco sta nel generare 2 diversi output: l'immagine di anteprima e il file da scaricare
+interface = gr.Interface(
+    fn=convert_jpeg_to_png,
+    inputs=gr.Image(type="pil", label="Carica immagine JPEG"),
+    outputs=[
+        gr.Image(type="pil", label="Anteprima PNG"),
+        gr.File(label="Scarica immagine PNG")
+    ],
+    title="Convertitore JPEG → PNG",
+    description="Carica un'immagine JPEG per visualizzarla e scaricarla in formato PNG.",
+)
+
+if __name__ == "__main__":
+    interface.launch()
