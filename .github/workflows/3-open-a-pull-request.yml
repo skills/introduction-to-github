@@ -66,6 +66,8 @@ jobs:
           file: exercise-toolkit/markdown-templates/step-feedback/checking-work.md
           issue-number: ${{ env.ISSUE_NUMBER }}
           repository: ${{ env.ISSUE_REPOSITORY }}
+          edit-mode: replace
+
 
       # START: Check practical exercise
       - name: Check PR title for keyphrase
@@ -91,14 +93,12 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
       # END: Check practical exercise
 
-      - name: Update comment - step results
-        uses: GrantBirki/comment@v2.1.1
+      - name: Build message - step results
+        id: build-message-step-results
+        uses: skills/action-text-variables@v2
         with:
-          comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          issue-number: ${{ env.ISSUE_NUMBER }}
-          repository: ${{ env.ISSUE_REPOSITORY }}
-          vars: |
+          template-file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
+          template-vars: |
             step_number: 3
             passed: ${{ !contains(steps.*.outcome, 'failure') }}
             results_table:
@@ -106,6 +106,15 @@ jobs:
                 passed: ${{ steps.check-pr-title.outcome == 'success' }}
               - description: ${{ steps.check-pr-description.outputs.STEP_MESSAGE }}
                 passed: ${{ steps.check-pr-description.outcome == 'success' }}
+
+      - name: Update comment - step results
+        uses: GrantBirki/comment@v2.1.1
+        with:
+          comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
+          body: ${{ steps.build-message-step-results.outputs.updated-text }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
+          edit-mode: replace
 
       - name: Fail job if not all checks passed
         if: contains(steps.*.outcome, 'failure')
