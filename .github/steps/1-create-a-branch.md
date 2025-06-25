@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/5881b17f-41a6-4cdf-a1bc-fb2fce15e8de)## Step 1: Create a branch
+## Step 1: Create a branch
 
 _Welcome to "Introduction to GitHub"! :wave:_
 
