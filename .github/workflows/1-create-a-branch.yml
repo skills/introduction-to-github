@@ -21,7 +21,7 @@ env:
 jobs:
   find_exercise:
     name: Find Exercise Issue
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.6.0
 
   check_step_work:
     name: Check step work
@@ -37,7 +37,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.1.0
+          ref: v0.6.0
 
 
       - name: Update comment - checking work
@@ -81,7 +81,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.1.0
+          ref: v0.6.0
 
       - name: Create comment - add step content
         run: |
