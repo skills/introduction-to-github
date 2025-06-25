@@ -1,1 +1,1 @@
-Welcome ot my GIT HUB project!
+Welcome to my GIT HUB project!
