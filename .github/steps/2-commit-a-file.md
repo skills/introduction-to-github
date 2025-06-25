@@ -17,7 +17,7 @@ The following steps will guide you through the process of committing a change on
 
 2. Select the **Add file** drop-down and click **Create new file**.
 
-   <img width="300" alt="screenshot of the create new file option" src="https://github.com/user-attachments/assets/cfb062cd-be60-4f12-948c-0946a6fe01da">
+   <img width="300" alt="screenshot of the create new file option" src="https://github.com/user-attachments/assets/a86c088e-b377-43f7-96e6-e68f7aef1cd3">
 
 3. In the **Name your file...** field, enter `PROFILE.md`.
 
@@ -27,7 +27,7 @@ The following steps will guide you through the process of committing a change on
    Welcome to my GitHub profile!
    ```
 
-   ![screenshot for adding the profile.md file](https://github.com/user-attachments/assets/e00540be-4334-4d0d-adc2-9893b5477a91)
+   ![screenshot for adding the profile.md file](https://github.com/user-attachments/assets/487c0ba4-88d8-4634-8715-a170413369d0)
 
 5. Click **Commit changes...** in the upper right corner above the contents box. A dialog will appear.
 
@@ -35,7 +35,7 @@ The following steps will guide you through the process of committing a change on
    
    - A **commit message** and optional **extended description** help provide clarity for your changes. This is particularly useful when your commit involves several files.
 
-   <img width="400" alt="screenshot of adding a new file with a commit message" src="https://github.com/user-attachments/assets/6ab299ce-8039-4734-a707-d7c3cd7077a0">
+   <img width="400" alt="screenshot of adding a new file with a commit message" src="https://github.com/user-attachments/assets/5472be49-6a6c-4b9c-ba2b-151ded73921f">
 
 6. In this lesson, we'll ignore the other fields for now and click **Commit changes**.
 
