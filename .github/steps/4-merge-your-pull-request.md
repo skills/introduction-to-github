@@ -6,7 +6,7 @@ You successfully created a pull request. Now it's time to merge it!
 
 **What is a merge?**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)."
 
-![screenshot of green merge pull request button](https://github.com/user-attachments/assets/ce2f04cb-8a71-411f-8dc8-827a2bc23a30)
+![screenshot of green merge pull request button](https://github.com/user-attachments/assets/c691b064-0bd3-4448-bdcd-b1ad82fc9154)
 
 ### :keyboard: Activity: Merge the pull request
 
@@ -20,7 +20,7 @@ You successfully created a pull request. Now it's time to merge it!
 
 3. Once your branch has been merged, you don't need it anymore. To delete this branch, click **Delete branch**.
 
-   ![screenshot showing delete branch button](https://github.com/user-attachments/assets/0fda948e-14e0-4643-aa53-d9f9f364cddd)
+   ![screenshot showing delete branch button](https://github.com/user-attachments/assets/29ddff73-865b-485c-abc6-3333bca71b76)
 
 4. Now that your work is merged, Mona will confirm and share some final review content. Nice work! 🎉
 
