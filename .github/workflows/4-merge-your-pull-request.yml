@@ -31,7 +31,6 @@ jobs:
     if: |
       !github.event.repository.is_template
     env:
-      # Can be changed to a different repository for debugging with nektos/act when working on the exercise.
       ISSUE_REPOSITORY: ${{ github.repository }}
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
 
@@ -44,8 +43,8 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.5.0
-          
+          ref: v0.6.0
+
       - name: Create comment - step finished
         uses: GrantBirki/comment@v2.1.1
         with:

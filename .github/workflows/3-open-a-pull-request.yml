@@ -25,6 +25,9 @@ env:
 
 jobs:
   find_exercise:
+    if: |
+      !github.event.repository.is_template &&
+      github.head_ref == 'my-first-branch'
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.6.0
 
@@ -32,11 +35,7 @@ jobs:
     name: Check step work
     runs-on: ubuntu-latest
     needs: find_exercise
-    if: |
-      !github.event.repository.is_template &&
-      github.head_ref == 'my-first-branch'
     env:
-      # Can be changed to a different repository for debugging with nektos/act when working on the exercise.
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
       ISSUE_REPOSITORY: ${{ github.repository }}
 
@@ -49,7 +48,8 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.6.0
+          # ref: v0.6.0
+          ref: nunjucks-templates
 
       - name: Find last comment
         id: find-last-comment
@@ -91,30 +91,30 @@ jobs:
           fi
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
-      # END: Check practical exercise
 
-      - name: Build message - step results
-        id: build-message-step-results
-        uses: skills/action-text-variables@v2
+      - name: Get response templates
+        uses: actions/checkout@v4
         with:
-          template-file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          template-vars: |
-            step_number: 3
-            passed: ${{ !contains(steps.*.outcome, 'failure') }}
-            results_table:
-              - description: "Pull Request title matches"
-                passed: ${{ steps.check-pr-title.outcome == 'success' }}
-              - description: ${{ steps.check-pr-description.outputs.STEP_MESSAGE }}
-                passed: ${{ steps.check-pr-description.outcome == 'success' }}
+          repository: skills/exercise-toolkit
+          path: exercise-toolkit
+          # ref: v0.7.0 change after release
+          ref: nunjucks-templates
 
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
         with:
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
-          body: ${{ steps.build-message-step-results.outputs.updated-text }}
+          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
           issue-number: ${{ env.ISSUE_NUMBER }}
           repository: ${{ env.ISSUE_REPOSITORY }}
           edit-mode: replace
+          vars: |
+            step_number: 3
+            results_table:
+              - description: "Pull Request title matches"
+                passed: ${{ steps.check-pr-title.outcome == 'success' }}
+              - description: ${{ steps.check-pr-description.outputs.STEP_MESSAGE }}
+                passed: ${{ steps.check-pr-description.outcome == 'success' }}
 
       - name: Fail job if not all checks passed
         if: contains(steps.*.outcome, 'failure')

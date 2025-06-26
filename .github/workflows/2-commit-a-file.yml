@@ -28,7 +28,6 @@ jobs:
     needs: [find_exercise]
     runs-on: ubuntu-latest
     env:
-      # Can be changed to a different repository for debugging with nektos/act when working on the exercise.
       ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
       ISSUE_REPOSITORY: ${{ github.repository }}
 
