@@ -10,7 +10,6 @@ permissions:
   actions: write # Disable/enable workflows
   issues: write # Create issue and comment on issues
 
-
 env:
   STEP_1_FILE: ".github/steps/1-create-a-branch.md"
 
@@ -24,13 +23,15 @@ jobs:
       exercise-title: "Introduction to GitHub"
       intro-message: "If you are new to GitHub, you might find your fellow developers use ___**issues**___  to organize their work and collaborate. We will do the same! That's another lesson, but today, we will introduce you to the basics."
 
-
   post_next_step_content:
     name: Post next step content
     runs-on: ubuntu-latest
     needs: [start_exercise]
     env:
-      ISSUE_URL: ${{ needs.start_exercise.outputs.issue-url }}
+      # Can be changed to a different repository for debugging with nektos/act when working on the exercise.
+
+      ISSUE_NUMBER: ${{ needs.start_exercise.outputs.issue-number }}
+      ISSUE_REPOSITORY: ${{ github.repository }}
 
     steps:
       - name: Checkout
@@ -44,18 +45,18 @@ jobs:
           ref: v0.6.0
 
       - name: Create comment - add step content
-        run: |
-          gh issue comment "$ISSUE_URL" \
-            --body-file ${{ env.STEP_1_FILE }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: GrantBirki/comment@v2.1.1
+        with:
+          file: ${{ env.STEP_1_FILE }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
 
       - name: Create comment - watching for progress
-        run: |
-          gh issue comment "$ISSUE_URL" \
-            --body-file exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: GrantBirki/comment@v2.1.1
+        with:
+          file: exercise-toolkit/markdown-templates/step-feedback/watching-for-progress.md
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          repository: ${{ env.ISSUE_REPOSITORY }}
 
       - name: Disable current workflow and enable next one
         run: |
