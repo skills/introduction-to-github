@@ -48,8 +48,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          # ref: v0.6.0
-          ref: nunjucks-templates
+          ref: 10175ccfa4234de2ddc77c3ac4b0643de76d28f5 # Update when v0.7.0 is released
 
       - name: Find last comment
         id: find-last-comment
