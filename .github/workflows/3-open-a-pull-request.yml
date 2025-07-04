@@ -29,7 +29,7 @@ jobs:
       !github.event.repository.is_template &&
       github.head_ref == 'my-first-branch'
     name: Find Exercise Issue
-    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.6.0
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
 
   check_step_work:
     name: Check step work
@@ -48,7 +48,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: 10175ccfa4234de2ddc77c3ac4b0643de76d28f5 # Update when v0.7.0 is released
+          ref: v0.7.0
 
       - name: Find last comment
         id: find-last-comment
@@ -136,7 +136,7 @@ jobs:
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
-          ref: v0.6.0
+          ref: v0.7.0
 
       - name: Create comment - step finished
         uses: GrantBirki/comment@v2.1.1
