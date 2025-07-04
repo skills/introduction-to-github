@@ -61,7 +61,9 @@ jobs:
 
       - name: Disable current workflow
         run: gh workflow disable "${{github.workflow}}"
-
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
   finish_exercise:
     name: Finish Exercise
     needs: [find_exercise, post_review_content]
