@@ -91,14 +91,6 @@ jobs:
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
 
-      - name: Get response templates
-        uses: actions/checkout@v4
-        with:
-          repository: skills/exercise-toolkit
-          path: exercise-toolkit
-          # ref: v0.7.0 change after release
-          ref: nunjucks-templates
-
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
         with:
