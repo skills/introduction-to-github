@@ -48,22 +48,22 @@ jobs:
       - name: Create comment - step finished
         uses: GrantBirki/comment@v2.1.1
         with:
-          file: exercise-toolkit/markdown-templates/step-feedback/lesson-review.md
-          issue-number: ${{ env.ISSUE_NUMBER }}
           repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: exercise-toolkit/markdown-templates/step-feedback/lesson-review.md
 
       - name: Create comment - add review content
         uses: GrantBirki/comment@v2.1.1
         with:
-          file: ${{ env.REVIEW_FILE }}
-          issue-number: ${{ env.ISSUE_NUMBER }}
           repository: ${{ env.ISSUE_REPOSITORY }}
+          issue-number: ${{ env.ISSUE_NUMBER }}
+          file: ${{ env.REVIEW_FILE }}
 
       - name: Disable current workflow
         run: gh workflow disable "${{github.workflow}}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
   finish_exercise:
     name: Finish Exercise
     needs: [find_exercise, post_review_content]
