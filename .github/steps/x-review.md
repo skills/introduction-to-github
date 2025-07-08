@@ -24,6 +24,6 @@ If you'd like to make a profile README, use the quickstart instructions below or
 Check out these resources to learn more or get involved:
 
 - Are you a student? Check out the [Student Developer Pack](https://education.github.com/pack).
-- [Take another GitHub Skills exercise](https://skills.github.com).
+- [Take another GitHub Skills exercise](https://learn.github.com/skills).
 - [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
