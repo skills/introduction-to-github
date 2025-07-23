@@ -29,7 +29,7 @@ In this exercise, you will:
 
 1. Right-click **Copy Exercise** and open the link in a new tab.
 
-   <a id="copy-exercise" href="https://github.com/new?template_owner=skills&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=Exercise:+Introduction+to+GitHub&visibility=public">
+   <a id="copy-exercise" href="https://github.com/new?template_owner=FidelusAleksander&template_name=introduction-to-github&owner=%40me&name=skills-introduction-to-github&description=Exercise:+Introduction+to+GitHub&visibility=public">
       <img src="https://img.shields.io/badge/📠_Copy_Exercise-008000" height="25pt"/>
    </a>
 
