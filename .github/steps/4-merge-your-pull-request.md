@@ -2,7 +2,7 @@
 
 _Nicely done! :sunglasses:_
 
-You successfully created a pull request. Now it's time to merge it!
+You successfully created a pull request. Now it's time merge it!
 
 **What is a merge?**: A _[merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge)_ adds the changes in your pull request and branch into the `main` branch. For more information about merges, see "[Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)."
 
