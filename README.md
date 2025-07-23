@@ -1,5 +1,11 @@
 # Introduction to GitHub
 
+<!-- ![](../../actions/workflows/0-start-exercise.yml/badge.svg) -->
+![](../../actions/workflows/1-create-a-branch.yml/badge.svg)
+![](../../actions/workflows/2-commit-a-file.yml/badge.svg)
+![](../../actions/workflows/3-open-a-pull-request.yml/badge.svg)
+![](../../actions/workflows/4-merge-your-pull-request.yml/badge.svg)
+
 _Get started using GitHub in less than an hour._
 
 ## Welcome
