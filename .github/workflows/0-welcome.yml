@@ -1,16 +1,15 @@
-name: Step 3, Open a pull request
+name: Step 0, Welcome
 
-# This step listens for the learner to open a pull request with branch `my-first-branch`.
-# This workflow updates from step 3 to step 4.
+# This step triggers after the learner creates a new repository from the template.
+# This workflow updates from step 0 to step 1.
 
-# This will run every time we create a branch or tag.
+# This will run every time we create push a commit to `main`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
-  pull_request:
-    types:
-      - opened
-      - reopened
+  push:
+    branches:
+      - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -32,37 +31,34 @@ jobs:
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_open_a_pull_request:
-    name: On open a pull request
+  on_welcome:
+    name: On welcome
     needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.
-    # 2. The step is currently 3.
-    # 3. The head branch name is `my-first-branch`.
+    # 2. The step is currently 0.
     # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: >-
       ${{ !github.event.repository.is_template
-          && needs.get_current_step.outputs.current_step == 3
-          && github.head_ref == 'my-first-branch' }}
+          && needs.get_current_step.outputs.current_step == 0 }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README.
+      # We'll need to check out the repository so that we can edit README.md.
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Let's get all the branches.
-          ref: my-first-branch # Important, as normally `pull_request` event won't grab other branches.
 
-      # In README.md, switch step 3 for step 4.
-      - name: Update to step 4
+      # In README.md, switch step 0 for step 1.
+      - name: Update to step 1
         uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          from_step: 3
-          to_step: 4
+          from_step: 0
+          to_step: 1
           branch_name: my-first-branch
