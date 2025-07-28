@@ -1,0 +1,24 @@
+{
+  "name": "grs-gold-house-bill-generator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.26.9",
+    "preact/hooks": "10.22.1",
+    "htm/preact": "3.1.1",
+    "htm": "^3.1.1",
+    "path": "^0.12.7",
+    "vite": "^7.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}

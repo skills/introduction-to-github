@@ -1,0 +1,5 @@
+{
+  "name": "Code execution demo",
+  "description": "Let Gemini execute Python code in a sandbox",
+  "requestFramePermissions": []
+}
