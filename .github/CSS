@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap");
+
+.bg-container {
+    background-image: url("https://d1tgh8fmlzexmh.cloudfront.net/ccbp-static-website/hotelbg.png");
+    height: 100vh;
+    background-size: cover;
+    padding: 20px;
+}
+
+.card {
+    background-color: #000000e6;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.main-heading {
+    font-family: "Roboto";
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.para {
+    color: #ffffff;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.price {
+    color: #ffffff;
+    font-family: "Bree serif";
+    font-size: 22px;
+}
+
+.button-container {
+    background-color: #ffffff;
+    text-align: center;
+    margin: 10px;
+}
+
+.button {
+    background-color: #ffffff;
+    font-family: "Roboto";
+    font-size: 12px;
+    font-weight: 500;
+    width: 119;
+    height: 38px;
+    border-width: 0;
+    border-radius: 8px;
+}
