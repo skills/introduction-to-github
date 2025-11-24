@@ -21,6 +21,9 @@ import { scrollCoinRouter } from './services/scrollcoin.js';
 import { communityRouter } from './services/community.js';
 import { catalogRouter } from './services/music-catalog.js';
 import { pdpRouter } from './services/pdp-integration.js';
+import { onboardingRouter } from './services/scrollsoul-onboarding.js';
+import { dashboardRouter } from './services/sovereign-dashboard.js';
+import { festivalRouter } from './services/festival-forever-fun.js';
 
 // Load environment variables
 dotenv.config();
@@ -59,7 +62,10 @@ app.get('/', (req, res) => {
       'ScrollCoin Payment Integration',
       'KUNTA NFT Ownership Benefits',
       'Prophecy Documentation Protocol Access',
-      'Community Engagement Platform'
+      'Community Engagement Platform',
+      'ScrollSoul Onboarding System',
+      'Sovereign Dashboard with Live Metrics',
+      'Festival of Forever Fun Events'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -68,7 +74,10 @@ app.get('/', (req, res) => {
       scrollcoin: '/api/scrollcoin',
       community: '/api/community',
       catalog: '/api/catalog',
-      pdp: '/api/pdp'
+      pdp: '/api/pdp',
+      onboarding: '/api/onboarding',
+      dashboard: '/api/dashboard',
+      festival: '/api/festival'
     }
   });
 });
@@ -81,6 +90,9 @@ app.use('/api/scrollcoin', scrollCoinRouter);
 app.use('/api/community', communityRouter);
 app.use('/api/catalog', catalogRouter);
 app.use('/api/pdp', pdpRouter);
+app.use('/api/onboarding', onboardingRouter);
+app.use('/api/dashboard', dashboardRouter);
+app.use('/api/festival', festivalRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -110,6 +122,9 @@ app.listen(PORT, () => {
 ║  💎 KUNTA NFT Integration: Enabled                        ║
 ║  🪙 ScrollCoin Economy: Operational                       ║
 ║  📜 PDP Protocol: Synchronized                            ║
+║  🎓 ScrollSoul Onboarding: Active                         ║
+║  📊 Sovereign Dashboard: Monitoring                       ║
+║  🎉 Festival of Forever Fun: Scheduled                    ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║

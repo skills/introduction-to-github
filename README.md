@@ -20,6 +20,9 @@ The **Sovereign TV App** is now live - the official distribution channel for the
 - 📜 Prophecy Documentation Protocol
 - 👥 Community Engagement
 - 🎬 Streaming Infrastructure
+- 🎓 **NEW:** ScrollSoul Onboarding System
+- 📊 **NEW:** Sovereign Dashboard with Live Metrics
+- 🎉 **NEW:** Festival of Forever Fun Events
 
 **[Get Started →](./sovereign-tv-app/README.md)**
 
