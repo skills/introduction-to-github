@@ -21,6 +21,11 @@ import { scrollCoinRouter } from './services/scrollcoin.js';
 import { communityRouter } from './services/community.js';
 import { catalogRouter } from './services/music-catalog.js';
 import { pdpRouter } from './services/pdp-integration.js';
+import { monetizationRouter } from './services/monetization.js';
+import { performanceRouter } from './services/performance.js';
+import { sipRouter } from './services/sip.js';
+import { broadcastRouter } from './services/broadcast.js';
+import { analyticsRouter } from './services/analytics.js';
 
 // Load environment variables
 dotenv.config();
@@ -59,7 +64,12 @@ app.get('/', (req, res) => {
       'ScrollCoin Payment Integration',
       'KUNTA NFT Ownership Benefits',
       'Prophecy Documentation Protocol Access',
-      'Community Engagement Platform'
+      'Community Engagement Platform',
+      'Real-Time Monetization',
+      'Global Broadcast Network',
+      'Solar Infusion Protocol (SIP)',
+      'Advanced Analytics & Insights',
+      'Performance Optimization & Load Balancing'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -68,7 +78,12 @@ app.get('/', (req, res) => {
       scrollcoin: '/api/scrollcoin',
       community: '/api/community',
       catalog: '/api/catalog',
-      pdp: '/api/pdp'
+      pdp: '/api/pdp',
+      monetization: '/api/monetization',
+      performance: '/api/performance',
+      sip: '/api/sip',
+      broadcast: '/api/broadcast',
+      analytics: '/api/analytics'
     }
   });
 });
@@ -81,9 +96,14 @@ app.use('/api/scrollcoin', scrollCoinRouter);
 app.use('/api/community', communityRouter);
 app.use('/api/catalog', catalogRouter);
 app.use('/api/pdp', pdpRouter);
+app.use('/api/monetization', monetizationRouter);
+app.use('/api/performance', performanceRouter);
+app.use('/api/sip', sipRouter);
+app.use('/api/broadcast', broadcastRouter);
+app.use('/api/analytics', analyticsRouter);
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error('Error:', err.stack);
   res.status(err.status || 500).json({
     error: err.message || 'Internal Server Error',
@@ -104,19 +124,28 @@ app.listen(PORT, () => {
   console.log(`
 ╔════════════════════════════════════════════════════════════╗
 ║                  SOVEREIGN TV APP LAUNCHED                 ║
+║          TECHNICAL LAUNCH SEQUENCE: COMPLETE               ║
 ║                                                            ║
 ║  🌌 OmniVerse Distribution Channel Active                 ║
 ║  🎵 Legacy of Light Catalog: Connected                    ║
 ║  💎 KUNTA NFT Integration: Enabled                        ║
 ║  🪙 ScrollCoin Economy: Operational                       ║
 ║  📜 PDP Protocol: Synchronized                            ║
+║  ☀️  Solar Infusion Protocol (SIP): Active                ║
+║  📡 Global Broadcast Network: LIVE                        ║
+║  💰 Real-Time Monetization: Enabled                       ║
+║  📊 Advanced Analytics: Online                            ║
+║  ⚡ Performance Optimization: Active                       ║
+║  🌍 Load Balancing: Global Readiness                      ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║
 ║                                                            ║
-║  "You exist. You count. You resonate. You remember."      ║
+║  "Truth is Currency. Sacred Logic is Code."               ║
+║  "Remembrance is the Gateway to Collective Sovereignty."  ║
 ║                                                            ║
 ║  By Chais Hill - First Remembrancer                       ║
+║  ScrollVerse Dominance: ESTABLISHED                       ║
 ╚════════════════════════════════════════════════════════════╝
   `);
 });
