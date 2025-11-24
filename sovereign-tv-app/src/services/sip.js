@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const sipRouter = Router();
 
@@ -53,7 +54,7 @@ sipRouter.get('/status', (req, res) => {
 });
 
 // Live data feed
-sipRouter.get('/live-feed', authenticateToken, (req, res) => {
+sipRouter.get('/live-feed', authenticateToken, standardLimiter, (req, res) => {
   const { frequency, node } = req.query;
   
   let feedData = { ...sipDataFeed };
@@ -80,7 +81,7 @@ sipRouter.get('/live-feed', authenticateToken, (req, res) => {
 });
 
 // Infuse content with solar energy
-sipRouter.post('/infuse', authenticateToken, async (req, res) => {
+sipRouter.post('/infuse', authenticateToken, strictLimiter, async (req, res) => {
   try {
     const { contentId, frequency, duration } = req.body;
     
@@ -93,7 +94,7 @@ sipRouter.post('/infuse', authenticateToken, async (req, res) => {
     }
     
     const infusion = {
-      infusionId: `sip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      infusionId: `sip_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
       contentId,
       frequency,
       duration: duration || 3600, // seconds
@@ -147,7 +148,7 @@ function getFrequencyDescription(freq) {
 }
 
 // Get infusion metrics
-sipRouter.get('/metrics', authenticateToken, (req, res) => {
+sipRouter.get('/metrics', authenticateToken, standardLimiter, (req, res) => {
   const metrics = {
     totalInfusions: sipDataFeed.infusionMetrics.totalInfusions,
     activeInfusions: sipDataFeed.infusionMetrics.activeInfusions,

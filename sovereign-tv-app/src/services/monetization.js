@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const monetizationRouter = Router();
 
@@ -24,7 +25,7 @@ const revenueStream = {
 };
 
 // Real-time transaction processing
-monetizationRouter.post('/process-transaction', authenticateToken, async (req, res) => {
+monetizationRouter.post('/process-transaction', authenticateToken, strictLimiter, async (req, res) => {
   try {
     const { type, amount, currency, metadata } = req.body;
     
@@ -33,7 +34,7 @@ monetizationRouter.post('/process-transaction', authenticateToken, async (req, r
     }
 
     const transaction = {
-      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
       userId: req.user.username,
       type,
       amount,
@@ -65,7 +66,7 @@ monetizationRouter.post('/process-transaction', authenticateToken, async (req, r
 });
 
 // Get real-time revenue stream
-monetizationRouter.get('/revenue-stream', authenticateToken, (req, res) => {
+monetizationRouter.get('/revenue-stream', authenticateToken, standardLimiter, (req, res) => {
   const { filter, timeRange } = req.query;
   
   let data = { ...revenueStream };
@@ -94,7 +95,7 @@ monetizationRouter.get('/revenue-stream', authenticateToken, (req, res) => {
 });
 
 // NFT royalty tracking
-monetizationRouter.get('/nft-royalties', authenticateToken, (req, res) => {
+monetizationRouter.get('/nft-royalties', authenticateToken, standardLimiter, (req, res) => {
   const royalties = revenueStream.nft.sales.map(sale => ({
     saleId: sale.id,
     royaltyAmount: sale.amount * 0.025, // 2.5% royalty
@@ -113,7 +114,7 @@ monetizationRouter.get('/nft-royalties', authenticateToken, (req, res) => {
 });
 
 // ScrollCoin staking rewards
-monetizationRouter.post('/stake-scrollcoin', authenticateToken, async (req, res) => {
+monetizationRouter.post('/stake-scrollcoin', authenticateToken, strictLimiter, async (req, res) => {
   try {
     const { amount, duration } = req.body;
     

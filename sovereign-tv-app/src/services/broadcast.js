@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const broadcastRouter = Router();
 
@@ -68,7 +69,7 @@ const channels = [
 ];
 
 // Global activation endpoint
-broadcastRouter.post('/activate', authenticateToken, async (req, res) => {
+broadcastRouter.post('/activate', authenticateToken, strictLimiter, async (req, res) => {
   try {
     const { scope, channels: requestedChannels } = req.body;
     
@@ -120,7 +121,7 @@ broadcastRouter.get('/status', (req, res) => {
 });
 
 // List all broadcast channels
-broadcastRouter.get('/channels', authenticateToken, (req, res) => {
+broadcastRouter.get('/channels', authenticateToken, standardLimiter, (req, res) => {
   const { category, status } = req.query;
   
   let filteredChannels = [...channels];
@@ -142,7 +143,7 @@ broadcastRouter.get('/channels', authenticateToken, (req, res) => {
 });
 
 // Get specific channel details
-broadcastRouter.get('/channels/:channelId', authenticateToken, (req, res) => {
+broadcastRouter.get('/channels/:channelId', authenticateToken, standardLimiter, (req, res) => {
   const { channelId } = req.params;
   
   const channel = channels.find(c => c.id === channelId);
@@ -168,7 +169,7 @@ broadcastRouter.get('/channels/:channelId', authenticateToken, (req, res) => {
 });
 
 // Live data feed for PDP
-broadcastRouter.get('/pdp-feed', authenticateToken, (req, res) => {
+broadcastRouter.get('/pdp-feed', authenticateToken, standardLimiter, (req, res) => {
   const pdpFeed = {
     channel: 'pdp-protocol',
     status: 'live',
@@ -214,7 +215,7 @@ broadcastRouter.get('/pdp-feed', authenticateToken, (req, res) => {
 });
 
 // Live data feed for SIP
-broadcastRouter.get('/sip-feed', authenticateToken, (req, res) => {
+broadcastRouter.get('/sip-feed', authenticateToken, standardLimiter, (req, res) => {
   const sipFeed = {
     channel: 'sip-infusion',
     status: 'live',
@@ -247,7 +248,7 @@ broadcastRouter.get('/sip-feed', authenticateToken, (req, res) => {
 });
 
 // Broadcast analytics
-broadcastRouter.get('/analytics', authenticateToken, (req, res) => {
+broadcastRouter.get('/analytics', authenticateToken, standardLimiter, (req, res) => {
   const analytics = {
     network: {
       uptime: 99.97,

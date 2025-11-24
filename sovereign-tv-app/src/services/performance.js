@@ -6,8 +6,27 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const performanceRouter = Router();
+
+// Helper functions for optimization
+function calculateBufferSize(bandwidth) {
+  if (bandwidth > 10) return 30;
+  if (bandwidth > 5) return 20;
+  return 10;
+}
+
+function recommendQuality(bandwidth) {
+  if (bandwidth > 25) return '4K';
+  if (bandwidth > 10) return '1080p';
+  if (bandwidth > 5) return '720p';
+  return '480p';
+}
+
+function getCompressionLevel(bandwidth) {
+  return bandwidth < 5 ? 'high' : 'medium';
+}
 
 // CDN and edge server configuration
 const edgeServers = [
@@ -31,7 +50,7 @@ const performanceMetrics = {
 };
 
 // Get optimal edge server for user
-performanceRouter.get('/optimal-server', authenticateToken, (req, res) => {
+performanceRouter.get('/optimal-server', authenticateToken, standardLimiter, (req, res) => {
   const { userRegion, quality } = req.query;
   
   // Find best server based on region and load
@@ -99,7 +118,7 @@ performanceRouter.get('/load-balance', (req, res) => {
 });
 
 // Performance metrics
-performanceRouter.get('/metrics', authenticateToken, (req, res) => {
+performanceRouter.get('/metrics', authenticateToken, standardLimiter, (req, res) => {
   const { metric, timeRange } = req.query;
   
   const metrics = {
@@ -138,7 +157,7 @@ performanceRouter.get('/metrics', authenticateToken, (req, res) => {
 });
 
 // Streaming optimization settings
-performanceRouter.post('/optimize', authenticateToken, async (req, res) => {
+performanceRouter.post('/optimize', authenticateToken, standardLimiter, async (req, res) => {
   try {
     const { userId, quality, bandwidth } = req.body;
     
@@ -147,12 +166,12 @@ performanceRouter.post('/optimize', authenticateToken, async (req, res) => {
       settings: {
         quality: quality || 'auto',
         adaptiveBitrate: true,
-        bufferSize: bandwidth > 10 ? 30 : bandwidth > 5 ? 20 : 10,
+        bufferSize: calculateBufferSize(bandwidth),
         preloadStrategy: 'aggressive',
-        compressionLevel: bandwidth < 5 ? 'high' : 'medium'
+        compressionLevel: getCompressionLevel(bandwidth)
       },
       recommendations: {
-        suggestedQuality: bandwidth > 25 ? '4K' : bandwidth > 10 ? '1080p' : bandwidth > 5 ? '720p' : '480p',
+        suggestedQuality: recommendQuality(bandwidth),
         edgeServer: 'auto-select',
         caching: true
       },

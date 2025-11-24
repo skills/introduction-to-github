@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const analyticsRouter = Router();
 
@@ -64,7 +65,7 @@ const contentEngagement = {
 };
 
 // User engagement analytics
-analyticsRouter.get('/engagement', authenticateToken, (req, res) => {
+analyticsRouter.get('/engagement', authenticateToken, standardLimiter, (req, res) => {
   const { period, metric } = req.query;
   
   const engagement = {
@@ -97,7 +98,7 @@ analyticsRouter.get('/engagement', authenticateToken, (req, res) => {
 });
 
 // Revenue analytics
-analyticsRouter.get('/revenue', authenticateToken, (req, res) => {
+analyticsRouter.get('/revenue', authenticateToken, standardLimiter, (req, res) => {
   const { breakdown, period } = req.query;
   
   const revenue = {
@@ -134,7 +135,7 @@ analyticsRouter.get('/revenue', authenticateToken, (req, res) => {
 });
 
 // Content performance analytics
-analyticsRouter.get('/content', authenticateToken, (req, res) => {
+analyticsRouter.get('/content', authenticateToken, standardLimiter, (req, res) => {
   const { sortBy, limit } = req.query;
   
   let topContent = [...contentEngagement.topContent];
@@ -167,7 +168,7 @@ analyticsRouter.get('/content', authenticateToken, (req, res) => {
 });
 
 // User behavior analytics
-analyticsRouter.get('/user-behavior', authenticateToken, (req, res) => {
+analyticsRouter.get('/user-behavior', authenticateToken, standardLimiter, (req, res) => {
   const behavior = {
     preferences: {
       contentTypes: {
@@ -196,7 +197,7 @@ analyticsRouter.get('/user-behavior', authenticateToken, (req, res) => {
       follows: 23456
     },
     subscriptionBehavior: {
-      freeToPremmium: 32.5,
+      freeToPremium: 32.5,
       premiumToElite: 18.7,
       churnRate: 4.2
     },
@@ -220,7 +221,7 @@ analyticsRouter.get('/user-behavior', authenticateToken, (req, res) => {
 });
 
 // NFT purchase analytics
-analyticsRouter.get('/nft-purchases', authenticateToken, (req, res) => {
+analyticsRouter.get('/nft-purchases', authenticateToken, standardLimiter, (req, res) => {
   const nftAnalytics = {
     totalSales: 1234,
     totalRevenue: 876543.20,
@@ -253,7 +254,7 @@ analyticsRouter.get('/nft-purchases', authenticateToken, (req, res) => {
 });
 
 // ScrollCoin transaction analytics
-analyticsRouter.get('/scrollcoin-transactions', authenticateToken, (req, res) => {
+analyticsRouter.get('/scrollcoin-transactions', authenticateToken, standardLimiter, (req, res) => {
   const scrollCoinAnalytics = {
     totalTransactions: 45678,
     totalVolume: 23456789,
@@ -284,7 +285,7 @@ analyticsRouter.get('/scrollcoin-transactions', authenticateToken, (req, res) =>
 });
 
 // Gated content interaction analytics
-analyticsRouter.get('/gated-content', authenticateToken, (req, res) => {
+analyticsRouter.get('/gated-content', authenticateToken, standardLimiter, (req, res) => {
   const gatedAnalytics = {
     totalGatedContent: 156,
     totalAccess: 23456,
@@ -308,7 +309,7 @@ analyticsRouter.get('/gated-content', authenticateToken, (req, res) => {
     },
     conversionImpact: {
       viewToSubscribe: 23.5,
-      freeToPremmium: 32.5,
+      freeToPremium: 32.5,
       premiumToElite: 18.7
     },
     popularGatedContent: [
@@ -330,7 +331,7 @@ analyticsRouter.get('/gated-content', authenticateToken, (req, res) => {
 });
 
 // Comprehensive dashboard
-analyticsRouter.get('/dashboard', authenticateToken, (req, res) => {
+analyticsRouter.get('/dashboard', authenticateToken, standardLimiter, (req, res) => {
   const dashboard = {
     overview: {
       totalUsers: engagementData.totalUsers,
