@@ -12,11 +12,14 @@ import { authenticateToken } from './auth.js';
 
 const router = Router();
 
+// Constants
+const MS_PER_DAY = 86400000; // Milliseconds in one day
+
 // In-memory storage for events and participation (replace with database in production)
 const events = new Map();
 const eventRegistrations = new Map();
 const mediaDrops = new Map();
-const rewardDistributions = new Map();
+// Note: rewardDistributions could be used for tracking claimed rewards in future enhancement
 
 // Festival schedule and events
 const FESTIVAL_EVENTS = [
@@ -25,7 +28,7 @@ const FESTIVAL_EVENTS = [
     title: 'Grand Kickoff Ceremony',
     description: 'The ceremonial launch of ScrollVerse - A historic moment in the OmniVerse',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000).toISOString(), // 1 day from now
+    startTime: new Date(Date.now() + MS_PER_DAY).toISOString(), // 1 day from now
     duration: 120, // minutes
     capacity: 10000,
     registered: 0,
@@ -47,7 +50,7 @@ const FESTIVAL_EVENTS = [
     title: 'Legacy of Light - World Premiere',
     description: 'First-ever live performance of the complete Legacy of Light collection',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000 * 2).toISOString(), // 2 days from now
+    startTime: new Date(Date.now() + MS_PER_DAY * 2).toISOString(), // 2 days from now
     duration: 180,
     capacity: 5000,
     registered: 0,
@@ -69,7 +72,7 @@ const FESTIVAL_EVENTS = [
     title: 'KUNTA Genesis Mega Reveal',
     description: 'Unveiling the complete KUNTA Genesis collection with special benefits',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000 * 3).toISOString(), // 3 days from now
+    startTime: new Date(Date.now() + MS_PER_DAY * 3).toISOString(), // 3 days from now
     duration: 90,
     capacity: 8000,
     registered: 0,
@@ -91,7 +94,7 @@ const FESTIVAL_EVENTS = [
     title: 'ScrollCoin Mega Giveaway',
     description: 'Massive community rewards distribution event',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000 * 4).toISOString(), // 4 days from now
+    startTime: new Date(Date.now() + MS_PER_DAY * 4).toISOString(), // 4 days from now
     duration: 60,
     capacity: 15000,
     registered: 0,
@@ -114,7 +117,7 @@ const FESTIVAL_EVENTS = [
     title: 'Sovereign Community Summit',
     description: 'Shape the future of ScrollVerse through collective governance',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000 * 5).toISOString(), // 5 days from now
+    startTime: new Date(Date.now() + MS_PER_DAY * 5).toISOString(), // 5 days from now
     duration: 150,
     capacity: 7000,
     registered: 0,
@@ -137,7 +140,7 @@ const FESTIVAL_EVENTS = [
     title: 'Forever Fun Grand Finale',
     description: 'Epic celebration wrapping up the festival with surprises',
     type: 'live',
-    startTime: new Date(Date.now() + 86400000 * 6).toISOString(), // 6 days from now
+    startTime: new Date(Date.now() + MS_PER_DAY * 6).toISOString(), // 6 days from now
     duration: 240,
     capacity: 20000,
     registered: 0,
@@ -387,7 +390,7 @@ router.get('/media-drops', (req, res) => {
       title: 'Behind-the-Scenes Documentary',
       type: 'video',
       description: 'The making of ScrollVerse - 30-minute exclusive',
-      releaseTime: new Date(Date.now() + 86400000 * 2).toISOString(),
+      releaseTime: new Date(Date.now() + MS_PER_DAY * 2).toISOString(),
       availability: 'limited',
       count: 5000,
       claimed: 0,
@@ -409,7 +412,7 @@ router.get('/media-drops', (req, res) => {
       title: 'ScrollVerse Constitution Draft',
       type: 'document',
       description: 'First public release of governance framework',
-      releaseTime: new Date(Date.now() + 86400000 * 5).toISOString(),
+      releaseTime: new Date(Date.now() + MS_PER_DAY * 5).toISOString(),
       availability: 'unlimited',
       claimRequirement: 'Attend community summit'
     }
@@ -486,9 +489,8 @@ router.get('/rewards', authenticateToken, (req, res) => {
 router.get('/stats', (req, res) => {
   const totalRegistrations = Array.from(events.values()).reduce((sum, e) => sum + e.registrations.length, 0);
   const uniqueParticipants = new Set();
-  Array.from(eventRegistrations.values()).forEach(regs => {
-    eventRegistrations.forEach((regs, user) => uniqueParticipants.add(user));
-  });
+  // Count unique users who have registered for any event
+  eventRegistrations.forEach((regs, user) => uniqueParticipants.add(user));
 
   res.json({
     totalEvents: FESTIVAL_EVENTS.length,

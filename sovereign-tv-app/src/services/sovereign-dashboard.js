@@ -74,7 +74,7 @@ router.get('/overview', authenticateToken, (req, res) => {
   res.json(overview);
 });
 
-// Get ScrollCoin economy metrics
+// Get ScrollCoin economy metrics (public - basic info, detailed analysis requires auth)
 router.get('/scrollcoin', (req, res) => {
   const { timeframe = '24h' } = req.query;
   
@@ -103,7 +103,7 @@ router.get('/scrollcoin', (req, res) => {
   });
 });
 
-// Get NFT analytics
+// Get NFT analytics (public - market data is transparent on blockchain)
 router.get('/nfts', (req, res) => {
   const { collection = 'all' } = req.query;
 
@@ -142,7 +142,7 @@ router.get('/nfts', (req, res) => {
   res.json(nftData);
 });
 
-// Get user activity metrics
+// Get user activity metrics (public - aggregated statistics only, no personal data)
 router.get('/activity', (req, res) => {
   const { timeframe = '24h' } = req.query;
 
@@ -427,8 +427,9 @@ function calculateVotingPower(username) {
 }
 
 // Simulated real-time updates (in production, use WebSocket or Server-Sent Events)
+// Note: In production, use atomic operations or message queue for thread-safe updates
 setInterval(() => {
-  // Update metrics with simulated changes
+  // Update metrics with simulated changes (demo only - production should use proper state management)
   metricsData.scrollCoinEconomy.currentPrice *= (1 + (Math.random() - 0.5) * 0.01);
   metricsData.scrollCoinEconomy.volume24h += Math.floor(Math.random() * 10000 - 5000);
   metricsData.userActivity.onlineNow += Math.floor(Math.random() * 10 - 5);
