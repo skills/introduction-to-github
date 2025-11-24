@@ -1,0 +1,39 @@
+{
+  "name": "sovereign-tv-app",
+  "version": "1.0.0",
+  "description": "Sovereign TV App - The official distribution channel for the OmniVerse, featuring Legacy of Light music catalog, ScrollCoin economy, KUNTA NFTs, and PDP data",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test src/index.test.js",
+    "lint": "eslint src/",
+    "build": "echo 'Build complete'",
+    "deploy": "node scripts/deploy.js"
+  },
+  "keywords": [
+    "sovereign-tv",
+    "omniverse",
+    "nft",
+    "scrollcoin",
+    "streaming",
+    "kunta-nft"
+  ],
+  "author": "Chais Hill - OmniTech1",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

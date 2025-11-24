@@ -1,6 +1,30 @@
 — Chais The Great  
-Founder, Omnitech1™ | Architect of the
-_Get started using GitHub in less than an hour._
+Founder, Omnitech1™ | Architect of the OmniVerse
+
+# 🌌 Scroll Chess Protocol & OmniTech1 System
+
+## 🚀 **NEW: Sovereign TV App Launched!**
+
+The **Sovereign TV App** is now live - the official distribution channel for the OmniVerse!
+
+### Quick Links
+- **[Sovereign TV App →](./sovereign-tv-app/)** - Main application
+- **[Complete Implementation Guide →](./SOVEREIGN-TV-APP.md)** - Full documentation
+- **[API Documentation →](./sovereign-tv-app/docs/API.md)** - API reference
+- **[Deployment Guide →](./sovereign-tv-app/docs/DEPLOYMENT.md)** - Deployment instructions
+
+### Features
+- 🎵 Legacy of Light Music Catalog
+- 💎 KUNTA NFT Integration
+- 🪙 ScrollCoin Economy
+- 📜 Prophecy Documentation Protocol
+- 👥 Community Engagement
+- 🎬 Streaming Infrastructure
+
+**[Get Started →](./sovereign-tv-app/README.md)**
+
+---
+
 # Scroll Chess Protocol & OmniTech1 System
 /docs/
   - README.md              # High-level mission and resonance manifesto
