@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { TIER_HIERARCHY } from '../utils/constants.js';
 
 const pdpRouter = Router();
 
@@ -94,11 +95,11 @@ const pdpDocuments = [
 // Get all PDP documents
 pdpRouter.get('/documents', authenticateToken, (req, res) => {
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const accessibleDocs = pdpDocuments.filter(doc => {
-    const docTierLevel = tierHierarchy[doc.tier] || 0;
+    const docTierLevel = TIER_HIERARCHY[doc.tier] || 0;
     return userTierLevel >= docTierLevel;
   });
 
@@ -132,9 +133,9 @@ pdpRouter.get('/documents/:id', authenticateToken, (req, res) => {
   }
 
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
+  
 
-  const hasAccess = tierHierarchy[userTier] >= tierHierarchy[document.tier];
+  const hasAccess = TIER_HIERARCHY[userTier] >= TIER_HIERARCHY[document.tier];
 
   if (!hasAccess) {
     return res.status(403).json({
@@ -155,12 +156,12 @@ pdpRouter.get('/documents/:id', authenticateToken, (req, res) => {
 pdpRouter.get('/category/:category', authenticateToken, (req, res) => {
   const { category } = req.params;
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const categoryDocs = pdpDocuments.filter(doc => {
     const matchesCategory = doc.category === category;
-    const docTierLevel = tierHierarchy[doc.tier] || 0;
+    const docTierLevel = TIER_HIERARCHY[doc.tier] || 0;
     const hasAccess = userTierLevel >= docTierLevel;
     return matchesCategory && hasAccess;
   });
@@ -217,11 +218,11 @@ pdpRouter.post('/documents/:id/attest', authenticateToken, (req, res) => {
 pdpRouter.get('/latest', authenticateToken, (req, res) => {
   const { limit = 5 } = req.query;
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const accessibleDocs = pdpDocuments.filter(doc => {
-    const docTierLevel = tierHierarchy[doc.tier] || 0;
+    const docTierLevel = TIER_HIERARCHY[doc.tier] || 0;
     return userTierLevel >= docTierLevel;
   });
 
@@ -239,11 +240,11 @@ pdpRouter.get('/latest', authenticateToken, (req, res) => {
 pdpRouter.get('/trending', authenticateToken, (req, res) => {
   const { limit = 5 } = req.query;
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const accessibleDocs = pdpDocuments.filter(doc => {
-    const docTierLevel = tierHierarchy[doc.tier] || 0;
+    const docTierLevel = TIER_HIERARCHY[doc.tier] || 0;
     return userTierLevel >= docTierLevel;
   });
 

@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { TIER_HIERARCHY } from '../utils/constants.js';
 
 const streamingRouter = Router();
 
@@ -78,11 +79,10 @@ streamingRouter.get('/content', authenticateToken, (req, res) => {
   const userTier = req.user.tier || 'free';
   const nftVerified = req.user.nftVerified || false;
 
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const availableContent = streamingContent.filter(content => {
-    const contentTierLevel = tierHierarchy[content.tier] || 0;
+    const contentTierLevel = TIER_HIERARCHY[content.tier] || 0;
     const tierCheck = userTierLevel >= contentTierLevel;
     const nftCheck = !content.nftGated || nftVerified;
     
@@ -118,10 +118,9 @@ streamingRouter.get('/content/:id', authenticateToken, (req, res) => {
 
   const userTier = req.user.tier || 'free';
   const nftVerified = req.user.nftVerified || false;
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
 
   // Check access permissions
-  const hasRequiredTier = tierHierarchy[userTier] >= tierHierarchy[content.tier];
+  const hasRequiredTier = TIER_HIERARCHY[userTier] >= TIER_HIERARCHY[content.tier];
   const hasNFTAccess = !content.nftGated || nftVerified;
 
   if (!hasRequiredTier) {
@@ -159,9 +158,8 @@ streamingRouter.post('/stream/:id', authenticateToken, (req, res) => {
 
   const userTier = req.user.tier || 'free';
   const nftVerified = req.user.nftVerified || false;
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
 
-  const hasRequiredTier = tierHierarchy[userTier] >= tierHierarchy[content.tier];
+  const hasRequiredTier = TIER_HIERARCHY[userTier] >= TIER_HIERARCHY[content.tier];
   const hasNFTAccess = !content.nftGated || nftVerified;
 
   if (!hasRequiredTier || !hasNFTAccess) {
@@ -190,13 +188,12 @@ streamingRouter.get('/category/:category', authenticateToken, (req, res) => {
   const { category } = req.params;
   const userTier = req.user.tier || 'free';
   const nftVerified = req.user.nftVerified || false;
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const categoryContent = streamingContent
     .filter(content => {
       const matchesCategory = content.category === category;
-      const contentTierLevel = tierHierarchy[content.tier] || 0;
+      const contentTierLevel = TIER_HIERARCHY[content.tier] || 0;
       const tierCheck = userTierLevel >= contentTierLevel;
       const nftCheck = !content.nftGated || nftVerified;
       

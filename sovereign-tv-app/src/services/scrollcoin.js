@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { getUserBalance, setUserBalance } from '../utils/constants.js';
 
 const scrollCoinRouter = Router();
 
@@ -57,12 +58,11 @@ const transactions = [];
 
 // Get ScrollCoin balance
 scrollCoinRouter.get('/balance', authenticateToken, (req, res) => {
-  // In production, query blockchain for actual balance
-  const mockBalance = 5000;
+  const balance = getUserBalance(req.user.username);
   
   res.json({
     username: req.user.username,
-    balance: mockBalance,
+    balance,
     currency: 'ScrollCoin',
     symbol: 'SCR',
     lastUpdated: new Date().toISOString()
@@ -91,7 +91,7 @@ scrollCoinRouter.post('/purchase-tier', authenticateToken, async (req, res) => {
     
     if (paymentMethod === 'scrollcoin') {
       // Mock balance check
-      const currentBalance = 5000;
+      const currentBalance = getUserBalance(req.user.username);
       
       if (currentBalance < selectedTier.scrollCoinPrice) {
         return res.status(402).json({
@@ -115,10 +115,13 @@ scrollCoinRouter.post('/purchase-tier', authenticateToken, async (req, res) => {
 
       transactions.push(transaction);
 
+      const newBalance = currentBalance - selectedTier.scrollCoinPrice;
+      setUserBalance(req.user.username, newBalance);
+
       return res.json({
         message: `Successfully upgraded to ${selectedTier.name}`,
         transaction,
-        newBalance: currentBalance - selectedTier.scrollCoinPrice,
+        newBalance,
         benefits: selectedTier.benefits
       });
     }
@@ -166,7 +169,7 @@ scrollCoinRouter.post('/transfer', authenticateToken, async (req, res) => {
     }
 
     // Mock balance check
-    const currentBalance = 5000;
+    const currentBalance = getUserBalance(req.user.username);
     
     if (currentBalance < amount) {
       return res.status(402).json({
@@ -191,10 +194,13 @@ scrollCoinRouter.post('/transfer', authenticateToken, async (req, res) => {
 
     transactions.push(transaction);
 
+    const newBalance = currentBalance - amount;
+    setUserBalance(req.user.username, newBalance);
+
     res.json({
       message: 'Transfer successful',
       transaction,
-      newBalance: currentBalance - amount
+      newBalance
     });
 
   } catch (error) {

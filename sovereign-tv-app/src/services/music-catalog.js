@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { TIER_HIERARCHY, HEALING_FREQUENCIES } from '../utils/constants.js';
 
 const catalogRouter = Router();
 
@@ -91,11 +92,11 @@ const musicCatalog = [
 // Get full catalog
 catalogRouter.get('/', authenticateToken, (req, res) => {
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const accessibleMusic = musicCatalog.filter(track => {
-    const trackTierLevel = tierHierarchy[track.tier] || 0;
+    const trackTierLevel = TIER_HIERARCHY[track.tier] || 0;
     return userTierLevel >= trackTierLevel;
   });
 
@@ -128,9 +129,9 @@ catalogRouter.get('/track/:id', authenticateToken, (req, res) => {
   }
 
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
+  
 
-  const hasAccess = tierHierarchy[userTier] >= tierHierarchy[track.tier];
+  const hasAccess = TIER_HIERARCHY[userTier] >= TIER_HIERARCHY[track.tier];
 
   if (!hasAccess) {
     return res.status(403).json({
@@ -209,14 +210,7 @@ catalogRouter.get('/frequency/:freq', authenticateToken, (req, res) => {
 
 // Helper function for frequency descriptions
 function getFrequencyDescription(freq) {
-  const descriptions = {
-    '369Hz': 'The frequency of divine alignment and manifestation',
-    '432Hz': 'The natural frequency of the universe',
-    '528Hz': 'The love frequency - DNA repair and transformation',
-    '777Hz': 'The cosmic frequency of spiritual awakening',
-    '963Hz': 'The frequency of divine consciousness and enlightenment'
-  };
-  return descriptions[freq] || 'Sacred frequency';
+  return HEALING_FREQUENCIES[freq] || 'Sacred frequency';
 }
 
 // Create playlist
@@ -246,11 +240,11 @@ catalogRouter.post('/playlists', authenticateToken, (req, res) => {
 catalogRouter.get('/recommendations', authenticateToken, (req, res) => {
   // Simple recommendation: return random 5 tracks user has access to
   const userTier = req.user.tier || 'free';
-  const tierHierarchy = { free: 0, premium: 1, elite: 2 };
-  const userTierLevel = tierHierarchy[userTier] || 0;
+  
+  const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
   const accessibleMusic = musicCatalog.filter(track => {
-    const trackTierLevel = tierHierarchy[track.tier] || 0;
+    const trackTierLevel = TIER_HIERARCHY[track.tier] || 0;
     return userTierLevel >= trackTierLevel;
   });
 
