@@ -25,7 +25,7 @@ communityRouter.get('/profile/:username', authenticateToken, (req, res) => {
       username,
       displayName: username,
       bio: '',
-      avatar: `https://cdn.omniverse.io/avatars/default.jpg`,
+      avatar: 'https://cdn.omniverse.io/avatars/default.jpg',
       joinedAt: new Date().toISOString(),
       stats: {
         posts: 0,
