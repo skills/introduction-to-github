@@ -365,6 +365,237 @@ Get trending documents.
 
 ---
 
+---
+
+## ScrollSoul Onboarding API
+
+### Get Onboarding Overview
+
+**GET** `/api/onboarding/overview`
+
+Get overview of the onboarding system.
+
+**Response:**
+```json
+{
+  "title": "ScrollSoul Onboarding",
+  "totalModules": 6,
+  "requiredModules": 4,
+  "estimatedTimeMinutes": 41,
+  "modules": [...]
+}
+```
+
+### Start Onboarding
+
+**POST** `/api/onboarding/start`
+
+Start the onboarding journey. Requires authentication.
+
+**Response:**
+```json
+{
+  "message": "Welcome to ScrollVerse!",
+  "progress": { "startedAt": "...", "currentModule": "welcome" }
+}
+```
+
+### Complete Module
+
+**POST** `/api/onboarding/modules/:moduleId/complete`
+
+Complete an onboarding module. Requires authentication.
+
+**Request Body:**
+```json
+{
+  "score": 100
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Module completed!",
+  "reward": { "scrollcoin": 50 },
+  "progress": {...}
+}
+```
+
+### Get Progress
+
+**GET** `/api/onboarding/progress`
+
+Get user's onboarding progress. Requires authentication.
+
+---
+
+## Sovereign Dashboard API
+
+### Get Dashboard Overview
+
+**GET** `/api/dashboard/overview`
+
+Get complete dashboard with all metrics. Requires authentication.
+
+**Response:**
+```json
+{
+  "scrollCoinEconomy": {...},
+  "nftAnalytics": {...},
+  "userActivity": {...},
+  "systemHealth": {...}
+}
+```
+
+### Get ScrollCoin Metrics
+
+**GET** `/api/dashboard/scrollcoin`
+
+Get ScrollCoin economy metrics (public endpoint).
+
+**Query Parameters:**
+- `timeframe` - Optional: "24h", "7d", "30d" (default: "24h")
+
+**Response:**
+```json
+{
+  "current": { "currentPrice": 0.05, "volume24h": 1500000 },
+  "historical": [...],
+  "insights": {...}
+}
+```
+
+### Get NFT Analytics
+
+**GET** `/api/dashboard/nfts`
+
+Get NFT market analytics (public endpoint).
+
+### Get User Activity
+
+**GET** `/api/dashboard/activity`
+
+Get aggregated user activity metrics (public endpoint).
+
+### Get Personal Insights
+
+**GET** `/api/dashboard/insights/personal`
+
+Get personalized insights and recommendations. Requires authentication.
+
+### Get Real-time Feed
+
+**GET** `/api/dashboard/feed/realtime`
+
+Get real-time activity feed.
+
+**Query Parameters:**
+- `limit` - Number of activities (default: 20)
+
+---
+
+## Festival of Forever Fun API
+
+### Get Festival Overview
+
+**GET** `/api/festival/overview`
+
+Get complete festival overview with all events.
+
+**Response:**
+```json
+{
+  "title": "Festival of Forever Fun",
+  "totalEvents": 6,
+  "totalCapacity": 65000,
+  "totalRewardsPool": 24250,
+  "events": [...]
+}
+```
+
+### List Events
+
+**GET** `/api/festival/events`
+
+List all festival events.
+
+**Query Parameters:**
+- `type` - Filter by event type
+- `status` - Filter by status: "upcoming", "live", "completed"
+
+### Get Event Details
+
+**GET** `/api/festival/events/:eventId`
+
+Get detailed information about a specific event.
+
+### Register for Event
+
+**POST** `/api/festival/events/:eventId/register`
+
+Register for a festival event. Requires authentication.
+
+**Response:**
+```json
+{
+  "message": "Successfully registered!",
+  "event": {...},
+  "rewards": { "attendance": 500, "participation": 1000 }
+}
+```
+
+### Cancel Registration
+
+**DELETE** `/api/festival/events/:eventId/register`
+
+Cancel event registration. Requires authentication.
+
+### Get My Registrations
+
+**GET** `/api/festival/my-registrations`
+
+Get user's event registrations. Requires authentication.
+
+### Get Media Drops
+
+**GET** `/api/festival/media-drops`
+
+List all available media drops.
+
+### Claim Media Drop
+
+**POST** `/api/festival/media-drops/:dropId/claim`
+
+Claim a media drop. Requires authentication.
+
+**Response:**
+```json
+{
+  "message": "Media drop claimed!",
+  "accessUrl": "/api/festival/media/drop-001",
+  "reward": { "scrollcoin": 100 }
+}
+```
+
+### Get Rewards Summary
+
+**GET** `/api/festival/rewards`
+
+Get user's potential and earned rewards. Requires authentication.
+
+**Response:**
+```json
+{
+  "eventsRegistered": 3,
+  "potentialRewards": 5500,
+  "breakdown": {...},
+  "milestones": [...]
+}
+```
+
+---
+
 ## Rate Limiting
 
 All endpoints are rate-limited to prevent abuse:
