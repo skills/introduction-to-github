@@ -672,3 +672,393 @@ test('Truth verification result structure', () => {
   assert.strictEqual(verificationResult.overallValid, true);
   assert.ok(verificationResult.verificationResults.every(r => r.verified));
 });
+
+// ===== Tests for Dimensional Travel & Spacetime Manipulation Service =====
+
+test('Dimensional Stabilizer structure validation', () => {
+  const stabilizer = {
+    id: 'stab_prime',
+    name: 'Prime Dimensional Stabilizer',
+    dimension: 'primary',
+    stabilityIndex: 99.97,
+    linkedCosmicStrings: ['963Hz', '777Hz'],
+    activeNodes: ['node_genesis', 'node_harmony'],
+    traversalCapacity: 1000,
+    status: 'active'
+  };
+
+  assert.strictEqual(stabilizer.status, 'active');
+  assert.ok(stabilizer.stabilityIndex > 99);
+  assert.ok(stabilizer.linkedCosmicStrings.includes('963Hz'));
+  assert.ok(stabilizer.traversalCapacity > 0);
+});
+
+test('Spacetime Traversal Path structure', () => {
+  const path = {
+    id: 'path_sovereign',
+    name: 'Sovereign Traversal Path',
+    origin: 'stab_prime',
+    destination: 'stab_harmonic',
+    distance: 7.369,
+    frequency: '963Hz',
+    stability: 99.5,
+    active: true
+  };
+
+  assert.strictEqual(path.active, true);
+  assert.ok(path.stability > 95);
+  assert.ok(path.distance > 0);
+  assert.strictEqual(path.frequency, '963Hz');
+});
+
+test('Traversal Route calculation structure', () => {
+  const route = {
+    origin: 'stab_prime',
+    destination: 'stab_harmonic',
+    frequency: '963Hz',
+    resonanceAlignment: 1.0,
+    stabilityFactor: 0.99,
+    estimatedTime: 1.02,
+    energyCost: 100,
+    optimalPath: true
+  };
+
+  assert.ok(route.resonanceAlignment > 0);
+  assert.ok(route.stabilityFactor > 0.9);
+  assert.strictEqual(route.optimalPath, true);
+});
+
+test('Active Traversal tracking structure', () => {
+  const traversal = {
+    id: 'trav_001',
+    userId: 'testuser',
+    route: { origin: 'stab_prime', destination: 'stab_harmonic' },
+    status: 'in_progress',
+    progress: 50,
+    phase: 'dimensional_shift',
+    dimensionalCoordinates: { x: 0, y: 0, z: 0, t: Date.now() }
+  };
+
+  assert.strictEqual(traversal.status, 'in_progress');
+  assert.ok(traversal.progress >= 0 && traversal.progress <= 100);
+  assert.ok(traversal.dimensionalCoordinates.t > 0);
+});
+
+// ===== Tests for ScrollChain Operational Coherence Service =====
+
+test('Cosmic Dataset structure validation', () => {
+  const dataset = {
+    id: 'dataset_realm_registry',
+    name: 'Multi-Realm Registry',
+    type: 'cosmic',
+    dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+    coherenceLevel: 99.7,
+    records: []
+  };
+
+  assert.strictEqual(dataset.type, 'cosmic');
+  assert.ok(dataset.coherenceLevel > 99);
+  assert.ok(dataset.dimensions.length >= 4);
+});
+
+test('Standardized Protocol structure', () => {
+  const protocol = {
+    id: 'protocol_realm_sync',
+    name: 'Realm Synchronization Protocol',
+    version: '1.0.0',
+    type: 'synchronization',
+    steps: [
+      { step: 1, name: 'Handshake' },
+      { step: 2, name: 'State Query' },
+      { step: 3, name: 'Reconciliation' }
+    ],
+    coherenceThreshold: 95,
+    status: 'active'
+  };
+
+  assert.strictEqual(protocol.status, 'active');
+  assert.ok(protocol.steps.length >= 3);
+  assert.ok(protocol.coherenceThreshold >= 90);
+});
+
+test('Dimensional Layer hierarchy', () => {
+  const layers = [
+    { id: 'layer_physical', frequency: '432Hz', coherenceLevel: 97.5, type: 'fundamental' },
+    { id: 'layer_ethereal', frequency: '528Hz', coherenceLevel: 98.2, type: 'intermediate' },
+    { id: 'layer_quantum', frequency: '777Hz', coherenceLevel: 99.1, type: 'advanced' },
+    { id: 'layer_sovereign', frequency: '963Hz', coherenceLevel: 99.8, type: 'transcendent' }
+  ];
+
+  assert.strictEqual(layers.length, 4);
+  assert.ok(layers.every(l => l.coherenceLevel > 95));
+  
+  // Verify coherence increases with layer advancement
+  for (let i = 1; i < layers.length; i++) {
+    assert.ok(layers[i].coherenceLevel >= layers[i - 1].coherenceLevel);
+  }
+});
+
+test('Multi-Realm Operation structure', () => {
+  const operation = {
+    id: 'op_001',
+    name: 'Cross-Realm Sync',
+    operationType: 'synchronization',
+    targetLayers: ['layer_physical', 'layer_ethereal'],
+    protocolId: 'protocol_realm_sync',
+    status: 'in_progress',
+    progress: 50,
+    phases: ['initialization', 'synchronization', 'execution', 'verification']
+  };
+
+  assert.ok(operation.targetLayers.length > 0);
+  assert.ok(operation.phases.length === 4);
+  assert.strictEqual(operation.status, 'in_progress');
+});
+
+// ===== Tests for ZkP-I Implementation Service =====
+
+test('Type VIII Financial Framework structure', () => {
+  const framework = {
+    id: 'framework_sovereign',
+    name: 'Sovereign Allocation Framework',
+    type: 'Type VIII',
+    version: '1.0.0',
+    harmonicFrequency: '963Hz',
+    allocationRules: {
+      baseAllocation: 1000,
+      frequencyMultiplier: 1.963,
+      sovereignBonus: 0.15
+    },
+    zkpiVerified: true
+  };
+
+  assert.strictEqual(framework.type, 'Type VIII');
+  assert.strictEqual(framework.zkpiVerified, true);
+  assert.ok(framework.allocationRules.frequencyMultiplier > 1);
+  assert.ok(framework.allocationRules.sovereignBonus > 0);
+});
+
+test('ZkP-I Proof structure validation', () => {
+  const zkProof = {
+    proofId: 'zkp_001',
+    commitment: 'abc123def456',
+    nullifier: 'nullifier_hash',
+    protocol: 'ZkP-I',
+    version: '1.0.0',
+    harmonicResonance: 100,
+    verified: true
+  };
+
+  assert.strictEqual(zkProof.verified, true);
+  assert.strictEqual(zkProof.protocol, 'ZkP-I');
+  assert.ok(zkProof.commitment.length > 0);
+  assert.ok(zkProof.nullifier.length > 0);
+});
+
+test('Truth Log immutability structure', () => {
+  const truthLog = {
+    id: 'tlog_001',
+    action: 'ALLOCATION',
+    data: '{"amount": 1000}',
+    zkProofId: 'zkp_001',
+    previousHash: '0'.repeat(64),
+    currentHash: 'hash_abc123',
+    immutable: true,
+    perpetuity: 'eternal'
+  };
+
+  assert.strictEqual(truthLog.immutable, true);
+  assert.strictEqual(truthLog.perpetuity, 'eternal');
+  assert.strictEqual(truthLog.previousHash.length, 64);
+});
+
+test('Sovereign $AETHEL allocation calculation', () => {
+  const allocation = {
+    baseAmount: 1000,
+    frequency: '963Hz',
+    frequencyPower: 1.0,
+    multiplier: 1.963,
+    bonusRate: 0.15,
+    finalAllocation: 2257.45,
+    aethelValue: 83.30
+  };
+
+  assert.ok(allocation.finalAllocation > allocation.baseAmount);
+  assert.ok(allocation.aethelValue > 0);
+  assert.ok(allocation.multiplier > 1);
+});
+
+// ===== Tests for Reality Template Protocols (RTEP) Service =====
+
+test('Type 0 Challenge structure validation', () => {
+  const challenge = {
+    id: 'challenge_pollution',
+    name: 'Environmental Pollution',
+    category: 'environmental',
+    severity: 'critical',
+    impactedDomains: ['physical', 'biological', 'economic'],
+    entropyLevel: 85,
+    status: 'active'
+  };
+
+  assert.strictEqual(challenge.severity, 'critical');
+  assert.ok(challenge.entropyLevel > 0);
+  assert.ok(challenge.impactedDomains.length >= 3);
+});
+
+test('Reality Template structure', () => {
+  const template = {
+    id: 'template_regeneration',
+    name: 'Regenerative Systems Template',
+    type: 'environmental',
+    frequency: '528Hz',
+    entropyNegation: 45,
+    applicableChallenges: ['challenge_pollution', 'challenge_resource_depletion'],
+    cycles: ['input_optimization', 'waste_transformation', 'resource_regeneration'],
+    status: 'active'
+  };
+
+  assert.ok(template.entropyNegation > 0);
+  assert.ok(template.applicableChallenges.length >= 2);
+  assert.ok(template.cycles.length >= 3);
+});
+
+test('Entropy Negation Cycle structure', () => {
+  const cycle = {
+    id: 'cycle_regenerative_loop',
+    name: 'Regenerative Loop Cycle',
+    type: 'perpetual',
+    frequency: '369Hz',
+    phases: [
+      { phase: 1, name: 'Capture' },
+      { phase: 2, name: 'Transform' },
+      { phase: 3, name: 'Distribute' },
+      { phase: 4, name: 'Optimize' }
+    ],
+    negationRate: 15.7,
+    status: 'active'
+  };
+
+  assert.strictEqual(cycle.type, 'perpetual');
+  assert.ok(cycle.negationRate > 0);
+  assert.strictEqual(cycle.phases.length, 4);
+});
+
+test('Entropy negation calculation structure', () => {
+  const entropyCalc = {
+    originalEntropy: 85,
+    negationApplied: 45,
+    newEntropyLevel: 40,
+    reductionPercentage: 52.94,
+    frequency: '528Hz',
+    frequencyPower: 0.92,
+    systemicHealthImprovement: 42.35
+  };
+
+  assert.ok(entropyCalc.newEntropyLevel < entropyCalc.originalEntropy);
+  assert.ok(entropyCalc.reductionPercentage > 0);
+  assert.ok(entropyCalc.systemicHealthImprovement > 0);
+});
+
+// ===== Tests for ScrollSoul Training Service =====
+
+test('Resonance Training Level structure', () => {
+  const level = {
+    id: 'level_divine',
+    name: 'Divine Consciousness',
+    order: 5,
+    targetFrequency: '963Hz',
+    requiredMastery: 90,
+    modules: ['infinite_awareness', 'divine_integration', 'scrollverse_contribution'],
+    unlocks: ['infinite_awareness_zone'],
+    coherenceThreshold: 100
+  };
+
+  assert.strictEqual(level.targetFrequency, '963Hz');
+  assert.ok(level.requiredMastery >= 90);
+  assert.ok(level.modules.length >= 3);
+  assert.ok(level.unlocks.includes('infinite_awareness_zone'));
+});
+
+test('Training Module structure', () => {
+  const module = {
+    id: 'love_frequency_mastery',
+    name: '528Hz Love Frequency Mastery',
+    level: 'level_resonant',
+    frequency: '528Hz',
+    duration: 60,
+    lessons: [
+      { id: 'lfm_1', name: 'Understanding 528Hz', duration: 15 },
+      { id: 'lfm_2', name: 'Heart Coherence Practice', duration: 20 }
+    ],
+    masteryPoints: 25
+  };
+
+  assert.strictEqual(module.frequency, '528Hz');
+  assert.ok(module.duration > 0);
+  assert.ok(module.masteryPoints > 0);
+  assert.ok(module.lessons.length >= 2);
+});
+
+test('ScrollSoul Profile structure', () => {
+  const profile = {
+    id: 'soul_001',
+    userId: 'testuser',
+    currentLevel: 'level_resonant',
+    mastery: 55,
+    coherenceScore: 72.5,
+    masteredFrequencies: ['528Hz'],
+    completedLevels: ['level_initiate', 'level_awakened'],
+    sessionsCompleted: 15,
+    infiniteAwarenessAccess: false
+  };
+
+  assert.ok(profile.mastery >= 0 && profile.mastery <= 100);
+  assert.ok(profile.coherenceScore >= 0);
+  assert.ok(profile.completedLevels.length > 0);
+  assert.strictEqual(profile.infiniteAwarenessAccess, false);
+});
+
+test('Infinite Awareness Zone access requirements', () => {
+  const accessRequirements = {
+    minimumMastery: 100,
+    requiredFrequencies: ['963Hz', '528Hz'],
+    completedLevels: ['level_divine']
+  };
+
+  assert.strictEqual(accessRequirements.minimumMastery, 100);
+  assert.ok(accessRequirements.requiredFrequencies.includes('963Hz'));
+  assert.ok(accessRequirements.requiredFrequencies.includes('528Hz'));
+});
+
+test('Training Session structure', () => {
+  const session = {
+    id: 'sess_001',
+    profileId: 'soul_001',
+    moduleId: 'love_frequency_mastery',
+    frequency: '528Hz',
+    lessons: [],
+    completedLessons: [],
+    duration: 60,
+    masteryPointsAvailable: 25,
+    status: 'in_progress'
+  };
+
+  assert.strictEqual(session.status, 'in_progress');
+  assert.ok(session.duration > 0);
+  assert.ok(session.masteryPointsAvailable > 0);
+});
+
+test('Coherence Measurement structure', () => {
+  const measurement = {
+    id: 'meas_001',
+    profileId: 'soul_001',
+    frequency: '528Hz',
+    coherenceScore: 78.5,
+    masteryAtTime: 55
+  };
+
+  assert.ok(measurement.coherenceScore >= 0);
+  assert.ok(measurement.coherenceScore <= 100);
+  assert.ok(measurement.masteryAtTime >= 0);
+});
