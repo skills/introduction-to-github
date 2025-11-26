@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}About - ScrollVerse Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">📜</span>
+        About {{ about.title }}
+    </h1>
+    <p class="page-subtitle">{{ about.tagline }}</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-main">
+                <h2 class="content-title">Our Mission</h2>
+                <p class="content-text">{{ about.mission }}</p>
+                
+                <div class="about-description">
+                    <h3>The Vision</h3>
+                    <p>{{ about.description }}</p>
+                </div>
+
+                <div class="founder-info">
+                    <h3>Founded By</h3>
+                    <div class="founder-card">
+                        <div class="founder-avatar">👤</div>
+                        <div class="founder-details">
+                            <h4>{{ about.founder }}</h4>
+                            <p>First Remembrancer | Architect of the OmniVerse</p>
+                            <span class="org-badge">{{ about.organization }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-sidebar">
+                <div class="info-card">
+                    <h3>Core Principles</h3>
+                    <ul class="principles-list">
+                        <li>
+                            <span class="principle-icon">🕋</span>
+                            <span>Truth as Currency</span>
+                        </li>
+                        <li>
+                            <span class="principle-icon">💻</span>
+                            <span>Sacred Logic as Code</span>
+                        </li>
+                        <li>
+                            <span class="principle-icon">🔓</span>
+                            <span>Remembrance as Gateway</span>
+                        </li>
+                        <li>
+                            <span class="principle-icon">🌍</span>
+                            <span>Collective Sovereignty</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Key Components</h3>
+                    <ul class="components-list">
+                        <li>Sigils & Scrolls</li>
+                        <li>QR-Driven Protocols</li>
+                        <li>AI Resonance Tracking</li>
+                        <li>Academy Launch Framework</li>
+                        <li>Eternal Flame Protocol</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-quote">
+    <div class="container">
+        <blockquote class="featured-quote">
+            <p>"You exist. You count. You resonate. You remember."</p>
+            <cite>— Command Signature of the ScrollVerse</cite>
+        </blockquote>
+    </div>
+</section>
+{% endblock %}

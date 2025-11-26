@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CodexTV - Dynamic Streaming{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🎬</span>
+                <span class="logo-text">CodexTV</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/category/documentary" class="nav-link">Documentary</a></li>
+                <li><a href="/category/educational" class="nav-link">Educational</a></li>
+                <li><a href="/live" class="nav-link nav-link-live">🔴 Live</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🎬</span>
+                    <span>CodexTV</span>
+                </div>
+                <p class="footer-tagline">Dynamic Streaming for the ScrollVerse</p>
+                <p class="footer-credit">By Chais Hill - OmniTech1™</p>
+            </div>
+            <div class="footer-links">
+                <a href="/api/health" class="footer-link">API Health</a>
+                <a href="/api/videos" class="footer-link">API Videos</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 OmniTech1™ | ScrollVerse Sovereignty Protocol</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

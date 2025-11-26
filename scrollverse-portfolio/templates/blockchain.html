@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Blockchain - ScrollVerse Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">⛓️</span>
+        Blockchain Ecosystem
+    </h1>
+    <p class="page-subtitle">Powering the ScrollVerse Economy</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- ScrollCoin Section -->
+        <div class="blockchain-section">
+            <div class="blockchain-header">
+                <span class="blockchain-icon">🪙</span>
+                <h2>{{ blockchain.scrollcoin.name }}</h2>
+            </div>
+            <p class="blockchain-description">{{ blockchain.scrollcoin.description }}</p>
+            
+            <div class="features-grid">
+                <div class="features-card">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        {% for feature in blockchain.scrollcoin.features %}
+                        <li>
+                            <span class="feature-bullet">◆</span>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="tiers-card">
+                    <h3>Subscription Tiers</h3>
+                    <div class="tiers-grid">
+                        {% for tier in blockchain.scrollcoin.tiers %}
+                        <div class="tier-item tier-{{ tier.name|lower }}">
+                            <h4>{{ tier.name }}</h4>
+                            <div class="tier-price">{{ tier.price }}</div>
+                            <div class="tier-scr">or {{ tier.scr }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KUNTA NFT Section -->
+        <div class="blockchain-section">
+            <div class="blockchain-header">
+                <span class="blockchain-icon">💎</span>
+                <h2>{{ blockchain.kunta_nft.name }}</h2>
+            </div>
+            <p class="blockchain-description">{{ blockchain.kunta_nft.description }}</p>
+            
+            <div class="nft-content">
+                <div class="nft-info">
+                    <div class="collection-badge">
+                        <span class="badge-icon">🏆</span>
+                        <span>{{ blockchain.kunta_nft.collection }}</span>
+                    </div>
+                    
+                    <div class="features-card">
+                        <h3>NFT Benefits</h3>
+                        <ul class="feature-list">
+                            {% for feature in blockchain.kunta_nft.features %}
+                            <li>
+                                <span class="feature-bullet">◆</span>
+                                {{ feature }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="rarities-card">
+                    <h3>Rarity Tiers</h3>
+                    <div class="rarities-grid">
+                        {% for rarity in blockchain.kunta_nft.rarities %}
+                        <div class="rarity-item rarity-{{ rarity|lower }}">
+                            <span class="rarity-gem">💠</span>
+                            <span class="rarity-name">{{ rarity }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-stats">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">📊</span>
+            Ecosystem Stats
+        </h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">100,000+</div>
+                <div class="stat-label">Universes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">10T+</div>
+                <div class="stat-label">ScrollSouls</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">211M+</div>
+                <div class="stat-label">Omni-Heirs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Possibilities</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

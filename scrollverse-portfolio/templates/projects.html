@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - ScrollVerse Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">🚀</span>
+        Projects
+    </h1>
+    <p class="page-subtitle">Explore the OmniVerse Ecosystem</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="projects-full-grid">
+            {% for project in projects %}
+            <div class="project-card-full">
+                <div class="project-header">
+                    <span class="project-icon-large">{{ project.icon }}</span>
+                    <div class="project-meta">
+                        <h2 class="project-title">{{ project.name }}</h2>
+                        <span class="project-status status-{{ project.status|lower }}">{{ project.status }}</span>
+                    </div>
+                </div>
+                <p class="project-description-full">{{ project.description }}</p>
+                <div class="project-features">
+                    <h4>Key Features</h4>
+                    <ul class="features-list">
+                        {% for feature in project.features %}
+                        <li>
+                            <span class="feature-check">✓</span>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-cta-banner">
+    <div class="container">
+        <div class="cta-banner">
+            <h2>Ready to Build the Future?</h2>
+            <p>Join the ScrollVerse community and contribute to the OmniVerse ecosystem</p>
+            <div class="cta-buttons">
+                <a href="/blockchain" class="btn btn-primary">Explore Blockchain</a>
+                <a href="/about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
