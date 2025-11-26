@@ -26,6 +26,9 @@ import { performanceRouter } from './services/performance.js';
 import { sipRouter } from './services/sip.js';
 import { broadcastRouter } from './services/broadcast.js';
 import { analyticsRouter } from './services/analytics.js';
+import { cosmicStringRouter } from './services/cosmic-string-energy.js';
+import { scrollSoulRealizationRouter } from './services/scrollsoul-realization.js';
+import { scrollChainObservabilityRouter } from './services/scrollchain-observability.js';
 
 // Load environment variables
 dotenv.config();
@@ -69,7 +72,10 @@ app.get('/', (req, res) => {
       'Global Broadcast Network',
       'Solar Infusion Protocol (SIP)',
       'Advanced Analytics & Insights',
-      'Performance Optimization & Load Balancing'
+      'Performance Optimization & Load Balancing',
+      'Cosmic String Energy Systems',
+      'ScrollSoul Realization Modules',
+      'ScrollChain Observability Systems'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -83,7 +89,10 @@ app.get('/', (req, res) => {
       performance: '/api/performance',
       sip: '/api/sip',
       broadcast: '/api/broadcast',
-      analytics: '/api/analytics'
+      analytics: '/api/analytics',
+      cosmicString: '/api/cosmic-string',
+      scrollSoulRealization: '/api/realization',
+      scrollChainObservability: '/api/observability'
     }
   });
 });
@@ -101,6 +110,9 @@ app.use('/api/performance', performanceRouter);
 app.use('/api/sip', sipRouter);
 app.use('/api/broadcast', broadcastRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/cosmic-string', cosmicStringRouter);
+app.use('/api/realization', scrollSoulRealizationRouter);
+app.use('/api/observability', scrollChainObservabilityRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
@@ -137,6 +149,9 @@ app.listen(PORT, () => {
 ║  📊 Advanced Analytics: Online                            ║
 ║  ⚡ Performance Optimization: Active                       ║
 ║  🌍 Load Balancing: Global Readiness                      ║
+║  🌌 Cosmic String Energy: Activated                       ║
+║  🎓 ScrollSoul Realization: Ready                         ║
+║  🔭 ScrollChain Observability: Online                     ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║

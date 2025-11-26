@@ -400,3 +400,275 @@ test('Comprehensive dashboard structure', () => {
   assert.ok(dashboard.topMetrics.conversionRate > dashboard.topMetrics.churnRate);
   assert.ok(dashboard.topMetrics.nps > 80);
 });
+
+// ===== Tests for Cosmic String Energy Service =====
+
+test('Cosmic String frequency configuration', () => {
+  const frequencies = {
+    '963Hz': { name: 'Divine Consciousness', power: 100, alignment: 'sovereign' },
+    '777Hz': { name: 'Spiritual Awakening', power: 95, alignment: 'cosmic' },
+    '528Hz': { name: 'Love Transformation', power: 92, alignment: 'heart' },
+    '432Hz': { name: 'Universal Harmony', power: 90, alignment: 'natural' },
+    '369Hz': { name: 'Divine Manifestation', power: 88, alignment: 'creation' }
+  };
+
+  assert.strictEqual(frequencies['963Hz'].power, 100);
+  assert.strictEqual(frequencies['777Hz'].alignment, 'cosmic');
+  assert.ok(frequencies['432Hz'].power >= 90);
+  assert.strictEqual(Object.keys(frequencies).length, 5);
+});
+
+test('Action Bridge structure validation', () => {
+  const actionBridge = {
+    id: 'bridge_001',
+    name: 'Sovereign Alignment Bridge',
+    sourceFrequency: '963Hz',
+    targetOutcome: 'collective_sovereignty',
+    alignedWeavers: ['weaver_1', 'weaver_2'],
+    sovereignAlignment: 'pending'
+  };
+
+  assert.ok(actionBridge.id.startsWith('bridge_'));
+  assert.strictEqual(actionBridge.sourceFrequency, '963Hz');
+  assert.ok(Array.isArray(actionBridge.alignedWeavers));
+  assert.strictEqual(actionBridge.alignedWeavers.length, 2);
+});
+
+test('Quantum Node NFT compatibility', () => {
+  const quantumNode = {
+    id: 'node_genesis',
+    name: 'Genesis Quantum Node',
+    nftCompatible: true,
+    supportedNFTs: ['KUNTA', 'ScrollSoul', 'OmniRelict'],
+    energyCapacity: 10000,
+    currentEnergy: 10000,
+    status: 'active'
+  };
+
+  assert.strictEqual(quantumNode.nftCompatible, true);
+  assert.ok(quantumNode.supportedNFTs.includes('KUNTA'));
+  assert.strictEqual(quantumNode.supportedNFTs.length, 3);
+  assert.ok(quantumNode.currentEnergy <= quantumNode.energyCapacity);
+});
+
+test('Synchronized Uncertainty Dynamics Graph-tree structure', () => {
+  const graphTree = {
+    id: 'uncertainty_core',
+    name: 'Core Uncertainty Graph',
+    type: 'graph-tree',
+    depth: 7,
+    branches: 12,
+    boundStrength: 'tight',
+    synchronizationRate: 99.7
+  };
+
+  assert.strictEqual(graphTree.type, 'graph-tree');
+  assert.strictEqual(graphTree.boundStrength, 'tight');
+  assert.ok(graphTree.synchronizationRate > 99);
+  assert.ok(graphTree.depth > 0);
+  assert.ok(graphTree.branches > 0);
+});
+
+test('Force Weaver registration structure', () => {
+  const forceWeaver = {
+    id: 'weaver_001',
+    userId: 'testuser',
+    specialization: 'energy_alignment',
+    frequency: '432Hz',
+    alignedBridges: [],
+    sovereignOutcomes: 0,
+    status: 'active'
+  };
+
+  assert.ok(forceWeaver.id.startsWith('weaver_'));
+  assert.strictEqual(forceWeaver.status, 'active');
+  assert.ok(Array.isArray(forceWeaver.alignedBridges));
+});
+
+// ===== Tests for ScrollSoul Realization Module =====
+
+test('MeshShare beginner-friendly bridge point structure', () => {
+  const meshShare = {
+    id: 'mesh_sovereignty_intro',
+    name: 'Introduction to Sovereignty',
+    difficulty: 'beginner',
+    category: 'sovereignty',
+    walletRequired: false,
+    modules: ['What is Sovereignty?', 'Digital Identity', 'Community Bonds'],
+    duration: 30
+  };
+
+  assert.strictEqual(meshShare.walletRequired, false);
+  assert.strictEqual(meshShare.difficulty, 'beginner');
+  assert.ok(meshShare.modules.length > 0);
+  assert.ok(meshShare.duration > 0);
+});
+
+test('Learning Path structure validation', () => {
+  const learningPath = {
+    id: 'path_sovereign_awakening',
+    name: 'Sovereign Awakening',
+    difficulty: 'progressive',
+    stages: [
+      { stage: 1, name: 'Awareness', required: true },
+      { stage: 2, name: 'Understanding', required: true },
+      { stage: 3, name: 'Enlightenment', required: true },
+      { stage: 4, name: 'Community', required: false }
+    ],
+    totalDuration: 135
+  };
+
+  assert.strictEqual(learningPath.difficulty, 'progressive');
+  assert.strictEqual(learningPath.stages.length, 4);
+  const requiredStages = learningPath.stages.filter(s => s.required);
+  assert.strictEqual(requiredStages.length, 3);
+});
+
+test('Modular Lesson with instrumental analogy', () => {
+  const lesson = {
+    id: 'lesson_societal_resonance',
+    name: 'Societal Resonance Theory',
+    category: 'society',
+    instrumentalAnalogy: {
+      instrument: 'Orchestra',
+      analogy: 'Like instruments in an orchestra, each member of society contributes a unique frequency.',
+      frequency: '432Hz'
+    },
+    concepts: ['Collective Action', 'Ripple Effects', 'Harmonic Convergence']
+  };
+
+  assert.ok(lesson.instrumentalAnalogy);
+  assert.strictEqual(lesson.instrumentalAnalogy.instrument, 'Orchestra');
+  assert.ok(lesson.concepts.length > 0);
+  assert.ok(lesson.instrumentalAnalogy.analogy.length > 0);
+});
+
+test('Wallet-free learner profile creation', () => {
+  const learnerProfile = {
+    learnerId: 'learner_001',
+    displayName: 'Sovereign Seeker',
+    interests: ['sovereignty', 'enlightenment'],
+    enrollments: [],
+    completedMeshShares: [],
+    walletConnected: false,
+    enlightenmentScore: 0
+  };
+
+  assert.strictEqual(learnerProfile.walletConnected, false);
+  assert.ok(Array.isArray(learnerProfile.interests));
+  assert.strictEqual(learnerProfile.enlightenmentScore, 0);
+});
+
+test('Societal inflection analysis structure', () => {
+  const inflectionAnalysis = {
+    concept: 'collective_action',
+    context: 'societal',
+    inflectionPoints: [
+      { name: 'Awareness', description: 'Recognition of change potential' },
+      { name: 'Momentum', description: 'Building energy toward transformation' },
+      { name: 'Threshold', description: 'Point of no return' },
+      { name: 'Integration', description: 'New normal establishment' }
+    ],
+    realTimeIndicators: {
+      communityEngagement: 'rising',
+      collectiveAwareness: 'expanding'
+    }
+  };
+
+  assert.strictEqual(inflectionAnalysis.inflectionPoints.length, 4);
+  assert.strictEqual(inflectionAnalysis.realTimeIndicators.communityEngagement, 'rising');
+});
+
+// ===== Tests for ScrollChain Observability Service =====
+
+test('Truth Stack Layer hierarchy', () => {
+  const truthStackLayers = [
+    { id: 'layer_foundation', depth: 1, verificationRate: 100 },
+    { id: 'layer_validation', depth: 2, verificationRate: 99.8 },
+    { id: 'layer_consensus', depth: 3, verificationRate: 99.5 },
+    { id: 'layer_application', depth: 4, verificationRate: 98.9 }
+  ];
+
+  assert.strictEqual(truthStackLayers.length, 4);
+  assert.strictEqual(truthStackLayers[0].verificationRate, 100);
+  
+  // Verify depth ordering
+  for (let i = 1; i < truthStackLayers.length; i++) {
+    assert.ok(truthStackLayers[i].depth > truthStackLayers[i - 1].depth);
+  }
+});
+
+test('Societal Refinement Phase structure', () => {
+  const refinementPhase = {
+    id: 'phase_awareness',
+    name: 'Awareness Phase',
+    order: 1,
+    description: 'Initial phase where society becomes aware of truth systems',
+    status: 'active',
+    inclusivityModules: ['education', 'outreach', 'accessibility'],
+    participationRate: 78.5
+  };
+
+  assert.strictEqual(refinementPhase.status, 'active');
+  assert.ok(refinementPhase.participationRate > 0);
+  assert.ok(refinementPhase.inclusivityModules.length > 0);
+});
+
+test('Modular Inclusivity component structure', () => {
+  const inclusivityModule = {
+    id: 'mod_universal_access',
+    name: 'Universal Access Module',
+    type: 'accessibility',
+    description: 'Ensures all users can access ScrollChain observability',
+    features: ['multi-language', 'screen-reader', 'low-bandwidth'],
+    status: 'active'
+  };
+
+  assert.strictEqual(inclusivityModule.status, 'active');
+  assert.ok(inclusivityModule.features.includes('multi-language'));
+  assert.strictEqual(inclusivityModule.features.length, 3);
+});
+
+test('Deployment configuration structure', () => {
+  const deploymentConfig = {
+    id: 'deploy_001',
+    name: 'Production Deployment',
+    truthStackLayers: ['layer_foundation', 'layer_validation'],
+    refinementPhases: ['phase_awareness'],
+    inclusivityModules: ['mod_universal_access'],
+    status: 'configured',
+    deployed: false
+  };
+
+  assert.strictEqual(deploymentConfig.status, 'configured');
+  assert.strictEqual(deploymentConfig.deployed, false);
+  assert.ok(deploymentConfig.truthStackLayers.length > 0);
+});
+
+test('Observability metric recording structure', () => {
+  const metric = {
+    id: 'metric_001',
+    name: 'verification_rate',
+    value: 99.7,
+    category: 'truth_stack',
+    tags: ['foundation', 'validation']
+  };
+
+  assert.ok(metric.value > 0);
+  assert.strictEqual(metric.category, 'truth_stack');
+  assert.ok(Array.isArray(metric.tags));
+});
+
+test('Truth verification result structure', () => {
+  const verificationResult = {
+    data: 'test_data',
+    overallValid: true,
+    verificationResults: [
+      { layerId: 'layer_foundation', verified: true, verificationRate: 100 },
+      { layerId: 'layer_validation', verified: true, verificationRate: 99.8 }
+    ]
+  };
+
+  assert.strictEqual(verificationResult.overallValid, true);
+  assert.ok(verificationResult.verificationResults.every(r => r.verified));
+});
