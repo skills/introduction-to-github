@@ -11,6 +11,7 @@
 import { Router } from 'express';
 import { randomUUID } from 'crypto';
 import { authenticateToken } from './auth.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const scrollChainObservabilityRouter = Router();
 
@@ -180,7 +181,7 @@ scrollChainObservabilityRouter.get('/truth-stack/:layerId', (req, res) => {
 });
 
 // Integrate module into truth stack layer
-scrollChainObservabilityRouter.post('/truth-stack/:layerId/integrate', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/truth-stack/:layerId/integrate', authenticateToken, standardLimiter, (req, res) => {
   const { layerId } = req.params;
   const { moduleName, moduleType } = req.body;
 
@@ -215,7 +216,7 @@ scrollChainObservabilityRouter.post('/truth-stack/:layerId/integrate', authentic
 });
 
 // Verify truth through stack
-scrollChainObservabilityRouter.post('/truth-stack/verify', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/truth-stack/verify', authenticateToken, standardLimiter, (req, res) => {
   const { data, targetLayer } = req.body;
 
   if (!data) {
@@ -295,7 +296,7 @@ scrollChainObservabilityRouter.get('/refinement-phases/:phaseId', (req, res) => 
 });
 
 // Progress through refinement phase
-scrollChainObservabilityRouter.post('/refinement-phases/:phaseId/progress', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/refinement-phases/:phaseId/progress', authenticateToken, standardLimiter, (req, res) => {
   const { phaseId } = req.params;
   const { contribution } = req.body;
 
@@ -350,7 +351,7 @@ scrollChainObservabilityRouter.get('/inclusivity-modules/type/:type', (req, res)
 });
 
 // Enable inclusivity module
-scrollChainObservabilityRouter.post('/inclusivity-modules/:moduleId/enable', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/inclusivity-modules/:moduleId/enable', authenticateToken, standardLimiter, (req, res) => {
   const { moduleId } = req.params;
   const { configuration } = req.body;
 
@@ -379,7 +380,7 @@ scrollChainObservabilityRouter.post('/inclusivity-modules/:moduleId/enable', aut
 // ===== Deployment Configuration Endpoints =====
 
 // Create deployment configuration
-scrollChainObservabilityRouter.post('/deploy/config', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/deploy/config', authenticateToken, standardLimiter, (req, res) => {
   const { name, truthStackLayers: selectedLayers, refinementPhases, inclusivityModules: selectedModules } = req.body;
 
   if (!name) {
@@ -408,7 +409,7 @@ scrollChainObservabilityRouter.post('/deploy/config', authenticateToken, (req, r
 });
 
 // List deployment configurations
-scrollChainObservabilityRouter.get('/deploy/configs', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.get('/deploy/configs', authenticateToken, standardLimiter, (req, res) => {
   const configs = Array.from(deploymentConfigs.values())
     .filter(c => c.createdBy === req.user.username);
 
@@ -419,7 +420,7 @@ scrollChainObservabilityRouter.get('/deploy/configs', authenticateToken, (req, r
 });
 
 // Deploy configuration
-scrollChainObservabilityRouter.post('/deploy/:configId/execute', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/deploy/:configId/execute', authenticateToken, standardLimiter, (req, res) => {
   const { configId } = req.params;
 
   const config = deploymentConfigs.get(configId);
@@ -459,7 +460,7 @@ scrollChainObservabilityRouter.post('/deploy/:configId/execute', authenticateTok
 // ===== Observability Metrics Endpoints =====
 
 // Record observability metric
-scrollChainObservabilityRouter.post('/metrics/record', authenticateToken, (req, res) => {
+scrollChainObservabilityRouter.post('/metrics/record', authenticateToken, standardLimiter, (req, res) => {
   const { metricName, value, category, tags } = req.body;
 
   if (!metricName || value === undefined) {

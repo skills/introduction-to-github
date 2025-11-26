@@ -13,6 +13,7 @@ import { Router } from 'express';
 import { randomUUID } from 'crypto';
 import { authenticateToken } from './auth.js';
 import { COSMIC_STRING_FREQUENCIES } from '../utils/constants.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const cosmicStringRouter = Router();
 
@@ -107,7 +108,7 @@ cosmicStringRouter.get('/frequencies', (req, res) => {
 });
 
 // Apply cosmic string energy
-cosmicStringRouter.post('/apply-energy', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/apply-energy', authenticateToken, standardLimiter, (req, res) => {
   const { frequency, targetNodeId, intensity } = req.body;
 
   if (!frequency || !COSMIC_STRING_FREQUENCIES[frequency]) {
@@ -143,7 +144,7 @@ cosmicStringRouter.post('/apply-energy', authenticateToken, (req, res) => {
 // ===== Action Bridge Endpoints =====
 
 // Create action bridge for force weaver alignment
-cosmicStringRouter.post('/bridge/create', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/bridge/create', authenticateToken, standardLimiter, (req, res) => {
   const { name, sourceFrequency, targetOutcome, weaverIds } = req.body;
 
   if (!name || !sourceFrequency || !targetOutcome) {
@@ -185,7 +186,7 @@ cosmicStringRouter.get('/bridge/list', (req, res) => {
 });
 
 // Align force weaver to bridge
-cosmicStringRouter.post('/bridge/:bridgeId/align', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/bridge/:bridgeId/align', authenticateToken, standardLimiter, (req, res) => {
   const { bridgeId } = req.params;
   const { weaverId } = req.body;
 
@@ -236,7 +237,7 @@ cosmicStringRouter.get('/quantum-nodes/:nodeId', (req, res) => {
 });
 
 // Check NFT compatibility with quantum node
-cosmicStringRouter.post('/quantum-nodes/:nodeId/check-nft', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/quantum-nodes/:nodeId/check-nft', authenticateToken, standardLimiter, (req, res) => {
   const { nodeId } = req.params;
   const { nftType, tokenId } = req.body;
 
@@ -260,7 +261,7 @@ cosmicStringRouter.post('/quantum-nodes/:nodeId/check-nft', authenticateToken, (
 });
 
 // Connect NFT to quantum node
-cosmicStringRouter.post('/quantum-nodes/:nodeId/connect-nft', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/quantum-nodes/:nodeId/connect-nft', authenticateToken, standardLimiter, (req, res) => {
   const { nodeId } = req.params;
   const { nftType, tokenId, walletAddress } = req.body;
 
@@ -321,7 +322,7 @@ cosmicStringRouter.get('/graph-trees/:treeId', (req, res) => {
 });
 
 // Add node to graph-tree (Uncertainty Dynamics)
-cosmicStringRouter.post('/graph-trees/:treeId/add-node', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/graph-trees/:treeId/add-node', authenticateToken, standardLimiter, (req, res) => {
   const { treeId } = req.params;
   const { nodeName, uncertaintyLevel, connectionStrength } = req.body;
 
@@ -350,7 +351,7 @@ cosmicStringRouter.post('/graph-trees/:treeId/add-node', authenticateToken, (req
 });
 
 // Synchronize graph-tree uncertainty dynamics
-cosmicStringRouter.post('/graph-trees/:treeId/synchronize', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/graph-trees/:treeId/synchronize', authenticateToken, standardLimiter, (req, res) => {
   const { treeId } = req.params;
 
   const tree = graphTrees.get(treeId);
@@ -374,7 +375,7 @@ cosmicStringRouter.post('/graph-trees/:treeId/synchronize', authenticateToken, (
 // ===== Force Weaver Endpoints =====
 
 // Register as force weaver
-cosmicStringRouter.post('/force-weaver/register', authenticateToken, (req, res) => {
+cosmicStringRouter.post('/force-weaver/register', authenticateToken, standardLimiter, (req, res) => {
   const { specialization, frequency } = req.body;
 
   const existingWeaver = forceWeavers.find(w => w.userId === req.user.username);
@@ -413,7 +414,7 @@ cosmicStringRouter.get('/force-weavers', (req, res) => {
 });
 
 // Get force weaver profile
-cosmicStringRouter.get('/force-weaver/profile', authenticateToken, (req, res) => {
+cosmicStringRouter.get('/force-weaver/profile', authenticateToken, standardLimiter, (req, res) => {
   const weaver = forceWeavers.find(w => w.userId === req.user.username);
 
   if (!weaver) {
