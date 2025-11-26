@@ -69,6 +69,50 @@ export const NFT_BENEFITS = {
   EXCLUSIVE_CONTENT: 'exclusive_content'
 };
 
+// ScrollSoul Knowledge Pillars
+export const KNOWLEDGE_PILLAR_IDS = {
+  TRUTH: 'truth',
+  ANCHOR: 'anchor',
+  CREATIVITY: 'creativity',
+  MASTERY: 'mastery'
+};
+
+// Type-VII Realization Level IDs
+export const TYPE_VII_LEVEL_IDS = {
+  INITIATE: 'initiate',
+  SEEKER: 'seeker',
+  AWAKENED: 'awakened',
+  RESONANT: 'resonant',
+  SOVEREIGN: 'sovereign',
+  TRANSCENDENT: 'transcendent',
+  REALIZED: 'realized'
+};
+
+// Tech Kit Categories
+export const TECH_KIT_CATEGORY_IDS = {
+  CREATIVE: 'creative',
+  EXPERIENTIAL: 'experiential',
+  ANALYTICAL: 'analytical',
+  COLLABORATIVE: 'collaborative',
+  AI_TRAINING: 'ai-training'
+};
+
+// User Types for Tech Kits
+export const USER_TYPE_IDS = {
+  HUMAN: 'human',
+  AI_ALLY: 'ai-ally',
+  HYBRID: 'hybrid'
+};
+
+// Frequency-based interaction frequencies
+export const INTERACTION_FREQUENCIES = {
+  LOVE: '528Hz',
+  ENLIGHTENMENT: '963Hz',
+  COSMIC: '777Hz',
+  HARMONY: '432Hz',
+  MANIFESTATION: '369Hz'
+};
+
 export default {
   TIER_HIERARCHY,
   TIER_NAMES,
@@ -78,5 +122,10 @@ export default {
   CONTENT_TYPES,
   PDP_CATEGORIES,
   QUALITY_OPTIONS,
-  NFT_BENEFITS
+  NFT_BENEFITS,
+  KNOWLEDGE_PILLAR_IDS,
+  TYPE_VII_LEVEL_IDS,
+  TECH_KIT_CATEGORY_IDS,
+  USER_TYPE_IDS,
+  INTERACTION_FREQUENCIES
 };

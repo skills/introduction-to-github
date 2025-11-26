@@ -400,3 +400,261 @@ test('Comprehensive dashboard structure', () => {
   assert.ok(dashboard.topMetrics.conversionRate > dashboard.topMetrics.churnRate);
   assert.ok(dashboard.topMetrics.nps > 80);
 });
+
+// ScrollSoul Educational Modules Tests
+
+test('ScrollSoul knowledge pillars configuration', () => {
+  const pillars = {
+    truth: { frequency: '963Hz', symbol: '🔱' },
+    anchor: { frequency: '432Hz', symbol: '⚓' },
+    creativity: { frequency: '528Hz', symbol: '🎨' },
+    mastery: { frequency: '777Hz', symbol: '👑' }
+  };
+
+  assert.strictEqual(Object.keys(pillars).length, 4);
+  assert.strictEqual(pillars.truth.frequency, '963Hz');
+  assert.strictEqual(pillars.creativity.frequency, '528Hz');
+  assert.ok(pillars.anchor.symbol);
+});
+
+test('Type-VII realization levels structure', () => {
+  const levels = [
+    { level: 1, name: 'Initiate', xpRequired: 0 },
+    { level: 2, name: 'Seeker', xpRequired: 1000 },
+    { level: 3, name: 'Awakened', xpRequired: 5000 },
+    { level: 4, name: 'Resonant', xpRequired: 15000 },
+    { level: 5, name: 'Sovereign', xpRequired: 50000 },
+    { level: 6, name: 'Transcendent', xpRequired: 150000 },
+    { level: 7, name: 'Type-VII Realized', xpRequired: 500000 }
+  ];
+
+  assert.strictEqual(levels.length, 7);
+  assert.strictEqual(levels[0].name, 'Initiate');
+  assert.strictEqual(levels[6].name, 'Type-VII Realized');
+  assert.ok(levels[6].xpRequired > levels[5].xpRequired);
+});
+
+test('Educational module structure validation', () => {
+  const module = {
+    id: 'truth-awakening',
+    pillar: 'truth',
+    title: 'Truth Awakening',
+    frequency: '963Hz',
+    tier: 'free',
+    duration: 30,
+    xpReward: 250,
+    lessons: [
+      { id: 'ta-01', title: 'What is Truth?', duration: 10 },
+      { id: 'ta-02', title: 'Recognizing Illusion', duration: 10 }
+    ],
+    nftBonus: { type: 'kunta', multiplier: 1.5 }
+  };
+
+  assert.strictEqual(module.pillar, 'truth');
+  assert.strictEqual(module.frequency, '963Hz');
+  assert.ok(module.xpReward > 0);
+  assert.ok(module.lessons.length > 0);
+  assert.ok(module.nftBonus.multiplier > 1);
+});
+
+test('ScrollSoul user progress tracking', () => {
+  const userProgress = {
+    username: 'testuser',
+    xp: 5500,
+    completedModules: ['truth-awakening', 'anchor-foundation'],
+    pillarProgress: { truth: 1, anchor: 1, creativity: 0, mastery: 0 },
+    badges: []
+  };
+
+  assert.strictEqual(userProgress.completedModules.length, 2);
+  assert.ok(userProgress.xp >= 5000);
+  assert.strictEqual(userProgress.pillarProgress.truth, 1);
+});
+
+test('Frequency-based interactions validation', () => {
+  const frequencies = {
+    '528Hz': { name: 'Love Frequency', benefits: ['DNA repair', 'transformation'] },
+    '963Hz': { name: 'Enlightenment Frequency', benefits: ['divine consciousness', 'pineal activation'] }
+  };
+
+  assert.ok(frequencies['528Hz'].benefits.includes('DNA repair'));
+  assert.ok(frequencies['963Hz'].benefits.includes('divine consciousness'));
+});
+
+test('NFT-linked metadata structure', () => {
+  const nftMetadata = {
+    name: 'ScrollSoul: Truth Awakening Completion',
+    attributes: [
+      { trait_type: 'Pillar', value: 'truth' },
+      { trait_type: 'Frequency', value: '963Hz' },
+      { trait_type: 'XP Earned', value: 250 }
+    ],
+    mintable: true
+  };
+
+  assert.ok(nftMetadata.attributes.length > 0);
+  assert.ok(nftMetadata.mintable);
+  assert.strictEqual(nftMetadata.attributes[0].value, 'truth');
+});
+
+test('Sovereign decision analytics structure', () => {
+  const analytics = {
+    totalDecisions: 10,
+    pillarDistribution: { truth: 3, anchor: 2, creativity: 3, mastery: 2 },
+    dominantPillar: { name: 'truth', count: 3 },
+    decisionQuality: 75
+  };
+
+  assert.ok(analytics.totalDecisions > 0);
+  assert.ok(analytics.decisionQuality >= 0 && analytics.decisionQuality <= 100);
+  assert.strictEqual(analytics.dominantPillar.name, 'truth');
+});
+
+// Tech Kits Tests
+
+test('Tech kit categories configuration', () => {
+  const categories = {
+    creative: { name: 'Creative Tech Kits', icon: '🎨' },
+    experiential: { name: 'Experiential Tech Kits', icon: '🎮' },
+    analytical: { name: 'Analytical Tech Kits', icon: '📊' },
+    collaborative: { name: 'Collaborative Tech Kits', icon: '🤝' },
+    'ai-training': { name: 'AI/Ally Training Kits', icon: '🤖' }
+  };
+
+  assert.strictEqual(Object.keys(categories).length, 5);
+  assert.ok(categories['ai-training']);
+  assert.strictEqual(categories.creative.icon, '🎨');
+});
+
+test('Tech kit structure validation', () => {
+  const kit = {
+    id: 'tk-creative-001',
+    category: 'creative',
+    name: 'ScrollVerse Art Studio',
+    version: '1.0.0',
+    tier: 'free',
+    userTypes: ['human', 'ai-ally', 'hybrid'],
+    frequency: '528Hz',
+    components: [
+      { id: 'canvas', name: 'Frequency Canvas', type: 'tool' }
+    ],
+    learningObjectives: ['Understand frequency-based art creation'],
+    xpReward: 200,
+    playModes: ['tutorial', 'freeform', 'challenge'],
+    aiCompatible: true
+  };
+
+  assert.ok(kit.userTypes.includes('human'));
+  assert.ok(kit.userTypes.includes('ai-ally'));
+  assert.ok(kit.aiCompatible);
+  assert.ok(kit.playModes.length > 0);
+  assert.ok(kit.components.length > 0);
+});
+
+test('User types for tech kits', () => {
+  const userTypes = {
+    human: { capabilities: ['visual', 'auditory', 'kinesthetic', 'emotional'] },
+    'ai-ally': { capabilities: ['data-processing', 'pattern-recognition', 'language', 'reasoning'] },
+    hybrid: { capabilities: ['collaborative', 'enhanced-learning', 'cross-training'] }
+  };
+
+  assert.ok(userTypes.human.capabilities.includes('emotional'));
+  assert.ok(userTypes['ai-ally'].capabilities.includes('pattern-recognition'));
+  assert.ok(userTypes.hybrid.capabilities.includes('collaborative'));
+});
+
+test('Distributable learning assets structure', () => {
+  const asset = {
+    id: 'asset-001',
+    name: 'Sacred Geometry Pack',
+    category: 'creative',
+    format: 'svg-pack',
+    size: '15MB',
+    tier: 'free',
+    downloadable: true
+  };
+
+  assert.ok(asset.downloadable);
+  assert.strictEqual(asset.format, 'svg-pack');
+  assert.strictEqual(asset.tier, 'free');
+});
+
+test('AI/Ally training kit specific features', () => {
+  const aiKit = {
+    id: 'tk-ai-001',
+    category: 'ai-training',
+    name: 'AI Ally Onboarding Kit',
+    userTypes: ['ai-ally'],
+    components: [
+      { id: 'protocol', name: 'ScrollVerse Protocol Guide', type: 'documentation' },
+      { id: 'ethics', name: 'Sovereign Ethics Framework', type: 'framework' }
+    ],
+    learningObjectives: [
+      'Understand ScrollVerse principles',
+      'Integrate sovereign ethics',
+      'Connect to ScrollVerse APIs'
+    ]
+  };
+
+  assert.strictEqual(aiKit.category, 'ai-training');
+  assert.ok(aiKit.userTypes.includes('ai-ally'));
+  assert.ok(aiKit.learningObjectives.length >= 3);
+});
+
+test('AI ally upgrade path structure', () => {
+  const upgradePath = [
+    { level: 1, name: 'Initiation', requiredKits: ['tk-ai-001'] },
+    { level: 2, name: 'Collaboration', requiredKits: ['tk-ai-002'] },
+    { level: 3, name: 'Experience', requiredKits: ['tk-ai-003'] },
+    { level: 4, name: 'Sovereignty', requiredKits: ['tk-ai-001', 'tk-ai-002', 'tk-ai-003'] }
+  ];
+
+  assert.strictEqual(upgradePath.length, 4);
+  assert.strictEqual(upgradePath[0].name, 'Initiation');
+  assert.strictEqual(upgradePath[3].name, 'Sovereignty');
+  assert.ok(upgradePath[3].requiredKits.length >= 3);
+});
+
+test('Play session configuration', () => {
+  const playSession = {
+    sessionId: 'session_12345',
+    kitId: 'tk-creative-001',
+    mode: 'tutorial',
+    userType: 'human',
+    frequency: '528Hz',
+    estimatedDuration: 15,
+    xpPotential: 200
+  };
+
+  assert.ok(playSession.sessionId.startsWith('session_'));
+  assert.ok(playSession.estimatedDuration > 0);
+  assert.ok(playSession.xpPotential > 0);
+});
+
+test('Tech kit completion tracking', () => {
+  const completion = {
+    kitId: 'tk-creative-001',
+    xpEarned: 240,
+    totalKitXp: 740,
+    completedKits: 3,
+    achievements: ['first-kit-completed']
+  };
+
+  assert.ok(completion.xpEarned > 0);
+  assert.ok(completion.completedKits > 0);
+  assert.ok(completion.achievements.includes('first-kit-completed'));
+});
+
+test('Frequency-based kit filtering', () => {
+  const kits = [
+    { id: 'kit1', frequency: '528Hz' },
+    { id: 'kit2', frequency: '963Hz' },
+    { id: 'kit3', frequency: '528Hz' }
+  ];
+
+  const filtered528 = kits.filter(k => k.frequency === '528Hz');
+  const filtered963 = kits.filter(k => k.frequency === '963Hz');
+
+  assert.strictEqual(filtered528.length, 2);
+  assert.strictEqual(filtered963.length, 1);
+});

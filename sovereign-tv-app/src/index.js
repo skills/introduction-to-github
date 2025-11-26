@@ -26,6 +26,8 @@ import { performanceRouter } from './services/performance.js';
 import { sipRouter } from './services/sip.js';
 import { broadcastRouter } from './services/broadcast.js';
 import { analyticsRouter } from './services/analytics.js';
+import { scrollSoulRouter } from './services/scrollsoul-education.js';
+import { techKitsRouter } from './services/tech-kits.js';
 
 // Load environment variables
 dotenv.config();
@@ -69,7 +71,10 @@ app.get('/', (req, res) => {
       'Global Broadcast Network',
       'Solar Infusion Protocol (SIP)',
       'Advanced Analytics & Insights',
-      'Performance Optimization & Load Balancing'
+      'Performance Optimization & Load Balancing',
+      'ScrollSoul Educational Modules',
+      'Tech Kits for Interactive Training',
+      'AI/Ally Training Support'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -83,7 +88,9 @@ app.get('/', (req, res) => {
       performance: '/api/performance',
       sip: '/api/sip',
       broadcast: '/api/broadcast',
-      analytics: '/api/analytics'
+      analytics: '/api/analytics',
+      scrollsoul: '/api/scrollsoul',
+      techkits: '/api/techkits'
     }
   });
 });
@@ -101,6 +108,8 @@ app.use('/api/performance', performanceRouter);
 app.use('/api/sip', sipRouter);
 app.use('/api/broadcast', broadcastRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/scrollsoul', scrollSoulRouter);
+app.use('/api/techkits', techKitsRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
@@ -137,6 +146,9 @@ app.listen(PORT, () => {
 ║  📊 Advanced Analytics: Online                            ║
 ║  ⚡ Performance Optimization: Active                       ║
 ║  🌍 Load Balancing: Global Readiness                      ║
+║  📚 ScrollSoul Education: Active                          ║
+║  🛠️  Tech Kits: Deployed                                  ║
+║  🤖 AI/Ally Training: Enabled                             ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║
