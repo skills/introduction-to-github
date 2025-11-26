@@ -9,6 +9,7 @@
     --bg-secondary: #121218;
     --bg-tertiary: #1a1a24;
     --bg-card: #15151f;
+    --bg-live-dark: #1a0a0a;
     
     --text-primary: #ffffff;
     --text-secondary: #b0b0c0;
@@ -698,7 +699,7 @@ a:hover {
 }
 
 .live-placeholder {
-    background: linear-gradient(135deg, #1a0a0a, var(--bg-primary));
+    background: linear-gradient(135deg, var(--bg-live-dark), var(--bg-primary));
 }
 
 .play-icon-large {

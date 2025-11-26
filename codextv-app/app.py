@@ -13,6 +13,7 @@ Author: Chais Hill - OmniTech1
 
 from flask import Flask, render_template, jsonify, Response, request, abort
 import os
+from datetime import datetime
 from functools import wraps
 from dotenv import load_dotenv
 
@@ -135,7 +136,7 @@ def pass_view(view_func):
     def decorated(*args, **kwargs):
         # Track view access
         request.view_name = view_func.__name__
-        request.view_time = os.popen('date').read().strip()
+        request.view_time = datetime.now().isoformat()
         return view_func(*args, **kwargs)
     return decorated
 
