@@ -11,6 +11,7 @@
  */
 
 import { Router } from 'express';
+import { randomUUID } from 'crypto';
 
 const scrollSoulRealizationRouter = Router();
 
@@ -193,11 +194,11 @@ scrollSoulRealizationRouter.post('/mesh-shares/:shareId/start', (req, res) => {
     return res.status(404).json({ error: 'MeshShare not found' });
   }
 
-  const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const sessionId = `session_${randomUUID()}`;
   const session = {
     sessionId,
     shareId,
-    learnerId: learnerId || `anon_${Date.now()}`,
+    learnerId: learnerId || `anon_${randomUUID()}`,
     startedAt: new Date().toISOString(),
     modules: share.modules.map((m, i) => ({
       index: i,
@@ -295,9 +296,9 @@ scrollSoulRealizationRouter.post('/paths/:pathId/enroll', (req, res) => {
     return res.status(404).json({ error: 'Learning path not found' });
   }
 
-  const uniqueLearnerId = learnerId || `learner_${Date.now()}`;
+  const uniqueLearnerId = learnerId || `learner_${randomUUID()}`;
   const enrollment = {
-    enrollmentId: `enroll_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    enrollmentId: `enroll_${randomUUID()}`,
     pathId,
     learnerId: uniqueLearnerId,
     displayName: displayName || 'Anonymous Learner',
@@ -470,7 +471,7 @@ scrollSoulRealizationRouter.post('/analyze-inflection', (req, res) => {
 scrollSoulRealizationRouter.post('/learner/create', (req, res) => {
   const { displayName, interests } = req.body;
 
-  const learnerId = `learner_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const learnerId = `learner_${randomUUID()}`;
   const profile = {
     learnerId,
     displayName: displayName || 'Sovereign Seeker',

@@ -10,18 +10,11 @@
  */
 
 import { Router } from 'express';
+import { randomUUID } from 'crypto';
 import { authenticateToken } from './auth.js';
+import { COSMIC_STRING_FREQUENCIES } from '../utils/constants.js';
 
 const cosmicStringRouter = Router();
-
-// Cosmic String energy configurations
-const COSMIC_STRING_FREQUENCIES = {
-  '963Hz': { name: 'Divine Consciousness', power: 100, alignment: 'sovereign' },
-  '777Hz': { name: 'Spiritual Awakening', power: 95, alignment: 'cosmic' },
-  '528Hz': { name: 'Love Transformation', power: 92, alignment: 'heart' },
-  '432Hz': { name: 'Universal Harmony', power: 90, alignment: 'natural' },
-  '369Hz': { name: 'Divine Manifestation', power: 88, alignment: 'creation' }
-};
 
 // Action Bridges - connect force weavers to sovereign outcomes
 const actionBridges = new Map();
@@ -128,7 +121,7 @@ cosmicStringRouter.post('/apply-energy', authenticateToken, (req, res) => {
   const freqConfig = COSMIC_STRING_FREQUENCIES[frequency];
 
   const application = {
-    id: `energy_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `energy_${randomUUID()}`,
     userId: req.user.username,
     frequency,
     frequencyName: freqConfig.name,
@@ -159,7 +152,7 @@ cosmicStringRouter.post('/bridge/create', authenticateToken, (req, res) => {
     });
   }
 
-  const bridgeId = `bridge_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const bridgeId = `bridge_${randomUUID()}`;
   const bridge = {
     id: bridgeId,
     name,
@@ -284,7 +277,7 @@ cosmicStringRouter.post('/quantum-nodes/:nodeId/connect-nft', authenticateToken,
   }
 
   const connection = {
-    id: `conn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `conn_${randomUUID()}`,
     nodeId,
     nftType,
     tokenId,
@@ -338,7 +331,7 @@ cosmicStringRouter.post('/graph-trees/:treeId/add-node', authenticateToken, (req
   }
 
   const newNode = {
-    id: `gnode_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `gnode_${randomUUID()}`,
     name: nodeName || 'Unnamed Node',
     uncertaintyLevel: Math.min(Math.max(uncertaintyLevel || 50, 0), 100),
     connectionStrength: connectionStrength || 'medium',
@@ -393,7 +386,7 @@ cosmicStringRouter.post('/force-weaver/register', authenticateToken, (req, res) 
   }
 
   const weaver = {
-    id: `weaver_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `weaver_${randomUUID()}`,
     userId: req.user.username,
     specialization: specialization || 'general',
     frequency: frequency || '432Hz',

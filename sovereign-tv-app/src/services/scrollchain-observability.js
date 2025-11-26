@@ -9,6 +9,7 @@
  */
 
 import { Router } from 'express';
+import { randomUUID } from 'crypto';
 import { authenticateToken } from './auth.js';
 
 const scrollChainObservabilityRouter = Router();
@@ -197,7 +198,7 @@ scrollChainObservabilityRouter.post('/truth-stack/:layerId/integrate', authentic
   }
 
   const integration = {
-    id: `int_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `int_${randomUUID()}`,
     layerId,
     moduleName,
     moduleType: moduleType || 'custom',
@@ -232,11 +233,12 @@ scrollChainObservabilityRouter.post('/truth-stack/verify', authenticateToken, (r
   for (const layer of layers) {
     if (layer.depth > targetDepth) break;
 
+    // Deterministic verification based on layer's configured verification rate
     const layerVerification = {
       layerId: layer.id,
       layerName: layer.name,
       depth: layer.depth,
-      verified: Math.random() > 0.01, // Simulate 99% verification rate
+      verified: layer.verificationRate >= 99, // Deterministic based on configured rate
       verificationRate: layer.verificationRate,
       timestamp: new Date().toISOString()
     };
@@ -306,7 +308,7 @@ scrollChainObservabilityRouter.post('/refinement-phases/:phaseId/progress', auth
   phase.participationRate = Math.min(phase.participationRate + 0.01, 100);
 
   const progress = {
-    id: `prog_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `prog_${randomUUID()}`,
     phaseId,
     userId: req.user.username,
     contribution: contribution || 'general',
@@ -358,7 +360,7 @@ scrollChainObservabilityRouter.post('/inclusivity-modules/:moduleId/enable', aut
   }
 
   const enablement = {
-    id: `enable_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `enable_${randomUUID()}`,
     moduleId,
     moduleName: module.name,
     configuration: configuration || {},
@@ -384,7 +386,7 @@ scrollChainObservabilityRouter.post('/deploy/config', authenticateToken, (req, r
     return res.status(400).json({ error: 'Deployment name required' });
   }
 
-  const configId = `deploy_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const configId = `deploy_${randomUUID()}`;
   const config = {
     id: configId,
     name,
@@ -434,7 +436,7 @@ scrollChainObservabilityRouter.post('/deploy/:configId/execute', authenticateTok
   config.status = 'deployed';
 
   const deployment = {
-    id: `exec_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `exec_${randomUUID()}`,
     configId,
     configName: config.name,
     deployedBy: req.user.username,
@@ -464,7 +466,7 @@ scrollChainObservabilityRouter.post('/metrics/record', authenticateToken, (req, 
     return res.status(400).json({ error: 'Metric name and value required' });
   }
 
-  const metricId = `metric_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const metricId = `metric_${randomUUID()}`;
   const metric = {
     id: metricId,
     name: metricName,
