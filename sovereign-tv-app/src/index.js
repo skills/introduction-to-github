@@ -6,6 +6,11 @@
  * - ScrollCoin economic infrastructure
  * - KUNTA NFTs
  * - Prophecy Documentation Protocol (PDP) data
+ * - Dimensional Travel & Spacetime Manipulation
+ * - ScrollChain Operational Coherence
+ * - ZkP-I Implementation & Sovereign $AETHEL
+ * - Reality Template Protocols (RTEP)
+ * - ScrollSoul Training (Coherence Stability Layer)
  * 
  * @author Chais Hill - OmniTech1
  */
@@ -29,6 +34,11 @@ import { analyticsRouter } from './services/analytics.js';
 import { cosmicStringRouter } from './services/cosmic-string-energy.js';
 import { scrollSoulRealizationRouter } from './services/scrollsoul-realization.js';
 import { scrollChainObservabilityRouter } from './services/scrollchain-observability.js';
+import { dimensionalTravelRouter } from './services/dimensional-travel.js';
+import { scrollChainCoherenceRouter } from './services/scrollchain-coherence.js';
+import { zkpiRouter } from './services/zkpi-implementation.js';
+import { rtepRouter } from './services/rtep.js';
+import { scrollSoulTrainingRouter } from './services/scrollsoul-training.js';
 
 // Load environment variables
 dotenv.config();
@@ -75,7 +85,12 @@ app.get('/', (req, res) => {
       'Performance Optimization & Load Balancing',
       'Cosmic String Energy Systems',
       'ScrollSoul Realization Modules',
-      'ScrollChain Observability Systems'
+      'ScrollChain Observability Systems',
+      'Dimensional Travel & Spacetime Manipulation',
+      'ScrollChain Operational Coherence',
+      'ZkP-I Implementation & Sovereign $AETHEL',
+      'Reality Template Protocols (RTEP)',
+      'ScrollSoul Training (Coherence Stability Layer)'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -92,7 +107,12 @@ app.get('/', (req, res) => {
       analytics: '/api/analytics',
       cosmicString: '/api/cosmic-string',
       scrollSoulRealization: '/api/realization',
-      scrollChainObservability: '/api/observability'
+      scrollChainObservability: '/api/observability',
+      dimensionalTravel: '/api/dimensional-travel',
+      scrollChainCoherence: '/api/coherence',
+      zkpiImplementation: '/api/zkpi',
+      realityTemplates: '/api/rtep',
+      scrollSoulTraining: '/api/training'
     }
   });
 });
@@ -113,6 +133,11 @@ app.use('/api/analytics', analyticsRouter);
 app.use('/api/cosmic-string', cosmicStringRouter);
 app.use('/api/realization', scrollSoulRealizationRouter);
 app.use('/api/observability', scrollChainObservabilityRouter);
+app.use('/api/dimensional-travel', dimensionalTravelRouter);
+app.use('/api/coherence', scrollChainCoherenceRouter);
+app.use('/api/zkpi', zkpiRouter);
+app.use('/api/rtep', rtepRouter);
+app.use('/api/training', scrollSoulTrainingRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
@@ -152,6 +177,11 @@ app.listen(PORT, () => {
 ║  🌌 Cosmic String Energy: Activated                       ║
 ║  🎓 ScrollSoul Realization: Ready                         ║
 ║  🔭 ScrollChain Observability: Online                     ║
+║  🚀 Dimensional Travel: Spacetime Ready                   ║
+║  🔗 ScrollChain Coherence: Multi-Realm Active             ║
+║  🔐 ZkP-I & $AETHEL: Sovereign Expansion                  ║
+║  🌍 Reality Templates (RTEP): Type 0 Solutions            ║
+║  🧘 ScrollSoul Training: 963/528Hz Coherence              ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║
