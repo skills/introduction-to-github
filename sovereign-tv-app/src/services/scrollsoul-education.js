@@ -17,6 +17,7 @@
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
 import { TIER_HIERARCHY, HEALING_FREQUENCIES } from '../utils/constants.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const scrollSoulRouter = Router();
 
@@ -337,7 +338,7 @@ scrollSoulRouter.get('/levels', (req, res) => {
 });
 
 // Get all educational modules
-scrollSoulRouter.get('/modules', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/modules', authenticateToken, standardLimiter, (req, res) => {
   const userTier = req.user.tier || 'free';
   const userTierLevel = TIER_HIERARCHY[userTier] || 0;
 
@@ -365,7 +366,7 @@ scrollSoulRouter.get('/modules', authenticateToken, (req, res) => {
 });
 
 // Get modules by pillar
-scrollSoulRouter.get('/modules/pillar/:pillarId', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/modules/pillar/:pillarId', authenticateToken, standardLimiter, (req, res) => {
   const { pillarId } = req.params;
   const pillar = KNOWLEDGE_PILLARS[pillarId.toUpperCase()];
 
@@ -392,7 +393,7 @@ scrollSoulRouter.get('/modules/pillar/:pillarId', authenticateToken, (req, res) 
 });
 
 // Get specific module details
-scrollSoulRouter.get('/modules/:moduleId', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/modules/:moduleId', authenticateToken, standardLimiter, (req, res) => {
   const { moduleId } = req.params;
   const module = educationalModules.find(m => m.id === moduleId);
 
@@ -420,7 +421,7 @@ scrollSoulRouter.get('/modules/:moduleId', authenticateToken, (req, res) => {
 });
 
 // Get user's ScrollSoul profile and progress
-scrollSoulRouter.get('/profile', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/profile', authenticateToken, standardLimiter, (req, res) => {
   const profile = getScrollSoulProfile(req.user.username);
   const currentLevel = calculateLevel(profile.xp);
   
@@ -446,7 +447,7 @@ scrollSoulRouter.get('/profile', authenticateToken, (req, res) => {
 });
 
 // Start a module (enroll)
-scrollSoulRouter.post('/modules/:moduleId/start', authenticateToken, (req, res) => {
+scrollSoulRouter.post('/modules/:moduleId/start', authenticateToken, standardLimiter, (req, res) => {
   const { moduleId } = req.params;
   const module = educationalModules.find(m => m.id === moduleId);
 
@@ -483,7 +484,7 @@ scrollSoulRouter.post('/modules/:moduleId/start', authenticateToken, (req, res) 
 });
 
 // Complete a module
-scrollSoulRouter.post('/modules/:moduleId/complete', authenticateToken, (req, res) => {
+scrollSoulRouter.post('/modules/:moduleId/complete', authenticateToken, standardLimiter, (req, res) => {
   const { moduleId } = req.params;
   const { assessmentScore } = req.body;
   const module = educationalModules.find(m => m.id === moduleId);
@@ -542,7 +543,7 @@ scrollSoulRouter.post('/modules/:moduleId/complete', authenticateToken, (req, re
 });
 
 // Get frequency-based content
-scrollSoulRouter.get('/frequency/:freq', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/frequency/:freq', authenticateToken, standardLimiter, (req, res) => {
   const { freq } = req.params;
   
   if (!HEALING_FREQUENCIES[freq]) {
@@ -580,7 +581,7 @@ function getFrequencyBenefits(freq) {
 }
 
 // Get sovereign decision analytics
-scrollSoulRouter.get('/analytics/decisions', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/analytics/decisions', authenticateToken, standardLimiter, (req, res) => {
   const profile = getScrollSoulProfile(req.user.username);
   
   // Calculate decision patterns (mock analytics)
@@ -654,7 +655,7 @@ function generateRecommendations(profile, completedByPillar) {
 }
 
 // Get NFT-linked metadata for modules
-scrollSoulRouter.get('/nft-metadata/:moduleId', authenticateToken, (req, res) => {
+scrollSoulRouter.get('/nft-metadata/:moduleId', authenticateToken, standardLimiter, (req, res) => {
   const { moduleId } = req.params;
   const module = educationalModules.find(m => m.id === moduleId);
 

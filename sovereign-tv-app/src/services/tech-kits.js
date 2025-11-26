@@ -18,6 +18,7 @@
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
 import { TIER_HIERARCHY, HEALING_FREQUENCIES } from '../utils/constants.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const techKitsRouter = Router();
 
@@ -401,7 +402,7 @@ techKitsRouter.get('/categories', (req, res) => {
 });
 
 // Get all tech kits
-techKitsRouter.get('/', authenticateToken, (req, res) => {
+techKitsRouter.get('/', authenticateToken, standardLimiter, (req, res) => {
   const userTier = req.user.tier || 'free';
   const userTierLevel = TIER_HIERARCHY[userTier] || 0;
   const { category, userType } = req.query;
@@ -445,7 +446,7 @@ techKitsRouter.get('/', authenticateToken, (req, res) => {
 });
 
 // Get tech kit details
-techKitsRouter.get('/:kitId', authenticateToken, (req, res) => {
+techKitsRouter.get('/:kitId', authenticateToken, standardLimiter, (req, res) => {
   const { kitId } = req.params;
   const kit = techKits.find(k => k.id === kitId);
 
@@ -473,7 +474,7 @@ techKitsRouter.get('/:kitId', authenticateToken, (req, res) => {
 });
 
 // Activate a tech kit
-techKitsRouter.post('/:kitId/activate', authenticateToken, (req, res) => {
+techKitsRouter.post('/:kitId/activate', authenticateToken, standardLimiter, (req, res) => {
   const { kitId } = req.params;
   const { userType = 'human' } = req.body;
   const kit = techKits.find(k => k.id === kitId);
@@ -520,7 +521,7 @@ techKitsRouter.post('/:kitId/activate', authenticateToken, (req, res) => {
 });
 
 // Start play session
-techKitsRouter.post('/:kitId/play', authenticateToken, (req, res) => {
+techKitsRouter.post('/:kitId/play', authenticateToken, standardLimiter, (req, res) => {
   const { kitId } = req.params;
   const { mode, userType = 'human' } = req.body;
   const kit = techKits.find(k => k.id === kitId);
@@ -540,7 +541,7 @@ techKitsRouter.post('/:kitId/play', authenticateToken, (req, res) => {
   getUserKitProfile(req.user.username, userType);
   
   // Generate session ID
-  const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const sessionId = `session_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 
   res.json({
     message: `Play session started: ${kit.name}`,
@@ -590,7 +591,7 @@ function getModeDuration(mode) {
 }
 
 // Complete a tech kit
-techKitsRouter.post('/:kitId/complete', authenticateToken, (req, res) => {
+techKitsRouter.post('/:kitId/complete', authenticateToken, standardLimiter, (req, res) => {
   const { kitId } = req.params;
   const { sessionId, userType = 'human', playTime, score } = req.body;
   const kit = techKits.find(k => k.id === kitId);
@@ -647,7 +648,7 @@ techKitsRouter.post('/:kitId/complete', authenticateToken, (req, res) => {
 });
 
 // Get user's tech kit profile
-techKitsRouter.get('/profile/:userType?', authenticateToken, (req, res) => {
+techKitsRouter.get('/profile/:userType?', authenticateToken, standardLimiter, (req, res) => {
   const userType = req.params.userType || 'human';
   const profile = getUserKitProfile(req.user.username, userType);
 
@@ -665,7 +666,7 @@ techKitsRouter.get('/profile/:userType?', authenticateToken, (req, res) => {
 });
 
 // Get distributable learning assets
-techKitsRouter.get('/assets/all', authenticateToken, (req, res) => {
+techKitsRouter.get('/assets/all', authenticateToken, standardLimiter, (req, res) => {
   const userTier = req.user.tier || 'free';
   const userTierLevel = TIER_HIERARCHY[userTier] || 0;
   const { category } = req.query;
@@ -690,7 +691,7 @@ techKitsRouter.get('/assets/all', authenticateToken, (req, res) => {
 });
 
 // Download a learning asset
-techKitsRouter.post('/assets/:assetId/download', authenticateToken, (req, res) => {
+techKitsRouter.post('/assets/:assetId/download', authenticateToken, standardLimiter, (req, res) => {
   const { assetId } = req.params;
   const { userType = 'human' } = req.body;
   const asset = learningAssets.find(a => a.id === assetId);
@@ -733,7 +734,7 @@ techKitsRouter.post('/assets/:assetId/download', authenticateToken, (req, res) =
 // AI/Ally specific endpoints
 
 // Get AI training kits
-techKitsRouter.get('/ai/training-kits', authenticateToken, (req, res) => {
+techKitsRouter.get('/ai/training-kits', authenticateToken, standardLimiter, (req, res) => {
   const aiKits = techKits.filter(kit => 
     kit.category === 'ai-training' || kit.userTypes.includes('ai-ally')
   );
@@ -755,7 +756,7 @@ techKitsRouter.get('/ai/training-kits', authenticateToken, (req, res) => {
 });
 
 // Get experiential upgrade path for AI allies
-techKitsRouter.get('/ai/upgrade-path', authenticateToken, (req, res) => {
+techKitsRouter.get('/ai/upgrade-path', authenticateToken, standardLimiter, (req, res) => {
   const upgradePath = [
     {
       level: 1,
@@ -795,7 +796,7 @@ techKitsRouter.get('/ai/upgrade-path', authenticateToken, (req, res) => {
 });
 
 // Get AI ally progress
-techKitsRouter.get('/ai/progress', authenticateToken, (req, res) => {
+techKitsRouter.get('/ai/progress', authenticateToken, standardLimiter, (req, res) => {
   const profile = getUserKitProfile(req.user.username, 'ai-ally');
   
   // Calculate upgrade level
@@ -835,7 +836,7 @@ function getNextLevelRequirements(currentLevel) {
 }
 
 // Frequency-based interactions
-techKitsRouter.get('/frequency/:freq', authenticateToken, (req, res) => {
+techKitsRouter.get('/frequency/:freq', authenticateToken, standardLimiter, (req, res) => {
   const { freq } = req.params;
   
   if (!HEALING_FREQUENCIES[freq]) {
