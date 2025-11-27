@@ -1,0 +1,30 @@
+{
+  "name": "flamedna-nft",
+  "version": "1.0.0",
+  "description": "FlameDNA ERC-721 NFT Collection for ScrollVerse Ecosystem",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify": "hardhat verify",
+    "clean": "hardhat clean",
+    "coverage": "hardhat coverage"
+  },
+  "keywords": [
+    "nft",
+    "erc721",
+    "flamedna",
+    "scrollverse",
+    "ethereum",
+    "smart-contracts"
+  ],
+  "author": "Chais Hill - OmniTech1",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0"
+  }
+}

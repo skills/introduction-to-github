@@ -50,6 +50,7 @@ import { manusQuantumRouter } from './services/manus-quantum.js';
 import { bioBreathRouter } from './services/bio-breath.js';
 import { cosmicScrollRouter } from './services/cosmic-scroll.js';
 import { neuralScrollRouter } from './services/neural-scroll.js';
+import { paymentRouter } from './services/payment-gateway.js';
 
 // Load environment variables
 dotenv.config();
@@ -108,7 +109,10 @@ app.get('/', (req, res) => {
       'Manus Quantum Recognition (Neural Glovework)',
       'Bio-Breath Libraries (Bio-Feedback Prioritization)',
       'Cosmic Scroll Libraries (AI-Assisted Creative Modules)',
-      'Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)'
+      'Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)',
+      'FlameDNA NFT Minting (ERC-721)',
+      'Stripe & PayPal Payment Gateway',
+      'PCI-DSS Compliant Transactions'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -137,7 +141,8 @@ app.get('/', (req, res) => {
       manusQuantum: '/api/manus-quantum',
       bioBreath: '/api/bio-breath',
       cosmicScroll: '/api/cosmic-scroll',
-      neuralScroll: '/api/neural-scroll'
+      neuralScroll: '/api/neural-scroll',
+      payments: '/api/payments'
     }
   });
 });
@@ -170,6 +175,7 @@ app.use('/api/manus-quantum', manusQuantumRouter);
 app.use('/api/bio-breath', bioBreathRouter);
 app.use('/api/cosmic-scroll', cosmicScrollRouter);
 app.use('/api/neural-scroll', neuralScrollRouter);
+app.use('/api/payments', paymentRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {

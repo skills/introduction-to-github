@@ -1,0 +1,361 @@
+{% extends "base.html" %}
+
+{% block title %}Mint FlameDNA NFT - ScrollVerse Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">🔥</span>
+        FlameDNA NFT Minting
+    </h1>
+    <p class="page-subtitle">Mint Your Sacred NFT from the ScrollVerse</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Minting Card -->
+        <div class="mint-card">
+            <div class="mint-header">
+                <span class="mint-icon">💎</span>
+                <h2>{{ flamedna.name }}</h2>
+                <span class="mint-symbol">{{ flamedna.contract.symbol }}</span>
+            </div>
+            
+            <p class="mint-description">{{ flamedna.description }}</p>
+            
+            <div class="mint-details">
+                <div class="mint-info-grid">
+                    <div class="mint-info-item">
+                        <span class="info-label">Contract</span>
+                        <span class="info-value">{{ flamedna.contract.name }}</span>
+                    </div>
+                    <div class="mint-info-item">
+                        <span class="info-label">Max Supply</span>
+                        <span class="info-value">{{ flamedna.contract.maxSupply }}</span>
+                    </div>
+                    <div class="mint-info-item">
+                        <span class="info-label">Mint Price</span>
+                        <span class="info-value mint-price">{{ flamedna.contract.mintPrice }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mint Controls -->
+            <div class="mint-controls">
+                <div class="quantity-selector">
+                    <button class="qty-btn" id="decreaseQty">-</button>
+                    <span class="quantity" id="mintQuantity">1</span>
+                    <button class="qty-btn" id="increaseQty">+</button>
+                </div>
+                
+                <div class="total-price">
+                    Total: <span id="totalPrice">0.05 ETH</span>
+                </div>
+
+                <button class="mint-button" id="mintButton">
+                    <span class="btn-icon">🔥</span>
+                    Connect Wallet & Mint
+                </button>
+                
+                <p class="mint-note">
+                    Requires MetaMask or compatible Web3 wallet
+                </p>
+            </div>
+        </div>
+
+        <!-- Rarity Distribution -->
+        <div class="rarity-section">
+            <h2 class="section-title">
+                <span class="section-icon">🎲</span>
+                Rarity Distribution
+            </h2>
+            <div class="rarities-grid">
+                {% for rarity, info in flamedna.rarities.items() %}
+                <div class="rarity-card rarity-{{ rarity|lower }}">
+                    <div class="rarity-header">
+                        <span class="rarity-gem">💠</span>
+                        <h3>{{ rarity }}</h3>
+                    </div>
+                    <div class="rarity-probability">{{ info.probability }}</div>
+                    <div class="rarity-benefits">{{ info.benefits }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <h2 class="section-title">
+                <span class="section-icon">⚡</span>
+                NFT Features
+            </h2>
+            <div class="features-grid">
+                {% for feature in flamedna.features %}
+                <div class="feature-card">
+                    <span class="feature-bullet">◆</span>
+                    <span>{{ feature }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .mint-card {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 2px solid #ffd700;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .mint-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .mint-icon {
+        font-size: 2.5rem;
+    }
+
+    .mint-symbol {
+        background: #ffd700;
+        color: #1a1a2e;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.875rem;
+    }
+
+    .mint-description {
+        color: #b0b0b0;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mint-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .mint-info-item {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .info-label {
+        display: block;
+        color: #888;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+        display: block;
+        color: #fff;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .mint-price {
+        color: #ffd700 !important;
+    }
+
+    .mint-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+    }
+
+    .qty-btn {
+        background: #ffd700;
+        color: #1a1a2e;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .qty-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .quantity {
+        font-size: 1.5rem;
+        font-weight: bold;
+        min-width: 40px;
+        text-align: center;
+    }
+
+    .total-price {
+        font-size: 1.25rem;
+        color: #ffd700;
+    }
+
+    .mint-button {
+        background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+        color: #1a1a2e;
+        border: none;
+        padding: 1rem 3rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mint-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    }
+
+    .mint-note {
+        color: #888;
+        font-size: 0.875rem;
+    }
+
+    .rarity-section, .features-section {
+        margin-top: 3rem;
+    }
+
+    .rarities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .rarity-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .rarity-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .rarity-common { border: 2px solid #808080; }
+    .rarity-rare { border: 2px solid #0080ff; }
+    .rarity-epic { border: 2px solid #9932cc; }
+    .rarity-legendary { border: 2px solid #ffd700; }
+    .rarity-divine { border: 2px solid #ff0080; box-shadow: 0 0 20px rgba(255, 0, 128, 0.3); }
+
+    .rarity-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .rarity-gem {
+        font-size: 1.5rem;
+    }
+
+    .rarity-probability {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffd700;
+    }
+
+    .rarity-benefits {
+        color: #888;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .feature-card {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .feature-bullet {
+        color: #ffd700;
+    }
+
+    @media (max-width: 768px) {
+        .mint-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    // Simple quantity selector
+    let quantity = 1;
+    const mintPrice = 0.05;
+
+    document.getElementById('increaseQty').addEventListener('click', () => {
+        if (quantity < 10) {
+            quantity++;
+            updateDisplay();
+        }
+    });
+
+    document.getElementById('decreaseQty').addEventListener('click', () => {
+        if (quantity > 1) {
+            quantity--;
+            updateDisplay();
+        }
+    });
+
+    function updateDisplay() {
+        document.getElementById('mintQuantity').textContent = quantity;
+        document.getElementById('totalPrice').textContent = (quantity * mintPrice).toFixed(2) + ' ETH';
+    }
+
+    document.getElementById('mintButton').addEventListener('click', async () => {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to mint NFTs!');
+            return;
+        }
+
+        try {
+            // Request account access
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            alert('Wallet connected: ' + accounts[0] + '\n\nIn production, this would initiate the minting transaction for ' + quantity + ' FlameDNA NFT(s).');
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+            alert('Failed to connect wallet. Please try again.');
+        }
+    });
+</script>
+{% endblock %}
