@@ -255,7 +255,7 @@ pip install -r requirements.txt
 
 ### Getting Help
 
-- **GitHub Issues**: [Report a bug](https://github.com/chaishillomnitech1/introduction-to-github/issues)
+- **GitHub Issues**: Report a bug in the repository's Issues tab
 - **Discord**: Join the OmniVerse Community
 - **Email**: support@omniverse.io
 
