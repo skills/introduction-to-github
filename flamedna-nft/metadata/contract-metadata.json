@@ -1,0 +1,9 @@
+{
+  "name": "PromiseLand NFT Collection",
+  "description": "FlameDNA NFT Collection - The gateway to the ScrollVerse ecosystem. Genesis and Founding Supporter tiers unlock exclusive access to Sovereign TV, ScrollCoin rewards, and community governance.",
+  "image": "ipfs://YOUR_COLLECTION_IMAGE_CID/collection.png",
+  "banner_image": "ipfs://YOUR_BANNER_IMAGE_CID/banner.png",
+  "external_link": "https://sovereigntv.omniverse.io",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xYOUR_ROYALTY_WALLET_ADDRESS"
+}
