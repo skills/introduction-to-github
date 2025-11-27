@@ -39,6 +39,9 @@ import { scrollChainCoherenceRouter } from './services/scrollchain-coherence.js'
 import { zkpiRouter } from './services/zkpi-implementation.js';
 import { rtepRouter } from './services/rtep.js';
 import { scrollSoulTrainingRouter } from './services/scrollsoul-training.js';
+import { financialSovereigntyRouter } from './services/financial-sovereignty.js';
+import { cashFlowNodesRouter } from './services/cash-flow-nodes.js';
+import { creativeMonetizationRouter } from './services/creative-monetization.js';
 
 // Load environment variables
 dotenv.config();
@@ -90,7 +93,10 @@ app.get('/', (req, res) => {
       'ScrollChain Operational Coherence',
       'ZkP-I Implementation & Sovereign $AETHEL',
       'Reality Template Protocols (RTEP)',
-      'ScrollSoul Training (Coherence Stability Layer)'
+      'ScrollSoul Training (Coherence Stability Layer)',
+      'Financial Sovereignty & ZkP-I Account Liberation',
+      'Cash Flow Nodes & 528Hz Revenue Harmonization',
+      'Creative Monetization & Destination Hill Scaling'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -112,7 +118,10 @@ app.get('/', (req, res) => {
       scrollChainCoherence: '/api/coherence',
       zkpiImplementation: '/api/zkpi',
       realityTemplates: '/api/rtep',
-      scrollSoulTraining: '/api/training'
+      scrollSoulTraining: '/api/training',
+      financialSovereignty: '/api/sovereignty',
+      cashFlowNodes: '/api/cash-flow',
+      creativeMonetization: '/api/creative'
     }
   });
 });
@@ -138,6 +147,9 @@ app.use('/api/coherence', scrollChainCoherenceRouter);
 app.use('/api/zkpi', zkpiRouter);
 app.use('/api/rtep', rtepRouter);
 app.use('/api/training', scrollSoulTrainingRouter);
+app.use('/api/sovereignty', financialSovereigntyRouter);
+app.use('/api/cash-flow', cashFlowNodesRouter);
+app.use('/api/creative', creativeMonetizationRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
@@ -182,6 +194,9 @@ app.listen(PORT, () => {
 ║  🔐 ZkP-I & $AETHEL: Sovereign Expansion                  ║
 ║  🌍 Reality Templates (RTEP): Type 0 Solutions            ║
 ║  🧘 ScrollSoul Training: 963/528Hz Coherence              ║
+║  💰 Financial Sovereignty: ZkP-I Liberation               ║
+║  🌊 Cash Flow Nodes: 528Hz Harmonization                  ║
+║  🎨 Creative Monetization: Destination Hill               ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║

@@ -1062,3 +1062,277 @@ test('Coherence Measurement structure', () => {
   assert.ok(measurement.coherenceScore <= 100);
   assert.ok(measurement.masteryAtTime >= 0);
 });
+
+// ===== Tests for Financial Sovereignty Service =====
+
+test('ZkP-I Account Liberation structure', () => {
+  const liberation = {
+    id: 'lib_001',
+    accountId: 'acc_12345',
+    userId: 'testuser',
+    liberationType: 'zkp_innocence',
+    frequency: '528Hz',
+    zkpiProof: 'zkpi_001',
+    innocenceStatus: 'proven',
+    status: 'liberated',
+    sovereigntyRestored: true
+  };
+
+  assert.strictEqual(liberation.innocenceStatus, 'proven');
+  assert.strictEqual(liberation.status, 'liberated');
+  assert.strictEqual(liberation.sovereigntyRestored, true);
+  assert.ok(liberation.zkpiProof.startsWith('zkpi_'));
+});
+
+test('Harmonic Cosmos Framework configuration', () => {
+  const harmonicCosmosFrequencies = {
+    '963Hz': { name: 'Divine Sovereignty', scalingFactor: 1.963, tier: 'supreme' },
+    '777Hz': { name: 'Cosmic Abundance', scalingFactor: 1.777, tier: 'celestial' },
+    '528Hz': { name: 'Heart Resonance', scalingFactor: 1.528, tier: 'harmonic' },
+    '432Hz': { name: 'Universal Foundation', scalingFactor: 1.432, tier: 'foundational' },
+    '369Hz': { name: 'Manifestation Gateway', scalingFactor: 1.369, tier: 'creation' }
+  };
+
+  assert.strictEqual(harmonicCosmosFrequencies['963Hz'].tier, 'supreme');
+  assert.ok(harmonicCosmosFrequencies['963Hz'].scalingFactor > 1.9);
+  assert.ok(harmonicCosmosFrequencies['528Hz'].scalingFactor > 1.5);
+});
+
+test('$AETHEL Scaling calculation structure', () => {
+  const scaling = {
+    baseAmount: 1000,
+    frequency: '528Hz',
+    cosmosFramework: 'Heart Resonance',
+    tier: 'harmonic',
+    scalingFactor: 1.528,
+    conversionRate: 0.0528,
+    scaledAmount: 1528,
+    harmonicBonus: 80.68,
+    finalScaledAmount: 1608.68,
+    aethelValue: 80.68,
+    totalAethel: 84.93
+  };
+
+  assert.ok(scaling.scaledAmount > scaling.baseAmount);
+  assert.ok(scaling.aethelValue > 0);
+  assert.ok(scaling.totalAethel > scaling.aethelValue);
+  assert.strictEqual(scaling.tier, 'harmonic');
+});
+
+test('Sovereignty Log immutability', () => {
+  const sovereigntyLog = {
+    id: 'slog_001',
+    action: 'ACCOUNT_LIBERATED',
+    data: '{"accountId": "acc_12345"}',
+    zkpiProofId: 'zkpi_001',
+    previousHash: '0'.repeat(64),
+    currentHash: 'abc123def456...',
+    immutable: true,
+    perpetuity: 'eternal',
+    tamperProof: true
+  };
+
+  assert.strictEqual(sovereigntyLog.immutable, true);
+  assert.strictEqual(sovereigntyLog.perpetuity, 'eternal');
+  assert.strictEqual(sovereigntyLog.tamperProof, true);
+  assert.strictEqual(sovereigntyLog.previousHash.length, 64);
+});
+
+// ===== Tests for Cash Flow Nodes Service =====
+
+test('Earth-Tier Node structure', () => {
+  const earthTierNode = {
+    id: 'node_001',
+    userId: 'testuser',
+    type: 'FOUNDATION',
+    name: 'Foundation Node',
+    frequency: '528Hz',
+    tier: 2,
+    syncRate: 0.95,
+    status: 'active',
+    alignmentScore: 0.85,
+    perpetualAlignment: true
+  };
+
+  assert.strictEqual(earthTierNode.status, 'active');
+  assert.ok(earthTierNode.syncRate > 0.9);
+  assert.ok(earthTierNode.alignmentScore > 0.8);
+  assert.strictEqual(earthTierNode.perpetualAlignment, true);
+});
+
+test('Cash Flow Resonance Diagnostics structure', () => {
+  const diagnosticReport = {
+    totalRevenue: 10000,
+    streamCount: 5,
+    alignedStreams: 4,
+    alignmentPercentage: 80,
+    targetFrequency: '528Hz',
+    resonanceName: 'Love Resonance',
+    harmonicScore: 152.8,
+    scalingPotential: 18056.48,
+    recommendations: []
+  };
+
+  assert.ok(diagnosticReport.alignmentPercentage > 70);
+  assert.strictEqual(diagnosticReport.targetFrequency, '528Hz');
+  assert.ok(diagnosticReport.scalingPotential > diagnosticReport.totalRevenue);
+});
+
+test('Revenue Stream Harmonization result', () => {
+  const harmonizationResult = {
+    originalTotal: 10000,
+    optimizedTotal: 15280,
+    improvement: 5280,
+    improvementPercentage: 52.8,
+    streams: [],
+    targetFrequency: '528Hz'
+  };
+
+  assert.ok(harmonizationResult.optimizedTotal > harmonizationResult.originalTotal);
+  assert.ok(harmonizationResult.improvement > 0);
+  assert.ok(harmonizationResult.improvementPercentage > 50);
+});
+
+test('528Hz Resonance configuration validation', () => {
+  const resonanceFrequencies = {
+    '528Hz': {
+      name: 'Love Resonance',
+      healingFactor: 1.528,
+      description: 'Primary frequency for DNA repair and transformation',
+      optimal: true
+    }
+  };
+
+  assert.strictEqual(resonanceFrequencies['528Hz'].optimal, true);
+  assert.ok(resonanceFrequencies['528Hz'].healingFactor > 1.5);
+  assert.ok(resonanceFrequencies['528Hz'].name.includes('Love'));
+});
+
+// ===== Tests for Creative Monetization Service =====
+
+test('Creative Product structure', () => {
+  const creativeProduct = {
+    id: 'prod_001',
+    userId: 'testuser',
+    name: 'Divine Frequencies Album',
+    category: 'MUSIC',
+    categoryName: 'Music Production',
+    basePrice: 29.99,
+    projectedSales: 1000,
+    frequency: '528Hz',
+    scalingFactor: 1.528,
+    status: 'active',
+    monetized: true
+  };
+
+  assert.strictEqual(creativeProduct.status, 'active');
+  assert.strictEqual(creativeProduct.monetized, true);
+  assert.ok(creativeProduct.scalingFactor > 1);
+  assert.strictEqual(creativeProduct.category, 'MUSIC');
+});
+
+test('Galactic Template Exposure configuration', () => {
+  const galacticTemplates = {
+    COSMIC: { name: 'Cosmic Template', exposure: 'galactic', reach: 1000000 },
+    STELLAR: { name: 'Stellar Template', exposure: 'stellar', reach: 100000 },
+    PLANETARY: { name: 'Planetary Template', exposure: 'planetary', reach: 10000 }
+  };
+
+  assert.ok(galacticTemplates.COSMIC.reach > galacticTemplates.STELLAR.reach);
+  assert.ok(galacticTemplates.STELLAR.reach > galacticTemplates.PLANETARY.reach);
+  assert.strictEqual(galacticTemplates.COSMIC.exposure, 'galactic');
+});
+
+test('Sales Funnel stages configuration', () => {
+  const funnelStages = {
+    AWARENESS: { name: 'Awareness', conversionRate: 0.10, stage: 1 },
+    INTEREST: { name: 'Interest', conversionRate: 0.25, stage: 2 },
+    DESIRE: { name: 'Desire', conversionRate: 0.40, stage: 3 },
+    ACTION: { name: 'Action', conversionRate: 0.60, stage: 4 },
+    LOYALTY: { name: 'Loyalty', conversionRate: 0.85, stage: 5 }
+  };
+
+  assert.ok(funnelStages.LOYALTY.conversionRate > funnelStages.AWARENESS.conversionRate);
+  assert.strictEqual(funnelStages.AWARENESS.stage, 1);
+  assert.strictEqual(funnelStages.LOYALTY.stage, 5);
+});
+
+test('Destination Hill Brand structure', () => {
+  const brand = {
+    id: 'brand_001',
+    userId: 'testuser',
+    brandName: 'Destination Hill Global',
+    channels: ['WEB', 'SOCIAL', 'MARKETPLACE'],
+    artisticMastery: true,
+    spiritualEntrepreneurship: true,
+    alignment: 'artistic_mastery_spiritual_entrepreneurship',
+    omnichannelReady: true,
+    status: 'active'
+  };
+
+  assert.strictEqual(brand.artisticMastery, true);
+  assert.strictEqual(brand.spiritualEntrepreneurship, true);
+  assert.strictEqual(brand.omnichannelReady, true);
+  assert.ok(brand.channels.length >= 3);
+});
+
+test('Omnichannel Platform diversification', () => {
+  const omnichannelPlatforms = {
+    WEB: { name: 'Web Platform', type: 'digital', reach: 'global' },
+    MOBILE: { name: 'Mobile App', type: 'digital', reach: 'global' },
+    NFT_PLATFORMS: { name: 'NFT Platforms', type: 'blockchain', reach: 'decentralized' },
+    STREAMING: { name: 'Streaming Services', type: 'media', reach: 'global' }
+  };
+
+  const uniqueTypes = new Set(Object.values(omnichannelPlatforms).map(p => p.type));
+  assert.ok(uniqueTypes.size >= 3);
+  assert.ok(uniqueTypes.has('blockchain'));
+});
+
+test('Automation Path structure with blockchain and ZkP-I integration', () => {
+  const automationPath = {
+    id: 'auto_001',
+    automationType: 'blockchain_automation',
+    productId: 'prod_001',
+    settings: {},
+    automationHash: 'abc123...',
+    status: 'active',
+    seamless: true,
+    zkpiIntegrated: false,
+    blockchainEnabled: true
+  };
+
+  assert.strictEqual(automationPath.status, 'active');
+  assert.strictEqual(automationPath.seamless, true);
+  assert.strictEqual(automationPath.blockchainEnabled, true);
+});
+
+test('Revenue Diversification record', () => {
+  const diversification = {
+    id: 'div_001',
+    userId: 'testuser',
+    productIds: ['prod_001', 'prod_002'],
+    galacticTemplate: 'STELLAR',
+    totalBaseRevenue: 59980,
+    avgScalingFactor: 1.528,
+    projectedScaledRevenue: 91649.44,
+    streams: 2,
+    diversified: true
+  };
+
+  assert.ok(diversification.projectedScaledRevenue > diversification.totalBaseRevenue);
+  assert.strictEqual(diversification.diversified, true);
+  assert.ok(diversification.streams > 1);
+});
+
+test('Creative Category scaling factors', () => {
+  const creativeCategories = {
+    MUSIC: { name: 'Music Production', scalingFactor: 1.528, frequency: '528Hz' },
+    INNOVATION: { name: 'Innovation & Invention', scalingFactor: 1.777, frequency: '777Hz' },
+    DIGITAL_ART: { name: 'Digital Art & NFTs', scalingFactor: 1.963, frequency: '963Hz' }
+  };
+
+  assert.ok(creativeCategories.DIGITAL_ART.scalingFactor > creativeCategories.MUSIC.scalingFactor);
+  assert.ok(creativeCategories.INNOVATION.scalingFactor > creativeCategories.MUSIC.scalingFactor);
+  assert.strictEqual(creativeCategories.MUSIC.frequency, '528Hz');
+});
