@@ -182,7 +182,7 @@ financialSovereigntyRouter.get('/status', (req, res) => {
     ],
     protocols: {
       zkpi: 'active',
-      harmoniCosmos: 'operational',
+      harmonicCosmos: 'operational',
       aethelScaling: 'enabled'
     },
     timestamp: new Date().toISOString()
