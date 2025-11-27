@@ -238,7 +238,7 @@ paymentRouter.post('/paypal/create-order', authenticateToken, strictLimiter, asy
  */
 paymentRouter.post('/paypal/capture', authenticateToken, strictLimiter, async (req, res) => {
   try {
-    const { orderId } = req.body;
+    const { orderId, amount, currency } = req.body;
 
     if (!orderId) {
       return res.status(400).json({ error: 'Order ID is required' });
@@ -246,6 +246,10 @@ paymentRouter.post('/paypal/capture', authenticateToken, strictLimiter, async (r
 
     // In production, this would call PayPal capture API
     // const capture = await paypalClient.orders.capture(orderId);
+
+    // Use provided values or defaults for simulation
+    const captureAmount = amount || '9.99';
+    const captureCurrency = currency || 'USD';
 
     const capture = {
       id: orderId,
@@ -256,8 +260,8 @@ paymentRouter.post('/paypal/capture', authenticateToken, strictLimiter, async (r
             id: `cap_${Date.now()}`,
             status: 'COMPLETED',
             amount: {
-              currencyCode: 'USD',
-              value: '9.99'
+              currencyCode: captureCurrency,
+              value: captureAmount.toString()
             },
             finalCapture: true
           }]
@@ -275,6 +279,8 @@ paymentRouter.post('/paypal/capture', authenticateToken, strictLimiter, async (r
       id: `txn_${Date.now()}`,
       provider: 'paypal',
       orderId: orderId,
+      amount: captureAmount,
+      currency: captureCurrency,
       userId: req.user.username,
       status: 'completed',
       timestamp: new Date().toISOString()

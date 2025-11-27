@@ -20,6 +20,9 @@ on:
           - sepolia
           - mainnet
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest

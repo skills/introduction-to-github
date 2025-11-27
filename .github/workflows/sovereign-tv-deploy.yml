@@ -20,6 +20,9 @@ on:
           - staging
           - production
 
+permissions:
+  contents: read
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest

@@ -61,9 +61,11 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
 
         emit TokenMinted(msg.sender, tokenId, rarity);
 
-        // Refund excess payment
+        // Refund excess payment using call for better compatibility
         if (msg.value > mintPrice) {
-            payable(msg.sender).transfer(msg.value - mintPrice);
+            uint256 refund = msg.value - mintPrice;
+            (bool success, ) = payable(msg.sender).call{value: refund}("");
+            require(success, "FlameDNA: Refund failed");
         }
     }
 
@@ -86,10 +88,12 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
             emit TokenMinted(msg.sender, tokenId, rarity);
         }
 
-        // Refund excess payment
+        // Refund excess payment using call for better compatibility
         uint256 totalCost = mintPrice * quantity;
         if (msg.value > totalCost) {
-            payable(msg.sender).transfer(msg.value - totalCost);
+            uint256 refund = msg.value - totalCost;
+            (bool success, ) = payable(msg.sender).call{value: refund}("");
+            require(success, "FlameDNA: Refund failed");
         }
     }
 

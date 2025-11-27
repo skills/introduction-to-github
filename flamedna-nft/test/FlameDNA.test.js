@@ -60,7 +60,8 @@ describe("FlameDNA", function () {
       
       const tx = await flameDNA.connect(addr1).mint({ value: excessPrice });
       const receipt = await tx.wait();
-      const gasCost = receipt.gasUsed * receipt.gasPrice;
+      // Use effectiveGasPrice for EIP-1559 compatibility
+      const gasCost = receipt.gasUsed * (receipt.gasPrice || receipt.effectiveGasPrice);
       
       const balanceAfter = await ethers.provider.getBalance(addr1.address);
       const expectedBalance = balanceBefore - mintPrice - gasCost;
