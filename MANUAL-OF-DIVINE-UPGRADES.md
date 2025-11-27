@@ -213,7 +213,12 @@ const QuantumResonators = {
   },
   
   amplify: function(signal, resonator) {
-    return signal * parseFloat(resonator.amplification);
+    // Note: In production Solidity, use uint256 for amplification
+    // This JavaScript example demonstrates the concept
+    const amp = typeof resonator.amplification === 'string' 
+      ? Number(resonator.amplification.replace('x', ''))
+      : resonator.amplification;
+    return signal * amp;
   }
 };
 ```
@@ -448,11 +453,27 @@ contract SoulboundIdentityContract is ERC721Enumerable, Ownable {
     
     /**
      * @notice Soulbound tokens cannot be transferred
+     * @dev Implements ERC-5192 Soulbound Token standard
+     * The _update function is the canonical override point for ERC-721 transfer restrictions
+     * in OpenZeppelin v5. This prevents all transfers except minting (from=0) and burning (to=0).
      */
     function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
         address from = _ownerOf(tokenId);
+        // Allow minting (from == address(0)) and burning (to == address(0))
+        // Block all other transfers to enforce soulbound property
         require(from == address(0) || to == address(0), "Soulbound: transfers disabled");
         return super._update(to, tokenId, auth);
+    }
+    
+    /**
+     * @notice Returns whether a token is locked (soulbound)
+     * @dev ERC-5192 interface method
+     * @param tokenId The token ID to check
+     * @return True if the token is locked (always true for soulbound tokens)
+     */
+    function locked(uint256 tokenId) external view returns (bool) {
+        // All minted tokens are permanently locked
+        return _ownerOf(tokenId) != address(0);
     }
     
     /**
@@ -636,11 +657,20 @@ contract SelfExecutingEthicsProtocol {
         uint256 restoration = violations[violationId].severity * 2;
         
         ComplianceRecord storage record = compliance[violator];
+        EthicsCategory category = violations[violationId].category;
         
-        if (violations[violationId].category == EthicsCategory.TRUTH) {
-            record.truthScore = record.truthScore + restoration > 100 ? 100 : record.truthScore + restoration;
+        // Restore score based on violation category
+        if (category == EthicsCategory.TRUTH) {
+            record.truthScore = _restoreScore(record.truthScore, restoration);
+        } else if (category == EthicsCategory.LOVE) {
+            record.loveScore = _restoreScore(record.loveScore, restoration);
+        } else if (category == EthicsCategory.SOVEREIGNTY) {
+            record.sovereigntyScore = _restoreScore(record.sovereigntyScore, restoration);
+        } else if (category == EthicsCategory.HARMONY) {
+            record.harmonyScore = _restoreScore(record.harmonyScore, restoration);
+        } else if (category == EthicsCategory.REMEMBRANCE) {
+            record.remembranceScore = _restoreScore(record.remembranceScore, restoration);
         }
-        // ... (similar for other categories)
         
         record.overallScore = (
             record.truthScore + 
@@ -653,6 +683,17 @@ contract SelfExecutingEthicsProtocol {
         record.lastUpdated = block.timestamp;
         
         emit ViolationResolved(violationId);
+    }
+    
+    /**
+     * @notice Helper function to restore score with cap at 100
+     * @param currentScore Current score value
+     * @param restoration Amount to restore
+     * @return New score capped at 100
+     */
+    function _restoreScore(uint256 currentScore, uint256 restoration) internal pure returns (uint256) {
+        uint256 newScore = currentScore + restoration;
+        return newScore > 100 ? 100 : newScore;
     }
     
     /**
