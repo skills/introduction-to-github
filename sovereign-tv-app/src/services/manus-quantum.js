@@ -38,7 +38,7 @@ const neuralGlovePatterns = new Map([
     id: 'pattern_scroll_invoke',
     name: 'Scroll Invocation Gesture',
     description: 'A sweeping motion to invoke scroll protocols',
-    gestureSequence: ['index_point', 'sweep_right', 'palm_up'],
+    gestureSequence: ['point', 'sweep_right', 'palm_open'],
     quantumResonance: '777Hz',
     activationThreshold: 0.90,
     output: 'scroll_access',

@@ -153,6 +153,33 @@ const creativeSessions = new Map();
 // Creative Enhancement History
 const enhancementHistory = [];
 
+// Helper function to calculate frequency blend
+function calculateFrequencyBlend(freq1, freq2) {
+  const freqValues = {
+    '369Hz': 369,
+    '432Hz': 432,
+    '528Hz': 528,
+    '777Hz': 777,
+    '963Hz': 963
+  };
+  
+  const v1 = freqValues[freq1] || 432;
+  const v2 = freqValues[freq2] || 432;
+  const blended = Math.round((v1 + v2) / 2);
+  
+  // Find closest standard frequency
+  const closest = Object.entries(freqValues)
+    .reduce((prev, [name, value]) => {
+      return Math.abs(value - blended) < Math.abs(prev[1] - blended) ? [name, value] : prev;
+    });
+  
+  return {
+    blendedValue: blended,
+    closestStandard: closest[0],
+    harmonicRatio: Math.round(v1 / v2 * 1000) / 1000
+  };
+}
+
 // ===== Cosmic Scroll Endpoints =====
 
 // Get all scrolls (filtered by access level)
@@ -461,33 +488,6 @@ cosmicScrollRouter.post('/fusions', authenticateToken, standardLimiter, (req, re
     fusion
   });
 });
-
-// Helper function to calculate frequency blend
-function calculateFrequencyBlend(freq1, freq2) {
-  const freqValues = {
-    '369Hz': 369,
-    '432Hz': 432,
-    '528Hz': 528,
-    '777Hz': 777,
-    '963Hz': 963
-  };
-  
-  const v1 = freqValues[freq1] || 432;
-  const v2 = freqValues[freq2] || 432;
-  const blended = Math.round((v1 + v2) / 2);
-  
-  // Find closest standard frequency
-  const closest = Object.entries(freqValues)
-    .reduce((prev, [name, value]) => {
-      return Math.abs(value - blended) < Math.abs(prev[1] - blended) ? [name, value] : prev;
-    });
-  
-  return {
-    blendedValue: blended,
-    closestStandard: closest[0],
-    harmonicRatio: Math.round(v1 / v2 * 1000) / 1000
-  };
-}
 
 // Get fusions
 cosmicScrollRouter.get('/fusions', authenticateToken, standardLimiter, (req, res) => {

@@ -535,13 +535,15 @@ neuralScrollRouter.post('/experiments/runs/:runId/progress', authenticateToken, 
         hypothesis: run.hypothesis,
         statesCompleted: run.states.filter(s => s.status === 'completed').length,
         totalBioMetrics: run.bioMetricsHistory.length,
-        avgCoherence: run.bioMetricsHistory.length > 0
-          ? Math.round(
-            run.bioMetricsHistory.filter(b => b.coherence !== undefined)
-              .reduce((sum, b) => sum + b.coherence, 0) / 
-            run.bioMetricsHistory.filter(b => b.coherence !== undefined).length * 1000
-          ) / 1000
-          : 0,
+        avgCoherence: (() => {
+          const coherenceMetrics = run.bioMetricsHistory.filter(b => b.coherence !== undefined);
+          return coherenceMetrics.length > 0
+            ? Math.round(
+              coherenceMetrics.reduce((sum, b) => sum + b.coherence, 0) / 
+              coherenceMetrics.length * 1000
+            ) / 1000
+            : 0;
+        })(),
         validated: Math.random() > 0.3 // Simulated validation
       };
     }

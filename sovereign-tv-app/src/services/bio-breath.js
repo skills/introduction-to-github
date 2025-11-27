@@ -223,6 +223,13 @@ const stepStateRegistry = new Map();
 // Bio-Metrics History
 const bioMetricsHistory = [];
 
+// Phase to Hook Mapping - defines which hook triggers for each breath phase
+const PHASE_HOOK_MAP = {
+  'inhale': 'hook_breath_start',
+  'hold': 'hook_breath_hold',
+  'exhale': 'hook_breath_release'
+};
+
 // ===== Bio-Breath Pattern Endpoints =====
 
 // Get all breath patterns
@@ -547,15 +554,9 @@ bioBreathRouter.post('/sessions/:sessionId/update', authenticateToken, standardL
     session.bioMetricsSnapshots.push(snapshot);
 
     // Check for hook triggers
-    const phaseHookMap = {
-      'inhale': 'hook_breath_start',
-      'hold': 'hook_breath_hold',
-      'exhale': 'hook_breath_release'
-    };
-
-    if (phaseHookMap[phase]) {
+    if (PHASE_HOOK_MAP[phase]) {
       session.hooksTriggered.push({
-        hookId: phaseHookMap[phase],
+        hookId: PHASE_HOOK_MAP[phase],
         timestamp: snapshot.timestamp,
         cycle: session.currentCycle
       });
