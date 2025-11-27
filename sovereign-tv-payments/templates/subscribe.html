@@ -115,13 +115,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const data = await response.json();
                 
-                if (data.demo_url) {
+                // Validate redirect URLs to prevent open redirect
+                const isValidRedirect = (url) => {
+                    try {
+                        const parsedUrl = new URL(url, window.location.origin);
+                        // Only allow same-origin redirects or known trusted domains
+                        return parsedUrl.origin === window.location.origin ||
+                               parsedUrl.hostname.endsWith('.stripe.com');
+                    } catch {
+                        return false;
+                    }
+                };
+                
+                if (data.demo_url && isValidRedirect(data.demo_url)) {
                     // Demo mode - redirect to success page
                     window.location.href = data.demo_url;
-                } else if (data.url) {
+                } else if (data.url && isValidRedirect(data.url)) {
                     window.location.href = data.url;
                 } else if (data.error) {
                     alert('Error: ' + data.error);
+                    this.disabled = false;
+                    this.innerHTML = '<span class="btn-icon">💳</span> Pay with Card (Stripe)';
+                } else {
+                    alert('Invalid redirect URL received');
                     this.disabled = false;
                     this.innerHTML = '<span class="btn-icon">💳</span> Pay with Card (Stripe)';
                 }

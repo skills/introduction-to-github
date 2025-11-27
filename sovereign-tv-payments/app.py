@@ -112,15 +112,24 @@ SUBSCRIPTION_TIERS = {
     }
 }
 
-# In-memory storage for demo (use database in production)
+# In-memory storage for demo purposes only
+# WARNING: In production, use a persistent database (PostgreSQL, Redis, etc.)
+# Data will be lost on application restart
 subscriptions_db = {}
 webhook_events = []
+
+# Environment check
+IS_PRODUCTION = os.getenv('FLASK_ENV', 'development') == 'production'
 
 
 def verify_stripe_signature(payload, signature):
     """Verify Stripe webhook signature."""
     if not STRIPE_WEBHOOK_SECRET:
-        return True  # Skip verification in development
+        # In production, require webhook secret for security
+        if IS_PRODUCTION:
+            raise ValueError("STRIPE_WEBHOOK_SECRET must be set in production")
+        # Allow skipping verification only in development
+        return True
     
     try:
         # Compute expected signature

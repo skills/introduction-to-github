@@ -124,6 +124,7 @@ contract PromiseLandNFT is
     
     /**
      * @dev Mint Founding Supporter tier NFT
+     * @notice Requires being on the founding allowlist to mint
      */
     function mintFounding(uint256 quantity) 
         external 
@@ -131,7 +132,7 @@ contract PromiseLandNFT is
         nonReentrant 
     {
         require(foundingActive, "Founding minting not active");
-        require(foundingAllowlist[msg.sender] || foundingMinted[msg.sender] > 0, "Not on Founding allowlist");
+        require(foundingAllowlist[msg.sender], "Not on Founding allowlist");
         require(foundingMinted[msg.sender] + quantity <= maxFoundingPerWallet, "Exceeds max per wallet");
         require(_nextTokenId + quantity <= GENESIS_SUPPLY + FOUNDING_SUPPLY, "Exceeds Founding supply");
         require(msg.value >= foundingMintPrice * quantity, "Insufficient payment");
