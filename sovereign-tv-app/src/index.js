@@ -147,7 +147,9 @@ app.get('/', (req, res) => {
       quantumInfinity: '/api/quantum-infinity',
       securityGovernance: '/api/security-governance',
       aiCommerce: '/api/ai-commerce',
-      aiHardware: '/api/ai-hardware'
+      aiHardware: '/api/ai-hardware',
+      universalDeploymentProtocol: '/api/udp',
+      yieldSurface: '/api/yield-surface'
     }
   });
 });
@@ -370,6 +372,46 @@ app.post('/api/ai-hardware/register', (req, res) => {
 
 app.get('/api/ai-hardware/registry', (req, res) => {
   res.json(perpetualYieldEngine.getAIHardwareRegistry());
+});
+
+// ===== Universal Deployment Protocol (UDP) & Yield Surface Policy =====
+app.get('/api/udp/status', (req, res) => {
+  res.json(perpetualYieldEngine.getUDPStatus());
+});
+
+app.get('/api/udp/ritual-forms', (req, res) => {
+  res.json(perpetualYieldEngine.getRitualForms());
+});
+
+app.post('/api/udp/verify-adapter', (req, res) => {
+  const { adapterId, railType, zakatPercentage, honorsGlory, honorsZeroEffect, testsPass } = req.body;
+  const result = perpetualYieldEngine.verifyAdapterCompliance({ 
+    adapterId, railType, zakatPercentage, honorsGlory, honorsZeroEffect, testsPass 
+  });
+  res.json(result);
+});
+
+app.get('/api/udp/orchestration-metrics', (req, res) => {
+  res.json(perpetualYieldEngine.getOrchestrationMetrics());
+});
+
+// Yield Surface Policy Endpoints
+app.post('/api/yield-surface/register', (req, res) => {
+  const { surfaceId, name, capacity_mw, railType, location, zakatPercentage, honorsGlory, honorsZeroEffect } = req.body;
+  const result = perpetualYieldEngine.registerYieldSurface({ 
+    surfaceId, name, capacity_mw, railType, location, zakatPercentage, honorsGlory, honorsZeroEffect 
+  });
+  res.json(result);
+});
+
+app.get('/api/yield-surface/all', (req, res) => {
+  res.json(perpetualYieldEngine.getYieldSurfaces());
+});
+
+app.post('/api/yield-surface/calculate-rewards', (req, res) => {
+  const { surfaceId, computeHours, revenue } = req.body;
+  const result = perpetualYieldEngine.calculateYieldSurfaceRewards({ surfaceId, computeHours, revenue });
+  res.json(result);
 });
 
 // Error handling middleware

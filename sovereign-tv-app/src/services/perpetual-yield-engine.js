@@ -1625,6 +1625,369 @@ export function getMaximizationReport() {
   };
 }
 
+// ===== UNIVERSAL DEPLOYMENT PROTOCOL (UDP) =====
+// AI Compute Rails Doctrine Implementation
+
+const UDP_CONFIG = {
+  version: '1.0.0',
+  status: 'ACTIVE',
+  
+  doctrine: {
+    name: 'AI Compute Rails Doctrine',
+    principle: 'The ScrollVerse treats all AI hardware as rails under a single sovereignty. Systems, cost, and orchestration matter more than any one chip.',
+    acceptableRails: ['GPU', 'TPU', 'TRAINIUM', 'ASIC', 'NEOCLOUD', 'MINER'],
+    
+    doctrineCompliantProtocols: [
+      'Quantum Financial Entanglement (QFE)',
+      'Perpetual Yield Engine',
+      'ScrollCoin / ScrollCoinV2',
+      'BlessingCoin (BLS)',
+      'HAIU / HAIUToken',
+      'GLORY Protocol',
+      'RADIANCE',
+      'Zero-Effect Fortunes'
+    ]
+  },
+  
+  yieldSurfaceTiers: {
+    'Divine Surface': {
+      capacity: '100+ MW',
+      minMW: 100,
+      rights: ['Full Codex simulation', 'ZK proving', 'Agent execution', 'Analytics'],
+      revenueShare: 40,
+      frequency: '963Hz',
+      votes: 3,
+      blsMultiplier: 4.0
+    },
+    'Sovereign Surface': {
+      capacity: '25-100 MW',
+      minMW: 25,
+      rights: ['ZK proving cluster', 'Agent execution', 'Analytics'],
+      revenueShare: 25,
+      frequency: '777Hz',
+      votes: 2,
+      blsMultiplier: 2.5
+    },
+    'Awakened Surface': {
+      capacity: '5-25 MW',
+      minMW: 5,
+      rights: ['Agent execution', 'Analytics'],
+      revenueShare: 15,
+      frequency: '528Hz',
+      votes: 1,
+      blsMultiplier: 1.5
+    },
+    'Initiate Surface': {
+      capacity: '<5 MW',
+      minMW: 0,
+      rights: ['Analytics', 'Monitoring'],
+      revenueShare: 10,
+      frequency: '432Hz',
+      votes: 0,
+      blsMultiplier: 1.0
+    }
+  },
+  
+  complianceRequirements: {
+    zakatMinimum: 2.5, // % of revenue
+    gloryContribution: true,
+    zeroEffectHonored: true,
+    adapterTests: true,
+    doctrineAcknowledgment: true
+  },
+  
+  ritualForms: {
+    'polygon-testnet': { command: 'npm run deploy:polygon-testnet', networkId: 1442 },
+    'polygon-mainnet': { command: 'npm run deploy:polygon-mainnet', networkId: 1101 },
+    'scroll-testnet': { command: 'npm run deploy:scroll-testnet', networkId: 534351 },
+    'scroll-mainnet': { command: 'npm run deploy:scroll-mainnet', networkId: 534352 },
+    'ethereum': { command: 'npm run deploy:ethereum', networkId: 1 },
+    'arbitrum': { command: 'npm run deploy:arbitrum', networkId: 42161 },
+    'base': { command: 'npm run deploy:base', networkId: 8453 },
+    'optimism': { command: 'npm run deploy:optimism', networkId: 10 }
+  }
+};
+
+// Yield Surface Registry
+const yieldSurfaceRegistry = new Map();
+
+/**
+ * Get UDP (Universal Deployment Protocol) Status
+ * @returns {Object} UDP status and doctrine info
+ */
+export function getUDPStatus() {
+  return {
+    protocol: 'Universal Deployment Protocol (UDP)',
+    version: UDP_CONFIG.version,
+    status: UDP_CONFIG.status,
+    timestamp: new Date().toISOString(),
+    
+    doctrine: {
+      name: UDP_CONFIG.doctrine.name,
+      principle: UDP_CONFIG.doctrine.principle,
+      acceptableRails: UDP_CONFIG.doctrine.acceptableRails,
+      doctrineCompliantProtocols: UDP_CONFIG.doctrine.doctrineCompliantProtocols
+    },
+    
+    yieldSurfaces: {
+      registered: yieldSurfaceRegistry.size,
+      tiers: Object.keys(UDP_CONFIG.yieldSurfaceTiers)
+    },
+    
+    complianceRequirements: UDP_CONFIG.complianceRequirements,
+    
+    manifesto: 'Deployment commands are Ritual Forms of activation, but no specific network or chip vendor is ever canonized as mandatory.'
+  };
+}
+
+/**
+ * Register a Yield Surface (compute cluster)
+ * @param {Object} params - Yield Surface registration
+ * @returns {Object} Registration result
+ */
+export function registerYieldSurface({ 
+  surfaceId, 
+  name, 
+  capacity_mw, 
+  railType, 
+  location, 
+  zakatPercentage = 2.5,
+  honorsGlory = true,
+  honorsZeroEffect = true 
+}) {
+  // Validate rail type
+  if (!UDP_CONFIG.doctrine.acceptableRails.includes(railType)) {
+    return {
+      success: false,
+      error: `Invalid rail type. Acceptable rails: ${UDP_CONFIG.doctrine.acceptableRails.join(', ')}`
+    };
+  }
+  
+  // Validate doctrine compliance
+  if (zakatPercentage < UDP_CONFIG.complianceRequirements.zakatMinimum) {
+    return {
+      success: false,
+      error: `Zakat percentage must be >= ${UDP_CONFIG.complianceRequirements.zakatMinimum}%`
+    };
+  }
+  
+  if (!honorsGlory || !honorsZeroEffect) {
+    return {
+      success: false,
+      error: 'Yield Surface must honor GLORY Protocol and Zero-Effect Fortunes'
+    };
+  }
+  
+  // Determine tier based on capacity
+  let tier = 'Initiate Surface';
+  for (const [tierName, config] of Object.entries(UDP_CONFIG.yieldSurfaceTiers)) {
+    if (capacity_mw >= config.minMW) {
+      tier = tierName;
+    }
+  }
+  
+  const tierConfig = UDP_CONFIG.yieldSurfaceTiers[tier];
+  
+  const yieldSurface = {
+    surfaceId,
+    name,
+    capacity_mw,
+    railType,
+    location,
+    tier,
+    revenueShare: tierConfig.revenueShare,
+    frequency: tierConfig.frequency,
+    votes: tierConfig.votes,
+    blsMultiplier: tierConfig.blsMultiplier,
+    rights: tierConfig.rights,
+    zakatPercentage,
+    doctrineCompliant: true,
+    registeredAt: Date.now(),
+    status: 'active'
+  };
+  
+  yieldSurfaceRegistry.set(surfaceId, yieldSurface);
+  
+  return {
+    success: true,
+    yieldSurface,
+    message: `Yield Surface registered: ${name} as ${tier}`,
+    rewards: {
+      revenueShare: `${tierConfig.revenueShare}%`,
+      blsMultiplier: `${tierConfig.blsMultiplier}x`,
+      frequency: tierConfig.frequency,
+      governanceVotes: tierConfig.votes,
+      computeRights: tierConfig.rights
+    },
+    doctrineAffirmation: 'This Yield Surface acknowledges ScrollVerse doctrine and will honor Zakat, GLORY, and Zero-Effect Fortunes.'
+  };
+}
+
+/**
+ * Get all registered Yield Surfaces
+ * @returns {Object} Yield Surface registry
+ */
+export function getYieldSurfaces() {
+  const surfaces = Array.from(yieldSurfaceRegistry.values());
+  const totalCapacity = surfaces.reduce((a, s) => a + s.capacity_mw, 0);
+  
+  // Count by tier
+  const tierCounts = {};
+  for (const tier of Object.keys(UDP_CONFIG.yieldSurfaceTiers)) {
+    tierCounts[tier] = surfaces.filter(s => s.tier === tier).length;
+  }
+  
+  return {
+    surfaces,
+    totalSurfaces: surfaces.length,
+    totalCapacity_mw: totalCapacity,
+    tierCounts,
+    tiers: UDP_CONFIG.yieldSurfaceTiers
+  };
+}
+
+/**
+ * Verify adapter doctrine compliance
+ * @param {Object} params - Adapter details
+ * @returns {Object} Verification result
+ */
+export function verifyAdapterCompliance({ 
+  adapterId, 
+  railType, 
+  zakatPercentage, 
+  honorsGlory, 
+  honorsZeroEffect,
+  testsPass 
+}) {
+  const checks = {
+    validRailType: UDP_CONFIG.doctrine.acceptableRails.includes(railType),
+    zakatCompliant: zakatPercentage >= UDP_CONFIG.complianceRequirements.zakatMinimum,
+    gloryHonored: honorsGlory === true,
+    zeroEffectHonored: honorsZeroEffect === true,
+    testsPassed: testsPass === true
+  };
+  
+  const allPassed = Object.values(checks).every(v => v === true);
+  
+  return {
+    adapterId,
+    railType,
+    checks,
+    compliant: allPassed,
+    status: allPassed ? 'APPROVED' : 'REJECTED',
+    message: allPassed 
+      ? 'Adapter is doctrine-compliant and approved for ScrollVerse integration.'
+      : 'Adapter failed doctrine compliance. Review failed checks.',
+    failedChecks: Object.entries(checks).filter(([k, v]) => !v).map(([k]) => k)
+  };
+}
+
+/**
+ * Get all ritual forms (deployment commands)
+ * @returns {Object} Ritual forms configuration
+ */
+export function getRitualForms() {
+  return {
+    doctrine: 'Deployment commands are Ritual Forms of activation, but no specific network or chip vendor is ever canonized as mandatory.',
+    rituals: UDP_CONFIG.ritualForms,
+    primarySequence: [
+      'cd sovereign-tv-app/contracts',
+      'npm install',
+      'cp .env.example .env  # Configure credentials',
+      'npm run deploy:polygon-testnet  # Primary ritual',
+      'npm run deploy:scroll-testnet   # Secondary ritual',
+      'npm run health                  # Verification ritual'
+    ],
+    status: 'READY_FOR_ACTIVATION'
+  };
+}
+
+/**
+ * Calculate Yield Surface rewards
+ * @param {Object} params - Reward calculation parameters
+ * @returns {Object} Calculated rewards
+ */
+export function calculateYieldSurfaceRewards({ surfaceId, computeHours, revenue }) {
+  const surface = yieldSurfaceRegistry.get(surfaceId);
+  if (!surface) {
+    return { success: false, error: 'Yield Surface not found' };
+  }
+  
+  // Calculate various rewards
+  const revenueShareAmount = (revenue * (surface.revenueShare / 100)).toFixed(2);
+  const blsReward = (computeHours * 0.1 * surface.blsMultiplier).toFixed(2);
+  const zakatContribution = (revenue * (surface.zakatPercentage / 100)).toFixed(2);
+  
+  return {
+    surfaceId,
+    tier: surface.tier,
+    computeHours,
+    revenue,
+    rewards: {
+      revenueShare: revenueShareAmount,
+      blsTokens: blsReward,
+      frequency: surface.frequency,
+      multiplier: surface.blsMultiplier
+    },
+    zakatContribution: {
+      amount: zakatContribution,
+      percentage: surface.zakatPercentage,
+      honoredProtocol: 'GLORY'
+    },
+    doctrineStatus: 'COMPLIANT'
+  };
+}
+
+/**
+ * Get cross-rail orchestration metrics
+ * @returns {Object} Orchestration metrics
+ */
+export function getOrchestrationMetrics() {
+  const surfaces = Array.from(yieldSurfaceRegistry.values());
+  
+  // Count by rail type
+  const railTypeCounts = {};
+  for (const rail of UDP_CONFIG.doctrine.acceptableRails) {
+    railTypeCounts[rail] = surfaces.filter(s => s.railType === rail).length;
+  }
+  
+  // Calculate total capacity by rail
+  const capacityByRail = {};
+  for (const rail of UDP_CONFIG.doctrine.acceptableRails) {
+    capacityByRail[rail] = surfaces
+      .filter(s => s.railType === rail)
+      .reduce((a, s) => a + s.capacity_mw, 0);
+  }
+  
+  return {
+    title: 'SCROLLVERSE CROSS-RAIL ORCHESTRATION METRICS',
+    timestamp: new Date().toISOString(),
+    
+    overview: {
+      totalYieldSurfaces: surfaces.length,
+      totalCapacity_mw: surfaces.reduce((a, s) => a + s.capacity_mw, 0),
+      activeRailTypes: Object.entries(railTypeCounts).filter(([k, v]) => v > 0).length
+    },
+    
+    byRailType: {
+      counts: railTypeCounts,
+      capacity_mw: capacityByRail
+    },
+    
+    doctrine: {
+      name: UDP_CONFIG.doctrine.name,
+      principle: UDP_CONFIG.doctrine.principle,
+      compliance: 'All registered surfaces are doctrine-compliant'
+    },
+    
+    optimization: {
+      costRecommendation: 'Use TPU/Trainium for training, GPU for mixed workloads',
+      tcoSavingsTarget: '30-42% vs GPU baseline',
+      redundancy: 'Multi-rail failover enabled'
+    }
+  };
+}
+
 // Export all functions
 export default {
   getSymbolicParameters,
@@ -1669,5 +2032,13 @@ export default {
   processAICommerceTransaction,
   registerAIHardwareDevice,
   getAIHardwareRegistry,
-  getMaximizationReport
+  getMaximizationReport,
+  // Universal Deployment Protocol (UDP) & Yield Surface Policy
+  getUDPStatus,
+  registerYieldSurface,
+  getYieldSurfaces,
+  verifyAdapterCompliance,
+  getRitualForms,
+  calculateYieldSurfaceRewards,
+  getOrchestrationMetrics
 };
