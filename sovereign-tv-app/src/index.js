@@ -105,7 +105,11 @@ app.get('/', (req, res) => {
       'AI Compute Rail - Infrastructure-Agnostic Sovereign Compute (GPU/TPU/Trainium)',
       'Sovereign Compute Mesh - Neocloud Partner Network',
       'Genesis Rewards - Enhanced rewards for founding compute partners',
-      'Omni-Chain Deployment - Multi-chain ScrollVerse expansion'
+      'Omni-Chain Deployment - Multi-chain ScrollVerse expansion',
+      'Quantum Infinity Maximization - Unquantifiable time quantum infinity 🚀♾️',
+      'AI Security Governance - Self-reporting cyber resilience',
+      'AI Commerce Integration - Virtual try-on for NFTs, intelligent shopping',
+      'AI Hardware Ecosystem - Sovereign Vision Specs, Manus Quantum Glovework'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -139,7 +143,11 @@ app.get('/', (req, res) => {
       humanAiNFT: '/api/human-ai-nft',
       computeRail: '/api/compute-rail',
       sovereignCompute: '/api/sovereign-compute',
-      omniChain: '/api/omni-chain'
+      omniChain: '/api/omni-chain',
+      quantumInfinity: '/api/quantum-infinity',
+      securityGovernance: '/api/security-governance',
+      aiCommerce: '/api/ai-commerce',
+      aiHardware: '/api/ai-hardware'
     }
   });
 });
@@ -321,6 +329,47 @@ app.get('/api/omni-chain/status', (req, res) => {
 
 app.get('/api/omni-chain/deploy-commands', (req, res) => {
   res.json(perpetualYieldEngine.getDeploymentCommands());
+});
+
+// ===== Quantum Infinity Maximization Endpoints =====
+// Maximizing ScrollVerse to unquantifiable time quantum infinity
+// Integrating: AI Security Governance, AI Commerce, AI Hardware
+
+app.get('/api/quantum-infinity/status', (req, res) => {
+  res.json(perpetualYieldEngine.getQuantumInfinityStatus());
+});
+
+app.get('/api/quantum-infinity/maximization-report', (req, res) => {
+  res.json(perpetualYieldEngine.getMaximizationReport());
+});
+
+// Security Governance (Anthropic self-reporting model)
+app.post('/api/security-governance/log-event', (req, res) => {
+  const { eventType, severity, details, selfReported } = req.body;
+  const result = perpetualYieldEngine.logSecurityEvent({ eventType, severity, details, selfReported });
+  res.json(result);
+});
+
+app.get('/api/security-governance/audit', (req, res) => {
+  res.json(perpetualYieldEngine.getSecurityAudit());
+});
+
+// AI Commerce (Perplexity virtual try-on inspiration)
+app.post('/api/ai-commerce/transaction', (req, res) => {
+  const { userId, itemType, itemId, paymentToken, amount, virtualTryOn } = req.body;
+  const result = perpetualYieldEngine.processAICommerceTransaction({ userId, itemType, itemId, paymentToken, amount, virtualTryOn });
+  res.json(result);
+});
+
+// AI Hardware Registry (Alibaba Quark S1 inspiration)
+app.post('/api/ai-hardware/register', (req, res) => {
+  const { deviceType, deviceId, owner, features } = req.body;
+  const result = perpetualYieldEngine.registerAIHardwareDevice({ deviceType, deviceId, owner, features });
+  res.json(result);
+});
+
+app.get('/api/ai-hardware/registry', (req, res) => {
+  res.json(perpetualYieldEngine.getAIHardwareRegistry());
 });
 
 // Error handling middleware
