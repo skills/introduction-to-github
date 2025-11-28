@@ -106,6 +106,30 @@ SCROLLVERSE_DATA = {
             ],
             'collection': 'Genesis Collection',
             'rarities': ['Common', 'Rare', 'Epic', 'Legendary', 'Divine']
+        },
+        'flamedna_nft': {
+            'name': 'FlameDNA NFT',
+            'description': 'Sacred NFT collection granting access to ScrollVerse ecosystem with rarity-based benefits.',
+            'contract': {
+                'name': 'FlameDNA',
+                'symbol': 'FDNA',
+                'maxSupply': 10000,
+                'mintPrice': '0.05 ETH'
+            },
+            'features': [
+                'ERC-721 Standard',
+                'Rarity Distribution System',
+                'ScrollVerse Integration',
+                'Governance Rights',
+                'Exclusive Content Access'
+            ],
+            'rarities': {
+                'Common': {'probability': '50%', 'benefits': 'Basic access'},
+                'Rare': {'probability': '30%', 'benefits': 'Premium streaming'},
+                'Epic': {'probability': '13%', 'benefits': 'Early access + Premium'},
+                'Legendary': {'probability': '6%', 'benefits': 'All Premium + Governance'},
+                'Divine': {'probability': '1%', 'benefits': 'All benefits + Exclusive'}
+            }
         }
     }
 }
@@ -162,6 +186,18 @@ def api_projects():
 def api_blockchain():
     """API endpoint for Blockchain data."""
     return jsonify(SCROLLVERSE_DATA['blockchain'])
+
+
+@app.route('/mint')
+def mint():
+    """Render the FlameDNA NFT minting page."""
+    return render_template('mint.html', flamedna=SCROLLVERSE_DATA['blockchain']['flamedna_nft'])
+
+
+@app.route('/api/flamedna')
+def api_flamedna():
+    """API endpoint for FlameDNA NFT data."""
+    return jsonify(SCROLLVERSE_DATA['blockchain']['flamedna_nft'])
 
 
 if __name__ == '__main__':

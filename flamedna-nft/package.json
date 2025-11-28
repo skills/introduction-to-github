@@ -1,6 +1,16 @@
 {
   "name": "flamedna-nft",
   "version": "1.0.0",
+  "description": "FlameDNA ERC-721 NFT Collection for ScrollVerse Ecosystem",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify": "hardhat verify",
+    "clean": "hardhat clean",
+    "coverage": "hardhat coverage"
   "description": "FlameDNA NFT Collection - ERC-721 Smart Contracts for PromiseLand and Genesis collections",
   "main": "hardhat.config.js",
   "scripts": {
@@ -21,6 +31,7 @@
     "flamedna",
     "scrollverse",
     "ethereum",
+    "smart-contracts"
     "scroll"
   ],
   "author": "Chais Hill - OmniTech1",

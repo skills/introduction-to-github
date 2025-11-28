@@ -50,12 +50,23 @@ import { manusQuantumRouter } from './services/manus-quantum.js';
 import { bioBreathRouter } from './services/bio-breath.js';
 import { cosmicScrollRouter } from './services/cosmic-scroll.js';
 import { neuralScrollRouter } from './services/neural-scroll.js';
+import { paymentRouter } from './services/payment-gateway.js';
+import { scrollSoulOnboardingRouter } from './services/scrollsoul-onboarding.js';
+import { sovereignDashboardRouter } from './services/sovereign-dashboard.js';
+import { festivalRouter } from './services/festival-forever-fun.js';
+import { scrollSoulSBTRouter } from './services/scrollsoul-sbt.js';
+import { iamKingRouter } from './services/iam-king-nft.js';
+import { monitoringRouter, initSentry, initPrometheus, requestMetricsMiddleware } from './services/monitoring.js';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Initialize monitoring
+const sentry = initSentry(app);
+const prometheus = initPrometheus();
 
 // Middleware
 app.use(cors({
@@ -65,6 +76,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
+
+// Request metrics middleware (Prometheus)
+app.use(requestMetricsMiddleware);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -108,7 +122,18 @@ app.get('/', (req, res) => {
       'Manus Quantum Recognition (Neural Glovework)',
       'Bio-Breath Libraries (Bio-Feedback Prioritization)',
       'Cosmic Scroll Libraries (AI-Assisted Creative Modules)',
-      'Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)'
+      'Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)',
+      'FlameDNA NFT Minting (ERC-721)',
+      'Stripe & PayPal Payment Gateway',
+      'PCI-DSS Compliant Transactions',
+      'ScrollSoul Onboarding System',
+      'Sovereign Dashboard with Real-Time Metrics',
+      'Festival of Forever Fun Events & Rewards',
+      'ScrollSoul SBT (Soulbound Token Identity)',
+      'Iam 👑 King NFT on Polygon zkEVM',
+      'Sentry Error Tracking',
+      'Prometheus Metrics Collection',
+      'Real-time ScrollCoin/NFT Analytics'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -137,7 +162,14 @@ app.get('/', (req, res) => {
       manusQuantum: '/api/manus-quantum',
       bioBreath: '/api/bio-breath',
       cosmicScroll: '/api/cosmic-scroll',
-      neuralScroll: '/api/neural-scroll'
+      neuralScroll: '/api/neural-scroll',
+      payments: '/api/payments',
+      onboarding: '/api/onboarding',
+      dashboard: '/api/dashboard',
+      festival: '/api/festival',
+      scrollSoulSBT: '/api/sbt',
+      iamKing: '/api/iam-king',
+      monitoring: '/api/monitoring'
     }
   });
 });
@@ -170,6 +202,13 @@ app.use('/api/manus-quantum', manusQuantumRouter);
 app.use('/api/bio-breath', bioBreathRouter);
 app.use('/api/cosmic-scroll', cosmicScrollRouter);
 app.use('/api/neural-scroll', neuralScrollRouter);
+app.use('/api/payments', paymentRouter);
+app.use('/api/onboarding', scrollSoulOnboardingRouter);
+app.use('/api/dashboard', sovereignDashboardRouter);
+app.use('/api/festival', festivalRouter);
+app.use('/api/sbt', scrollSoulSBTRouter);
+app.use('/api/iam-king', iamKingRouter);
+app.use('/api/monitoring', monitoringRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {

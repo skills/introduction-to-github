@@ -1,6 +1,15 @@
 # Dependencies
 node_modules/
 
+# Build artifacts
+artifacts/
+cache/
+coverage/
+typechain-types/
+
+# Environment files
+.env
+.env.local
 # Hardhat artifacts
 cache/
 artifacts/
@@ -23,6 +32,12 @@ coverage.json
 .DS_Store
 Thumbs.db
 
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage.json
 # Build
 dist/
 build/
