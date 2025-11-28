@@ -13,9 +13,12 @@ import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const scrollSoulOnboardingRouter = Router();
 
+// Configuration constants
+const QUIZ_SCORE_THRESHOLD = 80;  // Minimum score for bonus XP
+const QUIZ_BONUS_MULTIPLIER = 1.5; // 50% bonus for high quiz scores
+
 // In-memory storage (use database in production)
 const onboardingProfiles = new Map();
-const trainingProgress = new Map();
 const communityEngagement = new Map();
 
 // Onboarding modules configuration
@@ -229,8 +232,8 @@ scrollSoulOnboardingRouter.post('/modules/:moduleId/complete', authenticateToken
   
   // Calculate XP with quiz bonus
   let xpEarned = module.xpReward;
-  if (quizScore && quizScore >= 80) {
-    xpEarned = Math.round(xpEarned * 1.5); // 50% bonus for high quiz score
+  if (quizScore && quizScore >= QUIZ_SCORE_THRESHOLD) {
+    xpEarned = Math.round(xpEarned * QUIZ_BONUS_MULTIPLIER);
   }
   
   profile.completedModules.push(moduleId);

@@ -10,7 +10,7 @@
 import { Router } from 'express';
 import crypto from 'crypto';
 import { authenticateToken } from './auth.js';
-import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
+import { standardLimiter, strictLimiter, webhookLimiter } from '../utils/rate-limiter.js';
 
 const paymentRouter = Router();
 
@@ -500,7 +500,7 @@ function verifyPayPalSignature(headers, body, webhookId) {
 /**
  * Webhook endpoint for payment providers with hardened authentication
  */
-paymentRouter.post('/webhook/:provider', async (req, res) => {
+paymentRouter.post('/webhook/:provider', webhookLimiter, async (req, res) => {
   const { provider } = req.params;
   const rawBody = JSON.stringify(req.body);
   

@@ -230,6 +230,10 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
 
     /**
      * @dev Gas optimized rarity determination (returns uint8 instead of string)
+     * @notice For production deployments requiring tamper-proof randomness,
+     *         consider integrating Chainlink VRF (Verifiable Random Function)
+     *         to prevent miner manipulation of block properties.
+     *         Current implementation uses block properties for demonstration.
      */
     function _determineRarityOptimized(uint256 tokenId) internal view returns (uint8) {
         uint256 random = uint256(keccak256(abi.encodePacked(
@@ -283,21 +287,29 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
 
     /**
      * @dev Add addresses to whitelist (owner only)
+     * @param addresses Array of addresses to whitelist (max 100 per call for gas efficiency)
      */
     function addToWhitelist(address[] calldata addresses) public onlyOwner {
-        for (uint256 i = 0; i < addresses.length; i++) {
+        require(addresses.length <= 100, "FlameDNA: Max 100 addresses per call");
+        
+        for (uint256 i; i < addresses.length;) {
             whitelist[addresses[i]] = true;
             emit WhitelistUpdated(addresses[i], true);
+            unchecked { ++i; }
         }
     }
 
     /**
      * @dev Remove addresses from whitelist (owner only)
+     * @param addresses Array of addresses to remove (max 100 per call)
      */
     function removeFromWhitelist(address[] calldata addresses) public onlyOwner {
-        for (uint256 i = 0; i < addresses.length; i++) {
+        require(addresses.length <= 100, "FlameDNA: Max 100 addresses per call");
+        
+        for (uint256 i; i < addresses.length;) {
             whitelist[addresses[i]] = false;
             emit WhitelistUpdated(addresses[i], false);
+            unchecked { ++i; }
         }
     }
 

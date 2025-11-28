@@ -287,9 +287,12 @@ festivalRouter.post('/rewards/media/claim', authenticateToken, strictLimiter, (r
     return res.status(400).json({ error: 'Content ID and views required' });
   }
   
-  // Determine reward tier
+  // Determine reward tier (check from highest to lowest)
+  const tierOrder = ['diamond', 'platinum', 'gold', 'silver', 'bronze'];
   let tier = null;
-  for (const [tierName, tierData] of Object.entries(mediaRewardTiers).reverse()) {
+  
+  for (const tierName of tierOrder) {
+    const tierData = mediaRewardTiers[tierName];
     if (views >= tierData.minViews) {
       tier = { name: tierName, ...tierData };
       break;
