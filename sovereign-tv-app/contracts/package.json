@@ -1,0 +1,39 @@
+{
+  "name": "scrollverse-contracts",
+  "version": "1.0.0",
+  "description": "ScrollVerse Smart Contracts - Quantum Financial Entanglement & HAIU Protocol",
+  "author": "First Remembrancer | OmniTech1™",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:polygon-testnet": "hardhat run scripts/deploy.js --network polygonZkEVMTestnet",
+    "deploy:scroll-testnet": "hardhat run scripts/deploy.js --network scrollSepolia",
+    "deploy:polygon": "hardhat run scripts/deploy.js --network polygonZkEVM",
+    "deploy:scroll": "hardhat run scripts/deploy.js --network scroll",
+    "verify": "hardhat verify",
+    "clean": "hardhat clean",
+    "node": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "hardhat": "^2.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "scrollverse",
+    "quantum-financial-entanglement",
+    "blessing-coin",
+    "perpetual-yield-engine",
+    "haiu-protocol",
+    "human-ai-interaction",
+    "zkEVM",
+    "polygon",
+    "scroll",
+    "nft",
+    "defi"
+  ]
+}
