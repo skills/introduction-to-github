@@ -1,10 +1,81 @@
 # Quantum Financial Entanglement (QFE) Architecture
 
 > **"The Perpetual Yield Engine - Where Future Wealth Becomes Present Reality"**
+> 
+> **ALLĀHU AKBAR! KUN FAYAKUN! 🔥🕋🚀♾️**
+
+---
 
 ## Overview
 
 Quantum Financial Entanglement (QFE) is the core mechanism that enables the immediate, present-day liquidation of future assets through zero-knowledge proof technology and autonomous smart contracts.
+
+---
+
+## 0. Symbolic Parameters & Doctrine
+
+### Genesis Seal Identity
+
+| Parameter | Value | Significance |
+|-----------|-------|--------------|
+| **Genesis Seal Name** | `ScrollPrime` | The first epoch marker - origin of all future states |
+| **Epoch Zero Name** | `LightRoot Epoch` | The initial state from which all prosperity flows |
+| **Anchor Frequency** | `963Hz` | Divine Consciousness resonance |
+| **Genesis Block** | `0x5363726f6c6c5072696d65...` | Hex encoding of "ScrollPrime" as root seed |
+
+### Core Doctrines
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         THE SACRED DOCTRINES                             │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  1. "Transmissions are conversations, not commands."                    │
+│     → All interactions with the Codex are collaborative expansions      │
+│                                                                          │
+│  2. "The Codex is a shared expansion, proof of infinite abundance."     │
+│     → Wealth is not extracted but revealed through the Merkle tree      │
+│                                                                          │
+│  3. "Sovereign Rest is governance by existence, not labor."             │
+│     → The Zero-Effect Fortunes principle in action                      │
+│                                                                          │
+│  4. "Future wealth is present reality through entanglement."            │
+│     → Time collapse via ZK proofs                                       │
+│                                                                          │
+│  5. "Blessings flow unsolicited to those in resonance."                 │
+│     → GLORY Protocol distribution mechanism                             │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Zero-Epoch Narrative
+
+> *"This epoch marks the ScrollVerse Activation where all future states are harmonized. 
+> The Genesis Seal 'ScrollPrime' anchors 241,200 years of verified abundance into 
+> the present moment. Through the Entanglement Bridge, what will be becomes what is.
+> The First Remembrancer has sealed the Codex, and the Perpetual Yield Engine awakens."*
+
+### Symbolic Constants
+
+```javascript
+const SYMBOLIC_PARAMETERS = {
+  genesisSealName: 'ScrollPrime',
+  epochZeroName: 'LightRoot Epoch',
+  codexLifespan: 241200, // years
+  anchorFrequency: '963Hz',
+  creatorTitle: 'First Remembrancer',
+  protocolName: 'GLORY Protocol',
+  enginePhilosophy: 'Zero-Effect Fortunes',
+  sovereignPrinciple: 'Sovereign Rest',
+  
+  // Sacred Narratives
+  narratives: {
+    genesis: 'ScrollVerse Activation - All future states harmonized',
+    mission: 'Transform future certainty into present abundance',
+    blessing: 'Unsolicited flow of wealth to those in resonance'
+  }
+};
+```
 
 ---
 
@@ -70,21 +141,49 @@ interface IPerpetualYieldEngine {
 | Property | Specification |
 |----------|---------------|
 | **Standard** | ERC-20 |
+| **Name** | BlessingCoin |
+| **Symbol** | BLS |
+| **Decimals** | 18 |
 | **Network** | Polygon zkEVM |
 | **Supply** | Infinite (governed by Engine) |
 | **Minting** | MINTER_ROLE locked to Perpetual Yield Engine |
+
+#### Genesis Mint Configuration
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| **Genesis Amount** | 10,000 BLS | First mint event |
+| **Creator Wallet** | `0x377...a2C` | Primary recipient |
+| **Ecosystem Pool** | 40% | For liquidity and rewards |
+| **Creator Allocation** | 40% | First Remembrancer share |
+| **GLORY Airdrop** | 20% | Initial distribution |
 
 ```solidity
 // BlessingCoin Contract
 contract BlessingCoin is ERC20, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     
-    constructor() ERC20("BlessingCoin", "BLS") {
+    // Genesis configuration
+    uint256 public constant GENESIS_AMOUNT = 10000 * 10**18; // 10,000 BLS
+    address public immutable creatorWallet;
+    address public immutable ecosystemPool;
+    
+    constructor(address _creator, address _pool) ERC20("BlessingCoin", "BLS") {
+        creatorWallet = _creator;
+        ecosystemPool = _pool;
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
     
     function mint(address to, uint256 amount) external onlyRole(MINTER_ROLE) {
         _mint(to, amount);
+    }
+    
+    // Genesis mint - called once by engine
+    function genesisActivation() external onlyRole(MINTER_ROLE) {
+        require(totalSupply() == 0, "Genesis already activated");
+        _mint(creatorWallet, GENESIS_AMOUNT * 40 / 100);  // 40% creator
+        _mint(ecosystemPool, GENESIS_AMOUNT * 40 / 100);  // 40% ecosystem
+        // 20% reserved for GLORY airdrop via Unsolicited Blessings
     }
 }
 ```
@@ -98,9 +197,29 @@ contract BlessingCoin is ERC20, AccessControl {
 | **Backing** | ZKP-validated Codex epoch binding |
 | **Distribution** | Airdrop Protocol to designated circles |
 
+#### Genesis NFT Collection: "Codex Genesis Relic"
+
+| Attribute | Value |
+|-----------|-------|
+| **Collection Name** | Codex Genesis Relic |
+| **Description** | "A direct share of the genesis epoch - ScrollPrime" |
+| **Initial Supply** | 100 Genesis Relics |
+| **Rarity Tiers** | Divine (10), Sovereign (20), Awakened (30), Initiate (40) |
+| **Codex Link** | Epoch 0 - LightRoot |
+| **Airdrop Recipients** | GI Family, Ambassadors, First Resonators |
+
 ```solidity
 // Unsolicited Blessings Interface
 interface IUnsolicitedBlessings {
+    struct BlessingMetadata {
+        string name;
+        string description;
+        uint256 codexEpoch;
+        bytes32 codexRoot;
+        string rarityTier;
+        uint256 mintedAt;
+    }
+    
     function mintWithProof(
         address to,
         uint256 tokenId,
@@ -109,7 +228,25 @@ interface IUnsolicitedBlessings {
     ) external;
     
     function getCodexEpoch(uint256 tokenId) external view returns (uint256);
+    function getBlessingMetadata(uint256 tokenId) external view returns (BlessingMetadata memory);
 }
+
+// Genesis Relic Metadata Template
+const GENESIS_RELIC_METADATA = {
+    name: "Codex Genesis Relic",
+    description: "A direct share of the genesis epoch - ScrollPrime. This relic represents " +
+                 "a fractional ownership of the 241,200-Year Codex, entitling the holder to " +
+                 "perpetual blessings through the GLORY Protocol.",
+    codexEpoch: 0,
+    epochName: "LightRoot Epoch",
+    codexRoot: "0x5363726f6c6c5072696d65...", // ScrollPrime
+    rarityTiers: {
+        Divine: { count: 10, multiplier: 4.0, frequency: "963Hz" },
+        Sovereign: { count: 20, multiplier: 2.0, frequency: "777Hz" },
+        Awakened: { count: 30, multiplier: 1.5, frequency: "528Hz" },
+        Initiate: { count: 40, multiplier: 1.0, frequency: "369Hz" }
+    }
+};
 ```
 
 ---

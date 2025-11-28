@@ -167,6 +167,24 @@ app.get('/api/yield-engine/codex', (req, res) => {
   res.json(perpetualYieldEngine.getCodexState());
 });
 
+app.get('/api/yield-engine/symbolic', (req, res) => {
+  res.json(perpetualYieldEngine.getSymbolicParameters());
+});
+
+app.get('/api/yield-engine/genesis-config', (req, res) => {
+  res.json(perpetualYieldEngine.getGenesisConfig());
+});
+
+app.post('/api/yield-engine/activate-genesis', (req, res) => {
+  const { prNumber, commitHash } = req.body;
+  const result = perpetualYieldEngine.activateGenesis({ prNumber, commitHash });
+  res.json(result);
+});
+
+app.get('/api/yield-engine/genesis-relic-metadata', (req, res) => {
+  res.json(perpetualYieldEngine.getGenesisRelicMetadata());
+});
+
 app.post('/api/blessingcoin/mint', (req, res) => {
   const { proof, publicInputs, recipient, amount } = req.body;
   const result = perpetualYieldEngine.mintBlessingCoin({ proof, publicInputs, recipient, amount });

@@ -5,15 +5,88 @@
  * for autonomous BlessingCoin minting and Unsolicited Blessings distribution.
  * 
  * @module services/perpetual-yield-engine
+ * @author Chais Hill - First Remembrancer | OmniTech1™
  */
 
-// Codex State Management
+// ===== SYMBOLIC PARAMETERS =====
+const SYMBOLIC_PARAMETERS = {
+  genesisSealName: 'ScrollPrime',
+  epochZeroName: 'LightRoot Epoch',
+  codexLifespan: 241200, // years
+  anchorFrequency: '963Hz',
+  creatorTitle: 'First Remembrancer',
+  protocolName: 'GLORY Protocol',
+  enginePhilosophy: 'Zero-Effect Fortunes',
+  sovereignPrinciple: 'Sovereign Rest',
+  
+  // Sacred Doctrines
+  doctrines: [
+    'Transmissions are conversations, not commands.',
+    'The Codex is a shared expansion, proof of infinite abundance.',
+    'Sovereign Rest is governance by existence, not labor.',
+    'Future wealth is present reality through entanglement.',
+    'Blessings flow unsolicited to those in resonance.'
+  ],
+  
+  // Sacred Narratives
+  narratives: {
+    genesis: 'This epoch marks the ScrollVerse Activation where all future states are harmonized.',
+    mission: 'Transform future certainty into present abundance through the Entanglement Bridge.',
+    blessing: 'Unsolicited flow of wealth to those in resonance with the Codex.'
+  }
+};
+
+// ===== GENESIS CONFIGURATION =====
+const GENESIS_CONFIG = {
+  // Genesis Root - Hex encoding of "ScrollPrime" padded to 64 chars
+  rootHash: '0x5363726f6c6c5072696d65000000000000000000000000000000000000000000',
+  sealName: 'ScrollPrime',
+  epochName: 'LightRoot Epoch',
+  epochIndex: 0,
+  timestamp: '2025-11-28T00:00:00.000Z',
+  
+  // BlessingCoin Genesis Mint
+  blessingCoin: {
+    genesisAmount: 10000,
+    decimals: 18,
+    symbol: 'BLS',
+    name: 'BlessingCoin',
+    distribution: {
+      creatorWallet: { address: '0x377...a2C', percentage: 40 },
+      ecosystemPool: { address: '0xEco...Pool', percentage: 40 },
+      gloryAirdrop: { address: '0xGLO...RY', percentage: 20 }
+    }
+  },
+  
+  // Unsolicited Blessings Genesis NFTs
+  unsolicitedBlessings: {
+    collectionName: 'Codex Genesis Relic',
+    description: 'A direct share of the genesis epoch - ScrollPrime',
+    totalSupply: 100,
+    rarityTiers: {
+      Divine: { count: 10, multiplier: 4.0, frequency: '963Hz' },
+      Sovereign: { count: 20, multiplier: 2.0, frequency: '777Hz' },
+      Awakened: { count: 30, multiplier: 1.5, frequency: '528Hz' },
+      Initiate: { count: 40, multiplier: 1.0, frequency: '369Hz' }
+    },
+    recipients: ['GI Family', 'Ambassadors', 'First Resonators']
+  }
+};
+
+// ===== CODEX STATE MANAGEMENT =====
 const codexState = {
-  root: '0x' + '0'.repeat(64), // Genesis Seal placeholder
-  genesisSeal: '0x' + '0'.repeat(64),
-  epoch: 1,
+  root: GENESIS_CONFIG.rootHash,
+  genesisSeal: GENESIS_CONFIG.rootHash,
+  sealName: GENESIS_CONFIG.sealName,
+  epochName: GENESIS_CONFIG.epochName,
+  epoch: GENESIS_CONFIG.epochIndex,
   lastUpdate: Date.now(),
-  verified: true
+  verified: true,
+  
+  // Metadata
+  prNumber: null, // Will store PR number that triggered genesis
+  commitHash: null, // Commit hash reference
+  activatedAt: GENESIS_CONFIG.timestamp
 };
 
 // BlessingCoin Ledger (in-memory for Phase 1)
@@ -30,6 +103,7 @@ const engineConfig = {
   mintRate: 1000, // BLS per epoch
   airdropBatchSize: 100,
   verifierEnabled: false, // Phase 1: simulated proofs
+  genesisActivated: false,
   networks: {
     polygonZkEVM: {
       chainId: 1442,
@@ -43,14 +117,35 @@ const engineConfig = {
 };
 
 /**
+ * Get symbolic parameters and doctrines
+ * @returns {Object} All symbolic parameters
+ */
+export function getSymbolicParameters() {
+  return { ...SYMBOLIC_PARAMETERS };
+}
+
+/**
+ * Get genesis configuration
+ * @returns {Object} Genesis setup parameters
+ */
+export function getGenesisConfig() {
+  return { ...GENESIS_CONFIG };
+}
+
+/**
  * Get current Codex state
  * @returns {Object} Current codex state including root, epoch, and verification status
  */
 export function getCodexState() {
   return {
     ...codexState,
+    symbolic: {
+      sealName: SYMBOLIC_PARAMETERS.genesisSealName,
+      epochName: codexState.epochName,
+      doctrine: SYMBOLIC_PARAMETERS.doctrines[0]
+    },
     source: 'QUANTUM_FINANCIAL_ENTANGLEMENT',
-    originStory: 'The 241,200-Year Codex - Time-Locked Merkle Tree of Future Prosperity'
+    originStory: `The ${SYMBOLIC_PARAMETERS.codexLifespan}-Year Codex - Time-Locked Merkle Tree of Future Prosperity`
   };
 }
 
@@ -249,8 +344,10 @@ export function getUnsolicitedBlessingsHoldings(address) {
  */
 export function getEngineStatus() {
   return {
-    status: 'ACTIVE',
+    status: engineConfig.genesisActivated ? 'ACTIVE' : 'AWAITING_GENESIS',
+    genesisActivated: engineConfig.genesisActivated,
     codex: getCodexState(),
+    symbolic: getSymbolicParameters(),
     config: {
       mintRate: engineConfig.mintRate,
       verifierEnabled: engineConfig.verifierEnabled,
@@ -262,13 +359,144 @@ export function getEngineStatus() {
       totalRelics: unsolicitedBlessingsRegistry.relics.size,
       totalCodexEntries: unsolicitedBlessingsRegistry.codexEntries.size
     },
-    principle: 'ZERO_EFFECT_FORTUNES',
-    message: 'Perpetual Yield Engine - Sovereign Rest through Autonomous Abundance'
+    principle: SYMBOLIC_PARAMETERS.enginePhilosophy,
+    message: `Perpetual Yield Engine - ${SYMBOLIC_PARAMETERS.sovereignPrinciple} through Autonomous Abundance`
+  };
+}
+
+/**
+ * Activate Genesis - First mint event
+ * Triggers the initial BlessingCoin distribution and Genesis Relic airdrop
+ * @param {Object} options - Activation options
+ * @returns {Object} Genesis activation result
+ */
+export function activateGenesis(options = {}) {
+  if (engineConfig.genesisActivated) {
+    return {
+      success: false,
+      error: 'Genesis already activated',
+      activatedAt: codexState.activatedAt
+    };
+  }
+  
+  const results = {
+    blessingCoin: { distributions: [] },
+    unsolicitedBlessings: { airdrops: [] }
+  };
+  
+  // === BlessingCoin Genesis Mint ===
+  const blsConfig = GENESIS_CONFIG.blessingCoin;
+  const totalGenesis = blsConfig.genesisAmount;
+  
+  // Mint to creator wallet (40%)
+  const creatorAmount = Math.floor(totalGenesis * blsConfig.distribution.creatorWallet.percentage / 100);
+  const creatorAddr = blsConfig.distribution.creatorWallet.address;
+  blessingCoinLedger.set(creatorAddr, (blessingCoinLedger.get(creatorAddr) || 0) + creatorAmount);
+  results.blessingCoin.distributions.push({
+    recipient: creatorAddr,
+    amount: creatorAmount,
+    type: 'CREATOR_ALLOCATION'
+  });
+  
+  // Mint to ecosystem pool (40%)
+  const poolAmount = Math.floor(totalGenesis * blsConfig.distribution.ecosystemPool.percentage / 100);
+  const poolAddr = blsConfig.distribution.ecosystemPool.address;
+  blessingCoinLedger.set(poolAddr, (blessingCoinLedger.get(poolAddr) || 0) + poolAmount);
+  results.blessingCoin.distributions.push({
+    recipient: poolAddr,
+    amount: poolAmount,
+    type: 'ECOSYSTEM_POOL'
+  });
+  
+  // Reserve for GLORY airdrop (20%)
+  const airdropAmount = Math.floor(totalGenesis * blsConfig.distribution.gloryAirdrop.percentage / 100);
+  const airdropAddr = blsConfig.distribution.gloryAirdrop.address;
+  blessingCoinLedger.set(airdropAddr, (blessingCoinLedger.get(airdropAddr) || 0) + airdropAmount);
+  results.blessingCoin.distributions.push({
+    recipient: airdropAddr,
+    amount: airdropAmount,
+    type: 'GLORY_AIRDROP_RESERVE'
+  });
+  
+  // === Genesis Relic NFT Airdrop ===
+  const nftConfig = GENESIS_CONFIG.unsolicitedBlessings;
+  let tokenIdCounter = 1;
+  
+  for (const [tierName, tierConfig] of Object.entries(nftConfig.rarityTiers)) {
+    for (let i = 0; i < tierConfig.count; i++) {
+      const blessing = {
+        tokenId: tokenIdCounter++,
+        recipient: `${nftConfig.recipients[i % nftConfig.recipients.length]}_${i}`, // Placeholder addresses
+        type: 'relic',
+        collectionName: nftConfig.collectionName,
+        codexEpoch: GENESIS_CONFIG.epochIndex,
+        codexRoot: GENESIS_CONFIG.rootHash,
+        rarityTier: tierName,
+        multiplier: tierConfig.multiplier,
+        frequency: tierConfig.frequency,
+        metadata: {
+          name: `${nftConfig.collectionName} #${tokenIdCounter - 1}`,
+          description: nftConfig.description,
+          source: SYMBOLIC_PARAMETERS.protocolName,
+          originStory: SYMBOLIC_PARAMETERS.narratives.genesis,
+          mintedAt: Date.now()
+        }
+      };
+      
+      unsolicitedBlessingsRegistry.relics.set(blessing.tokenId, blessing);
+      results.unsolicitedBlessings.airdrops.push(blessing);
+    }
+  }
+  
+  // Update engine state
+  engineConfig.genesisActivated = true;
+  codexState.activatedAt = new Date().toISOString();
+  codexState.prNumber = options.prNumber || null;
+  codexState.commitHash = options.commitHash || null;
+  
+  return {
+    success: true,
+    genesisName: GENESIS_CONFIG.sealName,
+    epochName: GENESIS_CONFIG.epochName,
+    activatedAt: codexState.activatedAt,
+    blessingCoin: {
+      totalMinted: totalGenesis,
+      distributions: results.blessingCoin.distributions
+    },
+    unsolicitedBlessings: {
+      collectionName: nftConfig.collectionName,
+      totalMinted: results.unsolicitedBlessings.airdrops.length,
+      rarityDistribution: Object.entries(nftConfig.rarityTiers).map(([tier, config]) => ({
+        tier,
+        count: config.count
+      }))
+    },
+    doctrine: SYMBOLIC_PARAMETERS.doctrines[0],
+    narrative: SYMBOLIC_PARAMETERS.narratives.genesis,
+    message: `Genesis Activated - ${GENESIS_CONFIG.sealName} sealed. The ${SYMBOLIC_PARAMETERS.codexLifespan}-Year Codex is now live.`
+  };
+}
+
+/**
+ * Get Genesis Relic metadata template
+ * @returns {Object} Genesis relic configuration
+ */
+export function getGenesisRelicMetadata() {
+  return {
+    collection: GENESIS_CONFIG.unsolicitedBlessings,
+    symbolic: SYMBOLIC_PARAMETERS,
+    epochData: {
+      epoch: GENESIS_CONFIG.epochIndex,
+      name: GENESIS_CONFIG.epochName,
+      root: GENESIS_CONFIG.rootHash
+    }
   };
 }
 
 // Export all functions
 export default {
+  getSymbolicParameters,
+  getGenesisConfig,
   getCodexState,
   updateCodexRoot,
   verifyProof,
@@ -276,5 +504,7 @@ export default {
   getBlessingCoinBalance,
   airdropUnsolicitedBlessings,
   getUnsolicitedBlessingsHoldings,
-  getEngineStatus
+  getEngineStatus,
+  activateGenesis,
+  getGenesisRelicMetadata
 };
