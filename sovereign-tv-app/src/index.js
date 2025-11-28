@@ -54,6 +54,8 @@ import { paymentRouter } from './services/payment-gateway.js';
 import { scrollSoulOnboardingRouter } from './services/scrollsoul-onboarding.js';
 import { sovereignDashboardRouter } from './services/sovereign-dashboard.js';
 import { festivalRouter } from './services/festival-forever-fun.js';
+import { scrollSoulSBTRouter } from './services/scrollsoul-sbt.js';
+import { iamKingRouter } from './services/iam-king-nft.js';
 
 // Load environment variables
 dotenv.config();
@@ -118,7 +120,9 @@ app.get('/', (req, res) => {
       'PCI-DSS Compliant Transactions',
       'ScrollSoul Onboarding System',
       'Sovereign Dashboard with Real-Time Metrics',
-      'Festival of Forever Fun Events & Rewards'
+      'Festival of Forever Fun Events & Rewards',
+      'ScrollSoul SBT (Soulbound Token Identity)',
+      'Iam 👑 King NFT on Polygon zkEVM'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -151,7 +155,9 @@ app.get('/', (req, res) => {
       payments: '/api/payments',
       onboarding: '/api/onboarding',
       dashboard: '/api/dashboard',
-      festival: '/api/festival'
+      festival: '/api/festival',
+      scrollSoulSBT: '/api/sbt',
+      iamKing: '/api/iam-king'
     }
   });
 });
@@ -188,6 +194,8 @@ app.use('/api/payments', paymentRouter);
 app.use('/api/onboarding', scrollSoulOnboardingRouter);
 app.use('/api/dashboard', sovereignDashboardRouter);
 app.use('/api/festival', festivalRouter);
+app.use('/api/sbt', scrollSoulSBTRouter);
+app.use('/api/iam-king', iamKingRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
