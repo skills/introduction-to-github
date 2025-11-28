@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @title FlameDNA
@@ -14,8 +15,16 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
  *
  * FlameDNA NFTs grant holders access to exclusive ScrollVerse content,
  * Sovereign TV premium features, and community governance rights.
+ * 
+ * Features:
+ * - Rarity-based minting (Common, Rare, Epic, Legendary, Divine)
+ * - Whitelist support for early access
+ * - Batch minting (up to 10 tokens)
+ * - Owner airdrops with custom rarity
+ * - Pausable for emergency stops
+ * - ReentrancyGuard for security
  */
-contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausable {
+contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausable, ReentrancyGuard {
     // Token ID counter
     uint256 private _nextTokenId;
 
@@ -25,11 +34,20 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
     // Mint price in wei (0.05 ETH)
     uint256 public mintPrice = 0.05 ether;
 
+    // Whitelist mint price (discounted)
+    uint256 public whitelistPrice = 0.04 ether;
+
     // Base URI for metadata
     string private _baseTokenURI;
 
     // Mapping for token rarity
     mapping(uint256 => string) public tokenRarity;
+
+    // Whitelist mapping
+    mapping(address => bool) public whitelist;
+    
+    // Whitelist minting enabled
+    bool public whitelistEnabled = false;
 
     // Rarity levels
     string[] public rarityLevels = ["Common", "Rare", "Epic", "Legendary", "Divine"];
@@ -38,6 +56,9 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
     event TokenMinted(address indexed to, uint256 indexed tokenId, string rarity);
     event MintPriceUpdated(uint256 oldPrice, uint256 newPrice);
     event BaseURIUpdated(string newBaseURI);
+    event WhitelistUpdated(address indexed account, bool status);
+    event WhitelistEnabledUpdated(bool enabled);
+    event Withdrawn(address indexed to, uint256 amount);
 
     constructor(
         address initialOwner,
@@ -47,11 +68,23 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
     }
 
     /**
+     * @dev Get the current mint price for an address
+     */
+    function getMintPrice(address minter) public view returns (uint256) {
+        if (whitelistEnabled && whitelist[minter]) {
+            return whitelistPrice;
+        }
+        return mintPrice;
+    }
+
+    /**
      * @dev Mint a new FlameDNA NFT
      */
-    function mint() public payable whenNotPaused {
+    function mint() public payable whenNotPaused nonReentrant {
         require(_nextTokenId < MAX_SUPPLY, "FlameDNA: Max supply reached");
-        require(msg.value >= mintPrice, "FlameDNA: Insufficient payment");
+        
+        uint256 price = getMintPrice(msg.sender);
+        require(msg.value >= price, "FlameDNA: Insufficient payment");
 
         uint256 tokenId = _nextTokenId++;
         string memory rarity = _determineRarity(tokenId);
@@ -62,8 +95,8 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
         emit TokenMinted(msg.sender, tokenId, rarity);
 
         // Refund excess payment using call for better compatibility
-        if (msg.value > mintPrice) {
-            uint256 refund = msg.value - mintPrice;
+        if (msg.value > price) {
+            uint256 refund = msg.value - price;
             (bool success, ) = payable(msg.sender).call{value: refund}("");
             require(success, "FlameDNA: Refund failed");
         }
@@ -73,10 +106,13 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
      * @dev Batch mint multiple NFTs
      * @param quantity Number of NFTs to mint
      */
-    function batchMint(uint256 quantity) public payable whenNotPaused {
+    function batchMint(uint256 quantity) public payable whenNotPaused nonReentrant {
         require(quantity > 0 && quantity <= 10, "FlameDNA: Invalid quantity");
         require(_nextTokenId + quantity <= MAX_SUPPLY, "FlameDNA: Would exceed max supply");
-        require(msg.value >= mintPrice * quantity, "FlameDNA: Insufficient payment");
+        
+        uint256 price = getMintPrice(msg.sender);
+        uint256 totalCost = price * quantity;
+        require(msg.value >= totalCost, "FlameDNA: Insufficient payment");
 
         for (uint256 i = 0; i < quantity; i++) {
             uint256 tokenId = _nextTokenId++;
@@ -89,7 +125,6 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
         }
 
         // Refund excess payment using call for better compatibility
-        uint256 totalCost = mintPrice * quantity;
         if (msg.value > totalCost) {
             uint256 refund = msg.value - totalCost;
             (bool success, ) = payable(msg.sender).call{value: refund}("");
@@ -160,6 +195,41 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
     }
 
     /**
+     * @dev Add addresses to whitelist (owner only)
+     */
+    function addToWhitelist(address[] calldata addresses) public onlyOwner {
+        for (uint256 i = 0; i < addresses.length; i++) {
+            whitelist[addresses[i]] = true;
+            emit WhitelistUpdated(addresses[i], true);
+        }
+    }
+
+    /**
+     * @dev Remove addresses from whitelist (owner only)
+     */
+    function removeFromWhitelist(address[] calldata addresses) public onlyOwner {
+        for (uint256 i = 0; i < addresses.length; i++) {
+            whitelist[addresses[i]] = false;
+            emit WhitelistUpdated(addresses[i], false);
+        }
+    }
+
+    /**
+     * @dev Enable/disable whitelist minting (owner only)
+     */
+    function setWhitelistEnabled(bool enabled) public onlyOwner {
+        whitelistEnabled = enabled;
+        emit WhitelistEnabledUpdated(enabled);
+    }
+
+    /**
+     * @dev Update whitelist price (owner only)
+     */
+    function setWhitelistPrice(uint256 newPrice) public onlyOwner {
+        whitelistPrice = newPrice;
+    }
+
+    /**
      * @dev Pause minting (owner only)
      */
     function pause() public onlyOwner {
@@ -174,12 +244,16 @@ contract FlameDNA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Pausab
     }
 
     /**
-     * @dev Withdraw contract balance (owner only)
+     * @dev Withdraw contract balance (owner only) - uses call for safety
      */
-    function withdraw() public onlyOwner {
+    function withdraw() public onlyOwner nonReentrant {
         uint256 balance = address(this).balance;
         require(balance > 0, "FlameDNA: No balance to withdraw");
-        payable(owner()).transfer(balance);
+        
+        (bool success, ) = payable(owner()).call{value: balance}("");
+        require(success, "FlameDNA: Withdrawal failed");
+        
+        emit Withdrawn(owner(), balance);
     }
 
     /**

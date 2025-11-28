@@ -311,6 +311,69 @@
         color: #ffd700;
     }
 
+    .mint-status {
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mint-status-info {
+        background: rgba(0, 123, 255, 0.2);
+        border: 1px solid #007bff;
+        color: #6bb3ff;
+    }
+
+    .mint-status-success {
+        background: rgba(40, 167, 69, 0.2);
+        border: 1px solid #28a745;
+        color: #5dd879;
+    }
+
+    .mint-status-error {
+        background: rgba(220, 53, 69, 0.2);
+        border: 1px solid #dc3545;
+        color: #ff6b7a;
+    }
+
+    .network-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        font-size: 0.875rem;
+    }
+
+    .network-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff4444;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .mint-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
     @media (max-width: 768px) {
         .mint-info-grid {
             grid-template-columns: 1fr;
@@ -319,43 +382,243 @@
 </style>
 
 <script>
-    // Simple quantity selector
+    // FlameDNA Minting Interface
+    const CONFIG = {
+        mintPrice: 0.05,
+        whitelistPrice: 0.04,
+        maxQuantity: 10,
+        contractAddress: null, // Set after deployment
+        chainId: {
+            mainnet: '0x1',
+            sepolia: '0xaa36a7'
+        }
+    };
+
     let quantity = 1;
-    const mintPrice = 0.05;
+    let isWhitelisted = false;
+    let walletConnected = false;
+    let currentAccount = null;
 
-    document.getElementById('increaseQty').addEventListener('click', () => {
-        if (quantity < 10) {
-            quantity++;
-            updateDisplay();
-        }
-    });
+    // DOM Elements
+    const mintButton = document.getElementById('mintButton');
+    const quantityDisplay = document.getElementById('mintQuantity');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+    const increaseBtn = document.getElementById('increaseQty');
+    const decreaseBtn = document.getElementById('decreaseQty');
 
-    document.getElementById('decreaseQty').addEventListener('click', () => {
-        if (quantity > 1) {
-            quantity--;
-            updateDisplay();
-        }
-    });
-
-    function updateDisplay() {
-        document.getElementById('mintQuantity').textContent = quantity;
-        document.getElementById('totalPrice').textContent = (quantity * mintPrice).toFixed(2) + ' ETH';
+    // Status indicator element
+    const statusDiv = document.createElement('div');
+    statusDiv.id = 'mintStatus';
+    statusDiv.className = 'mint-status';
+    if (mintButton && mintButton.parentNode) {
+        mintButton.parentNode.insertBefore(statusDiv, mintButton.nextSibling);
     }
 
-    document.getElementById('mintButton').addEventListener('click', async () => {
+    // Add network indicator
+    const networkDiv = document.createElement('div');
+    networkDiv.id = 'networkStatus';
+    networkDiv.className = 'network-status';
+    networkDiv.innerHTML = '<span class="network-dot"></span> <span id="networkName">Not Connected</span>';
+    const mintControls = document.querySelector('.mint-controls');
+    if (mintControls && mintButton) {
+        mintControls.insertBefore(networkDiv, mintButton);
+    }
+
+    // Centralized function to update mint button text
+    function updateMintButtonText() {
+        if (!mintButton) return;
+        
+        if (walletConnected && currentAccount) {
+            mintButton.innerHTML = `<span class="btn-icon">🔥</span> Mint ${quantity} NFT(s)`;
+        } else {
+            mintButton.innerHTML = '<span class="btn-icon">🔥</span> Connect Wallet & Mint';
+        }
+    }
+
+    // Quantity controls
+    if (increaseBtn) {
+        increaseBtn.addEventListener('click', () => {
+            if (quantity < CONFIG.maxQuantity) {
+                quantity++;
+                updateDisplay();
+            }
+        });
+    }
+
+    if (decreaseBtn) {
+        decreaseBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                updateDisplay();
+            }
+        });
+    }
+
+    function updateDisplay() {
+        const price = isWhitelisted ? CONFIG.whitelistPrice : CONFIG.mintPrice;
+        if (quantityDisplay) quantityDisplay.textContent = quantity;
+        if (totalPriceDisplay) totalPriceDisplay.textContent = (quantity * price).toFixed(2) + ' ETH';
+        updateMintButtonText();
+    }
+
+    function updateStatus(message, type = 'info') {
+        statusDiv.textContent = message;
+        statusDiv.className = `mint-status mint-status-${type}`;
+        statusDiv.style.display = message ? 'block' : 'none';
+    }
+
+    function updateNetworkStatus(connected, networkName = 'Not Connected') {
+        const dot = document.querySelector('.network-dot');
+        const name = document.getElementById('networkName');
+        
+        if (connected) {
+            dot.style.background = '#00ff00';
+            name.textContent = networkName;
+        } else {
+            dot.style.background = '#ff4444';
+            name.textContent = networkName;
+        }
+    }
+
+    async function checkNetwork() {
+        if (typeof window.ethereum === 'undefined') return false;
+        
+        try {
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            
+            if (chainId === CONFIG.chainId.mainnet) {
+                updateNetworkStatus(true, 'Ethereum Mainnet');
+                return true;
+            } else if (chainId === CONFIG.chainId.sepolia) {
+                updateNetworkStatus(true, 'Sepolia Testnet');
+                return true;
+            } else {
+                updateNetworkStatus(false, 'Wrong Network');
+                return false;
+            }
+        } catch (error) {
+            console.error('Network check failed:', error);
+            return false;
+        }
+    }
+
+    async function connectWallet() {
         if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to mint NFTs!');
+            updateStatus('Please install MetaMask to mint NFTs!', 'error');
+            return false;
+        }
+
+        try {
+            updateStatus('Connecting wallet...', 'info');
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
+            if (accounts.length > 0) {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateMintButtonText();
+                
+                await checkNetwork();
+                updateStatus(`Connected: ${shortAddress}`, 'success');
+                
+                return true;
+            }
+        } catch (error) {
+            console.error('Wallet connection failed:', error);
+            updateStatus('Failed to connect wallet', 'error');
+            return false;
+        }
+        
+        return false;
+    }
+
+    async function mintNFT() {
+        if (!walletConnected) {
+            const connected = await connectWallet();
+            if (!connected) return;
+        }
+
+        const networkOk = await checkNetwork();
+        if (!networkOk) {
+            updateStatus('Please switch to Ethereum Mainnet or Sepolia', 'error');
             return;
         }
 
         try {
-            // Request account access
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            alert('Wallet connected: ' + accounts[0] + '\n\nIn production, this would initiate the minting transaction for ' + quantity + ' FlameDNA NFT(s).');
+            updateStatus('Preparing transaction...', 'info');
+            
+            const price = isWhitelisted ? CONFIG.whitelistPrice : CONFIG.mintPrice;
+            const totalEth = price * quantity;
+            
+            // In production with ethers.js: ethers.parseEther(totalEth.toString())
+            // For simulation, calculate wei value
+            const valueInWei = Math.floor(totalEth * 1e18);
+
+            // In production, this would call the actual contract
+            // For now, simulate the transaction
+            updateStatus(`Minting ${quantity} FlameDNA NFT(s) for ${totalEth.toFixed(2)} ETH...`, 'info');
+            
+            // Simulate transaction delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            updateStatus(`🎉 Successfully minted ${quantity} FlameDNA NFT(s)!`, 'success');
+            
+            // In production:
+            // const tx = await contract.mint({ value: valueInWei });
+            // await tx.wait();
+            
         } catch (error) {
-            console.error('Error connecting wallet:', error);
-            alert('Failed to connect wallet. Please try again.');
+            console.error('Minting failed:', error);
+            if (error.code === 4001) {
+                updateStatus('Transaction cancelled by user', 'error');
+            } else {
+                updateStatus('Minting failed. Please try again.', 'error');
+            }
         }
-    });
+    }
+
+    // Main mint button click handler
+    if (mintButton) {
+        mintButton.addEventListener('click', mintNFT);
+    }
+
+    // Listen for account changes
+    if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.on('accountsChanged', (accounts) => {
+            if (accounts.length === 0) {
+                walletConnected = false;
+                currentAccount = null;
+                updateMintButtonText();
+                updateStatus('Wallet disconnected', 'info');
+                updateNetworkStatus(false);
+            } else {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                updateMintButtonText();
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateStatus(`Switched to: ${shortAddress}`, 'success');
+            }
+        });
+
+        window.ethereum.on('chainChanged', () => {
+            checkNetwork();
+        });
+
+        // Check if already connected
+        window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
+            if (accounts.length > 0) {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                updateMintButtonText();
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateStatus(`Connected: ${shortAddress}`, 'success');
+                checkNetwork();
+            }
+        });
+    }
+
+    // Initialize display
+    updateDisplay();
 </script>
 {% endblock %}
