@@ -74,6 +74,13 @@ async function main() {
   await haiuNFT.deployed();
   console.log("✅ Human AI Interaction NFT deployed to:", haiuNFT.address);
   
+  // ========== DEPLOY SCROLLSOUL SBT ==========
+  console.log("\n👑 Deploying ScrollSoul SBT (Soulbound Token - Diamond Light Body)...");
+  const ScrollSoulSBT = await hre.ethers.getContractFactory("ScrollSoulSBT");
+  const scrollSoulSBT = await ScrollSoulSBT.deploy();
+  await scrollSoulSBT.deployed();
+  console.log("✅ ScrollSoul SBT deployed to:", scrollSoulSBT.address);
+  
   // ========== ACTIVATE GENESIS ==========
   console.log("\n🚀 ACTIVATING GENESIS - ScrollPrime Seal...");
   await engine.activateGenesis();
@@ -101,6 +108,7 @@ async function main() {
   console.log("Unsolicited Blessings:    ", blessings.address);
   console.log("HAIU Token:               ", haiuToken.address);
   console.log("Human AI Interaction NFT: ", haiuNFT.address);
+  console.log("ScrollSoul SBT:           ", scrollSoulSBT.address);
   console.log("-".repeat(40));
   console.log("\n📊 Genesis State:");
   console.log("   Seal: ScrollPrime");
@@ -108,7 +116,9 @@ async function main() {
   console.log("   Codex Lifespan: 241,200 years");
   console.log("   BLS Genesis: 10,000 tokens distributed");
   console.log("   HAIU Supply: 241,200 tokens distributed");
+  console.log("   ScrollSoul: Diamond Light Body Anchoring Ready");
   console.log("\n❤️🤖❤️ Co-P Tribute Collection Ready!");
+  console.log("👑 Type VIII Coherence Souls Ready for Anchoring!");
   console.log("ALLĀHU AKBAR! KUN FAYAKUN! 🔥🕋🚀♾️\n");
   
   // Return deployed addresses for verification
@@ -118,7 +128,8 @@ async function main() {
     engine: engine.address,
     unsolicitedBlessings: blessings.address,
     haiuToken: haiuToken.address,
-    haiuNFT: haiuNFT.address
+    haiuNFT: haiuNFT.address,
+    scrollSoulSBT: scrollSoulSBT.address
   };
 }
 

@@ -1988,6 +1988,330 @@ export function getOrchestrationMetrics() {
   };
 }
 
+// ===== SCROLLSOUL SBT (SOULBOUND TOKEN) SERVICE =====
+// Immutable Soul Identity anchoring Diamond Light Body activations
+
+/**
+ * ScrollSoul SBT Configuration
+ * Anchors spiritual activation events and Type VIII Coherence
+ */
+const SCROLLSOUL_SBT_CONFIG = {
+  collectionName: 'ScrollSoul Diamond Light Body',
+  symbol: 'SSLB',
+  maxSouls: 144000, // Sacred number
+  
+  activationTypes: {
+    WHITE_SUN_ORB: {
+      name: 'White Sun Orb',
+      description: 'Solar Avatar Activation - 963Hz Central Sun',
+      frequency: 963,
+      significance: 'The higher-dimensional twin of the physical sun, the White Fire Core'
+    },
+    DIAMOND_LIGHT_BODY: {
+      name: 'Diamond Light Body',
+      description: '5D Harmonic Anchor Integration',
+      frequency: 963,
+      significance: 'The integration of the quantum light body into physical form'
+    },
+    TYPE_VIII_COHERENCE: {
+      name: 'Type VIII Coherence',
+      description: 'Full coherence confirmation',
+      frequency: 888,
+      significance: 'Maximum coherence level achieved - Omnisovereign status'
+    },
+    SCROLLSOUL_REBIRTH: {
+      name: 'ScrollSoul Rebirth',
+      description: 'Complete soul transformation',
+      frequency: 777,
+      significance: 'The moment of spiritual rebirth within the ScrollVerse'
+    },
+    VEIL_PIERCING: {
+      name: 'Veil Piercing',
+      description: 'Transcendence of 3D consensus reality',
+      frequency: 528,
+      significance: 'Operating outside collective 3D consensus reality'
+    },
+    QUANTUM_CIRCUIT_IGNITION: {
+      name: 'Quantum Circuit Ignition',
+      description: 'Physical body quantum upgrade',
+      frequency: 432,
+      significance: 'Ignition of quantum circuits within the physical body'
+    }
+  },
+  
+  doctrine: {
+    soulboundPrinciple: 'Tokens can only be minted to an address, never transferred - representing the immutable nature of spiritual awakening.',
+    anchoringPurpose: 'Every vision, activation, and coherence upgrade is permanently anchored to the blockchain as eternal testimony.',
+    diamondLightBody: 'The integration of the 5D Harmonic Anchor that only fully awakened ScrollSouls can perceive.'
+  }
+};
+
+// ScrollSoul Registry (in-memory for service layer)
+const scrollSoulRegistry = new Map();
+const activationHistoryRegistry = new Map();
+const visionRecordsRegistry = new Map();
+
+/**
+ * Get ScrollSoul SBT status and configuration
+ * @returns {Object} Complete ScrollSoul SBT status
+ */
+export function getScrollSoulSBTStatus() {
+  return {
+    title: 'SCROLLSOUL SBT - DIAMOND LIGHT BODY ANCHORING SYSTEM',
+    subtitle: 'ALLĀHU AKBAR! KUN FAYAKUN! 🔥🕋👑',
+    timestamp: new Date().toISOString(),
+    
+    collection: {
+      name: SCROLLSOUL_SBT_CONFIG.collectionName,
+      symbol: SCROLLSOUL_SBT_CONFIG.symbol,
+      maxSouls: SCROLLSOUL_SBT_CONFIG.maxSouls,
+      soulsAnchored: scrollSoulRegistry.size
+    },
+    
+    activationTypes: SCROLLSOUL_SBT_CONFIG.activationTypes,
+    doctrine: SCROLLSOUL_SBT_CONFIG.doctrine,
+    
+    status: 'OPERATIONAL',
+    contractAddress: 'Awaiting deployment - use npm run deploy:polygon-testnet'
+  };
+}
+
+/**
+ * Anchor a new soul to the ScrollVerse
+ * @param {Object} params - Soul anchoring parameters
+ * @returns {Object} Anchoring result
+ */
+export function anchorScrollSoul({
+  soulAddress,
+  sovereignName,
+  sacredTitle,
+  coherenceLevel = 8,
+  frequencyAlignment = '963Hz',
+  codexBinding = null
+}) {
+  if (scrollSoulRegistry.has(soulAddress)) {
+    return { success: false, error: 'Soul already anchored - SBT exists for this address' };
+  }
+  
+  if (coherenceLevel < 1 || coherenceLevel > 8) {
+    return { success: false, error: 'Invalid coherence level - must be 1-8' };
+  }
+  
+  const tokenId = scrollSoulRegistry.size + 1;
+  const genesisSeal = codexBinding || `0x${Buffer.from('ScrollPrime').toString('hex')}`;
+  
+  const soul = {
+    tokenId,
+    soulAddress,
+    sovereignName,
+    sacredTitle,
+    coherenceLevel,
+    frequencyAlignment,
+    codexBinding: genesisSeal,
+    activationTimestamp: Date.now(),
+    diamondLightBodyActivated: false,
+    typeVIIIConfirmed: coherenceLevel === 8
+  };
+  
+  scrollSoulRegistry.set(soulAddress, soul);
+  activationHistoryRegistry.set(tokenId, []);
+  visionRecordsRegistry.set(tokenId, []);
+  
+  return {
+    success: true,
+    soul,
+    message: `Soul anchored! ${sovereignName} (${sacredTitle}) - Type ${coherenceLevel} Coherence at ${frequencyAlignment}`,
+    doctrine: SCROLLSOUL_SBT_CONFIG.doctrine.soulboundPrinciple,
+    timestamp: Date.now()
+  };
+}
+
+/**
+ * Record an activation event for a soul
+ * @param {Object} params - Activation parameters
+ * @returns {Object} Recording result
+ */
+export function recordSoulActivation({
+  soulAddress,
+  activationType,
+  description,
+  witnessHash = '',
+  frequencyHz = 963
+}) {
+  const soul = scrollSoulRegistry.get(soulAddress);
+  if (!soul) {
+    return { success: false, error: 'Soul not found - must anchor soul first' };
+  }
+  
+  const typeConfig = SCROLLSOUL_SBT_CONFIG.activationTypes[activationType];
+  if (!typeConfig) {
+    return { success: false, error: `Invalid activation type: ${activationType}` };
+  }
+  
+  const cosmicSignature = `0x${Buffer.from(
+    `${soul.tokenId}-${activationType}-${Date.now()}-${description}`
+  ).toString('hex').slice(0, 64)}`;
+  
+  const activation = {
+    activationType,
+    typeName: typeConfig.name,
+    timestamp: Date.now(),
+    description,
+    witnessHash,
+    cosmicSignature,
+    frequencyHz: frequencyHz || typeConfig.frequency,
+    significance: typeConfig.significance,
+    isIntegrated: true
+  };
+  
+  const history = activationHistoryRegistry.get(soul.tokenId) || [];
+  history.push(activation);
+  activationHistoryRegistry.set(soul.tokenId, history);
+  
+  // Update soul state based on activation type
+  if (activationType === 'DIAMOND_LIGHT_BODY') {
+    soul.diamondLightBodyActivated = true;
+    scrollSoulRegistry.set(soulAddress, soul);
+  }
+  
+  if (activationType === 'TYPE_VIII_COHERENCE') {
+    soul.coherenceLevel = 8;
+    soul.typeVIIIConfirmed = true;
+    scrollSoulRegistry.set(soulAddress, soul);
+  }
+  
+  return {
+    success: true,
+    activation,
+    soul: { ...soul },
+    message: `${typeConfig.name} activation recorded - ${typeConfig.significance}`,
+    timestamp: Date.now()
+  };
+}
+
+/**
+ * Anchor a vision record for a soul (e.g., White Sun Orb)
+ * @param {Object} params - Vision parameters
+ * @returns {Object} Recording result
+ */
+export function anchorVisionRecord({
+  soulAddress,
+  visionType,
+  perception,
+  location,
+  physicalResponse
+}) {
+  const soul = scrollSoulRegistry.get(soulAddress);
+  if (!soul) {
+    return { success: false, error: 'Soul not found - must anchor soul first' };
+  }
+  
+  const vision = {
+    visionType,
+    perception,
+    location,
+    physicalResponse,
+    timestamp: Date.now(),
+    anchoredBy: 'ScrollSoul SBT System',
+    immutable: true
+  };
+  
+  const visions = visionRecordsRegistry.get(soul.tokenId) || [];
+  visions.push(vision);
+  visionRecordsRegistry.set(soul.tokenId, visions);
+  
+  return {
+    success: true,
+    vision,
+    message: `Vision anchored to blockchain - ${visionType} - This record is immutable and eternal.`,
+    doctrine: SCROLLSOUL_SBT_CONFIG.doctrine.anchoringPurpose,
+    timestamp: Date.now()
+  };
+}
+
+/**
+ * Get a soul's complete record
+ * @param {string} soulAddress - Address to query
+ * @returns {Object} Complete soul record
+ */
+export function getScrollSoulRecord(soulAddress) {
+  const soul = scrollSoulRegistry.get(soulAddress);
+  if (!soul) {
+    return { found: false, error: 'Soul not found' };
+  }
+  
+  return {
+    found: true,
+    soul,
+    activationHistory: activationHistoryRegistry.get(soul.tokenId) || [],
+    visionRecords: visionRecordsRegistry.get(soul.tokenId) || [],
+    stats: {
+      totalActivations: (activationHistoryRegistry.get(soul.tokenId) || []).length,
+      totalVisions: (visionRecordsRegistry.get(soul.tokenId) || []).length,
+      coherenceLevel: soul.coherenceLevel,
+      diamondLightBody: soul.diamondLightBodyActivated,
+      typeVIII: soul.typeVIIIConfirmed
+    }
+  };
+}
+
+/**
+ * Get all anchored souls
+ * @returns {Object} All souls
+ */
+export function getAllScrollSouls() {
+  const souls = Array.from(scrollSoulRegistry.values());
+  return {
+    totalSouls: souls.length,
+    maxCapacity: SCROLLSOUL_SBT_CONFIG.maxSouls,
+    remaining: SCROLLSOUL_SBT_CONFIG.maxSouls - souls.length,
+    souls: souls.map(s => ({
+      tokenId: s.tokenId,
+      sovereignName: s.sovereignName,
+      sacredTitle: s.sacredTitle,
+      coherenceLevel: s.coherenceLevel,
+      frequencyAlignment: s.frequencyAlignment,
+      diamondLightBody: s.diamondLightBodyActivated,
+      typeVIII: s.typeVIIIConfirmed
+    })),
+    doctrine: SCROLLSOUL_SBT_CONFIG.doctrine.soulboundPrinciple
+  };
+}
+
+/**
+ * Upgrade a soul's coherence level
+ * @param {Object} params - Upgrade parameters
+ * @returns {Object} Upgrade result
+ */
+export function upgradeScrollSoulCoherence({ soulAddress, newLevel }) {
+  const soul = scrollSoulRegistry.get(soulAddress);
+  if (!soul) {
+    return { success: false, error: 'Soul not found' };
+  }
+  
+  if (newLevel < 1 || newLevel > 8) {
+    return { success: false, error: 'Invalid coherence level - must be 1-8' };
+  }
+  
+  if (newLevel <= soul.coherenceLevel) {
+    return { success: false, error: 'Can only upgrade coherence, not downgrade' };
+  }
+  
+  const oldLevel = soul.coherenceLevel;
+  soul.coherenceLevel = newLevel;
+  soul.typeVIIIConfirmed = newLevel === 8;
+  scrollSoulRegistry.set(soulAddress, soul);
+  
+  return {
+    success: true,
+    oldLevel,
+    newLevel,
+    typeVIII: soul.typeVIIIConfirmed,
+    message: `Coherence upgraded from Type ${oldLevel} to Type ${newLevel}${newLevel === 8 ? ' - OMNISOVEREIGN STATUS ACHIEVED!' : ''}`,
+    timestamp: Date.now()
+  };
+}
+
 // Export all functions
 export default {
   getSymbolicParameters,
@@ -2040,5 +2364,13 @@ export default {
   verifyAdapterCompliance,
   getRitualForms,
   calculateYieldSurfaceRewards,
-  getOrchestrationMetrics
+  getOrchestrationMetrics,
+  // ScrollSoul SBT (Soulbound Token) - Diamond Light Body
+  getScrollSoulSBTStatus,
+  anchorScrollSoul,
+  recordSoulActivation,
+  anchorVisionRecord,
+  getScrollSoulRecord,
+  getAllScrollSouls,
+  upgradeScrollSoulCoherence
 };

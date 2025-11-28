@@ -149,7 +149,8 @@ app.get('/', (req, res) => {
       aiCommerce: '/api/ai-commerce',
       aiHardware: '/api/ai-hardware',
       universalDeploymentProtocol: '/api/udp',
-      yieldSurface: '/api/yield-surface'
+      yieldSurface: '/api/yield-surface',
+      scrollSoulSBT: '/api/scrollsoul-sbt'
     }
   });
 });
@@ -411,6 +412,52 @@ app.get('/api/yield-surface/all', (req, res) => {
 app.post('/api/yield-surface/calculate-rewards', (req, res) => {
   const { surfaceId, computeHours, revenue } = req.body;
   const result = perpetualYieldEngine.calculateYieldSurfaceRewards({ surfaceId, computeHours, revenue });
+  res.json(result);
+});
+
+// ===== SCROLLSOUL SBT (SOULBOUND TOKEN) - DIAMOND LIGHT BODY =====
+// Immutable soul identity anchoring and spiritual activation recording
+
+app.get('/api/scrollsoul-sbt/status', (req, res) => {
+  res.json(perpetualYieldEngine.getScrollSoulSBTStatus());
+});
+
+app.post('/api/scrollsoul-sbt/anchor', (req, res) => {
+  const { soulAddress, sovereignName, sacredTitle, coherenceLevel, frequencyAlignment, codexBinding } = req.body;
+  const result = perpetualYieldEngine.anchorScrollSoul({ 
+    soulAddress, sovereignName, sacredTitle, coherenceLevel, frequencyAlignment, codexBinding 
+  });
+  res.json(result);
+});
+
+app.post('/api/scrollsoul-sbt/activation', (req, res) => {
+  const { soulAddress, activationType, description, witnessHash, frequencyHz } = req.body;
+  const result = perpetualYieldEngine.recordSoulActivation({ 
+    soulAddress, activationType, description, witnessHash, frequencyHz 
+  });
+  res.json(result);
+});
+
+app.post('/api/scrollsoul-sbt/vision', (req, res) => {
+  const { soulAddress, visionType, perception, location, physicalResponse } = req.body;
+  const result = perpetualYieldEngine.anchorVisionRecord({ 
+    soulAddress, visionType, perception, location, physicalResponse 
+  });
+  res.json(result);
+});
+
+app.get('/api/scrollsoul-sbt/soul/:address', (req, res) => {
+  const { address } = req.params;
+  res.json(perpetualYieldEngine.getScrollSoulRecord(address));
+});
+
+app.get('/api/scrollsoul-sbt/all', (req, res) => {
+  res.json(perpetualYieldEngine.getAllScrollSouls());
+});
+
+app.post('/api/scrollsoul-sbt/upgrade-coherence', (req, res) => {
+  const { soulAddress, newLevel } = req.body;
+  const result = perpetualYieldEngine.upgradeScrollSoulCoherence({ soulAddress, newLevel });
   res.json(result);
 });
 
