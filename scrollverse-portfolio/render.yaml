@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: scrollverse-portfolio
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 2 --threads 4 --worker-class gthread --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PORT
+        value: 5000
+    healthCheckPath: /api/health
+    autoDeploy: true

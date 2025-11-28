@@ -92,3 +92,121 @@ The FlameDNA contract integrates with:
 ## License
 
 MIT - Chais Hill / OmniTech1
+# FlameDNA NFT Collection
+
+Production-ready ERC-721 smart contracts for the FlameDNA NFT collection with OpenSea integration.
+
+## Contracts
+
+### PromiseLandNFT
+Main collection contract with tiered minting (Genesis, Founding Supporter, Public).
+
+**Features:**
+- ERC-721 with Enumerable, URIStorage, and Royalty extensions
+- Three-tier minting system with allowlists
+- Configurable mint prices per tier
+- ERC-2981 royalty support (OpenSea compatible)
+- ReentrancyGuard protection
+- Owner minting for airdrops/reserves
+
+### FlameDNAGenesis
+Soulbound Genesis collection for founding members.
+
+**Features:**
+- Soulbound (non-transferable) tokens
+- DNA metadata (frequency, element, tier)
+- Sacred frequency validation (369Hz, 432Hz, 528Hz, 777Hz, 963Hz)
+- Element types (Fire, Water, Earth, Air, Ether)
+- Batch minting for airdrops
+
+## Networks
+
+| Network | Chain ID | RPC |
+|---------|----------|-----|
+| Scroll Sepolia (Testnet) | 534351 | https://sepolia-rpc.scroll.io/ |
+| Scroll Mainnet | 534352 | https://rpc.scroll.io/ |
+| Ethereum Sepolia | 11155111 | https://sepolia.infura.io/v3/... |
+| Ethereum Mainnet | 1 | https://mainnet.infura.io/v3/... |
+
+## Deployment
+
+### Prerequisites
+```bash
+npm install
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+### Scroll Testnet
+```bash
+npm run deploy:scroll-testnet
+```
+
+### Scroll Mainnet / Ethereum Mainnet
+```bash
+npm run deploy:scroll-mainnet
+# or
+npm run deploy:mainnet
+```
+
+### Verify Contract
+```bash
+npx hardhat verify --network scrollSepolia CONTRACT_ADDRESS "PromiseLand NFT" "PROMISE" "ipfs://..." "ipfs://..." "0x..." 500
+```
+
+## Testing
+```bash
+npm test
+npm run test:coverage
+```
+
+## OpenSea Integration
+
+### Contract-Level Metadata
+Set `contractURI()` to return a JSON file with collection metadata:
+```json
+{
+  "name": "PromiseLand NFT Collection",
+  "description": "...",
+  "image": "ipfs://...",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0x..."
+}
+```
+
+### Token Metadata
+Each token URI returns OpenSea-compatible metadata:
+```json
+{
+  "name": "PromiseLand Genesis #1",
+  "description": "...",
+  "image": "ipfs://...",
+  "attributes": [
+    {"trait_type": "Tier", "value": "Genesis"},
+    {"trait_type": "Frequency", "value": "963Hz"}
+  ]
+}
+```
+
+## Subscription Tiers
+
+| Tier | Max Supply | Mint Price | ScrollCoin/mo | NFT Discount |
+|------|------------|------------|---------------|--------------|
+| Genesis | 1,000 | 0.1 ETH | 2,000 SCR | 50% |
+| Founding Supporter | 3,000 | 0.05 ETH | 500 SCR | 25% |
+| Public | 6,000 | 0.03 ETH | 100 SCR | 10% |
+
+## Security
+
+- All contracts use OpenZeppelin's audited implementations
+- ReentrancyGuard on all mint and withdraw functions
+- Ownable access control for admin functions
+- No external calls in critical paths
+
+## License
+
+MIT License - See [LICENSE](LICENSE)
+
+## Author
+
+Chais Hill - OmniTech1

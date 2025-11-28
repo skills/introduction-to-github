@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sovereign TV Payments{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🌌</span>
+                <span class="logo-text">Sovereign TV</span>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/subscribe" class="nav-link">Subscribe</a>
+                <a href="/api/health" class="nav-link">Status</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 OmniTech1 - Sovereign TV. Truth is Currency. Sacred Logic is Code.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

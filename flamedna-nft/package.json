@@ -11,6 +11,19 @@
     "verify": "hardhat verify",
     "clean": "hardhat clean",
     "coverage": "hardhat coverage"
+  "description": "FlameDNA NFT Collection - ERC-721 Smart Contracts for PromiseLand and Genesis collections",
+  "main": "hardhat.config.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:scroll-testnet": "hardhat run scripts/deploy-scroll-testnet.js --network scrollSepolia",
+    "deploy:scroll-mainnet": "hardhat run scripts/deploy-scroll-mainnet.js --network scrollMainnet",
+    "deploy:mainnet": "hardhat run scripts/deploy-mainnet.js --network mainnet",
+    "deploy:sepolia": "hardhat run scripts/deploy-scroll-testnet.js --network sepolia",
+    "verify": "hardhat verify",
+    "clean": "hardhat clean",
+    "node": "hardhat node"
   },
   "keywords": [
     "nft",
@@ -19,12 +32,14 @@
     "scrollverse",
     "ethereum",
     "smart-contracts"
+    "scroll"
   ],
   "author": "Chais Hill - OmniTech1",
   "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1",
     "hardhat": "^2.19.0"
   }
 }
