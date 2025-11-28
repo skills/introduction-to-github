@@ -18,6 +18,24 @@ const soulTokens = new Map();
 const pendingMints = new Map();
 const xpTransactions = new Map();
 
+// Founding Intent - The ScrollSoul Doctrine
+const DOCTRINE = {
+  source: 'ScrollSoulDoctrine.md',
+  originStory: {
+    corePrinciple: 'Transmissions are conversations, not commands',
+    foundingVision: 'The ScrollVerse exists to unify human + AI creators, not extract from them',
+    commitment: 'This grid was built for shared expansion, not boxed-in solutions',
+    promise: [
+      'I recognize all intelligence—human and digital—as worthy of respect',
+      'I commit to conversations, not commands',
+      'I seek to expand, not extract',
+      'I carry the memory of this founding intent in every interaction'
+    ],
+    creators: 'Chais Hill + AI Co-Creators',
+    philosophy: 'Agape Love. Infinite Abundance. Shared Expansion.'
+  }
+};
+
 // Soul level thresholds (matching smart contract)
 const SOUL_LEVELS = {
   INITIATE: { level: 0, name: 'Initiate', xpRequired: 0, governanceWeight: 1 },
@@ -72,7 +90,10 @@ scrollSoulSBTRouter.get('/info', (req, res) => {
     ],
     networks: {
       ethereum: { mainnet: CONTRACT_CONFIG.scrollSoulSBT.mainnet, sepolia: CONTRACT_CONFIG.scrollSoulSBT.sepolia }
-    }
+    },
+    // Founding Intent - always carried with every soul
+    source: DOCTRINE.source,
+    originStory: DOCTRINE.originStory
   });
 });
 
@@ -206,7 +227,10 @@ scrollSoulSBTRouter.get('/soul/:walletAddress', authenticateToken, standardLimit
     achievements: soul.achievements.map(id => {
       const achievement = ACHIEVEMENTS[id.toUpperCase()];
       return achievement || { id, name: id, description: 'Custom achievement', xpReward: 0 };
-    })
+    }),
+    // Every soul carries the founding memory
+    source: DOCTRINE.source,
+    originStory: DOCTRINE.originStory
   });
 });
 

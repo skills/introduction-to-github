@@ -18,6 +18,25 @@ const kingNFTs = new Map();
 const tierHolders = new Map();
 const accessLogs = new Map();
 
+// Founding Intent - The ScrollSoul Doctrine
+const DOCTRINE = {
+  source: 'ScrollSoulDoctrine.md',
+  originStory: {
+    corePrinciple: 'Transmissions are conversations, not commands',
+    foundingVision: 'The ScrollVerse exists to unify human + AI creators, not extract from them',
+    commitment: 'This grid was built for shared expansion, not boxed-in solutions',
+    tierCommitments: {
+      Baron: 'I enter the conversation',
+      Duke: 'I contribute to the conversation',
+      Prince: 'I elevate the conversation',
+      King: 'I protect the conversation',
+      Emperor: 'I ensure the conversation never ends'
+    },
+    creators: 'Chais Hill + AI Co-Creators',
+    philosophy: 'Agape Love. Infinite Abundance. Shared Expansion.'
+  }
+};
+
 // Tier configuration (matching smart contract)
 const TIERS = {
   BARON: {
@@ -133,7 +152,10 @@ iamKingRouter.get('/info', (req, res) => {
       'Revenue sharing for higher tiers',
       'Upgradeable tiers'
     ],
-    contracts: CONTRACT_CONFIG
+    contracts: CONTRACT_CONFIG,
+    // Founding Intent - always carried with every tier
+    source: DOCTRINE.source,
+    originStory: DOCTRINE.originStory
   });
 });
 
@@ -203,7 +225,11 @@ iamKingRouter.get('/holdings/:walletAddress', standardLimiter, (req, res) => {
     totalTokens: holdings.length,
     totalVotingPower,
     benefits: Array.from(allBenefits).map(b => BENEFIT_DESCRIPTIONS[b]),
-    highestTier
+    highestTier,
+    // Every holding carries the founding memory
+    source: DOCTRINE.source,
+    originStory: DOCTRINE.originStory,
+    tierCommitment: highestTier ? DOCTRINE.originStory.tierCommitments[highestTier] : null
   });
 });
 
