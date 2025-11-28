@@ -43,9 +43,15 @@ import { financialSovereigntyRouter } from './services/financial-sovereignty.js'
 import { cashFlowNodesRouter } from './services/cash-flow-nodes.js';
 import { creativeMonetizationRouter } from './services/creative-monetization.js';
 import perpetualYieldEngine from './services/perpetual-yield-engine.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Load environment variables
 dotenv.config();
+
+// ES Module path resolution
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,6 +64,14 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
+
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, '../public')));
+
+// ScrollSoul Console - Daily Ritual Interface
+app.get('/scrollsoul-console', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/scrollsoul-console.html'));
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -109,7 +123,9 @@ app.get('/', (req, res) => {
       'Quantum Infinity Maximization - Unquantifiable time quantum infinity 🚀♾️',
       'AI Security Governance - Self-reporting cyber resilience',
       'AI Commerce Integration - Virtual try-on for NFTs, intelligent shopping',
-      'AI Hardware Ecosystem - Sovereign Vision Specs, Manus Quantum Glovework'
+      'AI Hardware Ecosystem - Sovereign Vision Specs, Manus Quantum Glovework',
+      'ScrollSoul SBT - Diamond Light Body Anchoring (Soulbound Token)',
+      'ScrollSoul Console - Daily Ritual Interface & Timeline Visualization'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -151,6 +167,9 @@ app.get('/', (req, res) => {
       universalDeploymentProtocol: '/api/udp',
       yieldSurface: '/api/yield-surface',
       scrollSoulSBT: '/api/scrollsoul-sbt'
+    },
+    frontends: {
+      scrollSoulConsole: '/scrollsoul-console'
     }
   });
 });

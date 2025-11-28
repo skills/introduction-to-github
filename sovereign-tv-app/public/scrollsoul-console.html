@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollSoul Console - Diamond Light Body Interface</title>
+    <style>
+        :root {
+            --gold: #FFD700;
+            --divine: #9333EA;
+            --sovereign: #3B82F6;
+            --awakened: #10B981;
+            --initiate: #6B7280;
+            --dark: #0a0a14;
+            --darker: #050508;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(255, 215, 0, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #a78bfa;
+            font-size: 1.1rem;
+        }
+        
+        .frequency-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-family: monospace;
+            color: var(--gold);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card h2 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2::before {
+            content: '☀️';
+        }
+        
+        /* Ritual Interface */
+        .ritual-interface {
+            grid-column: span 2;
+        }
+        
+        @media (max-width: 768px) {
+            .ritual-interface { grid-column: span 1; }
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a78bfa;
+            font-size: 0.9rem;
+        }
+        
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .input-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--divine), #7C3AED);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(147, 51, 234, 0.4);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: #000;
+        }
+        
+        .btn-vision {
+            background: linear-gradient(135deg, #fff, #FFD700);
+            color: #000;
+        }
+        
+        /* Soul Profile */
+        .soul-profile {
+            text-align: center;
+        }
+        
+        .coherence-level {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--divine));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+        
+        .coherence-label {
+            font-size: 1.2rem;
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+        
+        .soul-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .status-anchored {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--awakened);
+        }
+        
+        .status-unanchored {
+            background: rgba(107, 114, 128, 0.2);
+            color: var(--initiate);
+        }
+        
+        /* Timeline */
+        .timeline {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .timeline::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .timeline::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .timeline::-webkit-scrollbar-thumb {
+            background: var(--divine);
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            padding-bottom: 25px;
+            border-left: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .timeline-item:last-child {
+            border-left-color: transparent;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 3px solid var(--dark);
+        }
+        
+        .timeline-item.white-sun::before {
+            background: #fff;
+            box-shadow: 0 0 20px #fff, 0 0 40px var(--gold);
+        }
+        
+        .timeline-item.diamond-light::before {
+            background: linear-gradient(135deg, #fff, #a78bfa);
+            box-shadow: 0 0 15px #a78bfa;
+        }
+        
+        .timeline-item.coherence::before {
+            background: var(--divine);
+            box-shadow: 0 0 15px var(--divine);
+        }
+        
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-type {
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        
+        .timeline-description {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-top: 5px;
+        }
+        
+        /* Response Display */
+        .response-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .response-display.visible {
+            display: block;
+        }
+        
+        .response-success {
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: var(--awakened);
+        }
+        
+        .response-error {
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #EF4444;
+        }
+        
+        /* Loading */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        footer .doctrine {
+            color: var(--gold);
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☀️ ScrollSoul Console</h1>
+            <p class="subtitle">Diamond Light Body Anchoring Interface</p>
+            <div class="frequency-badge">963 Hz | Central Sun | White Fire Core</div>
+        </header>
+        
+        <div class="grid">
+            <!-- Soul Profile Card -->
+            <div class="card soul-profile">
+                <h2 style="justify-content: center;">Soul Profile</h2>
+                <div id="soul-status" class="soul-status status-unanchored">Not Connected</div>
+                <div class="coherence-level" id="coherence-level">-</div>
+                <div class="coherence-label" id="coherence-label">Enter address to view soul</div>
+                
+                <div class="input-group" style="margin-top: 20px;">
+                    <input type="text" id="soul-address" placeholder="Enter wallet address (0x...)" />
+                </div>
+                <button class="btn btn-gold" onclick="loadSoul()">Load Soul</button>
+                
+                <div class="stats-grid" id="soul-stats" style="display: none;">
+                    <div class="stat-item">
+                        <div class="stat-value" id="stat-activations">0</div>
+                        <div class="stat-label">Activations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="stat-visions">0</div>
+                        <div class="stat-label">Visions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="stat-anchored">-</div>
+                        <div class="stat-label">Anchored</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline Card -->
+            <div class="card">
+                <h2>Activation Timeline</h2>
+                <div class="timeline" id="timeline">
+                    <p style="color: #6B7280; text-align: center;">Load a soul to view timeline</p>
+                </div>
+            </div>
+            
+            <!-- Ritual Interface Card -->
+            <div class="card ritual-interface">
+                <h2>Daily Ritual Interface</h2>
+                <p style="color: #a0a0a0; margin-bottom: 20px;">
+                    When you experience the White Sun, a surge, or a new phase, use these controls to log, 
+                    mint, or upgrade coherence for your address.
+                </p>
+                
+                <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <!-- Anchor Soul -->
+                    <div>
+                        <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: 1rem;">⚓ Anchor Soul</h3>
+                        <div class="input-group">
+                            <label>Address</label>
+                            <input type="text" id="anchor-address" placeholder="0x..." />
+                        </div>
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" id="anchor-name" placeholder="Soul name" />
+                        </div>
+                        <button class="btn" onclick="anchorSoul()">Anchor</button>
+                    </div>
+                    
+                    <!-- Record Activation -->
+                    <div>
+                        <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: 1rem;">⚡ Record Activation</h3>
+                        <div class="input-group">
+                            <label>Address</label>
+                            <input type="text" id="activation-address" placeholder="0x..." />
+                        </div>
+                        <div class="input-group">
+                            <label>Activation Type</label>
+                            <select id="activation-type">
+                                <option value="WHITE_SUN_ORB">☀️ White Sun Orb</option>
+                                <option value="DIAMOND_LIGHT_BODY">💎 Diamond Light Body</option>
+                                <option value="TYPE_VIII_COHERENCE">👑 Type VIII Coherence</option>
+                                <option value="SCROLLSOUL_REBIRTH">🔄 ScrollSoul Rebirth</option>
+                                <option value="VEIL_PIERCING">🌀 Veil Piercing</option>
+                                <option value="QUANTUM_CIRCUIT_IGNITION">⚡ Quantum Circuit Ignition</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Description</label>
+                            <textarea id="activation-description" placeholder="Describe the experience..."></textarea>
+                        </div>
+                        <button class="btn" onclick="recordActivation()">Record</button>
+                    </div>
+                    
+                    <!-- Anchor Vision -->
+                    <div>
+                        <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: 1rem;">👁️ Anchor Vision</h3>
+                        <div class="input-group">
+                            <label>Address</label>
+                            <input type="text" id="vision-address" placeholder="0x..." />
+                        </div>
+                        <div class="input-group">
+                            <label>Vision Type</label>
+                            <input type="text" id="vision-type" placeholder="e.g., White Sun Orb" />
+                        </div>
+                        <div class="input-group">
+                            <label>Description</label>
+                            <textarea id="vision-description" placeholder="Describe what you saw..."></textarea>
+                        </div>
+                        <button class="btn btn-vision" onclick="anchorVision()">Anchor Vision</button>
+                    </div>
+                </div>
+                
+                <!-- Upgrade Coherence -->
+                <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: 1rem;">🔺 Upgrade Coherence Level</h3>
+                    <div style="display: flex; gap: 15px; align-items: flex-end;">
+                        <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                            <label>Address</label>
+                            <input type="text" id="upgrade-address" placeholder="0x..." />
+                        </div>
+                        <div class="input-group" style="width: 150px; margin-bottom: 0;">
+                            <label>New Level (1-8)</label>
+                            <input type="number" id="upgrade-level" min="1" max="8" value="2" />
+                        </div>
+                        <button class="btn btn-gold" onclick="upgradeCoherence()">Upgrade</button>
+                    </div>
+                </div>
+                
+                <!-- Response Display -->
+                <div id="response-display" class="response-display"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="doctrine">"Tokens can only be minted to an address, never transferred - representing the immutable nature of spiritual awakening."</p>
+            <p>ScrollSoul SBT | Max Souls: 144,000 | ALLĀHU AKBAR! 🕋🔥👑</p>
+        </footer>
+    </div>
+    
+    <script>
+        const API_BASE = '/api/scrollsoul-sbt';
+        
+        // Utility function for API calls
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const options = {
+                method,
+                headers: { 'Content-Type': 'application/json' }
+            };
+            if (body) options.body = JSON.stringify(body);
+            
+            const response = await fetch(`${API_BASE}${endpoint}`, options);
+            return response.json();
+        }
+        
+        // Show response
+        function showResponse(data, isError = false) {
+            const display = document.getElementById('response-display');
+            display.textContent = JSON.stringify(data, null, 2);
+            display.className = `response-display visible ${isError ? 'response-error' : 'response-success'}`;
+        }
+        
+        // Load soul profile
+        async function loadSoul() {
+            const address = document.getElementById('soul-address').value.trim();
+            if (!address) {
+                showResponse({ error: 'Please enter an address' }, true);
+                return;
+            }
+            
+            try {
+                const data = await apiCall(`/soul/${address}`);
+                
+                if (data.soul) {
+                    const soul = data.soul;
+                    document.getElementById('soul-status').textContent = 'Anchored';
+                    document.getElementById('soul-status').className = 'soul-status status-anchored';
+                    document.getElementById('coherence-level').textContent = `Type ${soul.coherenceLevel}`;
+                    document.getElementById('coherence-label').textContent = getCoherenceTitle(soul.coherenceLevel);
+                    
+                    // Stats
+                    document.getElementById('soul-stats').style.display = 'grid';
+                    document.getElementById('stat-activations').textContent = soul.activations?.length || 0;
+                    document.getElementById('stat-visions').textContent = soul.visions?.length || 0;
+                    document.getElementById('stat-anchored').textContent = new Date(soul.anchoredAt).toLocaleDateString();
+                    
+                    // Build timeline
+                    buildTimeline(soul);
+                } else {
+                    document.getElementById('soul-status').textContent = 'Not Anchored';
+                    document.getElementById('soul-status').className = 'soul-status status-unanchored';
+                    document.getElementById('coherence-level').textContent = '-';
+                    document.getElementById('coherence-label').textContent = 'Soul not found - use Anchor Soul to begin';
+                    document.getElementById('soul-stats').style.display = 'none';
+                    document.getElementById('timeline').innerHTML = '<p style="color: #6B7280; text-align: center;">No timeline data</p>';
+                }
+                
+                showResponse(data);
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+        
+        // Get coherence title
+        function getCoherenceTitle(level) {
+            const titles = {
+                1: 'Initiate',
+                2: 'Seeker',
+                3: 'Awakened',
+                4: 'Illumined',
+                5: 'Sovereign',
+                6: 'Ascended',
+                7: 'Master',
+                8: 'Omnisovereign'
+            };
+            return titles[level] || 'Unknown';
+        }
+        
+        // Build timeline
+        function buildTimeline(soul) {
+            const timeline = document.getElementById('timeline');
+            const events = [];
+            
+            // Add anchor event
+            events.push({
+                type: 'anchor',
+                date: soul.anchoredAt,
+                title: 'Soul Anchored',
+                description: `Name: ${soul.name}`
+            });
+            
+            // Add activations
+            if (soul.activations) {
+                soul.activations.forEach(a => {
+                    events.push({
+                        type: a.activationType,
+                        date: a.timestamp,
+                        title: formatActivationType(a.activationType),
+                        description: a.description || 'No description'
+                    });
+                });
+            }
+            
+            // Add visions
+            if (soul.visions) {
+                soul.visions.forEach(v => {
+                    events.push({
+                        type: 'vision',
+                        date: v.timestamp,
+                        title: `Vision: ${v.visionType}`,
+                        description: v.description || 'No description'
+                    });
+                });
+            }
+            
+            // Sort by date descending
+            events.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Build HTML
+            if (events.length === 0) {
+                timeline.innerHTML = '<p style="color: #6B7280; text-align: center;">No events recorded</p>';
+                return;
+            }
+            
+            timeline.innerHTML = events.map(event => {
+                const cssClass = event.type === 'WHITE_SUN_ORB' ? 'white-sun' : 
+                                event.type === 'DIAMOND_LIGHT_BODY' ? 'diamond-light' :
+                                event.type.includes('COHERENCE') ? 'coherence' : '';
+                return `
+                    <div class="timeline-item ${cssClass}">
+                        <div class="timeline-date">${new Date(event.date).toLocaleString()}</div>
+                        <div class="timeline-type">${event.title}</div>
+                        <div class="timeline-description">${event.description}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Format activation type
+        function formatActivationType(type) {
+            const formats = {
+                'WHITE_SUN_ORB': '☀️ White Sun Orb',
+                'DIAMOND_LIGHT_BODY': '💎 Diamond Light Body',
+                'TYPE_VIII_COHERENCE': '👑 Type VIII Coherence',
+                'SCROLLSOUL_REBIRTH': '🔄 ScrollSoul Rebirth',
+                'VEIL_PIERCING': '🌀 Veil Piercing',
+                'QUANTUM_CIRCUIT_IGNITION': '⚡ Quantum Circuit Ignition'
+            };
+            return formats[type] || type;
+        }
+        
+        // Anchor soul
+        async function anchorSoul() {
+            const address = document.getElementById('anchor-address').value.trim();
+            const name = document.getElementById('anchor-name').value.trim();
+            
+            if (!address || !name) {
+                showResponse({ error: 'Address and name are required' }, true);
+                return;
+            }
+            
+            try {
+                const data = await apiCall('/anchor', 'POST', { address, name });
+                showResponse(data);
+                
+                // Auto-load the soul
+                document.getElementById('soul-address').value = address;
+                loadSoul();
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+        
+        // Record activation
+        async function recordActivation() {
+            const address = document.getElementById('activation-address').value.trim();
+            const activationType = document.getElementById('activation-type').value;
+            const description = document.getElementById('activation-description').value.trim();
+            
+            if (!address) {
+                showResponse({ error: 'Address is required' }, true);
+                return;
+            }
+            
+            try {
+                const data = await apiCall('/activation', 'POST', { address, activationType, description });
+                showResponse(data);
+                
+                // Reload if same address
+                if (document.getElementById('soul-address').value.trim() === address) {
+                    loadSoul();
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+        
+        // Anchor vision
+        async function anchorVision() {
+            const address = document.getElementById('vision-address').value.trim();
+            const visionType = document.getElementById('vision-type').value.trim();
+            const description = document.getElementById('vision-description').value.trim();
+            
+            if (!address || !visionType) {
+                showResponse({ error: 'Address and vision type are required' }, true);
+                return;
+            }
+            
+            try {
+                const data = await apiCall('/vision', 'POST', { address, visionType, description });
+                showResponse(data);
+                
+                // Reload if same address
+                if (document.getElementById('soul-address').value.trim() === address) {
+                    loadSoul();
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+        
+        // Upgrade coherence
+        async function upgradeCoherence() {
+            const address = document.getElementById('upgrade-address').value.trim();
+            const newLevel = parseInt(document.getElementById('upgrade-level').value);
+            
+            if (!address) {
+                showResponse({ error: 'Address is required' }, true);
+                return;
+            }
+            
+            if (newLevel < 1 || newLevel > 8) {
+                showResponse({ error: 'Level must be between 1 and 8' }, true);
+                return;
+            }
+            
+            try {
+                const data = await apiCall('/upgrade-coherence', 'POST', { address, newLevel });
+                showResponse(data);
+                
+                // Reload if same address
+                if (document.getElementById('soul-address').value.trim() === address) {
+                    loadSoul();
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+        
+        // Load system status on page load
+        async function loadSystemStatus() {
+            try {
+                const status = await apiCall('/status');
+                console.log('ScrollSoul SBT Status:', status);
+            } catch (error) {
+                console.error('Failed to load system status:', error);
+            }
+        }
+        
+        // Initialize
+        loadSystemStatus();
+    </script>
+</body>
+</html>
