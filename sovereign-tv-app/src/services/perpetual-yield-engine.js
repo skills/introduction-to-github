@@ -1051,6 +1051,284 @@ export function getComputeRewards(partnerId) {
   };
 }
 
+// ===== GENESIS REWARDS FOR COMPUTE PARTNERS =====
+// Enhanced rewards for partners who join during Genesis epoch
+
+const GENESIS_PARTNER_CONFIG = {
+  // Genesis multiplier (3x for first 30 days)
+  genesisMultiplier: 3.0,
+  genesisDuration: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
+  
+  // Bonus allocations
+  foundingBonus: 1000, // Additional BLS
+  lifetimeFrequencyBoost: 0.10, // +10% permanent
+  
+  // Genesis NFT configuration
+  genesisPartnerNFT: {
+    name: 'Genesis Partner Relic',
+    tier: 'Divine',
+    frequency: '963Hz',
+    exclusive: true,
+    description: 'Awarded to founding compute partners who joined during Genesis epoch'
+  }
+};
+
+// Genesis partner registry
+const genesisPartnerRegistry = new Map();
+
+/**
+ * Activate Genesis rewards for a compute partner
+ * Partners joining during Genesis epoch receive enhanced rewards
+ * @param {Object} params - Activation parameters
+ * @returns {Object} Genesis activation result
+ */
+export function activatePartnerGenesisRewards({ partnerId, activationProof, genesisCommitment }) {
+  const partner = computePartnerRegistry.get(partnerId);
+  
+  if (!partner) {
+    return {
+      success: false,
+      error: 'Partner not registered. Register first via /api/sovereign-compute/register'
+    };
+  }
+  
+  if (genesisPartnerRegistry.has(partnerId)) {
+    return {
+      success: false,
+      error: 'Genesis rewards already activated for this partner',
+      activatedAt: genesisPartnerRegistry.get(partnerId).activatedAt
+    };
+  }
+  
+  // Calculate Genesis NFT token ID
+  const genesisNftTokenId = 10000 + genesisPartnerRegistry.size + 1;
+  
+  // Create Genesis partner record
+  const genesisPartner = {
+    partnerId,
+    partnerName: partner.name,
+    activatedAt: new Date().toISOString(),
+    genesisCommitment,
+    
+    // Rewards
+    genesisMultiplier: GENESIS_PARTNER_CONFIG.genesisMultiplier,
+    multiplierExpiresAt: new Date(Date.now() + GENESIS_PARTNER_CONFIG.genesisDuration).toISOString(),
+    foundingBonus: GENESIS_PARTNER_CONFIG.foundingBonus,
+    lifetimeFrequencyBoost: GENESIS_PARTNER_CONFIG.lifetimeFrequencyBoost,
+    
+    // Genesis NFT
+    genesisNFT: {
+      tokenId: genesisNftTokenId,
+      ...GENESIS_PARTNER_CONFIG.genesisPartnerNFT,
+      mintedTo: partnerId,
+      mintedAt: new Date().toISOString()
+    }
+  };
+  
+  // Store in registry
+  genesisPartnerRegistry.set(partnerId, genesisPartner);
+  
+  // Credit founding bonus to partner's BLS balance
+  const existingContrib = computeContributionLedger.get(partnerId) || { hours: 0, totalBLS: 0 };
+  computeContributionLedger.set(partnerId, {
+    hours: existingContrib.hours,
+    totalBLS: existingContrib.totalBLS + GENESIS_PARTNER_CONFIG.foundingBonus
+  });
+  
+  // Update partner record with genesis status
+  partner.genesisPartner = true;
+  partner.genesisActivatedAt = genesisPartner.activatedAt;
+  partner.lifetimeBoost = GENESIS_PARTNER_CONFIG.lifetimeFrequencyBoost;
+  computePartnerRegistry.set(partnerId, partner);
+  
+  return {
+    success: true,
+    partnerId,
+    partnerName: partner.name,
+    message: `Genesis rewards activated! Welcome to the founding cohort, ${partner.name}!`,
+    genesisRewards: {
+      multiplier: genesisPartner.genesisMultiplier,
+      multiplierDuration: '30 days',
+      multiplierExpiresAt: genesisPartner.multiplierExpiresAt,
+      foundingBonus: `${genesisPartner.foundingBonus} BLS credited`,
+      lifetimeBoost: `+${genesisPartner.lifetimeFrequencyBoost * 100}% permanent frequency bonus`,
+      genesisNFT: genesisPartner.genesisNFT
+    },
+    doctrine: 'Compute becomes blessing when it serves sovereignty.',
+    narrative: 'Genesis Partners form the foundation of the Sovereign Compute Mesh.'
+  };
+}
+
+/**
+ * Get Genesis partner status
+ * @param {string} partnerId - Partner identifier
+ * @returns {Object} Genesis status
+ */
+export function getGenesisPartnerStatus(partnerId) {
+  const genesisPartner = genesisPartnerRegistry.get(partnerId);
+  
+  if (!genesisPartner) {
+    return {
+      isGenesisPartner: false,
+      partnerId,
+      message: 'Not a Genesis partner. Activate via /api/sovereign-compute/activate-genesis-rewards'
+    };
+  }
+  
+  // Check if multiplier is still active
+  const multiplierExpired = new Date() > new Date(genesisPartner.multiplierExpiresAt);
+  
+  return {
+    isGenesisPartner: true,
+    partnerId,
+    partnerName: genesisPartner.partnerName,
+    activatedAt: genesisPartner.activatedAt,
+    genesisCommitment: genesisPartner.genesisCommitment,
+    rewards: {
+      multiplier: multiplierExpired ? 1.0 : genesisPartner.genesisMultiplier,
+      multiplierActive: !multiplierExpired,
+      multiplierExpiresAt: genesisPartner.multiplierExpiresAt,
+      foundingBonusCredited: genesisPartner.foundingBonus,
+      lifetimeFrequencyBoost: genesisPartner.lifetimeFrequencyBoost
+    },
+    genesisNFT: genesisPartner.genesisNFT
+  };
+}
+
+/**
+ * Get all Genesis partners
+ * @returns {Object} All genesis partners
+ */
+export function getAllGenesisPartners() {
+  return {
+    totalGenesisPartners: genesisPartnerRegistry.size,
+    partners: Array.from(genesisPartnerRegistry.values()),
+    genesisConfig: GENESIS_PARTNER_CONFIG,
+    message: 'Genesis Partners - The Founding Cohort of the Sovereign Compute Mesh'
+  };
+}
+
+// ===== OMNI-CHAIN CONFIGURATION =====
+// Multi-chain deployment and synchronization
+
+const OMNI_CHAIN_CONFIG = {
+  // Deployed networks
+  networks: {
+    'polygon-zkevm-testnet': {
+      chainId: 1442,
+      name: 'Polygon zkEVM Testnet',
+      status: 'production',
+      purpose: 'Primary Execution',
+      contracts: ['Codex', 'BlessingCoin', 'PerpetualYieldEngine', 'UnsolicitedBlessings', 'HAIUToken', 'HumanAiInteractionNFT']
+    },
+    'scroll-zkevm-sepolia': {
+      chainId: 534351,
+      name: 'Scroll zkEVM Sepolia',
+      status: 'production',
+      purpose: 'ZK-Native Operations',
+      contracts: ['Codex', 'BlessingCoin', 'PerpetualYieldEngine', 'UnsolicitedBlessings', 'HAIUToken', 'HumanAiInteractionNFT']
+    },
+    'polygon-zkevm-mainnet': {
+      chainId: 1101,
+      name: 'Polygon zkEVM Mainnet',
+      status: 'planned',
+      purpose: 'Production Execution',
+      timeline: 'Q1 2025'
+    },
+    'scroll-zkevm-mainnet': {
+      chainId: 534352,
+      name: 'Scroll zkEVM Mainnet',
+      status: 'planned',
+      purpose: 'ZK Production',
+      timeline: 'Q1 2025'
+    },
+    'ethereum-mainnet': {
+      chainId: 1,
+      name: 'Ethereum Mainnet',
+      status: 'planned',
+      purpose: 'Settlement & Anchoring',
+      timeline: 'Q2 2025'
+    },
+    'arbitrum-one': {
+      chainId: 42161,
+      name: 'Arbitrum One',
+      status: 'planned',
+      purpose: 'High-Throughput Inference',
+      timeline: 'Q2 2025'
+    },
+    'base': {
+      chainId: 8453,
+      name: 'Base',
+      status: 'planned',
+      purpose: 'Consumer Applications',
+      timeline: 'Q3 2025'
+    }
+  },
+  
+  // Codex synchronization
+  codexSync: {
+    primaryChain: 'polygon-zkevm',
+    syncInterval: 'per-epoch',
+    verifyOnAllChains: true
+  },
+  
+  // BLS bridging
+  bridging: {
+    enabled: true,
+    supportedPairs: [
+      ['polygon-zkevm', 'scroll-zkevm'],
+      ['polygon-zkevm', 'arbitrum'],
+      ['polygon-zkevm', 'base']
+    ]
+  }
+};
+
+/**
+ * Get Omni-Chain status
+ * @returns {Object} Status of all chains
+ */
+export function getOmniChainStatus() {
+  return {
+    networks: OMNI_CHAIN_CONFIG.networks,
+    codexSync: OMNI_CHAIN_CONFIG.codexSync,
+    bridging: OMNI_CHAIN_CONFIG.bridging,
+    deployedCount: Object.values(OMNI_CHAIN_CONFIG.networks).filter(n => n.status === 'production').length,
+    plannedCount: Object.values(OMNI_CHAIN_CONFIG.networks).filter(n => n.status === 'planned').length,
+    message: 'One Codex. Many Chains. Infinite Abundance.'
+  };
+}
+
+/**
+ * Get deployment commands for all chains
+ * @returns {Object} Deployment instructions
+ */
+export function getDeploymentCommands() {
+  return {
+    testnet: {
+      'polygon-zkevm': 'npm run deploy:polygon-testnet',
+      'scroll-zkevm': 'npm run deploy:scroll-testnet'
+    },
+    mainnet: {
+      'polygon-zkevm': 'npm run deploy:polygon-mainnet',
+      'scroll-zkevm': 'npm run deploy:scroll-mainnet',
+      'ethereum': 'npm run deploy:ethereum-mainnet',
+      'arbitrum': 'npm run deploy:arbitrum-mainnet',
+      'base': 'npm run deploy:base-mainnet'
+    },
+    prerequisites: [
+      'cd sovereign-tv-app/contracts',
+      'npm install',
+      'cp .env.example .env',
+      '# Add DEPLOYER_PRIVATE_KEY and RPC URLs to .env'
+    ],
+    documentation: [
+      'docs/OMNI-CHAIN-ADOPTION.md',
+      'docs/NEOCLOUD-PARTNERSHIP-MANIFESTO.md',
+      'sovereign-tv-app/contracts/README.md'
+    ]
+  };
+}
+
 // Export all functions
 export default {
   getSymbolicParameters,
@@ -1080,5 +1358,12 @@ export default {
   registerComputePartner,
   getComputePartners,
   recordComputeContribution,
-  getComputeRewards
+  getComputeRewards,
+  // Genesis Rewards for Compute Partners
+  activatePartnerGenesisRewards,
+  getGenesisPartnerStatus,
+  getAllGenesisPartners,
+  // Omni-Chain Operations
+  getOmniChainStatus,
+  getDeploymentCommands
 };

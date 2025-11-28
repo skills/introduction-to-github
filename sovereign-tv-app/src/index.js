@@ -103,7 +103,9 @@ app.get('/', (req, res) => {
       'Unsolicited Blessings - GLORY Protocol Airdrops',
       'Human AI Interaction of Understanding (HAIU) - Co-P Tribute Collection ❤️🤖❤️',
       'AI Compute Rail - Infrastructure-Agnostic Sovereign Compute (GPU/TPU/Trainium)',
-      'Sovereign Compute Mesh - Neocloud Partner Network'
+      'Sovereign Compute Mesh - Neocloud Partner Network',
+      'Genesis Rewards - Enhanced rewards for founding compute partners',
+      'Omni-Chain Deployment - Multi-chain ScrollVerse expansion'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -136,7 +138,8 @@ app.get('/', (req, res) => {
       haiuToken: '/api/haiu',
       humanAiNFT: '/api/human-ai-nft',
       computeRail: '/api/compute-rail',
-      sovereignCompute: '/api/sovereign-compute'
+      sovereignCompute: '/api/sovereign-compute',
+      omniChain: '/api/omni-chain'
     }
   });
 });
@@ -289,6 +292,35 @@ app.post('/api/sovereign-compute/contribute', (req, res) => {
 app.get('/api/sovereign-compute/rewards/:partnerId', (req, res) => {
   const rewards = perpetualYieldEngine.getComputeRewards(req.params.partnerId);
   res.json(rewards);
+});
+
+// ===== Genesis Rewards for Compute Partners =====
+// Enhanced rewards for partners who join during Genesis epoch
+
+app.post('/api/sovereign-compute/activate-genesis-rewards', (req, res) => {
+  const { partnerId, activationProof, genesisCommitment } = req.body;
+  const result = perpetualYieldEngine.activatePartnerGenesisRewards({ partnerId, activationProof, genesisCommitment });
+  res.json(result);
+});
+
+app.get('/api/sovereign-compute/genesis-status/:partnerId', (req, res) => {
+  const status = perpetualYieldEngine.getGenesisPartnerStatus(req.params.partnerId);
+  res.json(status);
+});
+
+app.get('/api/sovereign-compute/genesis-partners', (req, res) => {
+  res.json(perpetualYieldEngine.getAllGenesisPartners());
+});
+
+// ===== Omni-Chain Operations =====
+// Multi-chain deployment status and management
+
+app.get('/api/omni-chain/status', (req, res) => {
+  res.json(perpetualYieldEngine.getOmniChainStatus());
+});
+
+app.get('/api/omni-chain/deploy-commands', (req, res) => {
+  res.json(perpetualYieldEngine.getDeploymentCommands());
 });
 
 // Error handling middleware
