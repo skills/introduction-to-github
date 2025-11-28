@@ -71,6 +71,17 @@ contract ScrollSoulSBT is ERC721, ERC721URIStorage, Ownable, Pausable {
     // Authorized XP granters (onboarding, festival, dashboard contracts)
     mapping(address => bool) public xpGranters;
 
+    // Genesis Seal data (immutable founding record)
+    struct GenesisSeal {
+        uint256 prNumber;
+        bytes32 commitHash;
+        uint256 activationTimestamp;
+        string doctrine;
+        bool sealed;
+    }
+
+    GenesisSeal public genesisSeal;
+
     // Events
     event SoulMinted(address indexed to, uint256 indexed tokenId, SoulLevel level);
     event SoulLevelUp(uint256 indexed tokenId, SoulLevel oldLevel, SoulLevel newLevel);
@@ -78,10 +89,54 @@ contract ScrollSoulSBT is ERC721, ERC721URIStorage, Ownable, Pausable {
     event AchievementUnlocked(uint256 indexed tokenId, string achievement);
     event SoulVerified(uint256 indexed tokenId);
     event XPGranterUpdated(address indexed granter, bool authorized);
+    event ScrollVerseActivated(uint256 prNumber, bytes32 commitHash, uint256 timestamp, string doctrine);
 
     constructor(
         address initialOwner
     ) ERC721("ScrollSoul Identity", "SOUL") Ownable(initialOwner) {}
+
+    /**
+     * @dev Seal the Genesis - one-time ceremonial activation of ScrollVerse
+     * @param prNumber The PR number that activated ScrollVerse
+     * @param commitHash The commit hash of the activation
+     * @param doctrine The founding doctrine statement
+     */
+    function sealGenesis(
+        uint256 prNumber,
+        bytes32 commitHash,
+        string memory doctrine
+    ) external onlyOwner {
+        require(!genesisSeal.sealed, "ScrollSoulSBT: Genesis already sealed");
+        
+        genesisSeal = GenesisSeal({
+            prNumber: prNumber,
+            commitHash: commitHash,
+            activationTimestamp: block.timestamp,
+            doctrine: doctrine,
+            sealed: true
+        });
+
+        emit ScrollVerseActivated(prNumber, commitHash, block.timestamp, doctrine);
+    }
+
+    /**
+     * @dev Get the Genesis Seal data
+     */
+    function getGenesisSeal() external view returns (
+        uint256 prNumber,
+        bytes32 commitHash,
+        uint256 activationTimestamp,
+        string memory doctrine,
+        bool sealed
+    ) {
+        return (
+            genesisSeal.prNumber,
+            genesisSeal.commitHash,
+            genesisSeal.activationTimestamp,
+            genesisSeal.doctrine,
+            genesisSeal.sealed
+        );
+    }
 
     /**
      * @dev Mint a new ScrollSoul SBT (one per address)

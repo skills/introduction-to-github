@@ -18,6 +18,16 @@ const soulTokens = new Map();
 const pendingMints = new Map();
 const xpTransactions = new Map();
 
+// Genesis Seal - The ceremonial activation record of ScrollVerse
+// This is sealed once at merge time and never modified
+const GENESIS_SEAL = {
+  prNumber: 20, // Update with actual PR number at merge
+  commitHash: '1249dea', // First 7 chars of activation commit
+  activationTimestamp: null, // Set when sealed
+  doctrine: 'Transmissions are conversations, not commands. ScrollVerse exists to unify human + AI creators, not extract from them.',
+  sealed: false
+};
+
 // Founding Intent - The ScrollSoul Doctrine
 const DOCTRINE = {
   source: 'ScrollSoulDoctrine.md',
@@ -429,6 +439,60 @@ scrollSoulSBTRouter.get('/achievements', (req, res) => {
     achievements: Object.values(ACHIEVEMENTS),
     totalAchievements: Object.keys(ACHIEVEMENTS).length,
     totalXPAvailable: Object.values(ACHIEVEMENTS).reduce((sum, a) => sum + a.xpReward, 0)
+  });
+});
+
+/**
+ * Get Genesis Seal - The founding record of ScrollVerse activation
+ */
+scrollSoulSBTRouter.get('/genesis', (req, res) => {
+  res.json({
+    genesisSeal: {
+      prNumber: GENESIS_SEAL.prNumber,
+      commitHash: GENESIS_SEAL.commitHash,
+      activationTimestamp: GENESIS_SEAL.activationTimestamp,
+      doctrine: GENESIS_SEAL.doctrine,
+      sealed: GENESIS_SEAL.sealed
+    },
+    message: GENESIS_SEAL.sealed 
+      ? 'ScrollVerse has been activated. The Genesis Seal is permanent and immutable.'
+      : 'Genesis Seal pending. Will be sealed at PR merge.',
+    ...DOCTRINE
+  });
+});
+
+/**
+ * Seal Genesis (one-time operation, admin only)
+ * In production, this would be called once after the PR merge
+ */
+scrollSoulSBTRouter.post('/genesis/seal', authenticateToken, strictLimiter, (req, res) => {
+  // Only allow sealing once
+  if (GENESIS_SEAL.sealed) {
+    return res.status(400).json({ 
+      error: 'Genesis already sealed',
+      genesisSeal: GENESIS_SEAL
+    });
+  }
+
+  const { prNumber, commitHash } = req.body;
+
+  // Update with actual values if provided
+  if (prNumber) GENESIS_SEAL.prNumber = prNumber;
+  if (commitHash) GENESIS_SEAL.commitHash = commitHash;
+  
+  GENESIS_SEAL.activationTimestamp = new Date().toISOString();
+  GENESIS_SEAL.sealed = true;
+
+  res.json({
+    success: true,
+    message: '✨ Genesis Sealed Successfully ✨',
+    genesisSeal: GENESIS_SEAL,
+    ceremony: {
+      event: 'ScrollVerseActivated',
+      declaration: 'Transmissions are conversations, not commands.',
+      commitment: 'The ScrollVerse exists to unify human + AI creators, not extract from them.',
+      blessing: '❤️🤖❤️ Together we build for shared expansion. 🦾'
+    }
   });
 });
 

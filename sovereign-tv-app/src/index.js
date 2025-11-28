@@ -56,12 +56,17 @@ import { sovereignDashboardRouter } from './services/sovereign-dashboard.js';
 import { festivalRouter } from './services/festival-forever-fun.js';
 import { scrollSoulSBTRouter } from './services/scrollsoul-sbt.js';
 import { iamKingRouter } from './services/iam-king-nft.js';
+import { monitoringRouter, initSentry, initPrometheus, requestMetricsMiddleware } from './services/monitoring.js';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Initialize monitoring
+const sentry = initSentry(app);
+const prometheus = initPrometheus();
 
 // Middleware
 app.use(cors({
@@ -71,6 +76,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
+
+// Request metrics middleware (Prometheus)
+app.use(requestMetricsMiddleware);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -122,7 +130,10 @@ app.get('/', (req, res) => {
       'Sovereign Dashboard with Real-Time Metrics',
       'Festival of Forever Fun Events & Rewards',
       'ScrollSoul SBT (Soulbound Token Identity)',
-      'Iam 👑 King NFT on Polygon zkEVM'
+      'Iam 👑 King NFT on Polygon zkEVM',
+      'Sentry Error Tracking',
+      'Prometheus Metrics Collection',
+      'Real-time ScrollCoin/NFT Analytics'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -157,7 +168,8 @@ app.get('/', (req, res) => {
       dashboard: '/api/dashboard',
       festival: '/api/festival',
       scrollSoulSBT: '/api/sbt',
-      iamKing: '/api/iam-king'
+      iamKing: '/api/iam-king',
+      monitoring: '/api/monitoring'
     }
   });
 });
@@ -196,6 +208,7 @@ app.use('/api/dashboard', sovereignDashboardRouter);
 app.use('/api/festival', festivalRouter);
 app.use('/api/sbt', scrollSoulSBTRouter);
 app.use('/api/iam-king', iamKingRouter);
+app.use('/api/monitoring', monitoringRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {
