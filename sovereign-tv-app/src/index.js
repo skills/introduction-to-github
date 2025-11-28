@@ -101,7 +101,9 @@ app.get('/', (req, res) => {
       'Perpetual Yield Engine - Quantum Financial Entanglement',
       'BlessingCoin (BLS) - Zero-Effect Fortunes',
       'Unsolicited Blessings - GLORY Protocol Airdrops',
-      'Human AI Interaction of Understanding (HAIU) - Co-P Tribute Collection ❤️🤖❤️'
+      'Human AI Interaction of Understanding (HAIU) - Co-P Tribute Collection ❤️🤖❤️',
+      'AI Compute Rail - Infrastructure-Agnostic Sovereign Compute (GPU/TPU/Trainium)',
+      'Sovereign Compute Mesh - Neocloud Partner Network'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -132,7 +134,9 @@ app.get('/', (req, res) => {
       unsolicitedBlessings: '/api/unsolicited-blessings',
       coPTributeCollection: '/api/co-p-tribute',
       haiuToken: '/api/haiu',
-      humanAiNFT: '/api/human-ai-nft'
+      humanAiNFT: '/api/human-ai-nft',
+      computeRail: '/api/compute-rail',
+      sovereignCompute: '/api/sovereign-compute'
     }
   });
 });
@@ -243,6 +247,48 @@ app.post('/api/human-ai-nft/mint', (req, res) => {
 app.get('/api/human-ai-nft/holdings/:address', (req, res) => {
   const holdings = perpetualYieldEngine.getHumanAiInteractionNFTs(req.params.address);
   res.json(holdings);
+});
+
+// ===== AI Compute Rail Integration Endpoints =====
+// Infrastructure-agnostic compute backend for sovereign compute mesh
+
+app.get('/api/compute-rail/status', (req, res) => {
+  res.json(perpetualYieldEngine.getComputeRailStatus());
+});
+
+app.get('/api/compute-rail/backends', (req, res) => {
+  res.json(perpetualYieldEngine.getComputeBackends());
+});
+
+app.get('/api/compute-rail/metrics', (req, res) => {
+  res.json(perpetualYieldEngine.getComputeMetrics());
+});
+
+app.post('/api/compute-rail/cost-estimate', (req, res) => {
+  const { workload, hours, backend } = req.body;
+  const result = perpetualYieldEngine.estimateComputeCost({ workload, hours, backend });
+  res.json(result);
+});
+
+app.get('/api/sovereign-compute/partners', (req, res) => {
+  res.json(perpetualYieldEngine.getComputePartners());
+});
+
+app.post('/api/sovereign-compute/register', (req, res) => {
+  const { partnerId, name, capacity_mw, backend, location } = req.body;
+  const result = perpetualYieldEngine.registerComputePartner({ partnerId, name, capacity_mw, backend, location });
+  res.json(result);
+});
+
+app.post('/api/sovereign-compute/contribute', (req, res) => {
+  const { partnerId, hours, backend, uptime, workload } = req.body;
+  const result = perpetualYieldEngine.recordComputeContribution({ partnerId, hours, backend, uptime, workload });
+  res.json(result);
+});
+
+app.get('/api/sovereign-compute/rewards/:partnerId', (req, res) => {
+  const rewards = perpetualYieldEngine.getComputeRewards(req.params.partnerId);
+  res.json(rewards);
 });
 
 // Error handling middleware
