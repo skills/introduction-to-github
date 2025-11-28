@@ -42,6 +42,7 @@ import { scrollSoulTrainingRouter } from './services/scrollsoul-training.js';
 import { financialSovereigntyRouter } from './services/financial-sovereignty.js';
 import { cashFlowNodesRouter } from './services/cash-flow-nodes.js';
 import { creativeMonetizationRouter } from './services/creative-monetization.js';
+import perpetualYieldEngine from './services/perpetual-yield-engine.js';
 
 // Load environment variables
 dotenv.config();
@@ -96,7 +97,10 @@ app.get('/', (req, res) => {
       'ScrollSoul Training (Coherence Stability Layer)',
       'Financial Sovereignty & ZkP-I Account Liberation',
       'Cash Flow Nodes & 528Hz Revenue Harmonization',
-      'Creative Monetization & Destination Hill Scaling'
+      'Creative Monetization & Destination Hill Scaling',
+      'Perpetual Yield Engine - Quantum Financial Entanglement',
+      'BlessingCoin (BLS) - Zero-Effect Fortunes',
+      'Unsolicited Blessings - GLORY Protocol Airdrops'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -121,7 +125,10 @@ app.get('/', (req, res) => {
       scrollSoulTraining: '/api/training',
       financialSovereignty: '/api/sovereignty',
       cashFlowNodes: '/api/cash-flow',
-      creativeMonetization: '/api/creative'
+      creativeMonetization: '/api/creative',
+      perpetualYieldEngine: '/api/yield-engine',
+      blessingCoin: '/api/blessingcoin',
+      unsolicitedBlessings: '/api/unsolicited-blessings'
     }
   });
 });
@@ -150,6 +157,37 @@ app.use('/api/training', scrollSoulTrainingRouter);
 app.use('/api/sovereignty', financialSovereigntyRouter);
 app.use('/api/cash-flow', cashFlowNodesRouter);
 app.use('/api/creative', creativeMonetizationRouter);
+
+// Perpetual Yield Engine API Routes
+app.get('/api/yield-engine/status', (req, res) => {
+  res.json(perpetualYieldEngine.getEngineStatus());
+});
+
+app.get('/api/yield-engine/codex', (req, res) => {
+  res.json(perpetualYieldEngine.getCodexState());
+});
+
+app.post('/api/blessingcoin/mint', (req, res) => {
+  const { proof, publicInputs, recipient, amount } = req.body;
+  const result = perpetualYieldEngine.mintBlessingCoin({ proof, publicInputs, recipient, amount });
+  res.json(result);
+});
+
+app.get('/api/blessingcoin/balance/:address', (req, res) => {
+  const balance = perpetualYieldEngine.getBlessingCoinBalance(req.params.address);
+  res.json(balance);
+});
+
+app.post('/api/unsolicited-blessings/airdrop', (req, res) => {
+  const { recipients, blessingType, metadata } = req.body;
+  const result = perpetualYieldEngine.airdropUnsolicitedBlessings({ recipients, blessingType, metadata });
+  res.json(result);
+});
+
+app.get('/api/unsolicited-blessings/holdings/:address', (req, res) => {
+  const holdings = perpetualYieldEngine.getUnsolicitedBlessingsHoldings(req.params.address);
+  res.json(holdings);
+});
 
 // Error handling middleware
 app.use((err, req, res) => {
