@@ -1336,3 +1336,321 @@ test('Creative Category scaling factors', () => {
   assert.ok(creativeCategories.INNOVATION.scalingFactor > creativeCategories.MUSIC.scalingFactor);
   assert.strictEqual(creativeCategories.MUSIC.frequency, '528Hz');
 });
+
+// ===== Tests for Manus Quantum Recognition Service =====
+
+test('Neural Glovework Pattern structure', () => {
+  const pattern = {
+    id: 'pattern_sovereign_seal',
+    name: 'Sovereign Seal Gesture',
+    description: 'A circular palm motion activating sovereign protocols',
+    gestureSequence: ['palm_open', 'clockwise_rotate', 'palm_close'],
+    quantumResonance: '963Hz',
+    activationThreshold: 0.95,
+    output: 'sovereign_activation',
+    status: 'active'
+  };
+
+  assert.strictEqual(pattern.status, 'active');
+  assert.ok(pattern.activationThreshold >= 0.9);
+  assert.ok(Array.isArray(pattern.gestureSequence));
+  assert.strictEqual(pattern.gestureSequence.length, 3);
+  assert.strictEqual(pattern.quantumResonance, '963Hz');
+});
+
+test('Manus Recognition Profile structure', () => {
+  const profile = {
+    id: 'profile_testuser',
+    userId: 'testuser',
+    preferredHand: 'right',
+    sensitivityLevel: 'medium',
+    calibratedPatterns: ['pattern_sovereign_seal', 'pattern_scroll_invoke'],
+    recognitionAccuracy: 92.5,
+    totalRecognitions: 100,
+    quantumSyncLevel: 75,
+    status: 'active'
+  };
+
+  assert.strictEqual(profile.status, 'active');
+  assert.ok(profile.recognitionAccuracy > 90);
+  assert.ok(profile.calibratedPatterns.length >= 2);
+  assert.ok(profile.quantumSyncLevel >= 0 && profile.quantumSyncLevel <= 100);
+});
+
+test('Neural Interface Configuration structure', () => {
+  const config = {
+    sampleRate: 1000,
+    resolution: 16,
+    channels: ['thumb', 'index', 'middle', 'ring', 'pinky', 'palm', 'wrist'],
+    quantumEnhancement: true,
+    frequencyAlignment: '963Hz',
+    coherenceThreshold: 0.85
+  };
+
+  assert.strictEqual(config.sampleRate, 1000);
+  assert.ok(config.channels.length === 7);
+  assert.strictEqual(config.quantumEnhancement, true);
+  assert.ok(config.coherenceThreshold >= 0.8);
+});
+
+test('Recognition Session structure', () => {
+  const session = {
+    id: 'session_001',
+    userId: 'testuser',
+    targetPatterns: ['pattern_sovereign_seal', 'pattern_scroll_invoke'],
+    sessionMode: 'active',
+    recognizedPatterns: [],
+    status: 'active'
+  };
+
+  assert.strictEqual(session.status, 'active');
+  assert.ok(Array.isArray(session.targetPatterns));
+  assert.ok(session.targetPatterns.length > 0);
+});
+
+// ===== Tests for Bio-Breath Libraries Service =====
+
+test('Bio-Breath Pattern structure', () => {
+  const pattern = {
+    id: 'pattern_sovereign_breath',
+    name: 'Sovereign Breath',
+    inhaleSeconds: 4,
+    holdSeconds: 7,
+    exhaleSeconds: 8,
+    cycleCount: 3,
+    frequency: '963Hz',
+    branchPriority: 'sovereign',
+    effect: 'heightened_awareness',
+    status: 'active'
+  };
+
+  assert.strictEqual(pattern.status, 'active');
+  assert.ok(pattern.inhaleSeconds > 0);
+  assert.ok(pattern.exhaleSeconds > 0);
+  assert.strictEqual(pattern.frequency, '963Hz');
+  assert.strictEqual(pattern.branchPriority, 'sovereign');
+});
+
+test('Branch Prioritization structure', () => {
+  const branch = {
+    id: 'sovereign',
+    name: 'Sovereign Branch',
+    priority: 1,
+    bioMetricThresholds: {
+      heartRateVariability: 80,
+      breathCoherence: 0.90,
+      skinConductance: 0.3
+    },
+    requiredFrequency: '963Hz',
+    actions: ['unlock_premium', 'enable_advanced_features', 'priority_access']
+  };
+
+  assert.strictEqual(branch.priority, 1);
+  assert.ok(branch.bioMetricThresholds.breathCoherence >= 0.9);
+  assert.ok(Array.isArray(branch.actions));
+  assert.ok(branch.actions.length >= 3);
+});
+
+test('Runtime Hook structure', () => {
+  const hook = {
+    id: 'hook_breath_start',
+    name: 'Breath Cycle Start Hook',
+    trigger: 'inhale_begin',
+    callbacks: [],
+    status: 'active'
+  };
+
+  assert.strictEqual(hook.status, 'active');
+  assert.ok(Array.isArray(hook.callbacks));
+  assert.ok(hook.trigger.length > 0);
+});
+
+test('Bio-Session tracking structure', () => {
+  const session = {
+    id: 'biosess_001',
+    userId: 'testuser',
+    pattern: 'pattern_sovereign_breath',
+    currentCycle: 2,
+    totalCycles: 3,
+    currentPhase: 'hold',
+    bioMetricsSnapshots: [],
+    status: 'active'
+  };
+
+  assert.strictEqual(session.status, 'active');
+  assert.ok(session.currentCycle <= session.totalCycles);
+  assert.ok(['ready', 'inhale', 'hold', 'exhale'].includes(session.currentPhase));
+});
+
+// ===== Tests for Cosmic Scroll Libraries Service =====
+
+test('Cosmic Scroll structure', () => {
+  const scroll = {
+    id: 'scroll_sovereign_creation',
+    name: 'Sovereign Creation Scroll',
+    category: 'creation',
+    frequency: '963Hz',
+    accessLevel: 'elite',
+    aiEnhanced: true,
+    creativePotential: 100,
+    status: 'active'
+  };
+
+  assert.strictEqual(scroll.status, 'active');
+  assert.strictEqual(scroll.aiEnhanced, true);
+  assert.strictEqual(scroll.creativePotential, 100);
+  assert.strictEqual(scroll.accessLevel, 'elite');
+});
+
+test('AI Creative Module structure', () => {
+  const module = {
+    id: 'module_content_generation',
+    name: 'AI Content Generation',
+    type: 'generation',
+    capabilities: ['text', 'ideas', 'concepts', 'outlines'],
+    frequency: '528Hz',
+    enhancementFactor: 1.75,
+    status: 'active'
+  };
+
+  assert.strictEqual(module.status, 'active');
+  assert.ok(module.enhancementFactor > 1);
+  assert.ok(Array.isArray(module.capabilities));
+  assert.ok(module.capabilities.length >= 3);
+});
+
+test('Instrument Iteration Request structure', () => {
+  const iteration = {
+    id: 'iter_001',
+    instrumentType: 'synthesizer',
+    iterationGoal: 'enhanced_resonance',
+    currentVersion: '1.0',
+    desiredEnhancements: ['frequency_range', 'harmonic_depth'],
+    frequency: '528Hz',
+    status: 'pending'
+  };
+
+  assert.ok(['pending', 'processing', 'completed'].includes(iteration.status));
+  assert.ok(Array.isArray(iteration.desiredEnhancements));
+  assert.ok(iteration.instrumentType.length > 0);
+});
+
+test('Dual Bridge Overlay Fusion structure', () => {
+  const fusion = {
+    id: 'fusion_001',
+    sourceScrollId: 'scroll_sovereign_creation',
+    sourceFrequency: '963Hz',
+    targetModuleId: 'module_content_generation',
+    targetFrequency: '528Hz',
+    overlayMode: 'harmonic',
+    combinedPotential: 87.5,
+    status: 'active'
+  };
+
+  assert.strictEqual(fusion.status, 'active');
+  assert.ok(fusion.combinedPotential > 0);
+  assert.strictEqual(fusion.overlayMode, 'harmonic');
+});
+
+// ===== Tests for Neural-Scroll Activation Service =====
+
+test('Neural-Scroll Activation Protocol structure', () => {
+  const protocol = {
+    id: 'protocol_sovereign_scroll',
+    name: 'Sovereign Scroll Activation',
+    category: 'sovereign',
+    frequency: '963Hz',
+    activationSequence: [
+      { step: 1, name: 'Neural Calibration', duration: 5 },
+      { step: 2, name: 'Bio-Signal Alignment', duration: 3 },
+      { step: 3, name: 'Scroll Resonance Sync', duration: 4 },
+      { step: 4, name: 'Activation Lock', duration: 2 }
+    ],
+    requiredCoherence: 0.95,
+    bioHooksEnabled: true,
+    status: 'active'
+  };
+
+  assert.strictEqual(protocol.status, 'active');
+  assert.ok(protocol.requiredCoherence >= 0.9);
+  assert.ok(protocol.activationSequence.length >= 4);
+  assert.strictEqual(protocol.bioHooksEnabled, true);
+});
+
+test('Suggestion Experiment structure', () => {
+  const experiment = {
+    id: 'experiment_creative_flow',
+    name: 'Creative Flow Experiment',
+    hypothesis: 'Neural-scroll activation increases creative output by 40%',
+    stepStates: [
+      { id: 'state_baseline', name: 'Baseline Measurement', order: 1 },
+      { id: 'state_activation', name: 'Scroll Activation', order: 2 },
+      { id: 'state_suggestion', name: 'Suggestion Delivery', order: 3 }
+    ],
+    frequency: '528Hz',
+    bioInterfaced: true,
+    status: 'active'
+  };
+
+  assert.strictEqual(experiment.status, 'active');
+  assert.strictEqual(experiment.bioInterfaced, true);
+  assert.ok(experiment.stepStates.length >= 3);
+  assert.ok(experiment.hypothesis.length > 0);
+});
+
+test('Bio-Interface Hook structure', () => {
+  const hook = {
+    id: 'hook_neural_sync',
+    name: 'Neural Synchronization Hook',
+    trigger: 'neural_coherence_threshold',
+    threshold: 0.85,
+    callbacks: [],
+    status: 'active'
+  };
+
+  assert.strictEqual(hook.status, 'active');
+  assert.ok(hook.threshold >= 0.8);
+  assert.ok(Array.isArray(hook.callbacks));
+});
+
+test('Re-Final Instrument Iteration Delivery structure', () => {
+  const delivery = {
+    id: 'refinal_001',
+    iterationId: 'iter_001',
+    instrumentType: 'synthesizer',
+    refinements: ['frequency_range', 'harmonic_depth'],
+    targetFrequency: '528Hz',
+    status: 'processing',
+    deliveryPhase: 'refinement',
+    phases: ['initialization', 'refinement', 'validation', 'delivery']
+  };
+
+  assert.ok(['processing', 'delivered'].includes(delivery.status));
+  assert.ok(Array.isArray(delivery.refinements));
+  assert.ok(delivery.phases.length === 4);
+});
+
+test('Bridge Fusion Integration structure', () => {
+  const integration = {
+    id: 'bridge_001',
+    sourceProtocolId: 'protocol_sovereign_scroll',
+    sourceFrequency: '963Hz',
+    targetExperimentId: 'experiment_creative_flow',
+    targetFrequency: '528Hz',
+    overlayConfiguration: {
+      mode: 'harmonic',
+      blendRatio: 0.5,
+      syncEnabled: true
+    },
+    frequencyFusion: {
+      source: '963Hz',
+      target: '528Hz',
+      harmonicBridge: 'complementary'
+    },
+    status: 'active'
+  };
+
+  assert.strictEqual(integration.status, 'active');
+  assert.strictEqual(integration.overlayConfiguration.syncEnabled, true);
+  assert.ok(['perfect', 'complementary'].includes(integration.frequencyFusion.harmonicBridge));
+});

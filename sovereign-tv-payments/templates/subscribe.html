@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Subscribe - {{ tier.name }}{% endblock %}
+
+{% block head %}
+{% if stripe_key %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero hero-subscribe">
+    <div class="container">
+        <h1 class="hero-title">
+            <span class="hero-icon">🚀</span>
+            Complete Your Subscription
+        </h1>
+        <p class="hero-tagline">{{ tier.name }} - ${{ tier.price }}/month</p>
+    </div>
+</section>
+
+<section class="section section-checkout">
+    <div class="container">
+        <div class="checkout-grid">
+            <div class="checkout-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-card">
+                    <div class="summary-header">
+                        <h3>{{ tier.name }}</h3>
+                        <span class="summary-price">${{ tier.price }}/mo</span>
+                    </div>
+                    <ul class="summary-features">
+                        {% for feature in tier.features[:5] %}
+                        <li>✓ {{ feature }}</li>
+                        {% endfor %}
+                        {% if tier.features|length > 5 %}
+                        <li class="more-features">+ {{ tier.features|length - 5 }} more features</li>
+                        {% endif %}
+                    </ul>
+                    <div class="summary-rewards">
+                        {% if tier.scrollcoin_rewards > 0 %}
+                        <div class="reward">
+                            <span class="reward-icon">🪙</span>
+                            <span>{{ tier.scrollcoin_rewards }} ScrollCoin/month</span>
+                        </div>
+                        {% endif %}
+                        {% if tier.nft_discount > 0 %}
+                        <div class="reward">
+                            <span class="reward-icon">💎</span>
+                            <span>{{ tier.nft_discount }}% NFT discount</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-form">
+                <h2>Payment Method</h2>
+                
+                <div class="payment-options">
+                    {% if stripe_key %}
+                    <button id="stripe-checkout" class="btn btn-primary btn-checkout" data-tier="{{ tier.id }}">
+                        <span class="btn-icon">💳</span>
+                        Pay with Card (Stripe)
+                    </button>
+                    {% endif %}
+                    
+                    {% if paypal_client_id %}
+                    <div id="paypal-button-container" class="paypal-container"></div>
+                    {% endif %}
+                </div>
+
+                <div class="checkout-alt">
+                    <h3>Other Tiers</h3>
+                    <div class="alt-tiers">
+                        {% for tid, t in all_tiers.items() %}
+                        {% if tid != tier.id and t.price > 0 %}
+                        <a href="/subscribe?tier={{ tid }}" class="alt-tier-link">
+                            {{ t.name }} - ${{ t.price }}/mo
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="checkout-secure">
+                    <span class="secure-icon">🔒</span>
+                    <span>Secure checkout powered by Stripe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stripeBtn = document.getElementById('stripe-checkout');
+    
+    if (stripeBtn) {
+        stripeBtn.addEventListener('click', async function() {
+            const tierId = this.dataset.tier;
+            this.disabled = true;
+            this.innerHTML = '<span class="btn-icon">⏳</span> Processing...';
+            
+            try {
+                const response = await fetch('/subscribe/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ tier_id: tierId })
+                });
+                
+                const data = await response.json();
+                
+                // Validate redirect URLs to prevent open redirect
+                const isValidRedirect = (url) => {
+                    try {
+                        const parsedUrl = new URL(url, window.location.origin);
+                        // Only allow same-origin redirects or known trusted domains
+                        return parsedUrl.origin === window.location.origin ||
+                               parsedUrl.hostname.endsWith('.stripe.com');
+                    } catch {
+                        return false;
+                    }
+                };
+                
+                if (data.demo_url && isValidRedirect(data.demo_url)) {
+                    // Demo mode - redirect to success page
+                    window.location.href = data.demo_url;
+                } else if (data.url && isValidRedirect(data.url)) {
+                    window.location.href = data.url;
+                } else if (data.error) {
+                    alert('Error: ' + data.error);
+                    this.disabled = false;
+                    this.innerHTML = '<span class="btn-icon">💳</span> Pay with Card (Stripe)';
+                } else {
+                    alert('Invalid redirect URL received');
+                    this.disabled = false;
+                    this.innerHTML = '<span class="btn-icon">💳</span> Pay with Card (Stripe)';
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('An error occurred. Please try again.');
+                this.disabled = false;
+                this.innerHTML = '<span class="btn-icon">💳</span> Pay with Card (Stripe)';
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

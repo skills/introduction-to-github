@@ -116,6 +116,42 @@ export const TRUTH_STACK_DEPTHS = {
   APPLICATION: 4
 };
 
+// Manus Quantum Recognition - Neural Gesture Types
+export const NEURAL_GESTURE_TYPES = {
+  PALM_OPEN: 'palm_open',
+  PALM_CLOSE: 'palm_close',
+  CLOCKWISE_ROTATE: 'clockwise_rotate',
+  SWEEP_RIGHT: 'sweep_right',
+  FINGERS_SPREAD: 'fingers_spread',
+  INTERLOCK: 'interlock',
+  THRUST_UP: 'thrust_up'
+};
+
+// Bio-Breath Branch Priorities
+export const BIO_BREATH_BRANCHES = {
+  SOVEREIGN: 'sovereign',
+  CREATIVE: 'creative',
+  QUANTUM: 'quantum',
+  FOUNDATION: 'foundation',
+  CREATION: 'creation'
+};
+
+// Cosmic Scroll Access Levels
+export const SCROLL_ACCESS_LEVELS = {
+  FREE: 'free',
+  PREMIUM: 'premium',
+  ELITE: 'elite'
+};
+
+// Neural-Scroll Activation Categories
+export const NEURAL_SCROLL_CATEGORIES = {
+  SOVEREIGN: 'sovereign',
+  CREATIVE: 'creative',
+  QUANTUM: 'quantum',
+  FOUNDATION: 'foundation',
+  MANIFESTATION: 'manifestation'
+};
+
 export default {
   TIER_HIERARCHY,
   TIER_NAMES,
@@ -131,5 +167,9 @@ export default {
   GRAPH_TREE_BOUNDS,
   REALIZATION_DIFFICULTY,
   REFINEMENT_PHASES,
-  TRUTH_STACK_DEPTHS
+  TRUTH_STACK_DEPTHS,
+  NEURAL_GESTURE_TYPES,
+  BIO_BREATH_BRANCHES,
+  SCROLL_ACCESS_LEVELS,
+  NEURAL_SCROLL_CATEGORIES
 };

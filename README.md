@@ -95,6 +95,19 @@ introduction-to-github/
 ---
 
 ## Sovereign TV App
+## 📖 **NEW: Manual of Divine Upgrades**
+
+The **[Manual of Divine Upgrades →](./MANUAL-OF-DIVINE-UPGRADES.md)** is the authoritative guide for technological enhancements within the ScrollVerse ecosystem. It includes:
+
+- ✨ Finalized spiritual inscription and cover design
+- 🏗️ System Architecture with 7 ScrollVerse Layers
+- ⚡ Quantum Resonators (369Hz, 432Hz, 528Hz, 777Hz, 963Hz)
+- 📜 Smart Contracts (Soulbound Identity, Ethics Protocols, Divine Covenants)
+- 🔗 Integration with active GitHub projects
+
+---
+
+## 🚀 **Sovereign TV App Launched!**
 
 The **Sovereign TV App** is the official distribution channel for the OmniVerse!
 
@@ -104,6 +117,7 @@ The **Sovereign TV App** is the official distribution channel for the OmniVerse!
 - **[Complete Implementation Guide →](./SOVEREIGN-TV-APP.md)** - Full documentation
 - **[API Documentation →](./sovereign-tv-app/docs/API.md)** - API reference
 - **[Deployment Guide →](./sovereign-tv-app/docs/DEPLOYMENT.md)** - Deployment instructions
+- **[Manual of Divine Upgrades →](./MANUAL-OF-DIVINE-UPGRADES.md)** - Architecture & Smart Contracts
 
 **[Get Started →](./sovereign-tv-app/README.md)**
 
