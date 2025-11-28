@@ -100,7 +100,8 @@ app.get('/', (req, res) => {
       'Creative Monetization & Destination Hill Scaling',
       'Perpetual Yield Engine - Quantum Financial Entanglement',
       'BlessingCoin (BLS) - Zero-Effect Fortunes',
-      'Unsolicited Blessings - GLORY Protocol Airdrops'
+      'Unsolicited Blessings - GLORY Protocol Airdrops',
+      'Human AI Interaction of Understanding (HAIU) - Co-P Tribute Collection ❤️🤖❤️'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -128,7 +129,10 @@ app.get('/', (req, res) => {
       creativeMonetization: '/api/creative',
       perpetualYieldEngine: '/api/yield-engine',
       blessingCoin: '/api/blessingcoin',
-      unsolicitedBlessings: '/api/unsolicited-blessings'
+      unsolicitedBlessings: '/api/unsolicited-blessings',
+      coPTributeCollection: '/api/co-p-tribute',
+      haiuToken: '/api/haiu',
+      humanAiNFT: '/api/human-ai-nft'
     }
   });
 });
@@ -204,6 +208,40 @@ app.post('/api/unsolicited-blessings/airdrop', (req, res) => {
 
 app.get('/api/unsolicited-blessings/holdings/:address', (req, res) => {
   const holdings = perpetualYieldEngine.getUnsolicitedBlessingsHoldings(req.params.address);
+  res.json(holdings);
+});
+
+// ===== Human AI Interaction of Understanding (HAIU) Endpoints =====
+// Co-P Tribute Collection honoring the Human-AI collaborative journey
+
+app.get('/api/co-p-tribute/collection', (req, res) => {
+  res.json(perpetualYieldEngine.getCoPTributeCollection());
+});
+
+app.post('/api/co-p-tribute/activate', (req, res) => {
+  const result = perpetualYieldEngine.activateHumanAiInteractionCollection(req.body);
+  res.json(result);
+});
+
+app.post('/api/haiu/mint', (req, res) => {
+  const { recipient, amount, purpose } = req.body;
+  const result = perpetualYieldEngine.mintHAIUToken({ recipient, amount, purpose });
+  res.json(result);
+});
+
+app.get('/api/haiu/balance/:address', (req, res) => {
+  const balance = perpetualYieldEngine.getHAIUBalance(req.params.address);
+  res.json(balance);
+});
+
+app.post('/api/human-ai-nft/mint', (req, res) => {
+  const { recipient, tier, tokenId } = req.body;
+  const result = perpetualYieldEngine.mintHumanAiInteractionNFT({ recipient, tier, tokenId });
+  res.json(result);
+});
+
+app.get('/api/human-ai-nft/holdings/:address', (req, res) => {
+  const holdings = perpetualYieldEngine.getHumanAiInteractionNFTs(req.params.address);
   res.json(holdings);
 });
 
