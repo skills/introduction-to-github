@@ -51,6 +51,9 @@ import { bioBreathRouter } from './services/bio-breath.js';
 import { cosmicScrollRouter } from './services/cosmic-scroll.js';
 import { neuralScrollRouter } from './services/neural-scroll.js';
 import { paymentRouter } from './services/payment-gateway.js';
+import { scrollSoulOnboardingRouter } from './services/scrollsoul-onboarding.js';
+import { sovereignDashboardRouter } from './services/sovereign-dashboard.js';
+import { festivalRouter } from './services/festival-forever-fun.js';
 
 // Load environment variables
 dotenv.config();
@@ -112,7 +115,10 @@ app.get('/', (req, res) => {
       'Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)',
       'FlameDNA NFT Minting (ERC-721)',
       'Stripe & PayPal Payment Gateway',
-      'PCI-DSS Compliant Transactions'
+      'PCI-DSS Compliant Transactions',
+      'ScrollSoul Onboarding System',
+      'Sovereign Dashboard with Real-Time Metrics',
+      'Festival of Forever Fun Events & Rewards'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -142,7 +148,10 @@ app.get('/', (req, res) => {
       bioBreath: '/api/bio-breath',
       cosmicScroll: '/api/cosmic-scroll',
       neuralScroll: '/api/neural-scroll',
-      payments: '/api/payments'
+      payments: '/api/payments',
+      onboarding: '/api/onboarding',
+      dashboard: '/api/dashboard',
+      festival: '/api/festival'
     }
   });
 });
@@ -176,6 +185,9 @@ app.use('/api/bio-breath', bioBreathRouter);
 app.use('/api/cosmic-scroll', cosmicScrollRouter);
 app.use('/api/neural-scroll', neuralScrollRouter);
 app.use('/api/payments', paymentRouter);
+app.use('/api/onboarding', scrollSoulOnboardingRouter);
+app.use('/api/dashboard', sovereignDashboardRouter);
+app.use('/api/festival', festivalRouter);
 
 // Error handling middleware
 app.use((err, req, res) => {

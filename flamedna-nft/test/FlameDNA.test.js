@@ -162,15 +162,21 @@ describe("FlameDNA", function () {
   });
 
   describe("Owner Functions", function () {
-    it("Should allow owner to mint to any address", async function () {
-      await flameDNA.ownerMint(addr1.address, "Legendary");
+    it("Should allow owner to mint to any address with rarity index", async function () {
+      await flameDNA.ownerMint(addr1.address, 3); // 3 = Legendary
       expect(await flameDNA.balanceOf(addr1.address)).to.equal(1n);
       expect(await flameDNA.tokenRarity(0)).to.equal("Legendary");
     });
 
+    it("Should allow owner to mint by name (backward compatible)", async function () {
+      await flameDNA.ownerMintByName(addr1.address, "Divine");
+      expect(await flameDNA.balanceOf(addr1.address)).to.equal(1n);
+      expect(await flameDNA.tokenRarity(0)).to.equal("Divine");
+    });
+
     it("Should not allow non-owner to use ownerMint", async function () {
       await expect(
-        flameDNA.connect(addr1).ownerMint(addr2.address, "Common")
+        flameDNA.connect(addr1).ownerMint(addr2.address, 0)
       ).to.be.revertedWithCustomError(flameDNA, "OwnableUnauthorizedAccount");
     });
 
