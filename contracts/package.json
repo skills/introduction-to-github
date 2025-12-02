@@ -1,0 +1,34 @@
+{
+  "name": "anchor-manifest-contracts",
+  "version": "1.0.0",
+  "description": "AnchorManifest Smart Contract - Merkle Root and IPFS CID Anchoring",
+  "author": "OmniTech1™",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "verify:mainnet": "hardhat verify --network mainnet",
+    "clean": "hardhat clean",
+    "node": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "anchor-manifest",
+    "merkle-root",
+    "ipfs-cid",
+    "smart-contracts",
+    "ethereum",
+    "sepolia",
+    "metadata-anchoring"
+  ]
+}
