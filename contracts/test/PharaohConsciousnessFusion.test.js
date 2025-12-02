@@ -307,12 +307,8 @@ describe("PharaohConsciousnessFusion", function () {
         .to.be.revertedWithCustomError(pharaoh, "MintingNotComplete");
     });
 
-    it("Should reject setBaseURI after metadata locked", async function () {
-      // Mint all tokens (for testing, we'll use a lower supply scenario)
-      // In actual tests, we need to mint MAX_SUPPLY tokens
-      // For this test, we'll mock by minting via owner
-      
-      // Mint all 3333 tokens
+    // Helper function to mint all tokens
+    async function mintAllTokens() {
       const batchSize = 100;
       const totalBatches = Math.ceil(3333 / batchSize);
       
@@ -321,6 +317,11 @@ describe("PharaohConsciousnessFusion", function () {
         const toMint = remaining > batchSize ? batchSize : remaining;
         await pharaoh.ownerMint(addr1.address, toMint);
       }
+    }
+
+    it("Should reject setBaseURI after metadata locked", async function () {
+      // Mint all 3333 tokens using helper
+      await mintAllTokens();
       
       expect(await pharaoh.totalMinted()).to.equal(MAX_SUPPLY);
       
@@ -334,15 +335,8 @@ describe("PharaohConsciousnessFusion", function () {
     });
 
     it("Should emit MetadataLocked event", async function () {
-      // Mint all tokens
-      const batchSize = 100;
-      const totalBatches = Math.ceil(3333 / batchSize);
-      
-      for (let i = 0; i < totalBatches; i++) {
-        const remaining = 3333 - (i * batchSize);
-        const toMint = remaining > batchSize ? batchSize : remaining;
-        await pharaoh.ownerMint(addr1.address, toMint);
-      }
+      // Mint all tokens using helper
+      await mintAllTokens();
       
       await expect(pharaoh.lockMetadata())
         .to.emit(pharaoh, "MetadataLocked");

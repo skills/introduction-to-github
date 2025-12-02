@@ -284,17 +284,21 @@ contract PharaohConsciousnessFusion is
     /**
      * @notice Add addresses to allowlist with audit logging
      * @param addresses Array of addresses to add
+     * @dev Gas optimized: caches address in local variable, skips zero addresses and duplicates
      */
     function addToAllowlist(address[] calldata addresses) external onlyOwner {
         if (addresses.length > MAX_BATCH_SIZE) revert BatchSizeTooLarge();
         
         uint256 timestamp = block.timestamp;
+        address sender = msg.sender;
+        uint256 len = addresses.length;
         
         unchecked {
-            for (uint256 i = 0; i < addresses.length; ++i) {
-                if (addresses[i] != address(0) && !allowlist[addresses[i]]) {
-                    allowlist[addresses[i]] = true;
-                    emit AllowlistAdded(addresses[i], msg.sender, timestamp);
+            for (uint256 i = 0; i < len; ++i) {
+                address addr = addresses[i];
+                if (addr != address(0) && !allowlist[addr]) {
+                    allowlist[addr] = true;
+                    emit AllowlistAdded(addr, sender, timestamp);
                 }
             }
         }
@@ -303,17 +307,21 @@ contract PharaohConsciousnessFusion is
     /**
      * @notice Remove addresses from allowlist with audit logging
      * @param addresses Array of addresses to remove
+     * @dev Gas optimized: caches address in local variable, skips addresses not on list
      */
     function removeFromAllowlist(address[] calldata addresses) external onlyOwner {
         if (addresses.length > MAX_BATCH_SIZE) revert BatchSizeTooLarge();
         
         uint256 timestamp = block.timestamp;
+        address sender = msg.sender;
+        uint256 len = addresses.length;
         
         unchecked {
-            for (uint256 i = 0; i < addresses.length; ++i) {
-                if (allowlist[addresses[i]]) {
-                    allowlist[addresses[i]] = false;
-                    emit AllowlistRemoved(addresses[i], msg.sender, timestamp);
+            for (uint256 i = 0; i < len; ++i) {
+                address addr = addresses[i];
+                if (allowlist[addr]) {
+                    allowlist[addr] = false;
+                    emit AllowlistRemoved(addr, sender, timestamp);
                 }
             }
         }
