@@ -81,3 +81,12 @@ yarn-error.log
 .vscode/
 *.swp
 *.swo
+
+# Hardhat #
+###########
+cache/
+artifacts/
+typechain/
+typechain-types/
+coverage/
+coverage.json
