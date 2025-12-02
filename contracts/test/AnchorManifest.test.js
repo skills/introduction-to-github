@@ -11,6 +11,19 @@ describe("AnchorManifest", function () {
   const sampleMerkleRoot = ethers.keccak256(ethers.toUtf8Bytes("test-manifest-data"));
   const sampleIpfsCid = "QmYwAPJzv5CZsnAzt8auVZRn7qWPjSXVEWpRJMuAxFpqhT";
   
+  // Helper function to find ManifestAnchored event and get manifestId
+  function findManifestAnchoredEvent(receipt) {
+    const event = receipt.logs.find(log => {
+      try {
+        return anchorManifest.interface.parseLog(log)?.name === "ManifestAnchored";
+      } catch {
+        return false;
+      }
+    });
+    if (!event) throw new Error("ManifestAnchored event not found");
+    return anchorManifest.interface.parseLog(event);
+  }
+  
   beforeEach(async function () {
     [owner, addr1, addr2] = await ethers.getSigners();
     
@@ -35,15 +48,8 @@ describe("AnchorManifest", function () {
       const receipt = await tx.wait();
       
       // Check event was emitted
-      const event = receipt.logs.find(log => {
-        try {
-          return anchorManifest.interface.parseLog(log)?.name === "ManifestAnchored";
-        } catch {
-          return false;
-        }
-      });
-      
-      expect(event).to.not.be.undefined;
+      const parsedLog = findManifestAnchoredEvent(receipt);
+      expect(parsedLog).to.not.be.undefined;
       expect(await anchorManifest.totalManifests()).to.equal(1);
     });
     
@@ -51,8 +57,8 @@ describe("AnchorManifest", function () {
       const tx = await anchorManifest.connect(addr1).anchorManifest(sampleMerkleRoot, sampleIpfsCid);
       const receipt = await tx.wait();
       
-      // Get manifest ID from event
-      const parsedLog = anchorManifest.interface.parseLog(receipt.logs[0]);
+      // Get manifest ID from event using safe parsing
+      const parsedLog = findManifestAnchoredEvent(receipt);
       const manifestId = parsedLog.args.manifestId;
       
       const manifest = await anchorManifest.getManifest(manifestId);
@@ -111,7 +117,7 @@ describe("AnchorManifest", function () {
     it("Should verify merkle root correctly", async function () {
       const tx = await anchorManifest.anchorManifest(sampleMerkleRoot, sampleIpfsCid);
       const receipt = await tx.wait();
-      const parsedLog = anchorManifest.interface.parseLog(receipt.logs[0]);
+      const parsedLog = findManifestAnchoredEvent(receipt);
       const manifestId = parsedLog.args.manifestId;
       
       expect(await anchorManifest.verifyMerkleRoot(manifestId, sampleMerkleRoot)).to.be.true;
@@ -121,7 +127,7 @@ describe("AnchorManifest", function () {
     it("Should check manifest existence", async function () {
       const tx = await anchorManifest.anchorManifest(sampleMerkleRoot, sampleIpfsCid);
       const receipt = await tx.wait();
-      const parsedLog = anchorManifest.interface.parseLog(receipt.logs[0]);
+      const parsedLog = findManifestAnchoredEvent(receipt);
       const manifestId = parsedLog.args.manifestId;
       
       expect(await anchorManifest.manifestExists(manifestId)).to.be.true;
@@ -131,7 +137,7 @@ describe("AnchorManifest", function () {
     it("Should get manifest by index", async function () {
       const tx = await anchorManifest.anchorManifest(sampleMerkleRoot, sampleIpfsCid);
       const receipt = await tx.wait();
-      const parsedLog = anchorManifest.interface.parseLog(receipt.logs[0]);
+      const parsedLog = findManifestAnchoredEvent(receipt);
       const manifestId = parsedLog.args.manifestId;
       
       expect(await anchorManifest.getManifestIdAtIndex(0)).to.equal(manifestId);

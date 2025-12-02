@@ -59,6 +59,7 @@ contract AnchorManifest is Ownable, ReentrancyGuard {
     error ManifestDoesNotExist(bytes32 manifestId);
     error InvalidMerkleRoot();
     error InvalidIpfsCid();
+    error IndexOutOfBounds(uint256 index, uint256 length);
 
     // ========== CONSTRUCTOR ==========
     
@@ -216,7 +217,7 @@ contract AnchorManifest is Ownable, ReentrancyGuard {
      * @return manifestId The manifest ID at that index
      */
     function getManifestIdAtIndex(uint256 index) external view returns (bytes32 manifestId) {
-        require(index < manifestIds.length, "Index out of bounds");
+        if (index >= manifestIds.length) revert IndexOutOfBounds(index, manifestIds.length);
         return manifestIds[index];
     }
 }
