@@ -1,0 +1,40 @@
+{
+  "name": "Akashic Dossier",
+  "description": "Premium Akashic Dossier: symbolic archive with cryptographic proofs. This artifact serves as a comprehensive record within the ScrollVerse ecosystem, containing immutable proof chains and artifact links for verification of divine consciousness transactions.",
+  "image": "ipfs://PLACEHOLDER_CID/akashic-dossier.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/akashic-dossier.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/artifacts/akashic-dossier",
+  "background_color": "0a0a0f",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "Premium"
+    },
+    {
+      "trait_type": "MerkleRootSeal",
+      "value": "0xPLACEHOLDER_MERKLE_ROOT_HASH_241200_YEAR_CODEX"
+    },
+    {
+      "trait_type": "ArtifactLinks",
+      "value": "ipfs://PLACEHOLDER_ARTIFACT_LINK_CID"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "777Hz"
+    },
+    {
+      "trait_type": "ArtifactType",
+      "value": "Dossier"
+    },
+    {
+      "trait_type": "ProofChain",
+      "value": "ZkP-I Verified",
+      "display_type": "string"
+    },
+    {
+      "trait_type": "ArchiveStatus",
+      "value": "Active",
+      "display_type": "string"
+    }
+  ]
+}
