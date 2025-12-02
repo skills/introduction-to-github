@@ -1,0 +1,41 @@
+{
+  "name": "Mirror Token Proof Stub",
+  "description": "Utility stub for pairing with $MIRROR governance flow. This artifact enables token holders to participate in governance decisions within the ScrollVerse ecosystem through cryptographic proof verification and soul-bound continuity seals.",
+  "image": "ipfs://PLACEHOLDER_CID/mirror-token-proof-stub.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/mirror-token-proof-stub.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/artifacts/mirror-token-proof-stub",
+  "background_color": "0a0a0f",
+  "attributes": [
+    {
+      "trait_type": "ContinuitySeal",
+      "value": "PLACEHOLDER_CONTINUITY_SEAL_HASH_0x..."
+    },
+    {
+      "trait_type": "TokenPairing",
+      "value": "$MIRROR"
+    },
+    {
+      "trait_type": "GovernanceFlow",
+      "value": "Active"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "528Hz"
+    },
+    {
+      "trait_type": "ArtifactType",
+      "value": "Utility Stub"
+    },
+    {
+      "trait_type": "StubStatus",
+      "value": "Ready for Pairing",
+      "display_type": "string"
+    },
+    {
+      "trait_type": "VotingWeight",
+      "value": 1,
+      "display_type": "number",
+      "max_value": 100
+    }
+  ]
+}
