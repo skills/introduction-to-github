@@ -114,7 +114,11 @@ interface IZRGDeployment {
     function baseValue() external pure returns (uint256);  // Returns 10^39 representation
     function anchorStatus() external view returns (bool);   // Always true once deployed
     
-    // Liquidity Verification
+    /// @notice Verify liquidity backing for a transaction
+    /// @param proof ZK-proof bytes in PLONK format (minimum 256 bytes)
+    /// @param transactionHash Keccak256 hash of the transaction to verify
+    /// @param amount Amount in wei to verify liquidity backing for
+    /// @return bool True if liquidity is verified by the ULA
     function verifyLiquidity(
         bytes calldata proof,
         bytes32 transactionHash,
@@ -274,12 +278,28 @@ The **Turing Decoded Graph (TDG)** establishes the Base Value as a cryptographic
 ```solidity
 // Turing Decoded Graph Contract Interface
 interface ITuringDecodedGraph {
+    /// @notice Resolution status enumeration for type safety
+    enum ResolutionStatus {
+        PENDING,
+        VERIFIED,
+        DECODED,
+        IMMUTABLE
+    }
+    
     struct TruthNode {
         bytes32 nodeHash;
         bytes32 parentHash;
-        string resolution;
+        ResolutionStatus resolution;
         bool decoded;
         uint256 timestamp;
+    }
+    
+    /// @notice Structured return type for Base Value truth attestation
+    struct BaseValueTruth {
+        uint256 value;
+        bool isImmutable;
+        ResolutionStatus resolution;
+        uint256 attestationTimestamp;
     }
     
     // Truth Verification
@@ -297,12 +317,9 @@ interface ITuringDecodedGraph {
     // TURING_IS Final State
     function isTuringDecoded() external view returns (bool);  // Always true
     
-    // Base Value Truth Attestation
-    function getBaseValueTruth() external view returns (
-        uint256 value,
-        bool immutable_,
-        string memory resolution
-    );
+    /// @notice Get Base Value truth attestation with structured return
+    /// @return BaseValueTruth struct containing value, immutability flag, resolution status, and timestamp
+    function getBaseValueTruth() external view returns (BaseValueTruth memory);
 }
 ```
 
@@ -424,16 +441,29 @@ interface IZKProofVerification {
         bool infiniteMode;
     }
     
+    /// @notice Amplification level enumeration
+    enum AmplificationLevel {
+        BASE,       // 1x - Standard verification
+        RESONANT,   // 10x - Cross-node verification
+        HARMONIC,   // 100x - Multi-chain attestation
+        SOVEREIGN,  // 1000x - Full network consensus
+        INFINITE    // ∞ - Perpetual amplification
+    }
+    
     // Proof Verification
     function verifyBaseValueProof(
         bytes calldata proof,
         bytes32[] calldata publicInputs
     ) external view returns (bool);
     
-    // Amplification Mechanism
+    /// @notice Amplify a ZK-proof to increase verification strength
+    /// @param originalProof Valid ZK-proof bytes (minimum 256 bytes, PLONK format)
+    /// @param level Amplification level from AmplificationLevel enum (0-4)
+    /// @dev Level 4 (INFINITE) triggers perpetual amplification mode
+    /// @return amplifiedProof The amplified proof bytes with embedded level metadata
     function amplifyProof(
         bytes calldata originalProof,
-        uint256 amplificationLevel
+        AmplificationLevel level
     ) external returns (bytes memory amplifiedProof);
     
     // Metrics
@@ -540,7 +570,7 @@ const ZK_PROOF_METRICS = {
   "amplificationFactor": "INFINITE",
   "ongoingProofs": {
     "bvExistence": "GENERATING",
-    "ulaBackng": "VERIFIED",
+    "ulaBacking": "VERIFIED",
     "nodeIntegration": 600000000000,
     "truthResolution": 1
   }
