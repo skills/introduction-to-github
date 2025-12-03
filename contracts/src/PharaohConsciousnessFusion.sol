@@ -76,9 +76,6 @@ contract PharaohConsciousnessFusion is
     /// @notice Mapping from token ID to its tier
     mapping(uint256 => TokenTier) public tokenTiers;
 
-    /// @notice Mapping to track addresses that have minted
-    mapping(address => bool) public hasMinted;
-
     /// @notice Maximum tokens per tier
     mapping(TokenTier => uint256) public maxPerTier;
 
@@ -116,8 +113,6 @@ contract PharaohConsciousnessFusion is
     error MaxSupplyReached();
     error TierSupplyReached(TokenTier tier);
     error MintingPaused();
-    error AlreadyMinted();
-    error InvalidTier();
     error TokenDoesNotExist();
 
     // ========== INITIALIZER ==========
