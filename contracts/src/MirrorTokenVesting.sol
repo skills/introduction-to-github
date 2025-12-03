@@ -123,6 +123,8 @@ contract MirrorTokenVesting is Ownable, ReentrancyGuard {
     error NoTokensAvailable();
     error InsufficientContractBalance(uint256 required, uint256 available);
     error CliffNotReached(uint256 cliffEnd, uint256 currentTime);
+    error ArrayLengthMismatch(uint256 beneficiariesLength, uint256 allocationsLength);
+    error IndexOutOfBounds(uint256 index, uint256 length);
 
     // ========== CONSTRUCTOR ==========
 
@@ -188,7 +190,9 @@ contract MirrorTokenVesting is Ownable, ReentrancyGuard {
         uint256[] calldata _allocations
     ) external onlyOwner {
         if (isFinalized) revert AlreadyFinalized();
-        require(_beneficiaries.length == _allocations.length, "Arrays length mismatch");
+        if (_beneficiaries.length != _allocations.length) {
+            revert ArrayLengthMismatch(_beneficiaries.length, _allocations.length);
+        }
         
         uint256 batchTotal = 0;
         for (uint256 i = 0; i < _beneficiaries.length; i++) {
@@ -314,7 +318,9 @@ contract MirrorTokenVesting is Ownable, ReentrancyGuard {
      * @return Beneficiary address
      */
     function getBeneficiaryAtIndex(uint256 _index) external view returns (address) {
-        require(_index < beneficiaryList.length, "Index out of bounds");
+        if (_index >= beneficiaryList.length) {
+            revert IndexOutOfBounds(_index, beneficiaryList.length);
+        }
         return beneficiaryList[_index];
     }
 

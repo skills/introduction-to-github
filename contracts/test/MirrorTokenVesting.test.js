@@ -194,7 +194,7 @@ describe("MirrorTokenVesting", function () {
             
             await expect(
                 vestingContract.addBeneficiariesBatch(beneficiaries, allocations)
-            ).to.be.revertedWith("Arrays length mismatch");
+            ).to.be.revertedWithCustomError(vestingContract, "ArrayLengthMismatch");
         });
         
         it("Should revert if batch total exceeds remaining allocation", async function () {
@@ -463,7 +463,7 @@ describe("MirrorTokenVesting", function () {
         it("Should revert if index out of bounds", async function () {
             await expect(
                 vestingContract.getBeneficiaryAtIndex(5)
-            ).to.be.revertedWith("Index out of bounds");
+            ).to.be.revertedWithCustomError(vestingContract, "IndexOutOfBounds");
         });
         
         it("Should return correct beneficiary vesting info", async function () {
