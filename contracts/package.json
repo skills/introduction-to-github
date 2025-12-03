@@ -1,7 +1,7 @@
 {
-  "name": "anchor-manifest-contracts",
+  "name": "scrollverse-contracts",
   "version": "1.0.0",
-  "description": "AnchorManifest Smart Contract - Merkle Root and IPFS CID Anchoring",
+  "description": "ScrollVerse Smart Contracts - AnchorManifest, MirrorToken, and PharaohConsciousnessFusion",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,9 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:pfc:local": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network hardhat",
+    "deploy:pfc:sepolia": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network sepolia",
+    "deploy:pfc:mainnet": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -19,6 +22,8 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@openzeppelin/contracts": "^5.0.0",
+    "@openzeppelin/contracts-upgradeable": "^5.0.0",
+    "@openzeppelin/hardhat-upgrades": "^3.0.0",
     "hardhat": "^2.19.0",
     "dotenv": "^16.3.1"
   },
@@ -29,6 +34,12 @@
     "smart-contracts",
     "ethereum",
     "sepolia",
-    "metadata-anchoring"
+    "metadata-anchoring",
+    "nft",
+    "pharaoh-consciousness-fusion",
+    "scrollverse",
+    "dao-governance",
+    "uups-proxy",
+    "erc721"
   ]
 }
