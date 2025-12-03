@@ -1,7 +1,7 @@
 {
-  "name": "anchor-manifest-contracts",
+  "name": "scrollverse-contracts",
   "version": "1.0.0",
-  "description": "AnchorManifest Smart Contract - Merkle Root and IPFS CID Anchoring",
+  "description": "ScrollVerse Smart Contracts - MirrorToken, AnchorManifest, and Ecosystem Infrastructure",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,12 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:mirror:local": "hardhat run scripts/deployMirrorToken.js --network hardhat",
+    "deploy:mirror:sepolia": "hardhat run scripts/deployMirrorToken.js --network sepolia",
+    "deploy:mirror:mainnet": "hardhat run scripts/deployMirrorToken.js --network mainnet",
+    "distribute:mirror:local": "hardhat run scripts/initializeMirrorDistribution.js --network hardhat",
+    "distribute:mirror:sepolia": "hardhat run scripts/initializeMirrorDistribution.js --network sepolia",
+    "distribute:mirror:mainnet": "hardhat run scripts/initializeMirrorDistribution.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -23,12 +29,15 @@
     "dotenv": "^16.3.1"
   },
   "keywords": [
+    "scrollverse",
+    "mirror-token",
+    "erc20-votes",
+    "governance",
     "anchor-manifest",
     "merkle-root",
     "ipfs-cid",
     "smart-contracts",
     "ethereum",
-    "sepolia",
-    "metadata-anchoring"
+    "sepolia"
   ]
 }
