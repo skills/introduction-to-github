@@ -11,6 +11,9 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:timelock:local": "hardhat run scripts/deploy-timelock.js --network hardhat",
+    "deploy:timelock:sepolia": "hardhat run scripts/deploy-timelock.js --network sepolia",
+    "deploy:timelock:mainnet": "hardhat run scripts/deploy-timelock.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -29,6 +32,10 @@
     "smart-contracts",
     "ethereum",
     "sepolia",
-    "metadata-anchoring"
+    "metadata-anchoring",
+    "scrollverse",
+    "dao",
+    "timelock-controller",
+    "governance"
   ]
 }
