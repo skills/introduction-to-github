@@ -100,20 +100,10 @@ describe("ScrollVerse Genesis Sequence - TimelockController", function () {
     });
     
     it("Should allow owner to create proposals", async function () {
-      const tx = await scrollVerseDAO.createProposal("Test proposal for ScrollVerse");
-      const receipt = await tx.wait();
+      await expect(scrollVerseDAO.createProposal("Test proposal for ScrollVerse"))
+        .to.emit(scrollVerseDAO, "ProposalCreated");
       
       expect(await scrollVerseDAO.getProposalCount()).to.equal(1);
-      
-      // Check for ProposalCreated event
-      const event = receipt.logs.find(log => {
-        try {
-          return scrollVerseDAO.interface.parseLog(log)?.name === "ProposalCreated";
-        } catch {
-          return false;
-        }
-      });
-      expect(event).to.not.be.undefined;
     });
     
     it("Should reject non-owner creating proposals", async function () {

@@ -95,7 +95,8 @@ contract ScrollVerseDAO is Ownable, ReentrancyGuard {
         nonReentrant 
         returns (uint256 proposalId) 
     {
-        proposalId = proposalCount++;
+        proposalId = proposalCount;
+        proposalCount++;
         
         emit ProposalCreated(proposalId, msg.sender, description, block.timestamp);
         

@@ -122,6 +122,16 @@ async function main() {
   console.log("  - EXECUTOR_ROLE:", hasExecutorRole ? "✅ Granted" : "❌ Not granted");
   console.log("  - CANCELLER_ROLE:", hasCancellerRole ? "✅ Granted" : "❌ Not granted");
   
+  // Etherscan network mapping for supported networks
+  const etherscanNetworks = {
+    mainnet: "",
+    sepolia: "sepolia.",
+    goerli: "goerli.",
+    holesky: "holesky."
+  };
+  const etherscanPrefix = etherscanNetworks[network.name];
+  const hasEtherscan = etherscanPrefix !== undefined;
+  
   // Output deployment summary
   console.log("\n" + "=".repeat(70));
   console.log("SCROLLVERSE GENESIS SEQUENCE - DEPLOYMENT SUMMARY");
@@ -157,12 +167,14 @@ Verification Commands:
 ----------------------
 npx hardhat verify --network ${network.name} ${daoAddress} ${deployer.address}
 npx hardhat verify --network ${network.name} ${timelockAddress} ${MIN_DELAY} "[${daoAddress}]" "[${daoAddress}]" ${deployer.address}
-
+${hasEtherscan ? `
 Etherscan Links:
 ----------------
-ScrollVerseDAO: https://${network.name === "mainnet" ? "" : network.name + "."}etherscan.io/address/${daoAddress}
-TimelockController: https://${network.name === "mainnet" ? "" : network.name + "."}etherscan.io/address/${timelockAddress}
-
+ScrollVerseDAO: https://${etherscanPrefix}etherscan.io/address/${daoAddress}
+TimelockController: https://${etherscanPrefix}etherscan.io/address/${timelockAddress}
+` : `
+Note: Etherscan links not available for ${network.name} network.
+`}
 Timestamp: ${new Date().toISOString()}
 `);
 
