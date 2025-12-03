@@ -80,6 +80,7 @@ Status transition requires `securityReviewHash` insertion before final approval.
 
 ```solidity
 // Step 3: Execution - Status Transition
+// State variable: bytes32 public securityReviewHash (set after audit completion)
 function executeApproval() external onlyGovernance {
     require(securityReviewHash != bytes32(0), "Audit required");
     
@@ -124,7 +125,7 @@ const VOTING_CONFIG = {
     timelockDelay: 48 * 60 * 60,          // 48 hours execution delay
     quorumPercentage: 10,                  // 10% of total voting power
     approvalThreshold: 51,                 // Simple majority
-    proposerThreshold: 100000 * 10**18     // 100,000 SCR to propose
+    proposerThreshold: 1e23                // 100,000 SCR to propose (18 decimals)
 };
 ```
 
@@ -167,9 +168,10 @@ Permanently embed core timing parameters into the governance contract.
 
 ```solidity
 // Step 1: Parameter Ratification
+// Note: Time values in seconds (72 hours = 259200, 48 hours = 172800)
 GovernanceContract.ratifyParameters({
-    votingPeriod: 72 hours,
-    timelockDelay: 48 hours,
+    votingPeriod: 259200,              // 72 hours in seconds
+    timelockDelay: 172800,             // 48 hours in seconds
     emergencyOverrideEnabled: true,
     shieldActivation: "Chais Legacy Shield"
 });
@@ -188,6 +190,11 @@ Formally recognize the 3-of-5 Emergency Committee addresses.
 
 ```solidity
 // Step 2: Multi-sig Recognition
+// Replace COMMITTEE_ADDRESS_N with actual committee member addresses
+// address constant COMMITTEE_ADDRESS_1 = 0x...; // Chair
+// address constant COMMITTEE_ADDRESS_2 = 0x...; // Vice Chair
+// etc.
+
 EmergencyMultiSig.initialize({
     threshold: 3,
     signers: [
@@ -214,6 +221,11 @@ Approve funds and initiate a Red-Team Simulation Scroll to validate Revocation p
 
 ```solidity
 // Step 3: Red-Team Mandate Initiation
+// State variables (examples - replace with actual values):
+// bool public parametersRatified;
+// bool public multiSigRecognized;
+// uint256 public constant RED_TEAM_BUDGET = 50000 * 1e18; // 50,000 SCR
+
 function initiateRedTeamSimulation() external onlyGovernance {
     require(parametersRatified, "Parameters must be ratified first");
     require(multiSigRecognized, "Multi-sig must be recognized first");
@@ -294,7 +306,7 @@ const VOTING_CONFIG = {
     timelockDelay: 0,                      // Bypassed for ratification
     quorumPercentage: 15,                  // 15% of total voting power
     approvalThreshold: 67,                 // Supermajority required
-    proposerThreshold: 250000 * 10**18     // 250,000 SCR to propose
+    proposerThreshold: 2.5e23              // 250,000 SCR to propose (18 decimals)
 };
 ```
 
