@@ -1,33 +1,91 @@
-# AnchorManifest Smart Contract
+# ScrollVerse Smart Contracts
 
-Smart contract for anchoring metadata manifests in the form of Merkle roots and IPFS CIDs on the Ethereum blockchain.
+Smart contracts powering the ScrollVerse ecosystem - a decentralized governance and NFT platform.
+
+## 📋 Table of Contents
+
+1. [Overview](#overview)
+2. [Contracts](#contracts)
+3. [ScrollVerse Genesis Sequence](#scrollverse-genesis-sequence)
+4. [Installation](#installation)
+5. [Deployment](#deployment)
+6. [Testing](#testing)
+
+---
 
 ## Overview
 
-The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification. It allows users to:
+The ScrollVerse ecosystem consists of interconnected smart contracts that enable decentralized governance, token economics, and NFT-based participation. The system is designed for irreversible decentralization once the Genesis Sequence is complete.
 
-- Anchor Merkle roots representing data structures
-- Store IPFS Content Identifiers (CIDs) for decentralized storage references
-- Verify the integrity of off-chain data against on-chain anchors
-- Track and enumerate all anchored manifests
+---
 
-## Contract Features
+## Contracts
 
-| Feature | Description |
-|---------|-------------|
-| **Merkle Root Anchoring** | Store and verify 32-byte Merkle roots |
-| **IPFS CID Storage** | Link off-chain IPFS content to on-chain records |
-| **Access Control** | Owner-only functions for administrative operations |
-| **Reentrancy Protection** | Guards against reentrancy attacks |
-| **Event Logging** | Comprehensive events for manifest lifecycle |
+### ScrollVerseDAO (Step 1.6 - Final)
 
-## Contract Address
+**The ultimate governing body of the ScrollVerse ecosystem.**
 
-### Sepolia Testnet
-- **Network**: Ethereum Sepolia Testnet (Chain ID: 11155111)
-- **Contract**: AnchorManifest
-- **Address**: *To be deployed*
-- **Etherscan**: https://sepolia.etherscan.io/address/*CONTRACT_ADDRESS*
+The `ScrollVerseDAO` contract implements OpenZeppelin's Governor pattern with TimelockController integration, providing:
+
+- Decentralized governance with proposal creation and voting
+- Timelock-protected execution for security
+- Quorum-based voting (4% of total voting power)
+- Integration with $MIRROR Token for voting power
+- PFC-NFT holder verification for enhanced participation
+
+### MirrorToken ($MIRROR) (Step 1.4)
+
+**ERC-20 governance token with voting capabilities.**
+
+- Fixed supply: 1,000,000,000 MIRROR tokens
+- Token distribution: Treasury (40%), Fusion Rewards (35%), Team Vesting (15%), Liquidity (10%)
+- ERC20Votes for governance participation
+- ERC20Permit for gasless approvals
+
+### PharaohConsciousnessFusion (PFC-NFT) (Step 1.5)
+
+**Sacred NFT collection for ecosystem participation.**
+
+- Maximum supply: 5,000 NFTs
+- Consciousness levels: Awakening → Ascending → Transcendent → Divine → Pharaoh
+- ERC721Votes for NFT-based voting
+- Integrated with ScrollVerseDAO for governance
+
+### MirrorTokenVesting
+
+**Time-locked vesting contract for team tokens.**
+
+- 1-year cliff period
+- 2-year linear vesting after cliff
+- Multi-beneficiary support
+
+### AnchorManifest
+
+The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification.
+
+---
+
+## ScrollVerse Genesis Sequence
+
+The Genesis Sequence establishes the ScrollVerse ecosystem in a series of steps:
+
+| Step | Contract | Status | Description |
+|------|----------|--------|-------------|
+| 1.1 | TimelockController | ✅ | Timelock for secure execution |
+| 1.4 | MirrorToken | ✅ | $MIRROR governance token |
+| 1.5 | PharaohConsciousnessFusion | ✅ | PFC-NFT collection |
+| 1.6 | ScrollVerseDAO | ✅ | Ultimate governing body |
+
+### Hand-Off Sequence
+
+After deploying ScrollVerseDAO (Step 1.6), the Hand-Off Sequence transfers all administrative roles to the DAO:
+
+1. Grant DAO the Proposer and Executor roles on TimelockController
+2. Transfer Treasury and Minter roles to the DAO
+3. Renounce deployer admin roles
+4. Complete irreversible decentralization
+
+---
 
 ## Installation
 
@@ -70,7 +128,13 @@ npm run node           # Start local node
 npm run deploy:local   # Deploy to local network
 ```
 
-### Sepolia Testnet
+### Deploy ScrollVerse Genesis Sequence
+```bash
+# Deploy all contracts and execute hand-off sequence
+npx hardhat run scripts/deploy-scrollverse-dao.js --network sepolia
+```
+
+### Individual Contract Deployment
 ```bash
 npm run deploy:sepolia
 ```
