@@ -55,7 +55,7 @@ All external transfer functions and integration points must include this modifie
 | **Realm** | UE5 Immersive Realms |
 | **Action** | Register in ProtocolRegistry |
 | **Status** | Approved |
-| **Rationale** | Solidify the protection of divine aesthetics within the immersive environment. |
+| **Rationale** | Enable secure asset rendering and visual effect management through approved on-chain verification, ensuring only validated contracts can interact with the immersive realm infrastructure. |
 
 **Registration Parameters:**
 
@@ -74,7 +74,7 @@ All external transfer functions and integration points must include this modifie
 | **Domain** | Divine Economy |
 | **Action** | Register in ProtocolRegistry |
 | **Status** | Proposed (Community Review) |
-| **Rationale** | Propose the contract that governs the 15% Royalty Loop to the Proposed status for community review. |
+| **Rationale** | Enable community review of the automated royalty distribution mechanism before full approval, ensuring transparent and fair creator compensation across the Divine Economy. |
 
 **Royalty Loop Specification:**
 
