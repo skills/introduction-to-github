@@ -57,7 +57,7 @@ function initAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 // Staggered animation for smoother progressive reveal
-                const delay = entry.target.dataset.animationDelay || 0;
+                const delay = parseInt(entry.target.dataset.animationDelay, 10) || 0;
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
                     entry.target.classList.remove('animate-ready');
@@ -87,10 +87,15 @@ function initAnimations() {
         '.about-card, .project-card, .project-card-full, .blockchain-card, .stat-card, .info-card, .tier-item, .rarity-item, .feature-card'
     );
     
+    // 6 represents the sacred hexagonal pattern in cosmic geometry,
+    // creating a harmonious visual rhythm as elements reveal
+    const SACRED_STAGGER_GROUP = 6;
+    const STAGGER_DELAY_MS = 100;
+    
     animatableElements.forEach((el, index) => {
         el.classList.add('animate-ready');
         // Stagger animations based on position (aligned with sacred geometry)
-        el.dataset.animationDelay = (index % 6) * 100;
+        el.dataset.animationDelay = (index % SACRED_STAGGER_GROUP) * STAGGER_DELAY_MS;
         animationObserver.observe(el);
     });
     
@@ -118,6 +123,10 @@ function initNavHighlight() {
  * Creates cosmic frequency resonance sounds using Web Audio API
  * Frequencies aligned with sacred healing frequencies (432Hz, 528Hz, 777Hz, 963Hz, 369Hz)
  */
+
+// Store AudioContext constructor reference outside for performance
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
 const ScrollVerseSoundEngine = {
     audioContext: null,
     initialized: false,
@@ -137,9 +146,8 @@ const ScrollVerseSoundEngine = {
         
         try {
             // Create audio context on first user interaction (required by browsers)
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) {
-                this.audioContext = new AudioContext();
+            if (AudioContextClass) {
+                this.audioContext = new AudioContextClass();
                 this.initialized = true;
             }
         } catch (e) {
