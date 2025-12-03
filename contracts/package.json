@@ -1,7 +1,7 @@
 {
-  "name": "anchor-manifest-contracts",
-  "version": "1.0.0",
-  "description": "AnchorManifest Smart Contract - Merkle Root and IPFS CID Anchoring",
+  "name": "scrollverse-contracts",
+  "version": "1.1.0",
+  "description": "ScrollVerse Ecosystem Smart Contracts - Protocol Registry, AnchorManifest, and More",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,9 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:registry:local": "hardhat run scripts/deploy-protocol-registry.js --network hardhat",
+    "deploy:registry:sepolia": "hardhat run scripts/deploy-protocol-registry.js --network sepolia",
+    "deploy:registry:mainnet": "hardhat run scripts/deploy-protocol-registry.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -23,12 +26,15 @@
     "dotenv": "^16.3.1"
   },
   "keywords": [
+    "scrollverse",
+    "protocol-registry",
+    "security-layer",
     "anchor-manifest",
     "merkle-root",
     "ipfs-cid",
     "smart-contracts",
     "ethereum",
     "sepolia",
-    "metadata-anchoring"
+    "dao-governance"
   ]
 }
