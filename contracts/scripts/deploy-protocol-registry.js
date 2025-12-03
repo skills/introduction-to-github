@@ -1,4 +1,5 @@
 const { ethers } = require("hardhat");
+const fs = require("fs");
 
 /**
  * Deployment script for ProtocolRegistry contract
@@ -96,7 +97,6 @@ POST-DEPLOYMENT STEPS:
     ]
   };
 
-  const fs = require("fs");
   const deploymentPath = `./deployments/protocol-registry-${network.name}-${network.chainId}.json`;
 
   // Ensure deployments directory exists

@@ -65,9 +65,13 @@ describe("ProtocolRegistry", function () {
 
   describe("Governor Transfer", function () {
     it("Should allow governor to transfer governance", async function () {
-      await expect(protocolRegistry.transferGovernor(daoTimelock.address))
+      const tx = await protocolRegistry.transferGovernor(daoTimelock.address);
+      const receipt = await tx.wait();
+      const block = await ethers.provider.getBlock(receipt.blockNumber);
+
+      await expect(tx)
         .to.emit(protocolRegistry, "GovernorTransferred")
-        .withArgs(owner.address, daoTimelock.address, await getBlockTimestamp());
+        .withArgs(owner.address, daoTimelock.address, block.timestamp);
 
       expect(await protocolRegistry.governor()).to.equal(daoTimelock.address);
     });
