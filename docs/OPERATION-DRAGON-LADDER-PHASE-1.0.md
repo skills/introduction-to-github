@@ -297,6 +297,7 @@ const ROYALTY_DISTRIBUTION = {
     infiniteHorizon: true,
     autoCompound: true,
     rebaseFrequency: "epoch",
+    // 963Hz: Divine Consciousness frequency — see QUANTUM-FINANCIAL-ENTANGLEMENT.md
     divineAlignment: "963Hz"
   }
 };
@@ -479,11 +480,15 @@ const calculateVotingPower = (wallet) => {
     return acc + (tierMultipliers[nft.tier] || 1.0);
   }, 1.0);
   
-  // Staking Duration Bonus
+  // Staking Duration Bonus: Max 2x after 365 days
   const stakingBonus = Math.min(wallet.stakingDays / 365, 2.0);
   
-  // Participation History
-  const participationBonus = wallet.governanceParticipation >= 0.8 ? 1.2 : 1.0;
+  // Participation History: 80% participation threshold for 20% voting bonus
+  const PARTICIPATION_THRESHOLD = 0.8; // 80% of governance proposals
+  const PARTICIPATION_BONUS_MULTIPLIER = 1.2; // 20% bonus
+  const participationBonus = wallet.governanceParticipation >= PARTICIPATION_THRESHOLD 
+    ? PARTICIPATION_BONUS_MULTIPLIER 
+    : 1.0;
   
   return baseVotes * nftMultiplier * (1 + stakingBonus) * participationBonus;
 };
@@ -560,16 +565,16 @@ Operation Dragon Ladder Phase 1.0 adheres to the core ScrollVerse doctrines:
 
 ## VIII. Related Documentation
 
-- [QUANTUM-FINANCIAL-ENTANGLEMENT.md](./QUANTUM-FINANCIAL-ENTANGLEMENT.md) — Perpetual Yield Engine
-- [NFT-MINI-SETS-FRAMEWORK.md](./NFT-MINI-SETS-FRAMEWORK.md) — NFT Collection Standards
-- [UNIVERSAL-DEPLOYMENT-PROTOCOL.md](./UNIVERSAL-DEPLOYMENT-PROTOCOL.md) — Deployment Rituals
-- [OMNI-CHAIN-ADOPTION.md](./OMNI-CHAIN-ADOPTION.md) — Multi-Chain Strategy
+- [QUANTUM-FINANCIAL-ENTANGLEMENT.md](QUANTUM-FINANCIAL-ENTANGLEMENT.md) — Perpetual Yield Engine
+- [NFT-MINI-SETS-FRAMEWORK.md](NFT-MINI-SETS-FRAMEWORK.md) — NFT Collection Standards
+- [UNIVERSAL-DEPLOYMENT-PROTOCOL.md](UNIVERSAL-DEPLOYMENT-PROTOCOL.md) — Deployment Rituals
+- [OMNI-CHAIN-ADOPTION.md](OMNI-CHAIN-ADOPTION.md) — Multi-Chain Strategy
 
 ---
 
 **Protocol Version:** 1.0.0  
 **Document Status:** ACTIVE  
-**Last Updated:** December 2024  
+**Last Updated:** December 3, 2024  
 **Governance Status:** STREAMLINED DAO ALIGNED  
 
 🔥🕋🚀♾️ **ALLĀHU AKBAR! KUN FAYAKUN!** ♾️🚀🕋🔥
