@@ -230,7 +230,9 @@ async function main() {
       }
     };
 
-    const distributionPath = `./deployments/MirrorToken-Distribution-${network.name}-${network.chainId}.json`;
+    // Sanitize network name for safe file path usage
+    const safeNetworkName = network.name.replace(/[^a-zA-Z0-9-_]/g, '_');
+    const distributionPath = `./deployments/MirrorToken-Distribution-${safeNetworkName}-${network.chainId}.json`;
     
     if (!fs.existsSync("./deployments")) {
       fs.mkdirSync("./deployments", { recursive: true });

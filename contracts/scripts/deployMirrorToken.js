@@ -172,7 +172,9 @@ View on Etherscan:
   };
   
   const fs = require("fs");
-  const deploymentPath = `./deployments/MirrorToken-${network.name}-${network.chainId}.json`;
+  // Sanitize network name for safe file path usage
+  const safeNetworkName = network.name.replace(/[^a-zA-Z0-9-_]/g, '_');
+  const deploymentPath = `./deployments/MirrorToken-${safeNetworkName}-${network.chainId}.json`;
   
   // Ensure deployments directory exists
   if (!fs.existsSync("./deployments")) {
