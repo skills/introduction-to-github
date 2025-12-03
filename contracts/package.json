@@ -11,6 +11,12 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:vesting:local": "hardhat run scripts/deploy-vesting.js --network hardhat",
+    "deploy:vesting:sepolia": "hardhat run scripts/deploy-vesting.js --network sepolia",
+    "deploy:vesting:mainnet": "hardhat run scripts/deploy-vesting.js --network mainnet",
+    "transfer:vesting:local": "hardhat run scripts/transfer-to-vesting.js --network hardhat",
+    "transfer:vesting:sepolia": "hardhat run scripts/transfer-to-vesting.js --network sepolia",
+    "transfer:vesting:mainnet": "hardhat run scripts/transfer-to-vesting.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -29,6 +35,9 @@
     "smart-contracts",
     "ethereum",
     "sepolia",
-    "metadata-anchoring"
+    "metadata-anchoring",
+    "mirror-token",
+    "vesting",
+    "scrollverse"
   ]
 }
