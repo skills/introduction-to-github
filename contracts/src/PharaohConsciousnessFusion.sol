@@ -96,9 +96,6 @@ contract PharaohConsciousnessFusion is
     /// @notice Address of the treasury for minting proceeds
     address public treasuryAddress;
 
-    /// @notice Consciousness level names for display
-    string[5] private _levelNames = ["Awakening", "Ascending", "Transcendent", "Divine", "Pharaoh"];
-
     // ========== EVENTS ==========
 
     /// @notice Emitted when a new token is minted
@@ -370,6 +367,20 @@ contract PharaohConsciousnessFusion is
     // ========== VIEW FUNCTIONS ==========
 
     /**
+     * @notice Get the level name for a consciousness level
+     * @param level The consciousness level
+     * @return The name as a string
+     * @dev Uses a pure function to avoid storage reads for gas efficiency
+     */
+    function _getLevelName(ConsciousnessLevel level) internal pure returns (string memory) {
+        if (level == ConsciousnessLevel.Awakening) return "Awakening";
+        if (level == ConsciousnessLevel.Ascending) return "Ascending";
+        if (level == ConsciousnessLevel.Transcendent) return "Transcendent";
+        if (level == ConsciousnessLevel.Divine) return "Divine";
+        return "Pharaoh";
+    }
+
+    /**
      * @notice Get the consciousness level of a token
      * @param tokenId Token ID to check
      * @return level The consciousness level as enum
@@ -382,7 +393,7 @@ contract PharaohConsciousnessFusion is
         if (tokenId >= _nextTokenId) revert TokenDoesNotExist(tokenId);
         
         level = tokenData[tokenId].level;
-        levelName = _levelNames[uint8(level)];
+        levelName = _getLevelName(level);
     }
 
     /**

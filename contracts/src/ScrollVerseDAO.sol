@@ -59,9 +59,6 @@ contract ScrollVerseDAO is
     /// @notice Role identifier for treasury managers
     bytes32 public constant TREASURY_ROLE = keccak256("TREASURY_ROLE");
 
-    /// @notice Minimum proposal threshold (tokens needed to create a proposal)
-    uint256 public constant MIN_PROPOSAL_THRESHOLD = 100_000 * 10**18; // 100,000 MIRROR
-
     // ========== STATE VARIABLES ==========
 
     /// @notice Address of the $MIRROR governance token
@@ -75,9 +72,6 @@ contract ScrollVerseDAO is
 
     /// @notice Flag indicating if hand-off sequence is complete
     bool public handOffComplete;
-
-    /// @notice Mapping of addresses that have PFC-NFT for enhanced participation
-    mapping(address => bool) public pfcHolders;
 
     /// @notice Proposal count for tracking
     uint256 public proposalCount;
