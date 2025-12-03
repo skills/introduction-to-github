@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
  * @title ScrollVerseDAO
@@ -34,10 +35,13 @@ contract ScrollVerseDAO is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
+    using Strings for uint256;
+    using Strings for address;
+
     // ========== CONSTANTS ==========
 
     /// @notice Proposal threshold: 100,000 MIRROR tokens required to create a proposal
-    uint256 public constant PROPOSAL_THRESHOLD = 100_000 * 10**18;
+    uint256 public constant PROPOSAL_THRESHOLD = 100_000 * 1e18;
 
     // ========== STATE VARIABLES ==========
 
@@ -221,50 +225,9 @@ contract ScrollVerseDAO is
             "Upon successful proposal approval, the DAO Treasury will transfer the allocated $MIRROR to a distribution fund designated for this purpose.\n\n",
             "This action validates the core functions of the DAO: Propose, Vote, Queue, and Execute.\n\n",
             "## Parameters\n",
-            "- Treasury Transfer Amount: ", _toString(treasuryTransferAmount), " MIRROR\n",
-            "- Distribution Fund: ", _toHexString(distributionFund), "\n"
+            "- Treasury Transfer Amount: ", treasuryTransferAmount.toString(), " MIRROR\n",
+            "- Distribution Fund: ", distributionFund.toHexString(), "\n"
         ));
-    }
-
-    /**
-     * @notice Convert uint256 to string
-     * @param value The number to convert
-     * @return String representation
-     */
-    function _toString(uint256 value) internal pure returns (string memory) {
-        if (value == 0) {
-            return "0";
-        }
-        uint256 temp = value;
-        uint256 digits;
-        while (temp != 0) {
-            digits++;
-            temp /= 10;
-        }
-        bytes memory buffer = new bytes(digits);
-        while (value != 0) {
-            digits -= 1;
-            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
-        }
-        return string(buffer);
-    }
-
-    /**
-     * @notice Convert address to hex string
-     * @param addr The address to convert
-     * @return String representation with 0x prefix
-     */
-    function _toHexString(address addr) internal pure returns (string memory) {
-        bytes memory alphabet = "0123456789abcdef";
-        bytes memory str = new bytes(42);
-        str[0] = "0";
-        str[1] = "x";
-        for (uint256 i = 0; i < 20; i++) {
-            str[2 + i * 2] = alphabet[uint8(uint160(addr) >> (8 * (19 - i)) >> 4) & 0x0f];
-            str[3 + i * 2] = alphabet[uint8(uint160(addr) >> (8 * (19 - i))) & 0x0f];
-        }
-        return string(str);
     }
 
     // ========== OVERRIDE FUNCTIONS ==========
