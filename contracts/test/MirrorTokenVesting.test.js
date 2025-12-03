@@ -14,7 +14,7 @@ describe("MirrorTokenVesting", function () {
     // Constants matching the contract
     const TOTAL_TEAM_ALLOCATION = ethers.parseEther("150000000"); // 150 million tokens
     const CLIFF_DURATION = 365 * 24 * 60 * 60; // 1 year in seconds
-    const VESTING_DURATION = 730 * 24 * 60 * 60; // 2 years in seconds
+    const VESTING_DURATION = 2 * 365 * 24 * 60 * 60; // 2 years in seconds
     const TOTAL_DURATION = CLIFF_DURATION + VESTING_DURATION;
     
     // Sample allocations

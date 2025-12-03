@@ -39,8 +39,8 @@ contract MirrorTokenVesting is Ownable, ReentrancyGuard {
     /// @notice Cliff duration: 1 year in seconds
     uint256 public constant CLIFF_DURATION = 365 days;
     
-    /// @notice Vesting duration after cliff: 2 years in seconds
-    uint256 public constant VESTING_DURATION = 730 days;
+    /// @notice Vesting duration after cliff: 2 years in seconds (2 * 365 days)
+    uint256 public constant VESTING_DURATION = 2 * 365 days;
     
     /// @notice Total vesting period (cliff + vesting): 3 years
     uint256 public constant TOTAL_DURATION = CLIFF_DURATION + VESTING_DURATION;
