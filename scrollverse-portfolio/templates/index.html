@@ -23,6 +23,17 @@
     </div>
 </section>
 
+<!-- Real-time Progress Indicator -->
+<section class="section section-progress" id="realtime-progress" style="display: none;">
+    <div class="container">
+        <div class="progress-banner">
+            <span class="progress-icon">📡</span>
+            <span class="progress-message" id="progress-message">Connecting to ScrollVerse...</span>
+            <span class="progress-status" id="progress-status"></span>
+        </div>
+    </div>
+</section>
+
 <section class="section section-about">
     <div class="container">
         <h2 class="section-title">
@@ -108,4 +119,45 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+<script>
+    // Initialize SocketIO connection for real-time updates
+    (function() {
+        try {
+            const socket = io();
+            const progressSection = document.getElementById('realtime-progress');
+            const progressMessage = document.getElementById('progress-message');
+            const progressStatus = document.getElementById('progress-status');
+            
+            socket.on('connect', function() {
+                console.log('Connected to ScrollVerse real-time server');
+                // Subscribe to progress updates
+                socket.emit('subscribe_progress', {});
+            });
+            
+            socket.on('connected', function(data) {
+                console.log('Server confirmation:', data.message);
+            });
+            
+            socket.on('progress_update', function(data) {
+                // Show progress section and update content
+                if (progressSection) {
+                    progressSection.style.display = 'block';
+                    progressMessage.textContent = data.message;
+                    progressStatus.textContent = data.status;
+                    progressStatus.className = 'progress-status status-' + data.status;
+                }
+            });
+            
+            socket.on('disconnect', function() {
+                console.log('Disconnected from ScrollVerse real-time server');
+            });
+        } catch (e) {
+            console.log('SocketIO not available, running in static mode');
+        }
+    })();
+</script>
 {% endblock %}

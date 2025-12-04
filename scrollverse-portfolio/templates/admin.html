@@ -1,0 +1,364 @@
+{% extends "base.html" %}
+
+{% block title %}ScrollVerse Admin - Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--gold-primary, #d4af37);
+    }
+    
+    .admin-title {
+        font-size: 2rem;
+        color: var(--gold-primary, #d4af37);
+    }
+    
+    .admin-badge {
+        background: linear-gradient(135deg, #d4af37, #ffd700);
+        color: #1a1a2e;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+    
+    .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .admin-card {
+        background: rgba(30, 30, 50, 0.8);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .admin-card:hover {
+        border-color: var(--gold-primary, #d4af37);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .card-icon {
+        font-size: 1.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+        color: var(--gold-primary, #d4af37);
+        margin: 0;
+    }
+    
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--gold-primary, #d4af37);
+    }
+    
+    .stat-label {
+        font-size: 0.875rem;
+        color: #888;
+        margin-top: 0.25rem;
+    }
+    
+    .progress-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .progress-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .progress-item:last-child {
+        border-bottom: none;
+    }
+    
+    .progress-task {
+        font-weight: 500;
+    }
+    
+    .progress-status {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+    
+    .status-in_progress {
+        background: #3498db;
+        color: white;
+    }
+    
+    .status-completed {
+        background: #27ae60;
+        color: white;
+    }
+    
+    .status-error {
+        background: #e74c3c;
+        color: white;
+    }
+    
+    .graph-visualization {
+        min-height: 250px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-content: flex-start;
+    }
+    
+    .graph-node {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .graph-node:hover {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(212, 175, 55, 0.2));
+        transform: scale(1.05);
+    }
+    
+    .node-type {
+        font-size: 0.7rem;
+        color: #888;
+        text-transform: uppercase;
+    }
+    
+    .realtime-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #27ae60;
+        font-size: 0.875rem;
+    }
+    
+    .pulse-dot {
+        width: 10px;
+        height: 10px;
+        background: #27ae60;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    
+    .frequency-list {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .frequency-badge {
+        background: rgba(212, 175, 55, 0.2);
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.875rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <header class="admin-header">
+        <h1 class="admin-title">
+            <span class="card-icon">🔐</span> Admin Dashboard
+        </h1>
+        <div class="realtime-indicator">
+            <span class="pulse-dot"></span>
+            <span>Real-time Connected</span>
+        </div>
+    </header>
+    
+    <div class="admin-grid">
+        <!-- System Stats Card -->
+        <div class="admin-card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h2 class="card-title">System Statistics</h2>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value">{{ data.projects|length }}</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ knowledge_graph.nodes|length }}</div>
+                    <div class="stat-label">Graph Nodes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ knowledge_graph.edges|length }}</div>
+                    <div class="stat-label">Connections</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ progress|length }}</div>
+                    <div class="stat-label">Active Tasks</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Knowledge Graph Card -->
+        <div class="admin-card">
+            <div class="card-header">
+                <span class="card-icon">🧠</span>
+                <h2 class="card-title">OmniTech1 Knowledge Graph</h2>
+            </div>
+            <div class="graph-visualization" id="graph-viz">
+                {% for node in knowledge_graph.nodes %}
+                <div class="graph-node" data-node-id="{{ node.id }}" data-frequency="{{ node.frequency }}">
+                    <div class="node-type">{{ node.type }}</div>
+                    <div>{{ node.name }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Progress Tracker Card -->
+        <div class="admin-card">
+            <div class="card-header">
+                <span class="card-icon">📈</span>
+                <h2 class="card-title">Real-time Progress Tracker</h2>
+            </div>
+            <div class="progress-list" id="progress-list">
+                {% if progress %}
+                    {% for task_id, task in progress.items() %}
+                    <div class="progress-item">
+                        <span class="progress-task">{{ task.message }}</span>
+                        <span class="progress-status status-{{ task.status }}">{{ task.status }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="progress-item">
+                    <span class="progress-task">No active tasks</span>
+                    <span class="progress-status status-completed">idle</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Sacred Frequencies Card -->
+        <div class="admin-card">
+            <div class="card-header">
+                <span class="card-icon">🎵</span>
+                <h2 class="card-title">Sacred Frequencies</h2>
+            </div>
+            <p>Healing frequencies embedded in the ScrollVerse ecosystem:</p>
+            <div class="frequency-list">
+                {% for freq in knowledge_graph.sacred_frequencies %}
+                <span class="frequency-badge">{{ freq }}Hz</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+<script>
+    // Initialize SocketIO connection for real-time updates
+    const socket = io();
+    
+    socket.on('connect', function() {
+        console.log('Connected to ScrollVerse real-time server');
+    });
+    
+    socket.on('progress_update', function(data) {
+        const progressList = document.getElementById('progress-list');
+        const existingItem = progressList.querySelector(`[data-task-id="${data.task_id}"]`);
+        
+        const itemHtml = `
+            <div class="progress-item" data-task-id="${data.task_id}">
+                <span class="progress-task">${data.message}</span>
+                <span class="progress-status status-${data.status}">${data.status}</span>
+            </div>
+        `;
+        
+        if (existingItem) {
+            existingItem.outerHTML = itemHtml;
+        } else {
+            progressList.insertAdjacentHTML('afterbegin', itemHtml);
+        }
+    });
+    
+    // Add click handler for graph nodes
+    document.querySelectorAll('.graph-node').forEach(node => {
+        node.addEventListener('click', function() {
+            const nodeId = this.dataset.nodeId;
+            const frequency = this.dataset.frequency;
+            
+            // Play frequency sound using the ScrollVerse Sound Engine if available
+            if (typeof ScrollVerseSoundEngine !== 'undefined' && ScrollVerseSoundEngine.audioContext) {
+                const oscillator = ScrollVerseSoundEngine.audioContext.createOscillator();
+                const gainNode = ScrollVerseSoundEngine.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(ScrollVerseSoundEngine.audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(parseInt(frequency), ScrollVerseSoundEngine.audioContext.currentTime);
+                
+                const now = ScrollVerseSoundEngine.audioContext.currentTime;
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(0.1, now + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                
+                oscillator.start(now);
+                oscillator.stop(now + 0.3);
+            }
+            
+            console.log(`Node clicked: ${nodeId} at ${frequency}Hz`);
+        });
+    });
+</script>
+{% endblock %}
