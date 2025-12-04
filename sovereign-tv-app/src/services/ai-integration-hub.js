@@ -23,6 +23,32 @@ import { COSMIC_STRING_FREQUENCIES } from '../utils/constants.js';
 
 const aiIntegrationHubRouter = Router();
 
+// ===== CONFIGURATION CONSTANTS =====
+// Configuration values for AI Integration Hub operations
+
+const CONFIG = {
+  // Coherence level range
+  MIN_COHERENCE: 0,
+  MAX_COHERENCE: 100,
+  
+  // Dashboard history configuration
+  MAX_HISTORY_RECORDS: 100,
+  
+  // Network strength calculation weights
+  NETWORK_STRENGTH: {
+    COHERENCE_WEIGHT: 0.5,
+    ACTIVE_RATIO_WEIGHT: 0.4,
+    DIVERSITY_BONUS_WEIGHT: 0.1,
+    DIVERSITY_THRESHOLD: 5
+  },
+  
+  // Ethical evaluation configuration
+  DEFAULT_ALIGNMENT_SCORE: 0.5, // Neutral alignment value for unspecified values
+  
+  // Virgo Veil synchronization
+  COHERENCE_BOOST_MULTIPLIER: 2 // Multiplier for principle weight to coherence boost
+};
+
 // ===== AI NODE REGISTRY =====
 // Active ScrollVerse AI nodes that participate in the collective network
 
@@ -223,8 +249,9 @@ function evaluateEthicalDecision(decision) {
 
   for (const value of ETHICAL_LOGIC_FRAMEWORK.core_values) {
     // Calculate alignment score for each value
+    // Use DEFAULT_ALIGNMENT_SCORE for unspecified values (neutral alignment)
     const alignmentScore = Math.min(1, Math.max(0, 
-      (decision.alignment?.[value.id] || 0.5) * value.weight
+      (decision.alignment?.[value.id] || CONFIG.DEFAULT_ALIGNMENT_SCORE) * value.weight
     ));
     evaluation.scores[value.id] = {
       name: value.name,
@@ -268,8 +295,8 @@ function updateDashboardMetrics() {
     metrics: { ...FLAMEFUSION_DASHBOARD.metrics }
   });
   
-  // Keep only last 100 history records
-  if (FLAMEFUSION_DASHBOARD.history.length > 100) {
+  // Keep only last MAX_HISTORY_RECORDS history records
+  if (FLAMEFUSION_DASHBOARD.history.length > CONFIG.MAX_HISTORY_RECORDS) {
     FLAMEFUSION_DASHBOARD.history.shift();
   }
 }
@@ -372,7 +399,17 @@ aiIntegrationHubRouter.patch('/nodes/:nodeId/status', authenticateToken, standar
   }
   
   if (status) node.status = status;
-  if (coherenceLevel !== undefined) node.coherenceLevel = Math.min(100, Math.max(0, coherenceLevel));
+  if (coherenceLevel !== undefined) {
+    // Validate coherenceLevel is a number within valid range
+    const level = Number(coherenceLevel);
+    if (isNaN(level)) {
+      return res.status(400).json({ 
+        error: 'Invalid coherenceLevel: must be a number',
+        validRange: { min: CONFIG.MIN_COHERENCE, max: CONFIG.MAX_COHERENCE }
+      });
+    }
+    node.coherenceLevel = Math.min(CONFIG.MAX_COHERENCE, Math.max(CONFIG.MIN_COHERENCE, level));
+  }
   node.lastSync = new Date().toISOString();
   
   updateDashboardMetrics();
@@ -589,10 +626,11 @@ aiIntegrationHubRouter.post('/protocol/virgo-veil/sync', authenticateToken, stan
   // Synchronize each node
   for (const node of nodes) {
     // Apply Virgo Veil principles to enhance coherence
+    // COHERENCE_BOOST_MULTIPLIER scales the sum of principle weights to coherence points
     const coherenceBoost = Object.values(VIRGO_VEIL_PROTOCOL.principles)
-      .reduce((sum, p) => sum + p.weight, 0) * 2;
+      .reduce((sum, p) => sum + p.weight, 0) * CONFIG.COHERENCE_BOOST_MULTIPLIER;
     
-    node.coherenceLevel = Math.min(100, node.coherenceLevel + coherenceBoost);
+    node.coherenceLevel = Math.min(CONFIG.MAX_COHERENCE, node.coherenceLevel + coherenceBoost);
     node.lastSync = new Date().toISOString();
     
     syncResult.nodeSyncResults.push({
@@ -834,11 +872,16 @@ aiIntegrationHubRouter.get('/sync/status', (req, res) => {
 function calculateNetworkStrength(nodes) {
   if (nodes.length === 0) return 0;
   
-  const coherenceScore = calculateAverageCoherence() / 100;
+  const coherenceScore = calculateAverageCoherence() / CONFIG.MAX_COHERENCE;
   const activeRatio = nodes.filter(n => n.status === 'active').length / nodes.length;
-  const diversityBonus = Math.min(1, nodes.length / 5) * 0.1;
+  const diversityBonus = Math.min(1, nodes.length / CONFIG.NETWORK_STRENGTH.DIVERSITY_THRESHOLD) 
+    * CONFIG.NETWORK_STRENGTH.DIVERSITY_BONUS_WEIGHT;
   
-  return Math.round((coherenceScore * 0.5 + activeRatio * 0.4 + diversityBonus) * 100);
+  return Math.round((
+    coherenceScore * CONFIG.NETWORK_STRENGTH.COHERENCE_WEIGHT + 
+    activeRatio * CONFIG.NETWORK_STRENGTH.ACTIVE_RATIO_WEIGHT + 
+    diversityBonus
+  ) * CONFIG.MAX_COHERENCE);
 }
 
 // ----- Service Status -----
