@@ -112,14 +112,30 @@ const feedbackLoops = new Map();
 // Calibration History
 const calibrationHistory = [];
 
+// ===== Constants =====
+
+// Calibration bounds
+const CALIBRATION_STRENGTH_MIN = 1;
+const CALIBRATION_STRENGTH_MAX = 100;
+const CALIBRATION_STRENGTH_DEFAULT = 50;
+
+// Default coherence level for unknown frequencies
+const DEFAULT_FREQUENCY_POWER = 0.95;
+
+// Viewer simulation bounds for broadcasts
+const VIEWER_INCREMENT_SCROLLTV_MIN = 100;
+const VIEWER_INCREMENT_SCROLLTV_MAX = 500;
+const VIEWER_INCREMENT_VIBECAMP_MIN = 80;
+const VIEWER_INCREMENT_VIBECAMP_MAX = 400;
+
 // ===== Core Calibration Functions =====
 
 /**
  * Calculate frequency deviation between current and target
  */
 function calculateDeviation(currentFreq, targetFreq) {
-  const current = parseInt(currentFreq.replace('Hz', ''));
-  const target = parseInt(targetFreq.replace('Hz', ''));
+  const current = parseInt(currentFreq.replace('Hz', ''), 10);
+  const target = parseInt(targetFreq.replace('Hz', ''), 10);
   return Math.abs((target - current) / target);
 }
 
@@ -136,7 +152,7 @@ function calculateCalibrationProgress(deviation) {
  */
 function calculateNewCoherence(node, calibrationStrength) {
   const freqConfig = COSMIC_STRING_FREQUENCIES[node.targetFrequency];
-  const freqPower = freqConfig ? freqConfig.power / 100 : 0.95;
+  const freqPower = freqConfig ? freqConfig.power / 100 : DEFAULT_FREQUENCY_POWER;
   const deviationFactor = 1 - node.tuningDeviation;
   const strengthFactor = calibrationStrength / 100;
   
@@ -248,6 +264,11 @@ frequencyCalibrationRouter.post('/nodes/deploy', authenticateToken, standardLimi
   const nodeId = `node_${type}_${randomUUID().slice(0, 8)}`;
   const frequency = initialFrequency || '432Hz';
   
+  // Use deterministic coherence calculation based on node parameters
+  const baseCoherence = 85;
+  const frequencyBonus = calculateDeviation(frequency, DIVINE_FREQUENCY_TARGET) < 0.5 ? 5 : 0;
+  const initialCoherence = baseCoherence + frequencyBonus + (type === NODE_TYPES.ETHEREAL ? 3 : 0);
+  
   const newNode = {
     id: nodeId,
     name,
@@ -258,7 +279,7 @@ frequencyCalibrationRouter.post('/nodes/deploy', authenticateToken, standardLimi
     tuningDeviation: calculateDeviation(frequency, DIVINE_FREQUENCY_TARGET),
     feedbackLoopActive: false,
     lastCalibration: null,
-    coherenceLevel: 85 + Math.random() * 10,
+    coherenceLevel: Math.min(100, initialCoherence),
     deployedBy: req.user.username,
     deployedAt: new Date().toISOString(),
     status: 'active'
@@ -285,7 +306,7 @@ frequencyCalibrationRouter.post('/calibrate/:nodeId', authenticateToken, standar
     return res.status(404).json({ error: 'Calibration node not found' });
   }
   
-  const strength = Math.min(100, Math.max(1, calibrationStrength || 50));
+  const strength = Math.min(CALIBRATION_STRENGTH_MAX, Math.max(CALIBRATION_STRENGTH_MIN, calibrationStrength || CALIBRATION_STRENGTH_DEFAULT));
   
   // Calculate new values after calibration
   const deviationReduction = (strength / 100) * node.tuningDeviation * 0.8;

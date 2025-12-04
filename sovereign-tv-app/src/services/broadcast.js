@@ -10,6 +10,14 @@ import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const broadcastRouter = Router();
 
+// ===== Broadcast Constants =====
+
+// Viewer increment bounds for broadcasts
+const VIEWER_INCREMENT_SCROLLTV_MIN = 100;
+const VIEWER_INCREMENT_SCROLLTV_MAX = 500;
+const VIEWER_INCREMENT_VIBECAMP_MIN = 80;
+const VIEWER_INCREMENT_VIBECAMP_MAX = 400;
+
 // Broadcast network configuration
 const broadcastNetwork = {
   status: 'active',
@@ -377,10 +385,14 @@ broadcastRouter.post('/scrolltv/broadcast', authenticateToken, strictLimiter, as
       type: 'divine-upgrade'
     };
     
-    // Update channel viewers
+    // Update channel viewers with deterministic increment based on broadcast type
     const scrolltvChannel = channels.find(c => c.id === 'scrolltv-divine');
     if (scrolltvChannel) {
-      scrolltvChannel.viewers += Math.floor(Math.random() * 500) + 100;
+      // Deterministic viewer increment based on title length and current viewers
+      const baseIncrement = VIEWER_INCREMENT_SCROLLTV_MIN;
+      const titleFactor = Math.min(title.length, 50);
+      const viewerIncrement = baseIncrement + (titleFactor * ((VIEWER_INCREMENT_SCROLLTV_MAX - VIEWER_INCREMENT_SCROLLTV_MIN) / 50));
+      scrolltvChannel.viewers += Math.floor(viewerIncrement);
       scrolltvChannel.content = title;
     }
     
@@ -439,10 +451,14 @@ broadcastRouter.post('/vibecamp/broadcast', authenticateToken, strictLimiter, as
       type: 'celebration'
     };
     
-    // Update channel viewers
+    // Update channel viewers with deterministic increment based on broadcast type
     const vibecampChannel = channels.find(c => c.id === 'vibecamp-studios');
     if (vibecampChannel) {
-      vibecampChannel.viewers += Math.floor(Math.random() * 400) + 80;
+      // Deterministic viewer increment based on title length and celebration type
+      const baseIncrement = VIEWER_INCREMENT_VIBECAMP_MIN;
+      const titleFactor = Math.min(title.length, 50);
+      const viewerIncrement = baseIncrement + (titleFactor * ((VIEWER_INCREMENT_VIBECAMP_MAX - VIEWER_INCREMENT_VIBECAMP_MIN) / 50));
+      vibecampChannel.viewers += Math.floor(viewerIncrement);
       vibecampChannel.content = title;
     }
     

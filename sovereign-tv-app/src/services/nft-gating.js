@@ -315,7 +315,7 @@ nftRouter.post('/guardians/update', authenticateToken, (req, res) => {
     tokenId,
     nftName: nft.metadata.name,
     vibratoryTraits: requestedTraits.map(t => scrollSoulVibratoryTraits[t]),
-    inclusivityScore: requestedTraits.length / validTraits.length * 100,
+    inclusivityScore: (requestedTraits.length / validTraits.length) * 100,
     globalRepresentation: true,
     networks: [...new Set(requestedTraits.flatMap(t => scrollSoulVibratoryTraits[t].networks))],
     updatedBy: req.user.username,
