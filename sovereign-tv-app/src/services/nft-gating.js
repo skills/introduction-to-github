@@ -6,6 +6,7 @@
 
 import { Router } from 'express';
 import { authenticateToken } from './auth.js';
+import { standardLimiter } from '../utils/rate-limiter.js';
 
 const nftRouter = Router();
 
@@ -283,7 +284,7 @@ nftRouter.get('/guardians/vibratory-traits', (req, res) => {
 });
 
 // Update NFT guardian with vibratory traits
-nftRouter.post('/guardians/update', authenticateToken, (req, res) => {
+nftRouter.post('/guardians/update', authenticateToken, standardLimiter, (req, res) => {
   const { tokenId, vibratoryTraits } = req.body;
 
   if (!tokenId) {
@@ -335,7 +336,7 @@ nftRouter.post('/guardians/update', authenticateToken, (req, res) => {
 });
 
 // Get NFT guardian status
-nftRouter.get('/guardians/:tokenId', authenticateToken, (req, res) => {
+nftRouter.get('/guardians/:tokenId', authenticateToken, standardLimiter, (req, res) => {
   const { tokenId } = req.params;
   const guardianId = `guardian_${tokenId}`;
   const guardian = nftGuardians.get(guardianId);
@@ -351,7 +352,7 @@ nftRouter.get('/guardians/:tokenId', authenticateToken, (req, res) => {
 });
 
 // List all NFT guardians
-nftRouter.get('/guardians', authenticateToken, (req, res) => {
+nftRouter.get('/guardians', authenticateToken, standardLimiter, (req, res) => {
   const guardians = Array.from(nftGuardians.values());
   
   res.json({
@@ -365,7 +366,7 @@ nftRouter.get('/guardians', authenticateToken, (req, res) => {
 });
 
 // Refresh all guardians with latest vibratory traits
-nftRouter.post('/guardians/refresh-all', authenticateToken, (req, res) => {
+nftRouter.post('/guardians/refresh-all', authenticateToken, standardLimiter, (req, res) => {
   const guardians = Array.from(nftGuardians.values());
   
   if (guardians.length === 0) {
