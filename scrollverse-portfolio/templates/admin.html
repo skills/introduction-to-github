@@ -304,8 +304,15 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-+zMXMgG6v1ZqhKXOAR4TfEjdqPV/MfuLl1xEPSxUaVFq0r+Y9eLXTgYPJqMEyKq3" crossorigin="anonymous"></script>
 <script>
+    // Utility function to escape HTML to prevent XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
     // Initialize SocketIO connection for real-time updates
     const socket = io();
     
@@ -315,19 +322,28 @@
     
     socket.on('progress_update', function(data) {
         const progressList = document.getElementById('progress-list');
-        const existingItem = progressList.querySelector(`[data-task-id="${data.task_id}"]`);
+        const existingItem = progressList.querySelector(`[data-task-id="${escapeHtml(data.task_id)}"]`);
         
-        const itemHtml = `
-            <div class="progress-item" data-task-id="${data.task_id}">
-                <span class="progress-task">${data.message}</span>
-                <span class="progress-status status-${data.status}">${data.status}</span>
-            </div>
-        `;
+        // Create elements safely using DOM APIs instead of innerHTML
+        const progressItem = document.createElement('div');
+        progressItem.className = 'progress-item';
+        progressItem.setAttribute('data-task-id', data.task_id);
+        
+        const taskSpan = document.createElement('span');
+        taskSpan.className = 'progress-task';
+        taskSpan.textContent = data.message;
+        
+        const statusSpan = document.createElement('span');
+        statusSpan.className = 'progress-status status-' + escapeHtml(data.status);
+        statusSpan.textContent = data.status;
+        
+        progressItem.appendChild(taskSpan);
+        progressItem.appendChild(statusSpan);
         
         if (existingItem) {
-            existingItem.outerHTML = itemHtml;
+            existingItem.replaceWith(progressItem);
         } else {
-            progressList.insertAdjacentHTML('afterbegin', itemHtml);
+            progressList.insertBefore(progressItem, progressList.firstChild);
         }
     });
     

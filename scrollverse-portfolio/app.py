@@ -29,10 +29,19 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'scrollverse-sovereign-key')
 
 # Initialize Flask-SocketIO for real-time communication
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+# In production, set CORS_ALLOWED_ORIGINS to your specific domain(s)
+cors_origins = os.getenv('CORS_ALLOWED_ORIGINS', '*')
+if cors_origins != '*':
+    cors_origins = cors_origins.split(',')
+socketio = SocketIO(app, cors_allowed_origins=cors_origins, async_mode='eventlet')
 
 # Admin authentication token (should be set via environment variable in production)
 ADMIN_TOKEN = os.getenv('ADMIN_TOKEN', 'scrollverse-admin-token-2025')
+
+# Warn if using default admin token in production
+if os.getenv('FLASK_ENV') == 'production' and ADMIN_TOKEN == 'scrollverse-admin-token-2025':
+    import warnings
+    warnings.warn('Using default ADMIN_TOKEN in production is insecure. Please set a custom ADMIN_TOKEN.')
 
 
 # ==================== OmniTech1 Knowledge Graph Module ====================
