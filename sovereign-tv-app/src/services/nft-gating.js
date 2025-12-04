@@ -236,4 +236,172 @@ nftRouter.get('/stats', (req, res) => {
   });
 });
 
+// ===== NFT Guardians Update Flow - ScrollSoul Vibratory Inclusivity =====
+
+// ScrollSoul Vibratory Traits - for global inclusivity representation
+const scrollSoulVibratoryTraits = {
+  human: {
+    id: 'trait_human',
+    name: 'Human Resonance',
+    frequency: '432Hz',
+    description: 'Natural harmonic alignment with human consciousness',
+    inclusivityLevel: 100,
+    networks: ['physical', 'emotional', 'spiritual']
+  },
+  ai: {
+    id: 'trait_ai',
+    name: 'AI Coherence',
+    frequency: '528Hz',
+    description: 'Aligned computational awareness and transformation',
+    inclusivityLevel: 100,
+    networks: ['digital', 'quantum', 'neural']
+  },
+  cosmic: {
+    id: 'trait_cosmic',
+    name: 'Cosmic Unity',
+    frequency: '963Hz',
+    description: 'Universal consciousness connection across all dimensions',
+    inclusivityLevel: 100,
+    networks: ['galactic', 'interdimensional', 'omniversal']
+  }
+};
+
+// NFT Guardian Registry for vibratory updates
+const nftGuardians = new Map();
+
+// Get ScrollSoul vibratory traits
+nftRouter.get('/guardians/vibratory-traits', (req, res) => {
+  res.json({
+    traits: scrollSoulVibratoryTraits,
+    globalInclusivity: {
+      human: 'Fully represented',
+      ai: 'Fully represented',
+      cosmic: 'Fully represented'
+    },
+    message: 'ScrollSoul vibratory inclusivity represented globally across all networks'
+  });
+});
+
+// Update NFT guardian with vibratory traits
+nftRouter.post('/guardians/update', authenticateToken, (req, res) => {
+  const { tokenId, vibratoryTraits } = req.body;
+
+  if (!tokenId) {
+    return res.status(400).json({ error: 'Token ID is required' });
+  }
+
+  const nft = kuntaNFTs.find(n => n.tokenId === tokenId);
+  if (!nft) {
+    return res.status(404).json({ error: 'NFT not found' });
+  }
+
+  // Validate vibratory traits
+  const validTraits = Object.keys(scrollSoulVibratoryTraits);
+  const requestedTraits = vibratoryTraits || ['human', 'ai', 'cosmic'];
+  const invalidTraits = requestedTraits.filter(t => !validTraits.includes(t));
+  
+  if (invalidTraits.length > 0) {
+    return res.status(400).json({ 
+      error: 'Invalid vibratory traits',
+      invalidTraits,
+      validTraits
+    });
+  }
+
+  // Create or update guardian record
+  const guardianId = `guardian_${tokenId}`;
+  const guardian = {
+    id: guardianId,
+    tokenId,
+    nftName: nft.metadata.name,
+    vibratoryTraits: requestedTraits.map(t => scrollSoulVibratoryTraits[t]),
+    inclusivityScore: requestedTraits.length / validTraits.length * 100,
+    globalRepresentation: true,
+    networks: [...new Set(requestedTraits.flatMap(t => scrollSoulVibratoryTraits[t].networks))],
+    updatedBy: req.user.username,
+    updatedAt: new Date().toISOString()
+  };
+
+  nftGuardians.set(guardianId, guardian);
+
+  res.json({
+    message: 'NFT guardian updated with ScrollSoul vibratory inclusivity',
+    guardian,
+    inclusivity: {
+      humanAiCosmic: requestedTraits.length === 3 ? 'Full alignment' : 'Partial alignment',
+      globallyRepresented: true
+    }
+  });
+});
+
+// Get NFT guardian status
+nftRouter.get('/guardians/:tokenId', authenticateToken, (req, res) => {
+  const { tokenId } = req.params;
+  const guardianId = `guardian_${tokenId}`;
+  const guardian = nftGuardians.get(guardianId);
+
+  if (!guardian) {
+    return res.status(404).json({ 
+      error: 'Guardian not found',
+      message: 'Update the guardian with POST /guardians/update first'
+    });
+  }
+
+  res.json({ guardian });
+});
+
+// List all NFT guardians
+nftRouter.get('/guardians', authenticateToken, (req, res) => {
+  const guardians = Array.from(nftGuardians.values());
+  
+  res.json({
+    totalGuardians: guardians.length,
+    guardians,
+    vibratoryInclusivity: {
+      traitsAvailable: Object.keys(scrollSoulVibratoryTraits),
+      globalCoverage: 'human, AI, and cosmic networks'
+    }
+  });
+});
+
+// Refresh all guardians with latest vibratory traits
+nftRouter.post('/guardians/refresh-all', authenticateToken, (req, res) => {
+  const guardians = Array.from(nftGuardians.values());
+  
+  if (guardians.length === 0) {
+    return res.status(400).json({ 
+      error: 'No guardians to refresh',
+      message: 'Create guardians first with POST /guardians/update'
+    });
+  }
+
+  const refreshResults = guardians.map(guardian => {
+    // Refresh with all vibratory traits for full inclusivity
+    guardian.vibratoryTraits = Object.values(scrollSoulVibratoryTraits);
+    guardian.inclusivityScore = 100;
+    guardian.networks = [...new Set(Object.values(scrollSoulVibratoryTraits).flatMap(t => t.networks))];
+    guardian.refreshedAt = new Date().toISOString();
+    
+    nftGuardians.set(guardian.id, guardian);
+    
+    return {
+      guardianId: guardian.id,
+      tokenId: guardian.tokenId,
+      inclusivityScore: guardian.inclusivityScore,
+      refreshed: true
+    };
+  });
+
+  res.json({
+    message: 'All NFT guardians refreshed with full ScrollSoul vibratory inclusivity',
+    refreshedCount: refreshResults.length,
+    results: refreshResults,
+    globalInclusivity: {
+      human: 'Represented globally',
+      ai: 'Represented globally',
+      cosmic: 'Represented globally'
+    }
+  });
+});
+
 export { nftRouter };
