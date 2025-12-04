@@ -122,12 +122,18 @@ const teamAlignmentConfig = {
 #### Helper Functions
 
 ```javascript
+// Configuration constants for interaction metrics
+const INTERACTION_CONFIG = {
+  maxExpectedInteractionsPerMonth: 50,  // Configurable based on team type
+  scoringPeriodDays: 30,
+  maxSharedObjectivesScore: 10
+};
+
 // Helper: Calculate communication frequency between teams
 const calculateCommFrequency = (team1Id, team2Id) => {
   // Returns score 0-100 based on interaction frequency
-  const interactions = getInteractionCount(team1Id, team2Id, 30); // Last 30 days
-  const maxExpected = 50; // Expected max interactions per month
-  return Math.min(100, (interactions / maxExpected) * 100);
+  const interactions = getInteractionCount(team1Id, team2Id, INTERACTION_CONFIG.scoringPeriodDays);
+  return Math.min(100, (interactions / INTERACTION_CONFIG.maxExpectedInteractionsPerMonth) * 100);
 };
 
 // Helper: Count shared objectives between teams
@@ -364,7 +370,11 @@ const processAffinityChange = async (change) => {
       await createLocalRelationship(change.relationship);
       break;
     default:
-      console.log(`Unhandled change type: ${change.type}`);
+      logger.warn('Unhandled Affinity change type', {
+        changeType: change.type,
+        changeId: change.id,
+        timestamp: new Date().toISOString()
+      });
   }
 };
 ```

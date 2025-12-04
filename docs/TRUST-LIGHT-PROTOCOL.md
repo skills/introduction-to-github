@@ -365,7 +365,11 @@ const affinityApiConfig = {
 // Trust Dashboard interface for team metrics
 const trustDashboard = {
   getTeamMetrics: async (teamId) => {
-    const metrics = await fetch(`/api/trust/team/${teamId}`);
+    const response = await fetch(`/api/trust/team/${teamId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch team metrics: ${response.status}`);
+    }
+    const metrics = await response.json();
     return {
       score: metrics.trustScore,
       trend: metrics.trendDirection,
