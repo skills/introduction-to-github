@@ -119,6 +119,35 @@ const teamAlignmentConfig = {
 };
 ```
 
+#### Helper Functions
+
+```javascript
+// Helper: Calculate communication frequency between teams
+const calculateCommFrequency = (team1Id, team2Id) => {
+  // Returns score 0-100 based on interaction frequency
+  const interactions = getInteractionCount(team1Id, team2Id, 30); // Last 30 days
+  const maxExpected = 50; // Expected max interactions per month
+  return Math.min(100, (interactions / maxExpected) * 100);
+};
+
+// Helper: Count shared objectives between teams
+const countSharedObjectives = (team1, team2) => {
+  const shared = team1.objectives.filter(obj => 
+    team2.objectives.some(t2obj => t2obj.id === obj.id)
+  );
+  return Math.min(10, shared.length); // Cap at 10 for scoring
+};
+
+// Helper: Get historical collaboration score
+const getCollaborationHistory = (team1Id, team2Id) => {
+  // Returns score 0-100 based on past collaboration success
+  const pastProjects = getSharedProjects(team1Id, team2Id);
+  const successRate = pastProjects.filter(p => p.success).length / 
+                      Math.max(1, pastProjects.length);
+  return successRate * 100;
+};
+```
+
 #### Alignment Score Calculation
 
 ```javascript
@@ -319,6 +348,23 @@ const dataSyncService = {
     }
     
     return { processed: changes.length };
+  }
+};
+
+// Helper: Process individual Affinity changes
+const processAffinityChange = async (change) => {
+  switch (change.type) {
+    case 'person_updated':
+      await updateLocalPerson(change.personId, change.fields);
+      break;
+    case 'organization_updated':
+      await updateLocalOrganization(change.orgId, change.fields);
+      break;
+    case 'relationship_created':
+      await createLocalRelationship(change.relationship);
+      break;
+    default:
+      console.log(`Unhandled change type: ${change.type}`);
   }
 };
 ```

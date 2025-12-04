@@ -362,6 +362,28 @@ const affinityApiConfig = {
 #### 1. Team Alignment Module
 
 ```javascript
+// Trust Dashboard interface for team metrics
+const trustDashboard = {
+  getTeamMetrics: async (teamId) => {
+    const metrics = await fetch(`/api/trust/team/${teamId}`);
+    return {
+      score: metrics.trustScore,
+      trend: metrics.trendDirection,
+      lastUpdated: metrics.timestamp
+    };
+  }
+};
+
+// Calculate alignment level based on team trust score
+const calculateAlignmentLevel = (team) => {
+  const score = team.custom_fields.trust_score || 0;
+  if (score >= 90) return 'Sovereign';
+  if (score >= 75) return 'Aligned';
+  if (score >= 60) return 'Developing';
+  if (score >= 40) return 'Attention';
+  return 'Critical';
+};
+
 const teamAlignmentModule = {
   // Sync team trust data with Affinity
   syncTeamData: async (teamId) => {
