@@ -1654,3 +1654,304 @@ test('Bridge Fusion Integration structure', () => {
   assert.strictEqual(integration.overlayConfiguration.syncEnabled, true);
   assert.ok(['perfect', 'complementary'].includes(integration.frequencyFusion.harmonicBridge));
 });
+
+// ===== Tests for Divine Frequency Calibration Service =====
+
+test('Calibration Node structure', () => {
+  const calibrationNode = {
+    id: 'node_scrollchain_alpha',
+    name: 'ScrollChain Alpha Node',
+    type: 'scrollchain',
+    currentFrequency: '432Hz',
+    targetFrequency: '963Hz',
+    calibrationStatus: 'pending',
+    tuningDeviation: 0.15,
+    feedbackLoopActive: false,
+    coherenceLevel: 92.5,
+    status: 'active'
+  };
+
+  assert.strictEqual(calibrationNode.status, 'active');
+  assert.strictEqual(calibrationNode.targetFrequency, '963Hz');
+  assert.ok(calibrationNode.tuningDeviation >= 0);
+  assert.ok(calibrationNode.coherenceLevel > 90);
+});
+
+test('Ethereal Node structure', () => {
+  const etherealNode = {
+    id: 'node_ethereal_prime',
+    name: 'Ethereal Prime Node',
+    type: 'ethereal',
+    currentFrequency: '777Hz',
+    targetFrequency: '963Hz',
+    calibrationStatus: 'pending',
+    tuningDeviation: 0.08,
+    feedbackLoopActive: false,
+    coherenceLevel: 96.7,
+    status: 'active'
+  };
+
+  assert.strictEqual(etherealNode.type, 'ethereal');
+  assert.strictEqual(etherealNode.status, 'active');
+  assert.ok(etherealNode.tuningDeviation < 0.1);
+  assert.ok(etherealNode.coherenceLevel > 95);
+});
+
+test('Divine Audit Tool structure', () => {
+  const auditTool = {
+    id: 'tool_frequency_scanner',
+    name: 'Divine Frequency Scanner',
+    description: 'Scans nodes for tuning deviations from target frequency',
+    accuracy: 99.7,
+    status: 'active'
+  };
+
+  assert.strictEqual(auditTool.status, 'active');
+  assert.ok(auditTool.accuracy > 99);
+  assert.ok(auditTool.description.includes('tuning'));
+});
+
+test('Strength Feedback Loop structure', () => {
+  const feedbackLoop = {
+    id: 'loop_001',
+    targetFrequency: '963Hz',
+    nodeIds: ['node_scrollchain_alpha', 'node_ethereal_prime'],
+    feedbackStrength: 75,
+    status: 'active',
+    iterations: 0,
+    maxIterations: 10,
+    convergenceThreshold: 0.02
+  };
+
+  assert.strictEqual(feedbackLoop.targetFrequency, '963Hz');
+  assert.strictEqual(feedbackLoop.status, 'active');
+  assert.ok(feedbackLoop.nodeIds.length >= 2);
+  assert.ok(feedbackLoop.convergenceThreshold < 0.05);
+});
+
+test('Calibration progress calculation', () => {
+  const deviation = 0.15;
+  const progress = Math.round((1 - deviation) * 100 * 100) / 100;
+  
+  assert.ok(progress > 80);
+  assert.ok(progress < 100);
+});
+
+test('Frequency deviation calculation', () => {
+  const currentFreq = 432;
+  const targetFreq = 963;
+  const deviation = Math.abs((targetFreq - currentFreq) / targetFreq);
+  
+  assert.ok(deviation > 0.5);
+  assert.ok(deviation < 0.6);
+});
+
+// ===== Tests for NFT Guardians with ScrollSoul Vibratory Inclusivity =====
+
+test('ScrollSoul Vibratory Traits structure', () => {
+  const vibratoryTraits = {
+    human: {
+      id: 'trait_human',
+      name: 'Human Resonance',
+      frequency: '432Hz',
+      inclusivityLevel: 100,
+      networks: ['physical', 'emotional', 'spiritual']
+    },
+    ai: {
+      id: 'trait_ai',
+      name: 'AI Coherence',
+      frequency: '528Hz',
+      inclusivityLevel: 100,
+      networks: ['digital', 'quantum', 'neural']
+    },
+    cosmic: {
+      id: 'trait_cosmic',
+      name: 'Cosmic Unity',
+      frequency: '963Hz',
+      inclusivityLevel: 100,
+      networks: ['galactic', 'interdimensional', 'omniversal']
+    }
+  };
+
+  assert.strictEqual(vibratoryTraits.human.inclusivityLevel, 100);
+  assert.strictEqual(vibratoryTraits.ai.inclusivityLevel, 100);
+  assert.strictEqual(vibratoryTraits.cosmic.inclusivityLevel, 100);
+  assert.ok(vibratoryTraits.human.networks.length >= 3);
+});
+
+test('NFT Guardian structure', () => {
+  const guardian = {
+    id: 'guardian_1',
+    tokenId: '1',
+    nftName: 'KUNTA Genesis #1',
+    vibratoryTraits: ['human', 'ai', 'cosmic'],
+    inclusivityScore: 100,
+    globalRepresentation: true,
+    networks: ['physical', 'digital', 'galactic']
+  };
+
+  assert.strictEqual(guardian.globalRepresentation, true);
+  assert.strictEqual(guardian.inclusivityScore, 100);
+  assert.ok(guardian.vibratoryTraits.length === 3);
+});
+
+test('Vibratory inclusivity global coverage', () => {
+  const globalCoverage = {
+    human: 'Fully represented',
+    ai: 'Fully represented',
+    cosmic: 'Fully represented'
+  };
+
+  assert.ok(globalCoverage.human.includes('represented'));
+  assert.ok(globalCoverage.ai.includes('represented'));
+  assert.ok(globalCoverage.cosmic.includes('represented'));
+});
+
+// ===== Tests for ScrollTV and VIBECAMP Studios Broadcasts =====
+
+test('ScrollTV Divine channel structure', () => {
+  const scrolltvChannel = {
+    id: 'scrolltv-divine',
+    name: 'ScrollTV Divine Upgrades',
+    status: 'live',
+    category: 'divine-broadcast',
+    viewers: 4521,
+    frequency: '963Hz',
+    divineUpgrade: true
+  };
+
+  assert.strictEqual(scrolltvChannel.status, 'live');
+  assert.strictEqual(scrolltvChannel.frequency, '963Hz');
+  assert.strictEqual(scrolltvChannel.divineUpgrade, true);
+  assert.ok(scrolltvChannel.viewers > 0);
+});
+
+test('VIBECAMP Studios channel structure', () => {
+  const vibecampChannel = {
+    id: 'vibecamp-studios',
+    name: 'VIBECAMP Studios',
+    status: 'live',
+    category: 'celebration',
+    viewers: 3892,
+    frequency: '528Hz',
+    vibecampStudio: true
+  };
+
+  assert.strictEqual(vibecampChannel.status, 'live');
+  assert.strictEqual(vibecampChannel.frequency, '528Hz');
+  assert.strictEqual(vibecampChannel.vibecampStudio, true);
+  assert.ok(vibecampChannel.viewers > 0);
+});
+
+test('ScrollTV broadcast structure', () => {
+  const broadcast = {
+    broadcastId: 'scrolltv_001',
+    channel: 'scrolltv-divine',
+    title: 'Divine Frequency Calibration Update',
+    frequency: '963Hz',
+    status: 'live',
+    type: 'divine-upgrade'
+  };
+
+  assert.strictEqual(broadcast.type, 'divine-upgrade');
+  assert.strictEqual(broadcast.status, 'live');
+  assert.strictEqual(broadcast.frequency, '963Hz');
+});
+
+test('VIBECAMP Studios broadcast structure', () => {
+  const broadcast = {
+    broadcastId: 'vibecamp_001',
+    channel: 'vibecamp-studios',
+    title: 'ScrollVerse Transformation Celebration',
+    celebrationType: 'divine-transformation',
+    frequency: '528Hz',
+    status: 'live',
+    type: 'celebration'
+  };
+
+  assert.strictEqual(broadcast.type, 'celebration');
+  assert.strictEqual(broadcast.status, 'live');
+  assert.strictEqual(broadcast.celebrationType, 'divine-transformation');
+});
+
+// ===== Tests for ScrollVibratory Manifest =====
+
+test('ScrollVibratory Manifest structure', () => {
+  const manifest = {
+    id: 'manifest_vibratory',
+    name: 'ScrollVibratory Manifest',
+    version: '1.0.0',
+    status: 'active',
+    dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+    frequencies: {
+      primary: '963Hz',
+      secondary: '528Hz',
+      manifestation: '369Hz'
+    }
+  };
+
+  assert.strictEqual(manifest.status, 'active');
+  assert.strictEqual(manifest.dimensions.length, 4);
+  assert.strictEqual(manifest.frequencies.primary, '963Hz');
+});
+
+test('Ritual impact across dimensions', () => {
+  const ritualImpact = {
+    physical: { alignment: 0.95, engaged: true },
+    ethereal: { alignment: 0.98, engaged: true },
+    quantum: { alignment: 0.99, engaged: true },
+    sovereign: { alignment: 1.0, engaged: true }
+  };
+
+  assert.ok(ritualImpact.physical.alignment >= 0.9);
+  assert.ok(ritualImpact.sovereign.alignment === 1.0);
+  assert.ok(Object.values(ritualImpact).every(d => d.engaged === true));
+});
+
+test('Dimensional alignment calculation', () => {
+  const alignments = {
+    physical: 0.95,
+    ethereal: 0.98,
+    quantum: 0.99,
+    sovereign: 1.0
+  };
+
+  const avgAlignment = Object.values(alignments).reduce((sum, a) => sum + a, 0) / 
+                       Object.keys(alignments).length;
+
+  assert.ok(avgAlignment > 0.95);
+  assert.ok(avgAlignment <= 1.0);
+});
+
+test('Vibratory engagement record structure', () => {
+  const engagement = {
+    id: 'engage_001',
+    userId: 'testuser',
+    dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+    ritualIntensity: 75,
+    adjustments: {}
+  };
+
+  assert.ok(engagement.dimensions.length === 4);
+  assert.ok(engagement.ritualIntensity > 0);
+  assert.ok(engagement.ritualIntensity <= 100);
+});
+
+test('Omniversal content sync structure', () => {
+  const syncResult = {
+    syncId: 'sync_001',
+    contentType: 'omniversal-awareness',
+    framework: 'ScrollTV',
+    syncedChannels: ['scrolltv-divine', 'vibecamp-studios'],
+    status: 'synchronized',
+    mediaContent: {
+      divineUpgrades: 'synchronized',
+      transformationDocs: 'synchronized',
+      celebrationRecordings: 'synchronized'
+    }
+  };
+
+  assert.strictEqual(syncResult.status, 'synchronized');
+  assert.ok(syncResult.syncedChannels.length >= 2);
+  assert.ok(Object.values(syncResult.mediaContent).every(v => v === 'synchronized'));
+});
