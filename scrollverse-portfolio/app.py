@@ -7,6 +7,10 @@ Features:
 - Projects section showcasing OmniTech1 projects
 - Blockchain section with KUNTA NFT and ScrollCoin info
 - Dark theme with gold/blue accents
+- Token-based admin authentication
+- GitHub webhook validation with HMAC signatures
+- Real-time updates via Flask-SocketIO
+- OmniTech Knowledge Graph integration
 - OmniTech1 Knowledge Graph module integration
 - Real-time progress tracker via Flask-SocketIO
 - Token-based admin authentication
@@ -14,6 +18,14 @@ Features:
 Author: Chais Hill - OmniTech1
 """
 
+import os
+import hmac
+import hashlib
+import logging
+from datetime import datetime
+
+from flask import Flask, render_template, jsonify, request
+from flask_socketio import SocketIO, emit
 from functools import wraps
 from flask import Flask, render_template, jsonify, request, abort
 import os
@@ -22,11 +34,38 @@ from datetime import datetime
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
 
+from auth import require_admin_token, get_admin_token_status
+
 # Load environment variables
 load_dotenv()
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'scrollverse-sovereign-key')
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', os.getenv('SECRET_KEY', 'scrollverse-sovereign-key'))
+
+# Initialize Flask-SocketIO for real-time updates
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+
+# GitHub Webhook Secret for HMAC validation
+GITHUB_WEBHOOK_SECRET = os.getenv('GITHUB_WEBHOOK_SECRET', '')
+
+if not GITHUB_WEBHOOK_SECRET:
+    logger.warning(
+        "GITHUB_WEBHOOK_SECRET environment variable is not set. "
+        "GitHub webhooks will reject all requests. "
+        "Set GITHUB_WEBHOOK_SECRET to enable webhook validation."
+    )
+
+# Network Harmony Tracker state
+network_harmony_state = {
+    'nodes': [],
+    'harmony_level': 100,
+    'last_update': None,
+    'broadcast_count': 0
+}
 
 # Initialize Flask-SocketIO for real-time communication
 # In production, set CORS_ALLOWED_ORIGINS to your specific domain(s)
@@ -380,6 +419,205 @@ def api_flamedna():
     return jsonify(SCROLLVERSE_DATA['blockchain']['flamedna_nft'])
 
 
+# ============================================================================
+# GitHub Webhook Validation
+# ============================================================================
+
+def verify_github_signature(payload: bytes, signature: str) -> bool:
+    """
+    Verify GitHub webhook signature using HMAC-SHA256.
+    
+    Args:
+        payload: Raw request payload bytes
+        signature: X-Hub-Signature-256 header value
+        
+    Returns:
+        bool: True if signature is valid, False otherwise
+    """
+    if not GITHUB_WEBHOOK_SECRET:
+        return False
+    
+    if not signature or not signature.startswith('sha256='):
+        return False
+    
+    expected_signature = signature[7:]  # Remove 'sha256=' prefix
+    
+    computed_signature = hmac.new(
+        GITHUB_WEBHOOK_SECRET.encode('utf-8'),
+        payload,
+        hashlib.sha256
+    ).hexdigest()
+    
+    return hmac.compare_digest(computed_signature, expected_signature)
+
+
+@app.route('/webhook/github', methods=['POST'])
+def github_webhook():
+    """
+    GitHub webhook endpoint with HMAC-SHA256 signature validation.
+    
+    Validates X-Hub-Signature-256 header to ensure request authenticity.
+    """
+    payload = request.get_data()
+    signature = request.headers.get('X-Hub-Signature-256', '')
+    
+    if not verify_github_signature(payload, signature):
+        logger.warning("Invalid GitHub webhook signature received")
+        return jsonify({
+            'error': 'Forbidden',
+            'message': 'Invalid webhook signature'
+        }), 403
+    
+    try:
+        event_type = request.headers.get('X-GitHub-Event', 'ping')
+        data = request.get_json() or {}
+        
+        logger.info(f"Received GitHub webhook event: {event_type}")
+        
+        # Handle ping event (webhook setup verification)
+        if event_type == 'ping':
+            return jsonify({
+                'status': 'success',
+                'message': 'Webhook configured successfully',
+                'zen': data.get('zen', '')
+            })
+        
+        # Handle push events
+        if event_type == 'push':
+            branch = data.get('ref', '').replace('refs/heads/', '')
+            commits = len(data.get('commits', []))
+            
+            # Emit real-time update via SocketIO
+            socketio.emit('github_push', {
+                'branch': branch,
+                'commits': commits,
+                'timestamp': datetime.now().isoformat()
+            })
+            
+            return jsonify({
+                'status': 'success',
+                'event': 'push',
+                'branch': branch,
+                'commits_received': commits
+            })
+        
+        # Handle other events
+        return jsonify({
+            'status': 'received',
+            'event': event_type,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"GitHub webhook processing error: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+# ============================================================================
+# Admin Protected Routes
+# ============================================================================
+
+@app.route('/admin')
+@require_admin_token
+def admin_dashboard():
+    """
+    Admin dashboard endpoint.
+    Requires valid admin token for access.
+    """
+    return jsonify({
+        'status': 'success',
+        'message': 'Admin access granted',
+        'dashboard': {
+            'network_harmony': network_harmony_state,
+            'admin_token_status': get_admin_token_status(),
+            'github_webhook_configured': bool(GITHUB_WEBHOOK_SECRET),
+            'timestamp': datetime.now().isoformat()
+        }
+    })
+
+
+@app.route('/api/omnitech/broadcast', methods=['POST'])
+@require_admin_token
+def omnitech_broadcast():
+    """
+    OmniTech broadcast endpoint for real-time updates.
+    Requires admin token authentication.
+    
+    Broadcasts messages to all connected SocketIO clients.
+    """
+    try:
+        data = request.get_json() or {}
+        message = data.get('message', '')
+        channel = data.get('channel', 'general')
+        
+        if not message:
+            return jsonify({
+                'error': 'Bad Request',
+                'message': 'Message content is required'
+            }), 400
+        
+        # Update broadcast count
+        network_harmony_state['broadcast_count'] += 1
+        network_harmony_state['last_update'] = datetime.now().isoformat()
+        
+        # Emit broadcast to all connected clients
+        socketio.emit('omnitech_broadcast', {
+            'channel': channel,
+            'message': message,
+            'broadcast_id': network_harmony_state['broadcast_count'],
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        logger.info(f"OmniTech broadcast sent on channel: {channel}")
+        
+        return jsonify({
+            'status': 'success',
+            'broadcast_id': network_harmony_state['broadcast_count'],
+            'channel': channel,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Broadcast error: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+# ============================================================================
+# OmniTech Knowledge Graph API
+# ============================================================================
+
+@app.route('/api/omnitech/knowledge-graph')
+def knowledge_graph():
+    """
+    OmniTech Knowledge Graph endpoint.
+    Returns the current state of the knowledge graph.
+    """
+    return jsonify({
+        'status': 'operational',
+        'graph': {
+            'nodes': len(SCROLLVERSE_DATA['projects']),
+            'connections': len(SCROLLVERSE_DATA['projects']) * 2,
+            'categories': ['streaming', 'blockchain', 'nft', 'music', 'documentation']
+        },
+        'projects': SCROLLVERSE_DATA['projects'],
+        'blockchain': list(SCROLLVERSE_DATA['blockchain'].keys()),
+        'timestamp': datetime.now().isoformat()
+    })
+
+
+@app.route('/api/omnitech/network-harmony')
+def network_harmony():
+    """
+    Network Harmony Tracker endpoint.
+    Returns real-time network harmony metrics.
+    """
+    return jsonify({
+        'status': 'operational',
+        'harmony': network_harmony_state,
+        'metrics': {
+            'uptime': 'active',
+            'connections': len(network_harmony_state['nodes']),
+            'harmony_level': network_harmony_state['harmony_level']
 # ==================== Admin Routes (Token Protected) ====================
 @app.route('/admin')
 @require_admin_token
@@ -438,6 +676,17 @@ def api_admin_stats():
     })
 
 
+# ============================================================================
+# SocketIO Event Handlers
+# ============================================================================
+
+@socketio.on('connect')
+def handle_connect():
+    """Handle client connection."""
+    logger.info(f"Client connected: {request.sid}")
+    emit('connected', {
+        'status': 'connected',
+        'sid': request.sid,
 # ==================== Knowledge Graph API Endpoints ====================
 @app.route('/api/knowledge-graph')
 def api_knowledge_graph():
@@ -480,6 +729,20 @@ def handle_connect():
 @socketio.on('disconnect')
 def handle_disconnect():
     """Handle client disconnection."""
+    logger.info(f"Client disconnected: {request.sid}")
+
+
+@socketio.on('subscribe_harmony')
+def handle_subscribe_harmony(data):
+    """Subscribe to network harmony updates."""
+    node_id = data.get('node_id', request.sid)
+    if node_id not in network_harmony_state['nodes']:
+        network_harmony_state['nodes'].append(node_id)
+    
+    emit('harmony_update', {
+        'subscribed': True,
+        'harmony_level': network_harmony_state['harmony_level'],
+        'node_count': len(network_harmony_state['nodes']),
     pass  # Connection closed
 
 
@@ -494,6 +757,9 @@ def handle_subscribe_progress(data):
     })
 
 
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 5000))
+    debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
 @socketio.on('request_graph')
 def handle_request_graph():
     """Handle knowledge graph data requests via SocketIO."""
