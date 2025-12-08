@@ -66,6 +66,8 @@ jobs:
           script: |
             const prData = ${{ steps.pr.outputs.result }};
             
+            // NOTE: This is a placeholder implementation
+            // TODO: Integrate with OpenAI API using OPENAI_API_KEY secret
             // Conservative AI settings - focus on security and correctness
             const prompt = `You are a code reviewer. Review the following PR changes conservatively:
             

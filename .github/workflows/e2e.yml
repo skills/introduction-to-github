@@ -28,7 +28,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          if [ -f "package.json" ]; then
+            npm ci
+          else
+            echo "No package.json found at root, skipping npm ci"
+          fi
 
       - name: Run E2E tests
         run: |
