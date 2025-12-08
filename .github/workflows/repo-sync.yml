@@ -1,0 +1,108 @@
+name: Repository Sync
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  sync:
+    name: Sync with Downstream Repos
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Sync shared configurations
+        run: |
+          echo "### Repository Sync 🔄" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Syncing shared configurations with downstream repositories..." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # List of files to sync
+          SYNC_FILES=(
+            ".github/workflows/common/*.yml"
+            "scripts/shared/*.sh"
+            "docs/shared/*.md"
+          )
+          
+          echo "**Files to sync:**" >> $GITHUB_STEP_SUMMARY
+          for file in "${SYNC_FILES[@]}"; do
+            if compgen -G "$file" > /dev/null; then
+              echo "- $file" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: Check for downstream repositories
+        id: repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+        run: |
+          # List of downstream repositories that should be synced
+          # Format: owner/repo
+          DOWNSTREAM_REPOS=(
+            # Add downstream repos here
+            # "chaishillomnitech1/downstream-repo-1"
+            # "chaishillomnitech1/downstream-repo-2"
+          )
+          
+          echo "downstream_count=${#DOWNSTREAM_REPOS[@]}" >> $GITHUB_OUTPUT
+          
+          if [ ${#DOWNSTREAM_REPOS[@]} -eq 0 ]; then
+            echo "ℹ️ No downstream repositories configured" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Downstream repositories:**" >> $GITHUB_STEP_SUMMARY
+            for repo in "${DOWNSTREAM_REPOS[@]}"; do
+              echo "- $repo" >> $GITHUB_STEP_SUMMARY
+            done
+          fi
+
+      - name: Sync to downstream (when configured)
+        if: steps.repos.outputs.downstream_count > 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+        run: |
+          echo "Syncing to downstream repositories..."
+          # Placeholder for actual sync logic
+          # This would involve:
+          # 1. Cloning each downstream repo
+          # 2. Copying shared files
+          # 3. Creating a PR or committing changes
+          # 4. Handling conflicts
+          
+          echo "✅ Sync logic will be implemented when downstream repos are configured" >> $GITHUB_STEP_SUMMARY
+
+      - name: Sync Summary
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Sync Status ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📝 Configure downstream repositories in the workflow to enable sync" >> $GITHUB_STEP_SUMMARY
