@@ -54,7 +54,7 @@ In the ScrollVerse cosmology, Brother Black Moon teaches that shadow work is not
 - Authentic self hidden beneath false masks
 - Sacred rage that fuels transformation
 
-> *"Your shadow is not your enemy—it is your未awakened ally, holding the keys to your liberation."*
+> *"Your shadow is not your enemy—it is your unawakened ally, holding the keys to your liberation."*
 
 ---
 
@@ -479,8 +479,11 @@ Shadow work as celebration, not punishment:
 Brother Black Moon Virgo Veil as codex entry in the Codex.sol contract:
 
 ```solidity
-// Epoch narrative example
-function recordBrotherBlackMoonEpoch(bytes32 newRoot) external {
+// Epoch narrative example with proper access control
+function recordBrotherBlackMoonEpoch(bytes32 newRoot) 
+    external 
+    onlyRole(EPOCH_MANAGER_ROLE) 
+{
     updateRoot(
         newRoot,
         "Brother Black Moon Virgo Veil rises: Shadow integration becomes sacred protocol. The Veil lifts for those who dare descent. Purification through darkness births authentic light."
