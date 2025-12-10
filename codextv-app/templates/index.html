@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}CodexTV - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="hero-icon">🎬</span>
+            CodexTV
+        </h1>
+        <p class="hero-tagline">Dynamic Streaming for the ScrollVerse</p>
+        <p class="hero-description">
+            Experience prototype videos dynamically streamed through Flask Pass View technology.
+            Sacred content, healing frequencies, and OmniVerse revelations await.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">📺</span>
+            Featured Content
+        </h2>
+        <div class="videos-grid">
+            {% for video in videos %}
+            <div class="video-card" data-category="{{ video.category }}">
+                <div class="video-thumbnail">
+                    <div class="thumbnail-placeholder">
+                        {% if video.status == 'live' %}
+                        <span class="live-badge">🔴 LIVE</span>
+                        {% endif %}
+                        <span class="frequency-badge">{{ video.frequency }}</span>
+                        <span class="play-icon">▶</span>
+                    </div>
+                    <span class="video-duration">{{ video.duration }}</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">{{ video.title }}</h3>
+                    <p class="video-description">{{ video.description }}</p>
+                    <div class="video-meta">
+                        <span class="video-category">{{ video.category }}</span>
+                        <a href="/watch/{{ video.id }}" class="btn btn-play">Watch Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-categories">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">📂</span>
+            Browse by Category
+        </h2>
+        <div class="categories-grid">
+            {% for cat in categories %}
+            <a href="/category/{{ cat }}" class="category-card">
+                <span class="category-icon">
+                    {% if cat == 'documentary' %}📹{% elif cat == 'educational' %}📚{% elif cat == 'live' %}🔴{% else %}💎{% endif %}
+                </span>
+                <span class="category-name">{{ cat|title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-streaming">
+    <div class="container">
+        <div class="streaming-info">
+            <h2>Flask Pass View Technology</h2>
+            <p>CodexTV uses dynamic Flask views to stream prototype videos in real-time. 
+               Each stream is initialized with healing frequencies and optimized for the ScrollVerse experience.</p>
+            <div class="tech-features">
+                <div class="tech-feature">
+                    <span class="tech-icon">⚡</span>
+                    <span>Dynamic Streaming</span>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-icon">🎵</span>
+                    <span>Healing Frequencies</span>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-icon">📊</span>
+                    <span>Quality Options</span>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-icon">🔒</span>
+                    <span>Secure Delivery</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

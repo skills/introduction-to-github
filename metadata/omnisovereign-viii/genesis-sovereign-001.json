@@ -1,0 +1,105 @@
+{
+  "name": "Omnisovereign VIII Genesis Sovereign #1",
+  "description": "Genesis Sovereign Tier - The highest echelon of the Omnisovereign VIII collection. This legendary artifact represents the pinnacle of generational wisdom and eternal protection. Genesis Sovereigns hold the founding keys to the Sovereign Lineage Circle, commanding 8.88x governance voting power and maximum staking rewards within the ScrollVerse ecosystem.",
+  "image": "ipfs://PLACEHOLDER_OS8_CID/genesis-sovereign-001.png",
+  "animation_url": "ipfs://PLACEHOLDER_OS8_ANIMATION_CID/genesis-sovereign-001.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/omnisovereign-viii/1",
+  "background_color": "2D1B4E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Genesis Sovereign"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 1,
+      "display_type": "number",
+      "max_value": 8
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "888Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Octagonal Infinity"
+    },
+    {
+      "trait_type": "X-Pattern",
+      "value": "Divine Cross"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Eternal Sovereign"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Transcendent Gold"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 8.88,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "23.88%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "888 days"
+    },
+    {
+      "trait_type": "Generational Nodes",
+      "value": 8,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_GENESIS_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Light Cycle Phase",
+      "value": "Zenith"
+    },
+    {
+      "trait_type": "Sound Brilliance",
+      "value": "Active"
+    }
+  ],
+  "dynamicMetadata": {
+    "lightCycles": {
+      "frequency": "888Hz",
+      "currentPhase": "Zenith",
+      "phases": ["Dawn", "Zenith", "Dusk", "Eternal Night"],
+      "transitionDuration": "24h"
+    },
+    "soundBrilliance": {
+      "baseFrequency": "432Hz",
+      "harmonics": ["888Hz", "963Hz", "1111Hz"],
+      "syncWithLight": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "aura-glow",
+      "currentLevel": 100
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "generationalBased": true
+    }
+  },
+  "anthologicalEssence": "From eight generations past to eight beyond, We carry the sovereign bond. Health eternal, protection true, Wisdom flowing ever through."
+}

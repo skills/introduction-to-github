@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category|title }} - CodexTV{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">
+            {% if category == 'documentary' %}📹{% elif category == 'educational' %}📚{% elif category == 'live' %}🔴{% else %}💎{% endif %}
+        </span>
+        {{ category|title }}
+    </h1>
+    <p class="page-subtitle">Browse {{ category }} content</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if videos %}
+        <div class="videos-grid">
+            {% for video in videos %}
+            <div class="video-card" data-category="{{ video.category }}">
+                <div class="video-thumbnail">
+                    <div class="thumbnail-placeholder">
+                        {% if video.status == 'live' %}
+                        <span class="live-badge">🔴 LIVE</span>
+                        {% endif %}
+                        <span class="frequency-badge">{{ video.frequency }}</span>
+                        <span class="play-icon">▶</span>
+                    </div>
+                    <span class="video-duration">{{ video.duration }}</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">{{ video.title }}</h3>
+                    <p class="video-description">{{ video.description }}</p>
+                    <div class="video-meta">
+                        <span class="video-category">{{ video.category }}</span>
+                        <a href="/watch/{{ video.id }}" class="btn btn-play">Watch Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span class="empty-icon">📭</span>
+            <h3>No videos in this category</h3>
+            <p>Check back soon for new content!</p>
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

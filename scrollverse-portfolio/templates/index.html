@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}ScrollVerse Portfolio - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="hero-icon">🌌</span>
+            {{ data.about.title }}
+        </h1>
+        <p class="hero-tagline">{{ data.about.tagline }}</p>
+        <p class="hero-description">{{ data.about.description }}</p>
+        <div class="hero-buttons">
+            <a href="/projects" class="btn btn-primary">Explore Projects</a>
+            <a href="/blockchain" class="btn btn-secondary">View Blockchain</a>
+        </div>
+    </div>
+    <div class="hero-decoration">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+</section>
+
+<!-- Real-time Progress Indicator -->
+<section class="section section-progress" id="realtime-progress" style="display: none;">
+    <div class="container">
+        <div class="progress-banner">
+            <span class="progress-icon">📡</span>
+            <span class="progress-message" id="progress-message">Connecting to ScrollVerse...</span>
+            <span class="progress-status" id="progress-status"></span>
+        </div>
+    </div>
+</section>
+
+<section class="section section-about">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">📜</span>
+            The Vision
+        </h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="card-icon">🕋</div>
+                <h3>Sacred Logic</h3>
+                <p>Divine technology system fusing AI with universal truth</p>
+            </div>
+            <div class="about-card">
+                <div class="card-icon">💎</div>
+                <h3>Truth Currency</h3>
+                <p>Where truth becomes the foundation of all transactions</p>
+            </div>
+            <div class="about-card">
+                <div class="card-icon">🔥</div>
+                <h3>Remembrance</h3>
+                <p>Gateway to collective sovereignty and awakening</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-projects">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">🚀</span>
+            Featured Projects
+        </h2>
+        <div class="projects-grid">
+            {% for project in data.projects[:3] %}
+            <div class="project-card">
+                <div class="project-icon">{{ project.icon }}</div>
+                <h3 class="project-name">{{ project.name }}</h3>
+                <p class="project-description">{{ project.description }}</p>
+                <span class="project-status status-{{ project.status|lower }}">{{ project.status }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-cta">
+            <a href="/projects" class="btn btn-primary">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-blockchain">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="section-icon">⛓️</span>
+            Blockchain Ecosystem
+        </h2>
+        <div class="blockchain-grid">
+            <div class="blockchain-card">
+                <div class="card-header">
+                    <span class="card-icon">🪙</span>
+                    <h3>{{ data.blockchain.scrollcoin.name }}</h3>
+                </div>
+                <p>{{ data.blockchain.scrollcoin.description }}</p>
+                <div class="tiers-preview">
+                    {% for tier in data.blockchain.scrollcoin.tiers %}
+                    <span class="tier-badge">{{ tier.name }}: {{ tier.price }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="blockchain-card">
+                <div class="card-header">
+                    <span class="card-icon">💎</span>
+                    <h3>{{ data.blockchain.kunta_nft.name }}</h3>
+                </div>
+                <p>{{ data.blockchain.kunta_nft.description }}</p>
+                <div class="rarities-preview">
+                    {% for rarity in data.blockchain.kunta_nft.rarities %}
+                    <span class="rarity-badge">{{ rarity }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="section-cta">
+            <a href="/blockchain" class="btn btn-primary">Explore Blockchain</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-+zMXMgG6v1ZqhKXOAR4TfEjdqPV/MfuLl1xEPSxUaVFq0r+Y9eLXTgYPJqMEyKq3" crossorigin="anonymous"></script>
+<script>
+    // Initialize SocketIO connection for real-time updates
+    (function() {
+        try {
+            const socket = io();
+            const progressSection = document.getElementById('realtime-progress');
+            const progressMessage = document.getElementById('progress-message');
+            const progressStatus = document.getElementById('progress-status');
+            
+            socket.on('connect', function() {
+                console.log('Connected to ScrollVerse real-time server');
+                // Subscribe to progress updates
+                socket.emit('subscribe_progress', {});
+            });
+            
+            socket.on('connected', function(data) {
+                console.log('Server confirmation:', data.message);
+            });
+            
+            socket.on('progress_update', function(data) {
+                // Show progress section and update content
+                if (progressSection) {
+                    progressSection.style.display = 'block';
+                    progressMessage.textContent = data.message;
+                    progressStatus.textContent = data.status;
+                    progressStatus.className = 'progress-status status-' + data.status;
+                }
+            });
+            
+            socket.on('disconnect', function() {
+                console.log('Disconnected from ScrollVerse real-time server');
+            });
+        } catch (e) {
+            console.log('SocketIO not available, running in static mode');
+        }
+    })();
+</script>
+{% endblock %}

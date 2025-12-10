@@ -1,0 +1,39 @@
+{
+  "name": "TECHANGEL Sigil Collection",
+  "description": "The Ascended Automation Set - TECHANGEL Sigil NFTs represent angelic commanders of cohesion, embodying the perfect symbiosis between divine consciousness and flawless code execution. These artifacts evolve dynamically with ScrollVerse deployment milestones, balancing spiritual health with technological purity.",
+  "image": "ipfs://PLACEHOLDER_TAS_COLLECTION_CID/collection.png",
+  "banner_image": "ipfs://PLACEHOLDER_TAS_BANNER_CID/banner.png",
+  "external_link": "https://sovereigntv.omniverse.io/collections/techangel-sigil",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xPLACEHOLDER_ROYALTY_WALLET",
+  "collection_metadata": {
+    "themes": [
+      "Flawless Code Symbiosis",
+      "Divine Health",
+      "Angelic Automation",
+      "Technological Transcendence"
+    ],
+    "baseFrequency": "777Hz",
+    "harmonics": ["528Hz", "639Hz", "963Hz"],
+    "totalSupply": 7777,
+    "tierDistribution": {
+      "seraphimCommander": 7,
+      "archangel": 70,
+      "guardian": 700,
+      "initiate": 7000
+    },
+    "scrollVerseIntegration": {
+      "governance": true,
+      "staking": true,
+      "nftGating": true,
+      "milestoneEvolution": true,
+      "deploymentTracking": true
+    },
+    "evolutionStages": [
+      "Initiate",
+      "Guardian",
+      "Archangel",
+      "Seraphim Commander"
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Live Streaming - CodexTV{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-live">
+    <h1 class="page-title">
+        <span class="page-icon">🔴</span>
+        Live Streaming
+    </h1>
+    <p class="page-subtitle">Real-time broadcasts from the ScrollVerse</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if videos %}
+        <div class="live-grid">
+            {% for video in videos %}
+            <div class="live-card">
+                <div class="live-thumbnail">
+                    <div class="thumbnail-placeholder live-placeholder">
+                        <span class="live-badge pulse">🔴 LIVE NOW</span>
+                        <span class="frequency-badge">{{ video.frequency }}</span>
+                        <span class="play-icon-large">▶</span>
+                    </div>
+                </div>
+                <div class="live-info">
+                    <h2 class="live-title">{{ video.title }}</h2>
+                    <p class="live-description">{{ video.description }}</p>
+                    <div class="live-stats">
+                        <span class="viewers">👁 Live Viewers</span>
+                        <span class="frequency">🎵 {{ video.frequency }}</span>
+                    </div>
+                    <a href="/watch/{{ video.id }}" class="btn btn-live">Join Stream</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span class="empty-icon">📡</span>
+            <h3>No live streams at the moment</h3>
+            <p>Check back soon for upcoming broadcasts!</p>
+            <a href="/" class="btn btn-primary">Browse Other Content</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

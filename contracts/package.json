@@ -1,0 +1,39 @@
+{
+  "name": "scrollverse-contracts",
+  "version": "1.0.0",
+  "description": "ScrollVerse Ecosystem Smart Contracts - DAO, Token, and NFT Governance",
+  "author": "OmniTech1™",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:dao:local": "hardhat run scripts/deploy-scrollverse-dao.js --network hardhat",
+    "deploy:dao:sepolia": "hardhat run scripts/deploy-scrollverse-dao.js --network sepolia",
+    "deploy:dao:mainnet": "hardhat run scripts/deploy-scrollverse-dao.js --network mainnet",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "verify:mainnet": "hardhat verify --network mainnet",
+    "clean": "hardhat clean",
+    "node": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "scrollverse",
+    "dao",
+    "governance",
+    "mirror-token",
+    "pfc-nft",
+    "smart-contracts",
+    "ethereum",
+    "sepolia",
+    "decentralized-governance"
+  ]
+}
