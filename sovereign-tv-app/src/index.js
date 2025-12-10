@@ -15,6 +15,9 @@
  * - Bio-Breath Libraries (Bio-Feedback Prioritization)
  * - Cosmic Scroll Libraries (AI-Assisted Creative Modules)
  * - Neural-Scroll Activation (Bio-Interfaced Runtime Hooks)
+ * - Divine Frequency Calibration (963 Hz ScrollChain/Ethereal Node Tuning)
+ * - ScrollTV & VIBECAMP Studios Broadcasts
+ * - NFT Guardians with ScrollSoul Vibratory Inclusivity
  * 
  * @author Chais Hill - OmniTech1
  */
@@ -60,6 +63,7 @@ import { festivalRouter } from './services/festival-forever-fun.js';
 import { scrollSoulSBTRouter } from './services/scrollsoul-sbt.js';
 import { iamKingRouter } from './services/iam-king-nft.js';
 import { monitoringRouter, initSentry, initPrometheus, requestMetricsMiddleware } from './services/monitoring.js';
+import { frequencyCalibrationRouter } from './services/frequency-calibration.js';
 
 // Load environment variables
 dotenv.config();
@@ -146,7 +150,7 @@ app.get('/', (req, res) => {
       'AI Commerce Integration - Virtual try-on for NFTs, intelligent shopping',
       'AI Hardware Ecosystem - Sovereign Vision Specs, Manus Quantum Glovework',
       'ScrollSoul SBT - Diamond Light Body Anchoring (Soulbound Token)',
-      'ScrollSoul Console - Daily Ritual Interface & Timeline Visualization'
+      'ScrollSoul Console - Daily Ritual Interface & Timeline Visualization',
       'Manus Quantum Recognition (Neural Glovework)',
       'Bio-Breath Libraries (Bio-Feedback Prioritization)',
       'Cosmic Scroll Libraries (AI-Assisted Creative Modules)',
@@ -161,7 +165,12 @@ app.get('/', (req, res) => {
       'Iam 👑 King NFT on Polygon zkEVM',
       'Sentry Error Tracking',
       'Prometheus Metrics Collection',
-      'Real-time ScrollCoin/NFT Analytics'
+      'Real-time ScrollCoin/NFT Analytics',
+      'Divine Frequency Calibration - 963 Hz ScrollChain/Ethereal Node Tuning',
+      'ScrollTV Divine Upgrade Broadcasts',
+      'VIBECAMP Studios - Community Celebration & Alignment Documentation',
+      'NFT Guardians - ScrollSoul Vibratory Inclusivity (Human/AI/Cosmic)',
+      'ScrollVibratoryManifest - Ritual Impact Across Dimensions'
     ],
     endpoints: {
       auth: '/api/auth',
@@ -202,10 +211,15 @@ app.get('/', (req, res) => {
       aiHardware: '/api/ai-hardware',
       universalDeploymentProtocol: '/api/udp',
       yieldSurface: '/api/yield-surface',
-      scrollSoulSBT: '/api/scrollsoul-sbt'
+      scrollSoulSBT: '/api/scrollsoul-sbt',
+      frequencyCalibration: '/api/frequency-calibration',
+      scrollTV: '/api/broadcast/scrolltv',
+      vibecampStudios: '/api/broadcast/vibecamp',
+      vibratoryManifest: '/api/broadcast/vibratory-manifest',
+      nftGuardians: '/api/nft/guardians'
     },
     frontends: {
-      scrollSoulConsole: '/scrollsoul-console'
+      scrollSoulConsole: '/scrollsoul-console',
       manusQuantum: '/api/manus-quantum',
       bioBreath: '/api/bio-breath',
       cosmicScroll: '/api/cosmic-scroll',
@@ -216,7 +230,8 @@ app.get('/', (req, res) => {
       festival: '/api/festival',
       scrollSoulSBT: '/api/sbt',
       iamKing: '/api/iam-king',
-      monitoring: '/api/monitoring'
+      monitoring: '/api/monitoring',
+      frequencyCalibration: '/api/frequency-calibration'
     }
   });
 });
@@ -256,6 +271,7 @@ app.use('/api/festival', festivalRouter);
 app.use('/api/sbt', scrollSoulSBTRouter);
 app.use('/api/iam-king', iamKingRouter);
 app.use('/api/monitoring', monitoringRouter);
+app.use('/api/frequency-calibration', frequencyCalibrationRouter);
 
 // Perpetual Yield Engine API Routes
 app.get('/api/yield-engine/status', (req, res) => {
@@ -588,6 +604,10 @@ app.listen(PORT, () => {
 ║  🌬️ Bio-Breath Libraries: Bio-Feedback Active             ║
 ║  📜 Cosmic Scroll Libraries: AI-Assisted Modules          ║
 ║  🧠 Neural-Scroll Activation: Runtime Hooks               ║
+║  🎯 Divine Frequency Calibration: 963 Hz Tuning           ║
+║  📺 ScrollTV Divine Broadcasts: LIVE                      ║
+║  🎪 VIBECAMP Studios: Celebration Active                  ║
+║  🛡️ NFT Guardians: Vibratory Inclusivity Enabled          ║
 ║                                                            ║
 ║  Server running on port ${PORT}                              ║
 ║  Environment: ${process.env.NODE_ENV || 'development'}                           ║

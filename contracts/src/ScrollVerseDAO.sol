@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
  * @title ScrollVerseDAO
@@ -103,6 +104,51 @@ contract ScrollVerseDAO is
     );
 
     /// @notice Emitted when a new proposal is created
+ * @notice Governance contract for the ScrollVerse ecosystem
+ * @dev Implements OpenZeppelin Governor with timelock for secure execution
+ * 
+ * Features:
+ * - Proposal creation with voting
+ * - Quorum-based voting (4% of total supply)
+ * - Timelock-controlled execution for security
+ * - Integration with MirrorToken ($MIRROR) for voting power
+ * 
+ * Governance Parameters:
+ * - Voting Delay: 1 block (proposals can be voted on immediately after creation)
+ * - Voting Period: 50400 blocks (~1 week on Ethereum mainnet)
+ * - Proposal Threshold: 100,000 MIRROR tokens to create proposals
+ * - Quorum: 4% of total voting power
+ */
+contract ScrollVerseDAO is 
+    Governor,
+    GovernorSettings,
+    GovernorCountingSimple,
+    GovernorVotes,
+    GovernorVotesQuorumFraction,
+    GovernorTimelockControl
+{
+    using Strings for uint256;
+    using Strings for address;
+
+    // ========== CONSTANTS ==========
+
+    /// @notice Proposal threshold: 100,000 MIRROR tokens required to create a proposal
+    uint256 public constant PROPOSAL_THRESHOLD = 100_000 * 1e18;
+
+    // ========== STATE VARIABLES ==========
+
+    /// @notice Counter for tracking the number of proposals
+    uint256 public proposalCount;
+
+    /// @notice Mapping from proposal ID to proposal title
+    mapping(uint256 => string) public proposalTitles;
+
+    /// @notice Mapping from proposal ID to proposal description hash
+    mapping(uint256 => bytes32) public proposalDescriptionHashes;
+
+    // ========== EVENTS ==========
+
+    /// @notice Emitted when a new proposal is created with additional metadata
     event ProposalCreatedWithMetadata(
         uint256 indexed proposalId,
         address indexed proposer,
@@ -134,6 +180,24 @@ contract ScrollVerseDAO is
     error NotPfcHolder();
     error ContractPaused();
     error CannotPauseAfterHandOff();
+    /// @notice Emitted when a proposal is executed successfully
+    event ProposalExecuted(
+        uint256 indexed proposalId,
+        address indexed executor,
+        uint256 timestamp
+    );
+
+    /// @notice Emitted when the Genesis Proposal is submitted
+    event GenesisProposalSubmitted(
+        uint256 indexed proposalId,
+        address indexed proposer,
+        uint256 timestamp
+    );
+
+    // ========== ERRORS ==========
+
+    error ProposalAlreadyExists(uint256 proposalId);
+    error InvalidProposalParameters();
 
     // ========== CONSTRUCTOR ==========
 
@@ -169,6 +233,24 @@ contract ScrollVerseDAO is
         pfcNft = _pfcNft;
         timelockController = _timelock;
     }
+     * @param _token Address of the MirrorToken contract for voting power
+     * @param _timelock Address of the TimelockController contract
+     * @param _votingDelay Number of blocks to wait before voting starts
+     * @param _votingPeriod Number of blocks for the voting period
+     * @dev The quorum is set to 4% of total voting power
+     */
+    constructor(
+        IVotes _token,
+        TimelockController _timelock,
+        uint48 _votingDelay,
+        uint32 _votingPeriod
+    )
+        Governor("ScrollVerseDAO")
+        GovernorSettings(_votingDelay, _votingPeriod, PROPOSAL_THRESHOLD)
+        GovernorVotes(_token)
+        GovernorVotesQuorumFraction(4) // 4% quorum
+        GovernorTimelockControl(_timelock)
+    {}
 
     // ========== EXTERNAL FUNCTIONS ==========
 
@@ -238,6 +320,48 @@ contract ScrollVerseDAO is
      * @return proposalId The ID of the created proposal
      */
     function proposeWithMetadata(
+     * @notice Submit the Genesis Proposal to inaugurate DAO governance
+     * @param targets Array of target addresses for the proposal actions
+     * @param values Array of ETH values for each action
+     * @param calldatas Array of encoded function calls
+     * @param treasuryTransferAmount Amount of $MIRROR to transfer from treasury
+     * @param distributionFund Address of the distribution fund
+     * @return proposalId The ID of the created proposal
+     * @dev This is a convenience function for submitting the Genesis Proposal
+     */
+    function submitGenesisProposal(
+        address[] memory targets,
+        uint256[] memory values,
+        bytes[] memory calldatas,
+        uint256 treasuryTransferAmount,
+        address distributionFund
+    ) external returns (uint256 proposalId) {
+        string memory title = "The Genesis Proposal: Incentivizing NFT Fusion and Community Engagement";
+        string memory description = _getGenesisProposalDescription(treasuryTransferAmount, distributionFund);
+
+        proposalId = propose(targets, values, calldatas, description);
+
+        // Store metadata
+        proposalTitles[proposalId] = title;
+        proposalDescriptionHashes[proposalId] = keccak256(bytes(description));
+        proposalCount++;
+
+        emit GenesisProposalSubmitted(proposalId, msg.sender, block.timestamp);
+        emit ProposalCreatedWithMetadata(proposalId, msg.sender, title, description, block.timestamp);
+
+        return proposalId;
+    }
+
+    /**
+     * @notice Create a proposal with a title for better tracking
+     * @param targets Array of target addresses
+     * @param values Array of ETH values
+     * @param calldatas Array of encoded function calls
+     * @param title Human-readable title for the proposal
+     * @param description Detailed description of the proposal
+     * @return proposalId The ID of the created proposal
+     */
+    function proposeWithTitle(
         address[] memory targets,
         uint256[] memory values,
         bytes[] memory calldatas,
@@ -265,6 +389,14 @@ contract ScrollVerseDAO is
             description,
             block.timestamp
         );
+    ) external returns (uint256 proposalId) {
+        proposalId = propose(targets, values, calldatas, description);
+        
+        proposalTitles[proposalId] = title;
+        proposalDescriptionHashes[proposalId] = keccak256(bytes(description));
+        proposalCount++;
+
+        emit ProposalCreatedWithMetadata(proposalId, msg.sender, title, description, block.timestamp);
 
         return proposalId;
     }
@@ -341,12 +473,72 @@ contract ScrollVerseDAO is
         votingPower = IVotes(mirrorToken).getVotes(account);
         threshold = proposalThreshold();
         canPropose = votingPower >= threshold;
+    // ========== VIEW FUNCTIONS ==========
+
+    /**
+     * @notice Get the title of a proposal
+     * @param proposalId The ID of the proposal
+     * @return The proposal title
+     */
+    function getProposalTitle(uint256 proposalId) external view returns (string memory) {
+        return proposalTitles[proposalId];
+    }
+
+    /**
+     * @notice Get the description hash of a proposal
+     * @param proposalId The ID of the proposal
+     * @return The keccak256 hash of the proposal description
+     */
+    function getProposalDescriptionHash(uint256 proposalId) external view returns (bytes32) {
+        return proposalDescriptionHashes[proposalId];
+    }
+
+    /**
+     * @notice Get the Genesis Proposal description
+     * @param treasuryTransferAmount Amount to transfer
+     * @param distributionFund Destination address
+     * @return Full proposal description
+     */
+    function getGenesisProposalDescription(
+        uint256 treasuryTransferAmount,
+        address distributionFund
+    ) external pure returns (string memory) {
+        return _getGenesisProposalDescription(treasuryTransferAmount, distributionFund);
+    }
+
+    // ========== INTERNAL FUNCTIONS ==========
+
+    /**
+     * @notice Generate the Genesis Proposal description
+     * @param treasuryTransferAmount Amount to transfer
+     * @param distributionFund Destination address
+     * @return Full proposal description
+     */
+    function _getGenesisProposalDescription(
+        uint256 treasuryTransferAmount,
+        address distributionFund
+    ) internal pure returns (string memory) {
+        return string(abi.encodePacked(
+            "# The Genesis Proposal: Incentivizing NFT Fusion and Community Engagement\n\n",
+            "## Description\n",
+            "This proposal officially recognizes the strategic importance of the Omnisovereign VIII and TECHANGEL Sigil NFT sets.\n\n",
+            "It allocates $MIRROR from the DAO Treasury to fund the following:\n",
+            "- Initial rewards for early NFT holders and participants in fusion events.\n",
+            "- Community engagement and adoption activities aligned with the ScrollVerse ethos.\n\n",
+            "## Execution Payload\n",
+            "Upon successful proposal approval, the DAO Treasury will transfer the allocated $MIRROR to a distribution fund designated for this purpose.\n\n",
+            "This action validates the core functions of the DAO: Propose, Vote, Queue, and Execute.\n\n",
+            "## Parameters\n",
+            "- Treasury Transfer Amount: ", treasuryTransferAmount.toString(), " MIRROR\n",
+            "- Distribution Fund: ", distributionFund.toHexString(), "\n"
+        ));
     }
 
     // ========== OVERRIDE FUNCTIONS ==========
 
     /**
      * @dev Override voting delay from GovernorSettings
+     * @dev Override required by Solidity for multiple inheritance
      */
     function votingDelay()
         public
@@ -359,6 +551,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override voting period from GovernorSettings
+     * @dev Override required by Solidity for multiple inheritance
      */
     function votingPeriod()
         public
@@ -371,6 +564,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override quorum from GovernorVotesQuorumFraction
+     * @dev Override required by Solidity for multiple inheritance
      */
     function quorum(uint256 blockNumber)
         public
@@ -383,6 +577,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override state from GovernorTimelockControl
+     * @dev Override required by Solidity for multiple inheritance
      */
     function state(uint256 proposalId)
         public
@@ -395,6 +590,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override proposalNeedsQueuing from GovernorTimelockControl
+     * @dev Override required by Solidity for multiple inheritance
      */
     function proposalNeedsQueuing(uint256 proposalId)
         public
@@ -407,6 +603,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override proposal threshold from GovernorSettings
+     * @dev Override required by Solidity for multiple inheritance
      */
     function proposalThreshold()
         public
@@ -419,6 +616,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override _queueOperations from GovernorTimelockControl
+     * @dev Override required by Solidity for multiple inheritance
      */
     function _queueOperations(
         uint256 proposalId,
@@ -432,6 +630,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override _executeOperations from GovernorTimelockControl
+     * @dev Override required by Solidity for multiple inheritance
      */
     function _executeOperations(
         uint256 proposalId,
@@ -445,6 +644,11 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override _cancel from GovernorTimelockControl
+        emit ProposalExecuted(proposalId, msg.sender, block.timestamp);
+    }
+
+    /**
+     * @dev Override required by Solidity for multiple inheritance
      */
     function _cancel(
         address[] memory targets,
@@ -457,6 +661,7 @@ contract ScrollVerseDAO is
 
     /**
      * @dev Override _executor from GovernorTimelockControl
+     * @dev Override required by Solidity for multiple inheritance
      */
     function _executor()
         internal

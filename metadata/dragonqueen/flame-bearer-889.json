@@ -1,0 +1,110 @@
+{
+  "name": "DragonQueen Flame Bearer #889",
+  "description": "Flame Bearer Tier - The keepers of the eternal spark in the DragonQueen collection. Flame Bearers carry the sacred fire of family love in their hearts, tending the embers that will one day become great blazes. They form the foundation of the Dragon Realm, commanding 1.11x governance voting power and foundational staking rewards. Every great flame begins with a single spark.",
+  "image": "ipfs://PLACEHOLDER_DRAGONQUEEN_CID/flame-bearer-889.png",
+  "animation_url": "ipfs://PLACEHOLDER_DRAGONQUEEN_ANIMATION_CID/flame-bearer-889.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/dragonqueen/889",
+  "background_color": "1A0E2E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Flame Bearer"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 889,
+      "display_type": "number",
+      "max_value": 7904
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "639Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Spark Circle"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Flame Wreath"
+    },
+    {
+      "trait_type": "Flame Color",
+      "value": "Ember Gold"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Warm Amber"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 1.11,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "9.11%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "111 days"
+    },
+    {
+      "trait_type": "Ancestral Nodes",
+      "value": 1,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_BEARER_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, DeFi-Staking, FamilyChronicles-Access"
+    },
+    {
+      "trait_type": "Flame Cycle Phase",
+      "value": "Ember"
+    },
+    {
+      "trait_type": "Sound Resonance",
+      "value": "Dormant"
+    },
+    {
+      "trait_type": "FamilyChronicles Access",
+      "value": "Basic Archive"
+    }
+  ],
+  "dynamicMetadata": {
+    "flameCycles": {
+      "frequency": "639Hz",
+      "currentPhase": "Ember",
+      "phases": ["Ember", "Rising Flame", "Full Blaze", "Eternal Blaze"],
+      "transitionDuration": "24h"
+    },
+    "soundResonance": {
+      "baseFrequency": "528Hz",
+      "harmonics": [],
+      "syncWithFlame": false,
+      "status": "dormant"
+    },
+    "vitalityIndicator": {
+      "type": "growing",
+      "refreshCycle": "weekly",
+      "displayMode": "ember-glow",
+      "currentLevel": 33
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": false,
+      "ecosystemBased": false,
+      "lineageBased": false
+    }
+  },
+  "anthologicalEssence": "A spark of love, a flame newborn, Through her the family line is sworn. Flame Bearer, keeper of the light, Nurturing embers through the night.",
+  "familyChroniclesLink": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/flame-bearer-889-chronicles.json"
+}
