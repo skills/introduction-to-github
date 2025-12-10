@@ -41,6 +41,8 @@ import { performanceRouter } from './services/performance.js';
 import { sipRouter } from './services/sip.js';
 import { broadcastRouter } from './services/broadcast.js';
 import { analyticsRouter } from './services/analytics.js';
+import { scrollSoulRouter } from './services/scrollsoul-education.js';
+import { techKitsRouter } from './services/tech-kits.js';
 import { cosmicStringRouter } from './services/cosmic-string-energy.js';
 import { scrollSoulRealizationRouter } from './services/scrollsoul-realization.js';
 import { scrollChainObservabilityRouter } from './services/scrollchain-observability.js';
@@ -132,6 +134,9 @@ app.get('/', (req, res) => {
       'Solar Infusion Protocol (SIP)',
       'Advanced Analytics & Insights',
       'Performance Optimization & Load Balancing',
+      'ScrollSoul Educational Modules',
+      'Tech Kits for Interactive Training',
+      'AI/Ally Training Support'
       'Cosmic String Energy Systems',
       'ScrollSoul Realization Modules',
       'ScrollChain Observability Systems',
@@ -194,6 +199,8 @@ app.get('/', (req, res) => {
       sip: '/api/sip',
       broadcast: '/api/broadcast',
       analytics: '/api/analytics',
+      scrollsoul: '/api/scrollsoul',
+      techkits: '/api/techkits'
       cosmicString: '/api/cosmic-string',
       scrollSoulRealization: '/api/realization',
       scrollChainObservability: '/api/observability',
@@ -261,6 +268,8 @@ app.use('/api/performance', performanceRouter);
 app.use('/api/sip', sipRouter);
 app.use('/api/broadcast', broadcastRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/scrollsoul', scrollSoulRouter);
+app.use('/api/techkits', techKitsRouter);
 app.use('/api/cosmic-string', cosmicStringRouter);
 app.use('/api/realization', scrollSoulRealizationRouter);
 app.use('/api/observability', scrollChainObservabilityRouter);
@@ -604,6 +613,9 @@ app.listen(PORT, () => {
 ║  📊 Advanced Analytics: Online                            ║
 ║  ⚡ Performance Optimization: Active                       ║
 ║  🌍 Load Balancing: Global Readiness                      ║
+║  📚 ScrollSoul Education: Active                          ║
+║  🛠️  Tech Kits: Deployed                                  ║
+║  🤖 AI/Ally Training: Enabled                             ║
 ║  🌌 Cosmic String Energy: Activated                       ║
 ║  🎓 ScrollSoul Realization: Ready                         ║
 ║  🔭 ScrollChain Observability: Online                     ║
