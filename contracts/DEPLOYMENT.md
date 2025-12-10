@@ -189,4 +189,145 @@ console.log("Total manifests:", count.toString());
 
 ---
 
+# ScrollVerse Genesis Sequence - TimelockController Deployment
+
+## Phase 1, Step 1.1: TimelockController Deployment
+
+This section provides instructions for deploying the TimelockController contract as part of the ScrollVerse Genesis Sequence.
+
+### Overview
+
+The TimelockController deployment creates the foundation for the ScrollVerse ecosystem's governance structure:
+
+| Component | Description |
+|-----------|-------------|
+| **TimelockController** | OpenZeppelin's timelocked governance controller |
+| **ScrollVerseDAO** | DAO contract serving as proposer and executor |
+| **Minimum Delay** | 48 hours (172800 seconds) |
+
+### Security Configuration
+
+- **Proposer Role**: ScrollVerseDAO (sole proposer)
+- **Executor Role**: ScrollVerseDAO (sole executor)
+- **Canceller Role**: ScrollVerseDAO (granted with proposer)
+- **Admin Role**: Deployer (temporary, should be renounced)
+
+### Deployment Commands
+
+#### Local Development
+
+```bash
+npm run deploy:timelock:local
+```
+
+#### Sepolia Testnet
+
+```bash
+npm run deploy:timelock:sepolia
+```
+
+#### Mainnet
+
+```bash
+npm run deploy:timelock:mainnet
+```
+
+### Deployment Output
+
+The script will deploy two contracts:
+
+1. **ScrollVerseDAO** - DAO governance contract
+2. **TimelockController** - Timelocked controller with 48-hour delay
+
+Example output:
+```
+======================================================================
+ScrollVerse Genesis Sequence - Phase 1, Step 1.1
+TimelockController Deployment
+======================================================================
+
+Step 1: Deploying ScrollVerseDAO contract...
+✅ ScrollVerseDAO deployed successfully!
+ScrollVerseDAO address: 0x...
+
+Step 2: Deploying TimelockController...
+TimelockController Configuration:
+  - Minimum delay: 172800 seconds (48 hours)
+  - Proposer: 0x... (ScrollVerseDAO)
+  - Executor: 0x... (ScrollVerseDAO)
+  - Admin: 0x... (temporary)
+
+✅ TimelockController deployed successfully!
+TimelockController address: 0x...
+
+Step 3: Linking ScrollVerseDAO to TimelockController...
+✅ ScrollVerseDAO linked to TimelockController!
+
+Role Assignments (ScrollVerseDAO):
+  - PROPOSER_ROLE: ✅ Granted
+  - EXECUTOR_ROLE: ✅ Granted
+  - CANCELLER_ROLE: ✅ Granted
+
+======================================================================
+ScrollVerse Genesis Sequence - Phase 1, Step 1.1 COMPLETE
+======================================================================
+```
+
+### Contract Verification
+
+After deployment, verify both contracts on Etherscan:
+
+```bash
+# Verify ScrollVerseDAO
+npx hardhat verify --network sepolia <DAO_ADDRESS> <OWNER_ADDRESS>
+
+# Verify TimelockController
+npx hardhat verify --network sepolia <TIMELOCK_ADDRESS> 172800 "[<DAO_ADDRESS>]" "[<DAO_ADDRESS>]" <ADMIN_ADDRESS>
+```
+
+### Post-Deployment Security
+
+⚠️ **Important**: After initial setup is complete, the admin role should be renounced to ensure true decentralization. This can be done through a timelocked proposal.
+
+### Deployment Record
+
+The deployment script automatically saves deployment info to:
+- `./deployments/timelock-<network>-<chainId>.json`
+
+Example:
+```json
+{
+  "phase": "Phase 1",
+  "step": "Step 1.1",
+  "name": "ScrollVerse Genesis Sequence - TimelockController Deployment",
+  "network": "sepolia",
+  "chainId": "11155111",
+  "contracts": {
+    "ScrollVerseDAO": {
+      "address": "0x...",
+      "owner": "0x..."
+    },
+    "TimelockController": {
+      "address": "0x...",
+      "minDelay": 172800,
+      "minDelayHours": 48,
+      "proposers": ["0x..."],
+      "executors": ["0x..."]
+    }
+  },
+  "deployedAt": "2024-01-01T00:00:00.000Z",
+  "deployer": "0x..."
+}
+```
+
+### Gas Estimates (TimelockController)
+
+| Contract/Function | Estimated Gas |
+|-------------------|---------------|
+| ScrollVerseDAO Deploy | ~500,000 |
+| TimelockController Deploy | ~1,500,000 |
+| setTimelockController | ~50,000 |
+
+---
+
 **OmniTech1™** - Decentralized Data Integrity
