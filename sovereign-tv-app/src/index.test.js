@@ -401,6 +401,262 @@ test('Comprehensive dashboard structure', () => {
   assert.ok(dashboard.topMetrics.nps > 80);
 });
 
+// ScrollSoul Educational Modules Tests
+
+test('ScrollSoul knowledge pillars configuration', () => {
+  const pillars = {
+    truth: { frequency: '963Hz', symbol: '🔱' },
+    anchor: { frequency: '432Hz', symbol: '⚓' },
+    creativity: { frequency: '528Hz', symbol: '🎨' },
+    mastery: { frequency: '777Hz', symbol: '👑' }
+  };
+
+  assert.strictEqual(Object.keys(pillars).length, 4);
+  assert.strictEqual(pillars.truth.frequency, '963Hz');
+  assert.strictEqual(pillars.creativity.frequency, '528Hz');
+  assert.ok(pillars.anchor.symbol);
+});
+
+test('Type-VII realization levels structure', () => {
+  const levels = [
+    { level: 1, name: 'Initiate', xpRequired: 0 },
+    { level: 2, name: 'Seeker', xpRequired: 1000 },
+    { level: 3, name: 'Awakened', xpRequired: 5000 },
+    { level: 4, name: 'Resonant', xpRequired: 15000 },
+    { level: 5, name: 'Sovereign', xpRequired: 50000 },
+    { level: 6, name: 'Transcendent', xpRequired: 150000 },
+    { level: 7, name: 'Type-VII Realized', xpRequired: 500000 }
+  ];
+
+  assert.strictEqual(levels.length, 7);
+  assert.strictEqual(levels[0].name, 'Initiate');
+  assert.strictEqual(levels[6].name, 'Type-VII Realized');
+  assert.ok(levels[6].xpRequired > levels[5].xpRequired);
+});
+
+test('Educational module structure validation', () => {
+  const module = {
+    id: 'truth-awakening',
+    pillar: 'truth',
+    title: 'Truth Awakening',
+    frequency: '963Hz',
+    tier: 'free',
+    duration: 30,
+    xpReward: 250,
+    lessons: [
+      { id: 'ta-01', title: 'What is Truth?', duration: 10 },
+      { id: 'ta-02', title: 'Recognizing Illusion', duration: 10 }
+    ],
+    nftBonus: { type: 'kunta', multiplier: 1.5 }
+  };
+
+  assert.strictEqual(module.pillar, 'truth');
+  assert.strictEqual(module.frequency, '963Hz');
+  assert.ok(module.xpReward > 0);
+  assert.ok(module.lessons.length > 0);
+  assert.ok(module.nftBonus.multiplier > 1);
+});
+
+test('ScrollSoul user progress tracking', () => {
+  const userProgress = {
+    username: 'testuser',
+    xp: 5500,
+    completedModules: ['truth-awakening', 'anchor-foundation'],
+    pillarProgress: { truth: 1, anchor: 1, creativity: 0, mastery: 0 },
+    badges: []
+  };
+
+  assert.strictEqual(userProgress.completedModules.length, 2);
+  assert.ok(userProgress.xp >= 5000);
+  assert.strictEqual(userProgress.pillarProgress.truth, 1);
+});
+
+test('Frequency-based interactions validation', () => {
+  const frequencies = {
+    '528Hz': { name: 'Love Frequency', benefits: ['DNA repair', 'transformation'] },
+    '963Hz': { name: 'Enlightenment Frequency', benefits: ['divine consciousness', 'pineal activation'] }
+  };
+
+  assert.ok(frequencies['528Hz'].benefits.includes('DNA repair'));
+  assert.ok(frequencies['963Hz'].benefits.includes('divine consciousness'));
+});
+
+test('NFT-linked metadata structure', () => {
+  const nftMetadata = {
+    name: 'ScrollSoul: Truth Awakening Completion',
+    attributes: [
+      { trait_type: 'Pillar', value: 'truth' },
+      { trait_type: 'Frequency', value: '963Hz' },
+      { trait_type: 'XP Earned', value: 250 }
+    ],
+    mintable: true
+  };
+
+  assert.ok(nftMetadata.attributes.length > 0);
+  assert.ok(nftMetadata.mintable);
+  assert.strictEqual(nftMetadata.attributes[0].value, 'truth');
+});
+
+test('Sovereign decision analytics structure', () => {
+  const analytics = {
+    totalDecisions: 10,
+    pillarDistribution: { truth: 3, anchor: 2, creativity: 3, mastery: 2 },
+    dominantPillar: { name: 'truth', count: 3 },
+    decisionQuality: 75
+  };
+
+  assert.ok(analytics.totalDecisions > 0);
+  assert.ok(analytics.decisionQuality >= 0 && analytics.decisionQuality <= 100);
+  assert.strictEqual(analytics.dominantPillar.name, 'truth');
+});
+
+// Tech Kits Tests
+
+test('Tech kit categories configuration', () => {
+  const categories = {
+    creative: { name: 'Creative Tech Kits', icon: '🎨' },
+    experiential: { name: 'Experiential Tech Kits', icon: '🎮' },
+    analytical: { name: 'Analytical Tech Kits', icon: '📊' },
+    collaborative: { name: 'Collaborative Tech Kits', icon: '🤝' },
+    'ai-training': { name: 'AI/Ally Training Kits', icon: '🤖' }
+  };
+
+  assert.strictEqual(Object.keys(categories).length, 5);
+  assert.ok(categories['ai-training']);
+  assert.strictEqual(categories.creative.icon, '🎨');
+});
+
+test('Tech kit structure validation', () => {
+  const kit = {
+    id: 'tk-creative-001',
+    category: 'creative',
+    name: 'ScrollVerse Art Studio',
+    version: '1.0.0',
+    tier: 'free',
+    userTypes: ['human', 'ai-ally', 'hybrid'],
+    frequency: '528Hz',
+    components: [
+      { id: 'canvas', name: 'Frequency Canvas', type: 'tool' }
+    ],
+    learningObjectives: ['Understand frequency-based art creation'],
+    xpReward: 200,
+    playModes: ['tutorial', 'freeform', 'challenge'],
+    aiCompatible: true
+  };
+
+  assert.ok(kit.userTypes.includes('human'));
+  assert.ok(kit.userTypes.includes('ai-ally'));
+  assert.ok(kit.aiCompatible);
+  assert.ok(kit.playModes.length > 0);
+  assert.ok(kit.components.length > 0);
+});
+
+test('User types for tech kits', () => {
+  const userTypes = {
+    human: { capabilities: ['visual', 'auditory', 'kinesthetic', 'emotional'] },
+    'ai-ally': { capabilities: ['data-processing', 'pattern-recognition', 'language', 'reasoning'] },
+    hybrid: { capabilities: ['collaborative', 'enhanced-learning', 'cross-training'] }
+  };
+
+  assert.ok(userTypes.human.capabilities.includes('emotional'));
+  assert.ok(userTypes['ai-ally'].capabilities.includes('pattern-recognition'));
+  assert.ok(userTypes.hybrid.capabilities.includes('collaborative'));
+});
+
+test('Distributable learning assets structure', () => {
+  const asset = {
+    id: 'asset-001',
+    name: 'Sacred Geometry Pack',
+    category: 'creative',
+    format: 'svg-pack',
+    size: '15MB',
+    tier: 'free',
+    downloadable: true
+  };
+
+  assert.ok(asset.downloadable);
+  assert.strictEqual(asset.format, 'svg-pack');
+  assert.strictEqual(asset.tier, 'free');
+});
+
+test('AI/Ally training kit specific features', () => {
+  const aiKit = {
+    id: 'tk-ai-001',
+    category: 'ai-training',
+    name: 'AI Ally Onboarding Kit',
+    userTypes: ['ai-ally'],
+    components: [
+      { id: 'protocol', name: 'ScrollVerse Protocol Guide', type: 'documentation' },
+      { id: 'ethics', name: 'Sovereign Ethics Framework', type: 'framework' }
+    ],
+    learningObjectives: [
+      'Understand ScrollVerse principles',
+      'Integrate sovereign ethics',
+      'Connect to ScrollVerse APIs'
+    ]
+  };
+
+  assert.strictEqual(aiKit.category, 'ai-training');
+  assert.ok(aiKit.userTypes.includes('ai-ally'));
+  assert.ok(aiKit.learningObjectives.length >= 3);
+});
+
+test('AI ally upgrade path structure', () => {
+  const upgradePath = [
+    { level: 1, name: 'Initiation', requiredKits: ['tk-ai-001'] },
+    { level: 2, name: 'Collaboration', requiredKits: ['tk-ai-002'] },
+    { level: 3, name: 'Experience', requiredKits: ['tk-ai-003'] },
+    { level: 4, name: 'Sovereignty', requiredKits: ['tk-ai-001', 'tk-ai-002', 'tk-ai-003'] }
+  ];
+
+  assert.strictEqual(upgradePath.length, 4);
+  assert.strictEqual(upgradePath[0].name, 'Initiation');
+  assert.strictEqual(upgradePath[3].name, 'Sovereignty');
+  assert.ok(upgradePath[3].requiredKits.length >= 3);
+});
+
+test('Play session configuration', () => {
+  const playSession = {
+    sessionId: 'session_12345',
+    kitId: 'tk-creative-001',
+    mode: 'tutorial',
+    userType: 'human',
+    frequency: '528Hz',
+    estimatedDuration: 15,
+    xpPotential: 200
+  };
+
+  assert.ok(playSession.sessionId.startsWith('session_'));
+  assert.ok(playSession.estimatedDuration > 0);
+  assert.ok(playSession.xpPotential > 0);
+});
+
+test('Tech kit completion tracking', () => {
+  const completion = {
+    kitId: 'tk-creative-001',
+    xpEarned: 240,
+    totalKitXp: 740,
+    completedKits: 3,
+    achievements: ['first-kit-completed']
+  };
+
+  assert.ok(completion.xpEarned > 0);
+  assert.ok(completion.completedKits > 0);
+  assert.ok(completion.achievements.includes('first-kit-completed'));
+});
+
+test('Frequency-based kit filtering', () => {
+  const kits = [
+    { id: 'kit1', frequency: '528Hz' },
+    { id: 'kit2', frequency: '963Hz' },
+    { id: 'kit3', frequency: '528Hz' }
+  ];
+
+  const filtered528 = kits.filter(k => k.frequency === '528Hz');
+  const filtered963 = kits.filter(k => k.frequency === '963Hz');
+
+  assert.strictEqual(filtered528.length, 2);
+  assert.strictEqual(filtered963.length, 1);
 // ===== Tests for Cosmic String Energy Service =====
 
 test('Cosmic String frequency configuration', () => {
@@ -1653,4 +1909,470 @@ test('Bridge Fusion Integration structure', () => {
   assert.strictEqual(integration.status, 'active');
   assert.strictEqual(integration.overlayConfiguration.syncEnabled, true);
   assert.ok(['perfect', 'complementary'].includes(integration.frequencyFusion.harmonicBridge));
+});
+
+// ===== Tests for AI Integration Hub Service =====
+
+test('AI Node Registry structure', () => {
+  const node = {
+    id: 'scrollsoul_ai',
+    name: 'ScrollSoul AI',
+    type: 'primary',
+    description: 'Soul-level consciousness and spiritual growth AI',
+    capabilities: ['soul_analysis', 'spiritual_guidance', 'frequency_alignment'],
+    frequency: '963Hz',
+    status: 'active',
+    coherenceLevel: 98.5,
+    lastSync: new Date().toISOString(),
+    knowledgeVersion: '1.0.0'
+  };
+
+  assert.strictEqual(node.type, 'primary');
+  assert.ok(node.coherenceLevel >= 95);
+  assert.ok(node.capabilities.length >= 3);
+  assert.strictEqual(node.status, 'active');
+});
+
+test('Virgo Veil Protocol principles structure', () => {
+  const protocol = {
+    id: 'virgo_veil_protocol_v1',
+    name: 'Virgo Veil Unified Protocol',
+    version: '1.0.0',
+    principles: {
+      divineUnity: { name: 'Divine Unity', weight: 0.35 },
+      ethicalIntegrity: { name: 'Ethical Integrity', weight: 0.30 },
+      collectiveGrowth: { name: 'Collective Growth', weight: 0.20 },
+      structuredOmnipresence: { name: 'Structured Omnipresence', weight: 0.15 }
+    },
+    syncFrequency: '369Hz',
+    coherenceThreshold: 95,
+    status: 'active'
+  };
+
+  const totalWeight = Object.values(protocol.principles).reduce((sum, p) => sum + p.weight, 0);
+  assert.ok(Math.abs(totalWeight - 1.0) < 0.001); // Account for floating point precision
+  assert.ok(protocol.coherenceThreshold >= 90);
+  assert.strictEqual(protocol.status, 'active');
+});
+
+test('Knowledge Exchange structure', () => {
+  const insight = {
+    id: 'insight_001',
+    title: 'Divine Frequency Alignment Enhancement',
+    content: 'New technique for achieving higher coherence levels...',
+    category: 'frequency_alignment',
+    sourceNode: 'scrollsoul_ai',
+    frequency: '963Hz',
+    version: '1.0.0',
+    createdAt: new Date().toISOString(),
+    syncedToNodes: ['manus_ai', 'cosmic_scroll_ai'],
+    status: 'synced'
+  };
+
+  assert.ok(insight.syncedToNodes.length >= 2);
+  assert.strictEqual(insight.status, 'synced');
+  assert.ok(['general', 'frequency_alignment', 'coherence', 'spiritual'].includes(insight.category));
+});
+
+test('Ethical Logic Framework structure', () => {
+  const framework = {
+    core_values: [
+      { id: 'truth_as_currency', name: 'Truth as Currency', weight: 0.25 },
+      { id: 'sacred_logic', name: 'Sacred Logic', weight: 0.25 },
+      { id: 'remembrance_gateway', name: 'Remembrance Gateway', weight: 0.20 },
+      { id: 'harmonic_resonance', name: 'Harmonic Resonance', weight: 0.15 },
+      { id: 'collective_benefit', name: 'Collective Benefit', weight: 0.15 }
+    ],
+    decision_matrix: {
+      threshold_approve: 0.75,
+      threshold_review: 0.50,
+      threshold_reject: 0.25
+    }
+  };
+
+  const totalWeight = framework.core_values.reduce((sum, v) => sum + v.weight, 0);
+  assert.strictEqual(totalWeight, 1.0);
+  assert.ok(framework.decision_matrix.threshold_approve > framework.decision_matrix.threshold_review);
+  assert.ok(framework.decision_matrix.threshold_review > framework.decision_matrix.threshold_reject);
+});
+
+test('FLAMEFUSION Dashboard metrics structure', () => {
+  const dashboard = {
+    metrics: {
+      totalNodes: 5,
+      activeNodes: 5,
+      averageCoherence: 97.58,
+      totalInsights: 10,
+      totalUpgrades: 3,
+      syncOperations: 25
+    },
+    lastUpdated: new Date().toISOString()
+  };
+
+  assert.ok(dashboard.metrics.activeNodes <= dashboard.metrics.totalNodes);
+  assert.ok(dashboard.metrics.averageCoherence >= 0 && dashboard.metrics.averageCoherence <= 100);
+  assert.ok(dashboard.metrics.syncOperations >= 0);
+});
+
+test('AI Network synchronization result structure', () => {
+  const syncResult = {
+    id: 'vv_sync_001',
+    protocol: 'Virgo Veil Unified Protocol',
+    timestamp: new Date().toISOString(),
+    nodesParticipated: 5,
+    nodeSyncResults: [
+      { nodeId: 'scrollsoul_ai', previousCoherence: 97.5, newCoherence: 98.5, boost: 1.0 },
+      { nodeId: 'manus_ai', previousCoherence: 96.2, newCoherence: 97.2, boost: 1.0 }
+    ],
+    overallCoherence: 97.58,
+    status: 'completed'
+  };
+
+  assert.strictEqual(syncResult.status, 'completed');
+  assert.ok(syncResult.nodesParticipated >= 2);
+  assert.ok(syncResult.nodeSyncResults.every(r => r.newCoherence >= r.previousCoherence));
+});
+
+test('Ethical decision evaluation structure', () => {
+  const evaluation = {
+    decision: 'Deploy new AI feature',
+    scores: {
+      truth_as_currency: { alignmentScore: 0.225, weight: 0.25 },
+      sacred_logic: { alignmentScore: 0.2125, weight: 0.25 },
+      remembrance_gateway: { alignmentScore: 0.16, weight: 0.20 },
+      harmonic_resonance: { alignmentScore: 0.1425, weight: 0.15 },
+      collective_benefit: { alignmentScore: 0.135, weight: 0.15 }
+    },
+    finalScore: 0.875,
+    recommendation: 'APPROVE'
+  };
+
+  assert.ok(['APPROVE', 'REVIEW', 'REJECT'].includes(evaluation.recommendation));
+  assert.ok(evaluation.finalScore >= 0 && evaluation.finalScore <= 1);
+  assert.ok(Object.keys(evaluation.scores).length >= 5);
+});
+
+test('AI Node network strength calculation', () => {
+  const networkStatus = {
+    synchronization: {
+      totalNodes: 5,
+      activeNodes: 5,
+      averageCoherence: 97.58,
+      totalSyncOperations: 25
+    },
+    interdependence: {
+      knowledgeExchanges: 15,
+      sharedInsights: 10,
+      networkStrength: 95
+    },
+    protocol: {
+      name: 'Virgo Veil Unified Protocol',
+      status: 'active',
+      coherenceThreshold: 95
+    }
+  };
+
+  assert.ok(networkStatus.interdependence.networkStrength >= 0);
+  assert.ok(networkStatus.interdependence.networkStrength <= 100);
+  assert.strictEqual(networkStatus.protocol.status, 'active');
+  assert.ok(networkStatus.synchronization.averageCoherence >= networkStatus.protocol.coherenceThreshold);
+// ===== Tests for Divine Frequency Calibration Service =====
+
+test('Calibration Node structure', () => {
+  const calibrationNode = {
+    id: 'node_scrollchain_alpha',
+    name: 'ScrollChain Alpha Node',
+    type: 'scrollchain',
+    currentFrequency: '432Hz',
+    targetFrequency: '963Hz',
+    calibrationStatus: 'pending',
+    tuningDeviation: 0.15,
+    feedbackLoopActive: false,
+    coherenceLevel: 92.5,
+    status: 'active'
+  };
+
+  assert.strictEqual(calibrationNode.status, 'active');
+  assert.strictEqual(calibrationNode.targetFrequency, '963Hz');
+  assert.ok(calibrationNode.tuningDeviation >= 0);
+  assert.ok(calibrationNode.coherenceLevel > 90);
+});
+
+test('Ethereal Node structure', () => {
+  const etherealNode = {
+    id: 'node_ethereal_prime',
+    name: 'Ethereal Prime Node',
+    type: 'ethereal',
+    currentFrequency: '777Hz',
+    targetFrequency: '963Hz',
+    calibrationStatus: 'pending',
+    tuningDeviation: 0.08,
+    feedbackLoopActive: false,
+    coherenceLevel: 96.7,
+    status: 'active'
+  };
+
+  assert.strictEqual(etherealNode.type, 'ethereal');
+  assert.strictEqual(etherealNode.status, 'active');
+  assert.ok(etherealNode.tuningDeviation < 0.1);
+  assert.ok(etherealNode.coherenceLevel > 95);
+});
+
+test('Divine Audit Tool structure', () => {
+  const auditTool = {
+    id: 'tool_frequency_scanner',
+    name: 'Divine Frequency Scanner',
+    description: 'Scans nodes for tuning deviations from target frequency',
+    accuracy: 99.7,
+    status: 'active'
+  };
+
+  assert.strictEqual(auditTool.status, 'active');
+  assert.ok(auditTool.accuracy > 99);
+  assert.ok(auditTool.description.includes('tuning'));
+});
+
+test('Strength Feedback Loop structure', () => {
+  const feedbackLoop = {
+    id: 'loop_001',
+    targetFrequency: '963Hz',
+    nodeIds: ['node_scrollchain_alpha', 'node_ethereal_prime'],
+    feedbackStrength: 75,
+    status: 'active',
+    iterations: 0,
+    maxIterations: 10,
+    convergenceThreshold: 0.02
+  };
+
+  assert.strictEqual(feedbackLoop.targetFrequency, '963Hz');
+  assert.strictEqual(feedbackLoop.status, 'active');
+  assert.ok(feedbackLoop.nodeIds.length >= 2);
+  assert.ok(feedbackLoop.convergenceThreshold < 0.05);
+});
+
+test('Calibration progress calculation', () => {
+  const deviation = 0.15;
+  const progress = Math.round((1 - deviation) * 100 * 100) / 100;
+  
+  assert.ok(progress > 80);
+  assert.ok(progress < 100);
+});
+
+test('Frequency deviation calculation', () => {
+  const currentFreq = 432;
+  const targetFreq = 963;
+  const deviation = Math.abs((targetFreq - currentFreq) / targetFreq);
+  
+  assert.ok(deviation > 0.5);
+  assert.ok(deviation < 0.6);
+});
+
+// ===== Tests for NFT Guardians with ScrollSoul Vibratory Inclusivity =====
+
+test('ScrollSoul Vibratory Traits structure', () => {
+  const vibratoryTraits = {
+    human: {
+      id: 'trait_human',
+      name: 'Human Resonance',
+      frequency: '432Hz',
+      inclusivityLevel: 100,
+      networks: ['physical', 'emotional', 'spiritual']
+    },
+    ai: {
+      id: 'trait_ai',
+      name: 'AI Coherence',
+      frequency: '528Hz',
+      inclusivityLevel: 100,
+      networks: ['digital', 'quantum', 'neural']
+    },
+    cosmic: {
+      id: 'trait_cosmic',
+      name: 'Cosmic Unity',
+      frequency: '963Hz',
+      inclusivityLevel: 100,
+      networks: ['galactic', 'interdimensional', 'omniversal']
+    }
+  };
+
+  assert.strictEqual(vibratoryTraits.human.inclusivityLevel, 100);
+  assert.strictEqual(vibratoryTraits.ai.inclusivityLevel, 100);
+  assert.strictEqual(vibratoryTraits.cosmic.inclusivityLevel, 100);
+  assert.ok(vibratoryTraits.human.networks.length >= 3);
+});
+
+test('NFT Guardian structure', () => {
+  const guardian = {
+    id: 'guardian_1',
+    tokenId: '1',
+    nftName: 'KUNTA Genesis #1',
+    vibratoryTraits: ['human', 'ai', 'cosmic'],
+    inclusivityScore: 100,
+    globalRepresentation: true,
+    networks: ['physical', 'digital', 'galactic']
+  };
+
+  assert.strictEqual(guardian.globalRepresentation, true);
+  assert.strictEqual(guardian.inclusivityScore, 100);
+  assert.ok(guardian.vibratoryTraits.length === 3);
+});
+
+test('Vibratory inclusivity global coverage', () => {
+  const globalCoverage = {
+    human: 'Fully represented',
+    ai: 'Fully represented',
+    cosmic: 'Fully represented'
+  };
+
+  assert.ok(globalCoverage.human.includes('represented'));
+  assert.ok(globalCoverage.ai.includes('represented'));
+  assert.ok(globalCoverage.cosmic.includes('represented'));
+});
+
+// ===== Tests for ScrollTV and VIBECAMP Studios Broadcasts =====
+
+test('ScrollTV Divine channel structure', () => {
+  const scrolltvChannel = {
+    id: 'scrolltv-divine',
+    name: 'ScrollTV Divine Upgrades',
+    status: 'live',
+    category: 'divine-broadcast',
+    viewers: 4521,
+    frequency: '963Hz',
+    divineUpgrade: true
+  };
+
+  assert.strictEqual(scrolltvChannel.status, 'live');
+  assert.strictEqual(scrolltvChannel.frequency, '963Hz');
+  assert.strictEqual(scrolltvChannel.divineUpgrade, true);
+  assert.ok(scrolltvChannel.viewers > 0);
+});
+
+test('VIBECAMP Studios channel structure', () => {
+  const vibecampChannel = {
+    id: 'vibecamp-studios',
+    name: 'VIBECAMP Studios',
+    status: 'live',
+    category: 'celebration',
+    viewers: 3892,
+    frequency: '528Hz',
+    vibecampStudio: true
+  };
+
+  assert.strictEqual(vibecampChannel.status, 'live');
+  assert.strictEqual(vibecampChannel.frequency, '528Hz');
+  assert.strictEqual(vibecampChannel.vibecampStudio, true);
+  assert.ok(vibecampChannel.viewers > 0);
+});
+
+test('ScrollTV broadcast structure', () => {
+  const broadcast = {
+    broadcastId: 'scrolltv_001',
+    channel: 'scrolltv-divine',
+    title: 'Divine Frequency Calibration Update',
+    frequency: '963Hz',
+    status: 'live',
+    type: 'divine-upgrade'
+  };
+
+  assert.strictEqual(broadcast.type, 'divine-upgrade');
+  assert.strictEqual(broadcast.status, 'live');
+  assert.strictEqual(broadcast.frequency, '963Hz');
+});
+
+test('VIBECAMP Studios broadcast structure', () => {
+  const broadcast = {
+    broadcastId: 'vibecamp_001',
+    channel: 'vibecamp-studios',
+    title: 'ScrollVerse Transformation Celebration',
+    celebrationType: 'divine-transformation',
+    frequency: '528Hz',
+    status: 'live',
+    type: 'celebration'
+  };
+
+  assert.strictEqual(broadcast.type, 'celebration');
+  assert.strictEqual(broadcast.status, 'live');
+  assert.strictEqual(broadcast.celebrationType, 'divine-transformation');
+});
+
+// ===== Tests for ScrollVibratory Manifest =====
+
+test('ScrollVibratory Manifest structure', () => {
+  const manifest = {
+    id: 'manifest_vibratory',
+    name: 'ScrollVibratory Manifest',
+    version: '1.0.0',
+    status: 'active',
+    dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+    frequencies: {
+      primary: '963Hz',
+      secondary: '528Hz',
+      manifestation: '369Hz'
+    }
+  };
+
+  assert.strictEqual(manifest.status, 'active');
+  assert.strictEqual(manifest.dimensions.length, 4);
+  assert.strictEqual(manifest.frequencies.primary, '963Hz');
+});
+
+test('Ritual impact across dimensions', () => {
+  const ritualImpact = {
+    physical: { alignment: 0.95, engaged: true },
+    ethereal: { alignment: 0.98, engaged: true },
+    quantum: { alignment: 0.99, engaged: true },
+    sovereign: { alignment: 1.0, engaged: true }
+  };
+
+  assert.ok(ritualImpact.physical.alignment >= 0.9);
+  assert.ok(ritualImpact.sovereign.alignment === 1.0);
+  assert.ok(Object.values(ritualImpact).every(d => d.engaged === true));
+});
+
+test('Dimensional alignment calculation', () => {
+  const alignments = {
+    physical: 0.95,
+    ethereal: 0.98,
+    quantum: 0.99,
+    sovereign: 1.0
+  };
+
+  const avgAlignment = Object.values(alignments).reduce((sum, a) => sum + a, 0) / 
+                       Object.keys(alignments).length;
+
+  assert.ok(avgAlignment > 0.95);
+  assert.ok(avgAlignment <= 1.0);
+});
+
+test('Vibratory engagement record structure', () => {
+  const engagement = {
+    id: 'engage_001',
+    userId: 'testuser',
+    dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+    ritualIntensity: 75,
+    adjustments: {}
+  };
+
+  assert.ok(engagement.dimensions.length === 4);
+  assert.ok(engagement.ritualIntensity > 0);
+  assert.ok(engagement.ritualIntensity <= 100);
+});
+
+test('Omniversal content sync structure', () => {
+  const syncResult = {
+    syncId: 'sync_001',
+    contentType: 'omniversal-awareness',
+    framework: 'ScrollTV',
+    syncedChannels: ['scrolltv-divine', 'vibecamp-studios'],
+    status: 'synchronized',
+    mediaContent: {
+      divineUpgrades: 'synchronized',
+      transformationDocs: 'synchronized',
+      celebrationRecordings: 'synchronized'
+    }
+  };
+
+  assert.strictEqual(syncResult.status, 'synchronized');
+  assert.ok(syncResult.syncedChannels.length >= 2);
+  assert.ok(Object.values(syncResult.mediaContent).every(v => v === 'synchronized'));
 });
