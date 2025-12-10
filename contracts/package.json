@@ -2,6 +2,7 @@
   "name": "scrollverse-contracts",
   "version": "1.0.0",
   "description": "ScrollVerse Smart Contracts - MirrorToken, AnchorManifest, and Ecosystem Infrastructure",
+  "description": "ScrollVerse Ecosystem Smart Contracts - DAO, Token, and NFT Governance",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -17,6 +18,9 @@
     "distribute:mirror:local": "hardhat run scripts/initializeMirrorDistribution.js --network hardhat",
     "distribute:mirror:sepolia": "hardhat run scripts/initializeMirrorDistribution.js --network sepolia",
     "distribute:mirror:mainnet": "hardhat run scripts/initializeMirrorDistribution.js --network mainnet",
+    "deploy:dao:local": "hardhat run scripts/deploy-scrollverse-dao.js --network hardhat",
+    "deploy:dao:sepolia": "hardhat run scripts/deploy-scrollverse-dao.js --network sepolia",
+    "deploy:dao:mainnet": "hardhat run scripts/deploy-scrollverse-dao.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -39,5 +43,13 @@
     "smart-contracts",
     "ethereum",
     "sepolia"
+    "dao",
+    "governance",
+    "mirror-token",
+    "pfc-nft",
+    "smart-contracts",
+    "ethereum",
+    "sepolia",
+    "decentralized-governance"
   ]
 }

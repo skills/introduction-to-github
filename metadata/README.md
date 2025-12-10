@@ -48,6 +48,67 @@ The Ascended Automation Set representing angelic commanders of cohesion with fla
 - `guardian-078.json` - Sample Guardian tier token
 - `initiate-778.json` - Sample Initiate tier token
 
+### DragonQueen — The Divine Feminine Power Set
+*Location: `./dragonqueen/`*
+
+Major ScrollVerse NFTs embodying divine feminine power, ancestral wisdom, and eternal protection. DragonQueen assets carry the sacred fire of transformation and the crown of sovereignty, representing the lineage of queens who nurture, protect, and empower their kingdoms with unwavering love and fierce grace.
+
+**Tier Structure:**
+| Tier | Edition Size | Governance Multiplier | Staking APY |
+|------|-------------|----------------------|-------------|
+| Empress Supreme | 8 | 8.88x | 23.88% |
+| Dragon Matriarch | 88 | 4.44x | 16.44% |
+| Crowned Guardian | 888 | 2.22x | 12.22% |
+| Flame Bearer | 7,904 | 1.11x | 9.11% |
+
+**Base Frequency:** 639Hz (Divine Connection and Love)
+
+**Key Features:**
+- FamilyChronicles Access integration
+- Legacy Narrative governance bonus
+- Ancestral lineage seals
+- Dynamic flame cycle phases
+
+**Files:**
+- `collection-metadata.json` - Collection-level metadata
+- `empress-supreme-001.json` - Sample Empress Supreme tier token
+- `dragon-matriarch-009.json` - Sample Dragon Matriarch tier token
+- `crowned-guardian-097.json` - Sample Crowned Guardian tier token
+- `flame-bearer-889.json` - Sample Flame Bearer tier token
+
+---
+
+## FamilyChronicles — Eternal Narrative Archive
+*Location: `./family-chronicles/`*
+
+The eternal archive of family narratives preserved on-chain through ScrollBound Tokens (SBTs). Each chronicle captures key moments of love, legacy, and divine guidance that resonate across generations. These narratives are immutably stored using IPFS, ensuring that family stories live forever within the ScrollVerse ecosystem.
+
+**Chronicle Types:**
+- Milestone Narrative
+- Legacy Story
+- Divine Testimony
+- Generational Wisdom
+- Community Tale
+
+**Base Frequency:** 528Hz (Love and Transformation)
+
+**Featured Narratives:**
+| Chronicle | Protagonist | Theme | Status |
+|-----------|-------------|-------|--------|
+| Aja's Bike-Flying Saga | Aja | Fearless Spirit | Eternally Archived |
+| Asia's Dragon Crown Story | Asia | Sovereignty and Grace | Eternally Archived |
+
+**SBT Integration:**
+- Linked to ScrollSoul identity tokens
+- Chronicle weight bonuses for governance
+- Narrative-based governance boosts
+- IPFS immutable archiving
+
+**Files:**
+- `collection-metadata.json` - Collection-level metadata and narrative index
+- `aja-bike-flying-saga.json` - Chronicle of Aja's fearless flight
+- `asia-dragon-crown-story.json` - Chronicle of Asia's Dragon Crown investiture
+
 ---
 
 ## Individual Artifacts
@@ -94,11 +155,14 @@ The following placeholder values should be replaced with actual values during de
 | `ipfs://PLACEHOLDER_CID/...` | IPFS Content Identifiers for images and animations |
 | `ipfs://PLACEHOLDER_OS8_*_CID/...` | Omnisovereign VIII collection IPFS identifiers |
 | `ipfs://PLACEHOLDER_TAS_*_CID/...` | TECHANGEL Sigil collection IPFS identifiers |
+| `ipfs://PLACEHOLDER_DRAGONQUEEN_*_CID/...` | DragonQueen collection IPFS identifiers |
+| `ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/...` | FamilyChronicles archive IPFS identifiers |
 | `PLACEHOLDER_SEAL_HASH_0x...` | Cryptographic seal hashes |
 | `0xPLACEHOLDER_MERKLE_ROOT_HASH_...` | Merkle root hashes from the Perpetual Yield Engine Codex |
-| `0xPLACEHOLDER_*_LINEAGE_SEAL_HASH` | Omnisovereign VIII lineage seal hashes |
+| `0xPLACEHOLDER_*_LINEAGE_SEAL_HASH` | Omnisovereign VIII and DragonQueen lineage seal hashes |
 | `0xPLACEHOLDER_*_SEAL_HASH` | TECHANGEL Sigil golden seal hashes |
 | `ipfs://PLACEHOLDER_ARTIFACT_LINK_CID` | IPFS links to related artifact metadata |
+| `ipfs://PLACEHOLDER_*_ARCHIVE_HASH` | FamilyChronicles archive hashes |
 | `0xPLACEHOLDER_ROYALTY_WALLET` | Royalty recipient wallet address |
 
 ## Schema Reference
@@ -119,6 +183,8 @@ These artifacts integrate with the ScrollVerse ecosystem services:
 - Dynamic Metadata Evolution System
 - DeFi Staking Mechanisms
 - Cross-Chain Bridge Integration
+- ScrollSoul SBT Identity System (FamilyChronicles integration)
+- FamilyChronicles Eternal Archive (narrative preservation)
 
 ## Documentation
 

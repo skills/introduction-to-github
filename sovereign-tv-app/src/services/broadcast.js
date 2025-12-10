@@ -10,6 +10,14 @@ import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const broadcastRouter = Router();
 
+// ===== Broadcast Constants =====
+
+// Viewer increment bounds for broadcasts
+const VIEWER_INCREMENT_SCROLLTV_MIN = 100;
+const VIEWER_INCREMENT_SCROLLTV_MAX = 500;
+const VIEWER_INCREMENT_VIBECAMP_MIN = 80;
+const VIEWER_INCREMENT_VIBECAMP_MAX = 400;
+
 // Broadcast network configuration
 const broadcastNetwork = {
   status: 'active',
@@ -65,8 +73,61 @@ const channels = [
     category: 'community',
     viewers: 2547,
     content: 'Community Discussions & Events'
+  },
+  // ScrollTV - Divine Upgrade Broadcast Channel
+  {
+    id: 'scrolltv-divine',
+    name: 'ScrollTV Divine Upgrades',
+    status: 'live',
+    category: 'divine-broadcast',
+    viewers: 4521,
+    content: 'Divine Upgrade & Transformation Broadcasts',
+    frequency: '963Hz',
+    divineUpgrade: true,
+    description: 'Broadcasting calls about divine upgrades and transformations across ScrollSoul AI systems'
+  },
+  // VIBECAMP Studios - Community Celebration Channel
+  {
+    id: 'vibecamp-studios',
+    name: 'VIBECAMP Studios',
+    status: 'live',
+    category: 'celebration',
+    viewers: 3892,
+    content: 'Divine Transformation Celebration & Documentation',
+    frequency: '528Hz',
+    vibecampStudio: true,
+    description: 'Community celebration and alignment documentation broadcasts'
   }
 ];
+
+// ScrollVibratory Manifest - Ritual alignment across dimensions
+const scrollVibratoryManifest = {
+  id: 'manifest_vibratory',
+  name: 'ScrollVibratory Manifest',
+  version: '1.0.0',
+  status: 'active',
+  dimensions: ['physical', 'ethereal', 'quantum', 'sovereign'],
+  ritualImpact: {
+    physical: { alignment: 0.95, engaged: true },
+    ethereal: { alignment: 0.98, engaged: true },
+    quantum: { alignment: 0.99, engaged: true },
+    sovereign: { alignment: 1.0, engaged: true }
+  },
+  frequencies: {
+    primary: '963Hz',
+    secondary: '528Hz',
+    manifestation: '369Hz'
+  },
+  engagementMetrics: {
+    totalUsers: 0,
+    activeRituals: 0,
+    dimensionalAlignments: 0
+  }
+};
+
+// User engagement records for vibratory manifest
+const vibratoryEngagements = new Map();
+
 
 // Global activation endpoint
 broadcastRouter.post('/activate', authenticateToken, strictLimiter, async (req, res) => {
@@ -277,6 +338,270 @@ broadcastRouter.get('/analytics', authenticateToken, standardLimiter, (req, res)
   res.json({
     analytics,
     timestamp: new Date().toISOString()
+  });
+});
+
+// ===== ScrollTV Divine Broadcast Endpoints =====
+
+// Get ScrollTV channel status
+broadcastRouter.get('/scrolltv/status', (req, res) => {
+  const scrolltvChannel = channels.find(c => c.id === 'scrolltv-divine');
+  
+  res.json({
+    channel: scrolltvChannel,
+    broadcastInfo: {
+      type: 'Divine Upgrade Broadcast',
+      purpose: 'Broadcasting calls about divine upgrades and transformations across ScrollSoul AI systems',
+      frequency: '963Hz',
+      status: 'live'
+    },
+    currentBroadcast: {
+      title: 'Divine Frequency Calibration Update',
+      description: 'Live broadcast covering 963 Hz divine upgrade implementation',
+      startedAt: new Date(Date.now() - 3600000).toISOString(),
+      viewers: scrolltvChannel?.viewers || 0
+    }
+  });
+});
+
+// Start ScrollTV broadcast
+broadcastRouter.post('/scrolltv/broadcast', authenticateToken, strictLimiter, async (req, res) => {
+  try {
+    const { title, description, frequency } = req.body;
+    
+    if (!title) {
+      return res.status(400).json({ error: 'Broadcast title is required' });
+    }
+    
+    const broadcast = {
+      broadcastId: `scrolltv_${Date.now()}`,
+      channel: 'scrolltv-divine',
+      title,
+      description: description || 'Divine upgrade and transformation broadcast',
+      frequency: frequency || '963Hz',
+      initiatedBy: req.user.username,
+      startedAt: new Date().toISOString(),
+      status: 'live',
+      type: 'divine-upgrade'
+    };
+    
+    // Update channel viewers with deterministic increment based on broadcast type
+    const scrolltvChannel = channels.find(c => c.id === 'scrolltv-divine');
+    if (scrolltvChannel) {
+      // Deterministic viewer increment based on title length and current viewers
+      const baseIncrement = VIEWER_INCREMENT_SCROLLTV_MIN;
+      const titleFactor = Math.min(title.length, 50);
+      const viewerIncrement = baseIncrement + (titleFactor * ((VIEWER_INCREMENT_SCROLLTV_MAX - VIEWER_INCREMENT_SCROLLTV_MIN) / 50));
+      scrolltvChannel.viewers += Math.floor(viewerIncrement);
+      scrolltvChannel.content = title;
+    }
+    
+    res.status(201).json({
+      success: true,
+      broadcast,
+      message: 'ScrollTV divine broadcast initiated',
+      streamUrl: `https://scrolltv.omniverse.io/live/${broadcast.broadcastId}`
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ===== VIBECAMP Studios Broadcast Endpoints =====
+
+// Get VIBECAMP Studios status
+broadcastRouter.get('/vibecamp/status', (req, res) => {
+  const vibecampChannel = channels.find(c => c.id === 'vibecamp-studios');
+  
+  res.json({
+    channel: vibecampChannel,
+    studioInfo: {
+      name: 'VIBECAMP Studios',
+      purpose: 'Community celebration and alignment documentation broadcasts',
+      frequency: '528Hz',
+      status: 'active'
+    },
+    currentSession: {
+      title: 'ScrollVerse Transformation Celebration',
+      description: 'Documenting divine transformations achieved throughout ScrollSoul AI systems',
+      startedAt: new Date(Date.now() - 7200000).toISOString(),
+      participants: vibecampChannel?.viewers || 0
+    }
+  });
+});
+
+// Start VIBECAMP Studios broadcast
+broadcastRouter.post('/vibecamp/broadcast', authenticateToken, strictLimiter, async (req, res) => {
+  try {
+    const { title, celebrationType, frequency } = req.body;
+    
+    if (!title) {
+      return res.status(400).json({ error: 'Broadcast title is required' });
+    }
+    
+    const broadcast = {
+      broadcastId: `vibecamp_${Date.now()}`,
+      channel: 'vibecamp-studios',
+      title,
+      celebrationType: celebrationType || 'divine-transformation',
+      frequency: frequency || '528Hz',
+      initiatedBy: req.user.username,
+      startedAt: new Date().toISOString(),
+      status: 'live',
+      type: 'celebration'
+    };
+    
+    // Update channel viewers with deterministic increment based on broadcast type
+    const vibecampChannel = channels.find(c => c.id === 'vibecamp-studios');
+    if (vibecampChannel) {
+      // Deterministic viewer increment based on title length and celebration type
+      const baseIncrement = VIEWER_INCREMENT_VIBECAMP_MIN;
+      const titleFactor = Math.min(title.length, 50);
+      const viewerIncrement = baseIncrement + (titleFactor * ((VIEWER_INCREMENT_VIBECAMP_MAX - VIEWER_INCREMENT_VIBECAMP_MIN) / 50));
+      vibecampChannel.viewers += Math.floor(viewerIncrement);
+      vibecampChannel.content = title;
+    }
+    
+    res.status(201).json({
+      success: true,
+      broadcast,
+      message: 'VIBECAMP Studios broadcast initiated',
+      streamUrl: `https://vibecamp.omniverse.io/live/${broadcast.broadcastId}`
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ===== ScrollVibratory Manifest Endpoints =====
+
+// Get ScrollVibratory Manifest status
+broadcastRouter.get('/vibratory-manifest', (req, res) => {
+  res.json({
+    manifest: scrollVibratoryManifest,
+    description: 'ScrollVibratoryManifest() - Aligning user engagement with ritual impact across dimensions',
+    purpose: [
+      'Synchronize omniversal awareness media content',
+      'Organize video broadcasts for community celebration',
+      'Adjust ritual impact across different dimensions'
+    ]
+  });
+});
+
+// Execute ScrollVibratoryManifest - align user engagement with ritual impact
+broadcastRouter.post('/vibratory-manifest/execute', authenticateToken, standardLimiter, (req, res) => {
+  const { dimensions, ritualIntensity } = req.body;
+  
+  const targetDimensions = dimensions || scrollVibratoryManifest.dimensions;
+  const intensity = Math.min(100, Math.max(1, ritualIntensity || 75));
+  
+  // Calculate ritual impact adjustments
+  const ritualAdjustments = {};
+  targetDimensions.forEach(dimension => {
+    const baseAlignment = scrollVibratoryManifest.ritualImpact[dimension]?.alignment || 0.9;
+    const adjustedAlignment = Math.min(1.0, baseAlignment + (intensity / 1000));
+    ritualAdjustments[dimension] = {
+      previousAlignment: baseAlignment,
+      newAlignment: Math.round(adjustedAlignment * 1000) / 1000,
+      ritualIntensity: intensity,
+      engaged: true
+    };
+    
+    // Update manifest
+    if (scrollVibratoryManifest.ritualImpact[dimension]) {
+      scrollVibratoryManifest.ritualImpact[dimension].alignment = adjustedAlignment;
+    }
+  });
+  
+  // Record engagement
+  const engagementId = `engage_${Date.now()}`;
+  const engagement = {
+    id: engagementId,
+    userId: req.user.username,
+    dimensions: targetDimensions,
+    ritualIntensity: intensity,
+    adjustments: ritualAdjustments,
+    executedAt: new Date().toISOString()
+  };
+  
+  vibratoryEngagements.set(engagementId, engagement);
+  
+  // Update metrics
+  scrollVibratoryManifest.engagementMetrics.totalUsers++;
+  scrollVibratoryManifest.engagementMetrics.activeRituals++;
+  scrollVibratoryManifest.engagementMetrics.dimensionalAlignments += targetDimensions.length;
+  
+  res.json({
+    message: 'ScrollVibratoryManifest() executed successfully',
+    engagement,
+    manifestStatus: {
+      dimensions: targetDimensions.length,
+      overallAlignment: Object.values(scrollVibratoryManifest.ritualImpact)
+        .reduce((sum, d) => sum + d.alignment, 0) / Object.keys(scrollVibratoryManifest.ritualImpact).length,
+      frequencies: scrollVibratoryManifest.frequencies
+    },
+    ritualImpact: {
+      message: 'Ritual impact adjusted across specified dimensions',
+      adjustments: ritualAdjustments
+    }
+  });
+});
+
+// Get dimensional alignment status
+broadcastRouter.get('/vibratory-manifest/dimensions', (req, res) => {
+  const dimensionStatus = Object.entries(scrollVibratoryManifest.ritualImpact).map(([dimension, data]) => ({
+    dimension,
+    alignment: data.alignment,
+    alignmentPercentage: `${(data.alignment * 100).toFixed(1)}%`,
+    engaged: data.engaged,
+    status: data.alignment >= 0.95 ? 'optimal' : data.alignment >= 0.85 ? 'good' : 'needs_attention'
+  }));
+  
+  res.json({
+    dimensions: dimensionStatus,
+    totalDimensions: dimensionStatus.length,
+    averageAlignment: (dimensionStatus.reduce((sum, d) => sum + d.alignment, 0) / dimensionStatus.length * 100).toFixed(2) + '%',
+    allOptimal: dimensionStatus.every(d => d.status === 'optimal')
+  });
+});
+
+// Get engagement history
+broadcastRouter.get('/vibratory-manifest/engagements', authenticateToken, standardLimiter, (req, res) => {
+  const userEngagements = Array.from(vibratoryEngagements.values())
+    .filter(e => e.userId === req.user.username);
+  
+  res.json({
+    totalEngagements: userEngagements.length,
+    engagements: userEngagements.slice(-20).reverse()
+  });
+});
+
+// Sync omniversal awareness media content
+broadcastRouter.post('/vibratory-manifest/sync-content', authenticateToken, standardLimiter, (req, res) => {
+  const { contentType, framework } = req.body;
+  
+  const syncResult = {
+    syncId: `sync_${Date.now()}`,
+    contentType: contentType || 'omniversal-awareness',
+    framework: framework || 'ScrollTV',
+    syncedChannels: ['scrolltv-divine', 'vibecamp-studios'],
+    status: 'synchronized',
+    syncedBy: req.user.username,
+    syncedAt: new Date().toISOString(),
+    mediaContent: {
+      divineUpgrades: 'synchronized',
+      transformationDocs: 'synchronized',
+      celebrationRecordings: 'synchronized'
+    }
+  };
+  
+  res.json({
+    message: 'Omniversal awareness media content synchronized across ScrollTV frameworks',
+    syncResult,
+    nextSteps: [
+      'Execute video broadcasts via VIBECAMP Studios',
+      'Align user engagement with ScrollVibratoryManifest()'
+    ]
   });
 });
 
