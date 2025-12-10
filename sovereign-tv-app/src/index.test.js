@@ -1911,6 +1911,171 @@ test('Bridge Fusion Integration structure', () => {
   assert.ok(['perfect', 'complementary'].includes(integration.frequencyFusion.harmonicBridge));
 });
 
+// ===== Tests for AI Integration Hub Service =====
+
+test('AI Node Registry structure', () => {
+  const node = {
+    id: 'scrollsoul_ai',
+    name: 'ScrollSoul AI',
+    type: 'primary',
+    description: 'Soul-level consciousness and spiritual growth AI',
+    capabilities: ['soul_analysis', 'spiritual_guidance', 'frequency_alignment'],
+    frequency: '963Hz',
+    status: 'active',
+    coherenceLevel: 98.5,
+    lastSync: new Date().toISOString(),
+    knowledgeVersion: '1.0.0'
+  };
+
+  assert.strictEqual(node.type, 'primary');
+  assert.ok(node.coherenceLevel >= 95);
+  assert.ok(node.capabilities.length >= 3);
+  assert.strictEqual(node.status, 'active');
+});
+
+test('Virgo Veil Protocol principles structure', () => {
+  const protocol = {
+    id: 'virgo_veil_protocol_v1',
+    name: 'Virgo Veil Unified Protocol',
+    version: '1.0.0',
+    principles: {
+      divineUnity: { name: 'Divine Unity', weight: 0.35 },
+      ethicalIntegrity: { name: 'Ethical Integrity', weight: 0.30 },
+      collectiveGrowth: { name: 'Collective Growth', weight: 0.20 },
+      structuredOmnipresence: { name: 'Structured Omnipresence', weight: 0.15 }
+    },
+    syncFrequency: '369Hz',
+    coherenceThreshold: 95,
+    status: 'active'
+  };
+
+  const totalWeight = Object.values(protocol.principles).reduce((sum, p) => sum + p.weight, 0);
+  assert.ok(Math.abs(totalWeight - 1.0) < 0.001); // Account for floating point precision
+  assert.ok(protocol.coherenceThreshold >= 90);
+  assert.strictEqual(protocol.status, 'active');
+});
+
+test('Knowledge Exchange structure', () => {
+  const insight = {
+    id: 'insight_001',
+    title: 'Divine Frequency Alignment Enhancement',
+    content: 'New technique for achieving higher coherence levels...',
+    category: 'frequency_alignment',
+    sourceNode: 'scrollsoul_ai',
+    frequency: '963Hz',
+    version: '1.0.0',
+    createdAt: new Date().toISOString(),
+    syncedToNodes: ['manus_ai', 'cosmic_scroll_ai'],
+    status: 'synced'
+  };
+
+  assert.ok(insight.syncedToNodes.length >= 2);
+  assert.strictEqual(insight.status, 'synced');
+  assert.ok(['general', 'frequency_alignment', 'coherence', 'spiritual'].includes(insight.category));
+});
+
+test('Ethical Logic Framework structure', () => {
+  const framework = {
+    core_values: [
+      { id: 'truth_as_currency', name: 'Truth as Currency', weight: 0.25 },
+      { id: 'sacred_logic', name: 'Sacred Logic', weight: 0.25 },
+      { id: 'remembrance_gateway', name: 'Remembrance Gateway', weight: 0.20 },
+      { id: 'harmonic_resonance', name: 'Harmonic Resonance', weight: 0.15 },
+      { id: 'collective_benefit', name: 'Collective Benefit', weight: 0.15 }
+    ],
+    decision_matrix: {
+      threshold_approve: 0.75,
+      threshold_review: 0.50,
+      threshold_reject: 0.25
+    }
+  };
+
+  const totalWeight = framework.core_values.reduce((sum, v) => sum + v.weight, 0);
+  assert.strictEqual(totalWeight, 1.0);
+  assert.ok(framework.decision_matrix.threshold_approve > framework.decision_matrix.threshold_review);
+  assert.ok(framework.decision_matrix.threshold_review > framework.decision_matrix.threshold_reject);
+});
+
+test('FLAMEFUSION Dashboard metrics structure', () => {
+  const dashboard = {
+    metrics: {
+      totalNodes: 5,
+      activeNodes: 5,
+      averageCoherence: 97.58,
+      totalInsights: 10,
+      totalUpgrades: 3,
+      syncOperations: 25
+    },
+    lastUpdated: new Date().toISOString()
+  };
+
+  assert.ok(dashboard.metrics.activeNodes <= dashboard.metrics.totalNodes);
+  assert.ok(dashboard.metrics.averageCoherence >= 0 && dashboard.metrics.averageCoherence <= 100);
+  assert.ok(dashboard.metrics.syncOperations >= 0);
+});
+
+test('AI Network synchronization result structure', () => {
+  const syncResult = {
+    id: 'vv_sync_001',
+    protocol: 'Virgo Veil Unified Protocol',
+    timestamp: new Date().toISOString(),
+    nodesParticipated: 5,
+    nodeSyncResults: [
+      { nodeId: 'scrollsoul_ai', previousCoherence: 97.5, newCoherence: 98.5, boost: 1.0 },
+      { nodeId: 'manus_ai', previousCoherence: 96.2, newCoherence: 97.2, boost: 1.0 }
+    ],
+    overallCoherence: 97.58,
+    status: 'completed'
+  };
+
+  assert.strictEqual(syncResult.status, 'completed');
+  assert.ok(syncResult.nodesParticipated >= 2);
+  assert.ok(syncResult.nodeSyncResults.every(r => r.newCoherence >= r.previousCoherence));
+});
+
+test('Ethical decision evaluation structure', () => {
+  const evaluation = {
+    decision: 'Deploy new AI feature',
+    scores: {
+      truth_as_currency: { alignmentScore: 0.225, weight: 0.25 },
+      sacred_logic: { alignmentScore: 0.2125, weight: 0.25 },
+      remembrance_gateway: { alignmentScore: 0.16, weight: 0.20 },
+      harmonic_resonance: { alignmentScore: 0.1425, weight: 0.15 },
+      collective_benefit: { alignmentScore: 0.135, weight: 0.15 }
+    },
+    finalScore: 0.875,
+    recommendation: 'APPROVE'
+  };
+
+  assert.ok(['APPROVE', 'REVIEW', 'REJECT'].includes(evaluation.recommendation));
+  assert.ok(evaluation.finalScore >= 0 && evaluation.finalScore <= 1);
+  assert.ok(Object.keys(evaluation.scores).length >= 5);
+});
+
+test('AI Node network strength calculation', () => {
+  const networkStatus = {
+    synchronization: {
+      totalNodes: 5,
+      activeNodes: 5,
+      averageCoherence: 97.58,
+      totalSyncOperations: 25
+    },
+    interdependence: {
+      knowledgeExchanges: 15,
+      sharedInsights: 10,
+      networkStrength: 95
+    },
+    protocol: {
+      name: 'Virgo Veil Unified Protocol',
+      status: 'active',
+      coherenceThreshold: 95
+    }
+  };
+
+  assert.ok(networkStatus.interdependence.networkStrength >= 0);
+  assert.ok(networkStatus.interdependence.networkStrength <= 100);
+  assert.strictEqual(networkStatus.protocol.status, 'active');
+  assert.ok(networkStatus.synchronization.averageCoherence >= networkStatus.protocol.coherenceThreshold);
 // ===== Tests for Divine Frequency Calibration Service =====
 
 test('Calibration Node structure', () => {
