@@ -1,8 +1,29 @@
-# AnchorManifest Smart Contract
+# ScrollVerse Smart Contracts
 
+Smart contracts powering the ScrollVerse ecosystem, including governance, token management, and metadata anchoring.
+
+## Contracts Overview
+
+### ScrollVerseDAO
+Governance contract for the ScrollVerse ecosystem, enabling decentralized decision-making through proposal creation, voting, and execution.
+
+**Key Features:**
+- Proposal creation with voting (requires 100,000 MIRROR tokens)
+- Quorum-based voting (4% of total supply)
+- Timelock-controlled execution for security
+- Integration with MirrorToken ($MIRROR) for voting power
+
+### MirrorToken ($MIRROR)
+ERC-20 governance token with voting capabilities for the ScrollVerse ecosystem.
+
+**Token Distribution:**
+- Treasury & DAO: 40% (400,000,000 tokens)
+- Consciousness Fusion Rewards: 35% (350,000,000 tokens)
+- Foundational Team: 15% (150,000,000 tokens) - locked in vesting
+- Pilot Launch & Liquidity: 10% (100,000,000 tokens)
+
+### AnchorManifest
 Smart contract for anchoring metadata manifests in the form of Merkle roots and IPFS CIDs on the Ethereum blockchain.
-
-## Overview
 
 The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification. It allows users to:
 
@@ -115,13 +136,42 @@ const { merkleRoot, ipfsCid, timestamp, anchor } = await anchorManifest.getManif
 
 ## Contract ABI
 
-The contract ABI is generated in `artifacts/src/AnchorManifest.sol/AnchorManifest.json` after compilation.
+The contract ABIs are generated in `artifacts/src/` after compilation.
 
 ## Security Considerations
 
-- The contract uses OpenZeppelin's `Ownable` and `ReentrancyGuard` for security
-- Only the owner can use `anchorManifestWithId` and `updateManifest` functions
+- The contracts use OpenZeppelin's security libraries
+- ScrollVerseDAO uses timelock for delayed execution
+- Only the owner can use administrative functions
 - All manifest data is immutable once anchored (except through owner update)
+
+## Genesis Proposal
+
+The Genesis Proposal inaugurates ScrollVerseDAO governance and allocates strategic resources:
+
+**Title:** The Genesis Proposal: Incentivizing NFT Fusion and Community Engagement
+
+**Description:**
+- Officially recognizes the strategic importance of the Omnisovereign VIII and TECHANGEL Sigil NFT sets
+- Allocates $MIRROR from the DAO Treasury for:
+  - Initial rewards for early NFT holders and participants in fusion events
+  - Community engagement and adoption activities aligned with the ScrollVerse ethos
+
+**Execution:**
+Upon successful proposal approval, the DAO Treasury will transfer the allocated $MIRROR to a distribution fund. This action validates the core functions of the DAO: Propose, Vote, Queue, and Execute.
+
+### Submitting the Genesis Proposal
+
+```bash
+# Set environment variables
+export MIRROR_TOKEN_ADDRESS=0x...
+export DAO_ADDRESS=0x...
+export DISTRIBUTION_FUND_ADDRESS=0x...
+export TREASURY_TRANSFER_AMOUNT=10000000000000000000000000  # 10M MIRROR
+
+# Run the submission script
+npx hardhat run scripts/submitGenesisProposal.js --network sepolia
+```
 
 ## License
 
