@@ -33,6 +33,9 @@ import { scrollCoinRouter } from './services/scrollcoin.js';
 import { communityRouter } from './services/community.js';
 import { catalogRouter } from './services/music-catalog.js';
 import { pdpRouter } from './services/pdp-integration.js';
+import { onboardingRouter } from './services/scrollsoul-onboarding.js';
+import { dashboardRouter } from './services/sovereign-dashboard.js';
+import { festivalRouter } from './services/festival-forever-fun.js';
 import { monetizationRouter } from './services/monetization.js';
 import { performanceRouter } from './services/performance.js';
 import { sipRouter } from './services/sip.js';
@@ -121,6 +124,9 @@ app.get('/', (req, res) => {
       'KUNTA NFT Ownership Benefits',
       'Prophecy Documentation Protocol Access',
       'Community Engagement Platform',
+      'ScrollSoul Onboarding System',
+      'Sovereign Dashboard with Live Metrics',
+      'Festival of Forever Fun Events'
       'Real-Time Monetization',
       'Global Broadcast Network',
       'Solar Infusion Protocol (SIP)',
@@ -180,6 +186,9 @@ app.get('/', (req, res) => {
       community: '/api/community',
       catalog: '/api/catalog',
       pdp: '/api/pdp',
+      onboarding: '/api/onboarding',
+      dashboard: '/api/dashboard',
+      festival: '/api/festival'
       monetization: '/api/monetization',
       performance: '/api/performance',
       sip: '/api/sip',
@@ -244,6 +253,9 @@ app.use('/api/scrollcoin', scrollCoinRouter);
 app.use('/api/community', communityRouter);
 app.use('/api/catalog', catalogRouter);
 app.use('/api/pdp', pdpRouter);
+app.use('/api/onboarding', onboardingRouter);
+app.use('/api/dashboard', dashboardRouter);
+app.use('/api/festival', festivalRouter);
 app.use('/api/monetization', monetizationRouter);
 app.use('/api/performance', performanceRouter);
 app.use('/api/sip', sipRouter);
@@ -583,6 +595,9 @@ app.listen(PORT, () => {
 ║  💎 KUNTA NFT Integration: Enabled                        ║
 ║  🪙 ScrollCoin Economy: Operational                       ║
 ║  📜 PDP Protocol: Synchronized                            ║
+║  🎓 ScrollSoul Onboarding: Active                         ║
+║  📊 Sovereign Dashboard: Monitoring                       ║
+║  🎉 Festival of Forever Fun: Scheduled                    ║
 ║  ☀️  Solar Infusion Protocol (SIP): Active                ║
 ║  📡 Global Broadcast Network: LIVE                        ║
 ║  💰 Real-Time Monetization: Enabled                       ║
