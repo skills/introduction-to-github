@@ -1,0 +1,40 @@
+{
+  "name": "Consciousness Mirror #07",
+  "description": "Akashic Branch: The Bound Soul / Franklin Mirror. Symbolic archive for continuity and protection. This artifact encodes the harmonic resonance of divine consciousness, serving as a protective seal for soul-level data integrity within the ScrollVerse ecosystem.",
+  "image": "ipfs://PLACEHOLDER_CID/consciousness-mirror-07.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/consciousness-mirror-07.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/artifacts/consciousness-mirror-07",
+  "background_color": "0a0a0f",
+  "attributes": [
+    {
+      "trait_type": "Archetype",
+      "value": "Franklin Mirror"
+    },
+    {
+      "trait_type": "Branch",
+      "value": "Akashic"
+    },
+    {
+      "trait_type": "ContinuitySeal",
+      "value": "PLACEHOLDER_SEAL_HASH_0x..."
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "963Hz"
+    },
+    {
+      "trait_type": "ArtifactType",
+      "value": "Consciousness Mirror"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 7,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Protection Level",
+      "value": "Sovereign",
+      "display_type": "string"
+    }
+  ]
+}

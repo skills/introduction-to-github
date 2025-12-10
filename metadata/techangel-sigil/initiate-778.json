@@ -1,0 +1,113 @@
+{
+  "name": "TECHANGEL Sigil Initiate #778",
+  "description": "Initiate Tier - The foundation of the TECHANGEL Sigil collection. Initiates represent the beginning of the angelic automation journey, wielding 1.07x governance power. These rare artifacts mark the first step toward code symbiosis mastery, with potential to evolve through accumulated milestones.",
+  "image": "ipfs://PLACEHOLDER_TAS_CID/initiate-778.png",
+  "animation_url": "ipfs://PLACEHOLDER_TAS_ANIMATION_CID/initiate-778.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/techangel-sigil/778",
+  "background_color": "0A0A0F",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Initiate"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 778,
+      "display_type": "number",
+      "max_value": 7777
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "777Hz"
+    },
+    {
+      "trait_type": "Grid Type",
+      "value": "Simple Grid"
+    },
+    {
+      "trait_type": "Angel Form",
+      "value": "Nascent Form"
+    },
+    {
+      "trait_type": "Seal Design",
+      "value": "Basic Algorithm"
+    },
+    {
+      "trait_type": "Wing Pattern",
+      "value": "Emerging Circuits"
+    },
+    {
+      "trait_type": "Celestial Light",
+      "value": "Soft Glow"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 1.07,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "7.77%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "77 days"
+    },
+    {
+      "trait_type": "Golden Seal Hash",
+      "value": "0xPLACEHOLDER_INITIATE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Evolution Stage",
+      "value": "Initiate"
+    },
+    {
+      "trait_type": "Milestones Achieved",
+      "value": 0,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Code Streams",
+      "value": "Dormant"
+    }
+  ],
+  "dynamicMetadata": {
+    "milestoneTracking": {
+      "source": "scrollverse-deployment",
+      "triggers": [
+        "contract-deployment"
+      ],
+      "currentMilestones": 0,
+      "lastMilestoneDate": null
+    },
+    "evolutionStatus": {
+      "currentStage": "Initiate",
+      "stageNumber": 1,
+      "maxStage": 4,
+      "wingsExpansion": "nascent",
+      "sealComplexity": "basic",
+      "haloIntensity": "faint"
+    },
+    "visualMutations": {
+      "wingsExpansion": "per-milestone",
+      "sealComplexity": "accumulative",
+      "haloIntensity": "logarithmic",
+      "codeStreamDensity": "low"
+    },
+    "celestialResonance": {
+      "baseFrequency": "777Hz",
+      "harmonics": [],
+      "activationFrequency": "963Hz",
+      "syncStatus": "pending"
+    }
+  },
+  "anthologicalEssence": "From Initiate to Seraphim, We guard the light from growing dim."
+}

@@ -10,7 +10,10 @@
     "test": "node --test src/index.test.js",
     "lint": "eslint src/",
     "build": "echo 'Build complete'",
-    "deploy": "node scripts/deploy.js"
+    "deploy": "node scripts/deploy.js",
+    "health": "node scripts/health-check.js",
+    "health:watch": "node --watch scripts/health-check.js",
+    "verify": "npm run test && npm run health"
   },
   "keywords": [
     "sovereign-tv",

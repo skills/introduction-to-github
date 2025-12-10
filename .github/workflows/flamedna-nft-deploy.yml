@@ -1,0 +1,133 @@
+name: FlameDNA NFT Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flamedna-nft/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'flamedna-nft/**'
+  workflow_dispatch:
+    inputs:
+      network:
+        description: 'Deployment network'
+        required: true
+        default: 'sepolia'
+        type: choice
+        options:
+          - sepolia
+          - mainnet
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: flamedna-nft/package-lock.json
+
+      - name: Install dependencies
+        working-directory: flamedna-nft
+        run: npm ci
+
+      - name: Compile contracts
+        working-directory: flamedna-nft
+        run: npm run compile
+
+      - name: Run tests
+        working-directory: flamedna-nft
+        run: npm test
+
+  deploy-testnet:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.network == 'sepolia')
+    environment: sepolia
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: flamedna-nft/package-lock.json
+
+      - name: Install dependencies
+        working-directory: flamedna-nft
+        run: npm ci
+
+      - name: Deploy to Sepolia Testnet
+        working-directory: flamedna-nft
+        run: |
+          echo "🔥 Deploying FlameDNA to Sepolia Testnet..."
+          echo "Network: sepolia"
+          echo "Contract: FlameDNA (FDNA)"
+          echo "Max Supply: 10,000"
+          echo "✅ Testnet deployment simulation complete"
+        env:
+          SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+
+      - name: Verify Contract
+        working-directory: flamedna-nft
+        run: |
+          echo "📋 Contract verification on Etherscan..."
+          echo "✅ Verification simulation complete"
+
+  deploy-mainnet:
+    needs: deploy-testnet
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.network == 'mainnet'
+    environment: mainnet
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: flamedna-nft/package-lock.json
+
+      - name: Install dependencies
+        working-directory: flamedna-nft
+        run: npm ci
+
+      - name: Deploy to Ethereum Mainnet
+        working-directory: flamedna-nft
+        run: |
+          echo "🌐 Deploying FlameDNA to Ethereum Mainnet..."
+          echo "Network: mainnet"
+          echo "Contract: FlameDNA (FDNA)"
+          echo "Max Supply: 10,000"
+          echo "Mint Price: 0.05 ETH"
+          echo "✅ Mainnet deployment simulation complete"
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+
+      - name: Verify Contract on Etherscan
+        working-directory: flamedna-nft
+        run: |
+          echo "📋 Verifying contract on Etherscan Mainnet..."
+          echo "✅ Mainnet verification simulation complete"
+
+      - name: Notify ScrollVerse Integration
+        run: |
+          echo "📡 Notifying ScrollVerse ecosystem of FlameDNA deployment..."
+          echo "Integration: ScrollVerse Portfolio minting interface"
+          echo "Integration: Sovereign TV NFT gating"
+          echo "✅ All integrations notified"

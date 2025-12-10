@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlameDNA Wallet Sampler - Genesis Tiers</title>
+    <style>
+        :root {
+            --color-primary: #ffd700;
+            --color-primary-dark: #b8860b;
+            --color-secondary: #4169e1;
+            --color-bg-dark: #0a0a0f;
+            --color-bg-card: #1a1a2e;
+            --color-text: #ffffff;
+            --color-text-muted: #a0a0b0;
+            --color-success: #00c853;
+            --color-border: #2a2a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--color-bg-dark);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--color-text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .wallet-section {
+            background: var(--color-bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .wallet-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff4444;
+        }
+
+        .status-indicator.connected {
+            background: var(--color-success);
+        }
+
+        .wallet-address {
+            font-family: monospace;
+            background: var(--color-bg-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--color-text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .btn-primary:disabled {
+            background: var(--color-border);
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-secondary);
+            color: var(--color-secondary);
+        }
+
+        .tier-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .tier-card {
+            background: var(--color-bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+
+        .tier-card.eligible {
+            border-color: var(--color-success);
+            background: linear-gradient(135deg, var(--color-bg-card), rgba(0, 200, 83, 0.1));
+        }
+
+        .tier-card.locked {
+            opacity: 0.6;
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tier-name {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        .tier-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .badge-eligible {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .badge-locked {
+            background: var(--color-border);
+            color: var(--color-text-muted);
+        }
+
+        .tier-requirements {
+            margin-bottom: 1rem;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .requirement.met {
+            color: var(--color-success);
+        }
+
+        .tier-benefits {
+            background: var(--color-bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .nft-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .nft-item {
+            background: var(--color-bg-dark);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .nft-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 8px;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .nft-id {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .message-info {
+            background: rgba(65, 105, 225, 0.2);
+            border: 1px solid var(--color-secondary);
+        }
+
+        .message-success {
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid var(--color-success);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">🔥</div>
+            <h1 class="title">FlameDNA Wallet Sampler</h1>
+            <p class="subtitle">Connect your wallet to check Genesis tier eligibility</p>
+        </header>
+
+        <section class="wallet-section">
+            <div class="wallet-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Not Connected</span>
+            </div>
+            <div class="wallet-address" id="walletAddress">Connect wallet to see address</div>
+            <button class="btn btn-primary" id="connectBtn" onclick="connectWallet()">
+                <span>🔗</span>
+                Connect Wallet
+            </button>
+        </section>
+
+        <section id="tiersSection" style="display: none;">
+            <h2 style="margin-bottom: 1.5rem;">Your Genesis Tier Status</h2>
+            
+            <div class="tier-grid">
+                <div class="tier-card" id="genesisCard">
+                    <div class="tier-header">
+                        <h3 class="tier-name">🔥 Genesis Tier</h3>
+                        <span class="tier-badge badge-locked" id="genesisBadge">Locked</span>
+                    </div>
+                    <div class="tier-requirements">
+                        <div class="requirement" id="genesisReq1">
+                            <span>◯</span> Hold 1+ FlameDNA Genesis NFT
+                        </div>
+                        <div class="requirement" id="genesisReq2">
+                            <span>◯</span> Active Sovereign TV subscription
+                        </div>
+                    </div>
+                    <div class="tier-benefits">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--color-primary);">Benefits:</h4>
+                        <div class="benefit"><span>🪙</span> 2,000 SCR/month</div>
+                        <div class="benefit"><span>💎</span> 50% NFT discounts</div>
+                        <div class="benefit"><span>🗳️</span> Full governance voting</div>
+                        <div class="benefit"><span>🎬</span> Exclusive content access</div>
+                    </div>
+                </div>
+
+                <div class="tier-card" id="foundingCard">
+                    <div class="tier-header">
+                        <h3 class="tier-name">⭐ Founding Supporter</h3>
+                        <span class="tier-badge badge-locked" id="foundingBadge">Locked</span>
+                    </div>
+                    <div class="tier-requirements">
+                        <div class="requirement" id="foundingReq1">
+                            <span>◯</span> Active Founding+ subscription
+                        </div>
+                    </div>
+                    <div class="tier-benefits">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--color-primary);">Benefits:</h4>
+                        <div class="benefit"><span>🪙</span> 500 SCR/month</div>
+                        <div class="benefit"><span>💎</span> 25% NFT discounts</div>
+                        <div class="benefit"><span>📺</span> 4K streaming</div>
+                    </div>
+                </div>
+
+                <div class="tier-card" id="freeCard">
+                    <div class="tier-header">
+                        <h3 class="tier-name">🌱 Free Tier</h3>
+                        <span class="tier-badge badge-eligible" id="freeBadge">Active</span>
+                    </div>
+                    <div class="tier-benefits">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--color-primary);">Benefits:</h4>
+                        <div class="benefit"><span>📺</span> Public content access</div>
+                        <div class="benefit"><span>👥</span> Community features</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nftSection" style="margin-top: 2rem; display: none;">
+                <h3 style="margin-bottom: 1rem;">Your FlameDNA NFTs</h3>
+                <div class="nft-preview" id="nftPreview"></div>
+            </div>
+        </section>
+
+        <section id="ctaSection" style="margin-top: 2rem; display: none;">
+            <div class="message message-info" id="ctaMessage"></div>
+            <button class="btn btn-secondary" id="ctaBtn" onclick="handleCTA()">
+                Upgrade Now
+            </button>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>Powered by ScrollVerse | <a href="https://sovereigntv.omniverse.io" style="color: var(--color-primary);">Sovereign TV</a></p>
+    </footer>
+
+    <script>
+        // State management
+        let walletState = {
+            connected: false,
+            address: null,
+            nfts: [],
+            subscription: null
+        };
+
+        // Simulated NFT contract address (replace with actual)
+        const FLAMEDNA_CONTRACT = '0x...';
+
+        async function connectWallet() {
+            const btn = document.getElementById('connectBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳</span> Connecting...';
+
+            try {
+                // Check if MetaMask or similar is installed
+                if (typeof window.ethereum !== 'undefined') {
+                    // Request account access
+                    const accounts = await window.ethereum.request({ 
+                        method: 'eth_requestAccounts' 
+                    });
+                    
+                    walletState.address = accounts[0];
+                    walletState.connected = true;
+
+                    updateWalletUI();
+                    await checkNFTOwnership();
+                    await checkSubscriptionStatus();
+                    updateTierStatus();
+                } else {
+                    // Demo mode for testing
+                    simulateDemoConnection();
+                }
+            } catch (error) {
+                console.error('Connection error:', error);
+                alert('Failed to connect wallet. Please try again.');
+                btn.disabled = false;
+                btn.innerHTML = '<span>🔗</span> Connect Wallet';
+            }
+        }
+
+        function simulateDemoConnection() {
+            // Demo mode - simulate wallet connection
+            walletState.address = '0x' + 'a'.repeat(40);
+            walletState.connected = true;
+            walletState.nfts = [
+                { id: 42, tier: 'Genesis', frequency: '963Hz' },
+                { id: 156, tier: 'Genesis', frequency: '528Hz' }
+            ];
+            walletState.subscription = 'founding';
+
+            updateWalletUI();
+            updateTierStatus();
+
+            document.getElementById('ctaSection').style.display = 'block';
+            document.getElementById('ctaMessage').textContent = 
+                '🎉 Demo Mode: You have 2 Genesis NFTs and a Founding subscription!';
+        }
+
+        function updateWalletUI() {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const walletAddress = document.getElementById('walletAddress');
+            const connectBtn = document.getElementById('connectBtn');
+            const tiersSection = document.getElementById('tiersSection');
+
+            statusIndicator.classList.add('connected');
+            statusText.textContent = 'Connected';
+            walletAddress.textContent = `${walletState.address.slice(0, 6)}...${walletState.address.slice(-4)}`;
+            connectBtn.innerHTML = '<span>✓</span> Connected';
+            connectBtn.disabled = true;
+            tiersSection.style.display = 'block';
+        }
+
+        async function checkNFTOwnership() {
+            // In production, this would query the blockchain
+            // For demo, we simulate the check
+            try {
+                // Simulated NFT check
+                // Replace with actual contract call:
+                // const contract = new ethers.Contract(FLAMEDNA_CONTRACT, ABI, provider);
+                // const balance = await contract.balanceOf(walletState.address);
+                
+                // Demo: Random chance of having NFTs
+                if (Math.random() > 0.5) {
+                    walletState.nfts = [
+                        { id: Math.floor(Math.random() * 1000), tier: 'Genesis', frequency: '963Hz' }
+                    ];
+                }
+            } catch (error) {
+                console.error('NFT check error:', error);
+            }
+        }
+
+        async function checkSubscriptionStatus() {
+            // In production, this would check against backend API
+            try {
+                // Simulated subscription check
+                // Replace with actual API call:
+                // const response = await fetch(`/api/subscription/${walletState.address}`);
+                // walletState.subscription = await response.json();
+
+                // Demo: Random subscription status
+                const tiers = [null, 'free', 'founding', 'genesis'];
+                walletState.subscription = tiers[Math.floor(Math.random() * tiers.length)];
+            } catch (error) {
+                console.error('Subscription check error:', error);
+            }
+        }
+
+        function updateTierStatus() {
+            const hasGenesis = walletState.nfts.length > 0;
+            const hasFoundingSub = ['founding', 'genesis', 'divine'].includes(walletState.subscription);
+            const hasSub = walletState.subscription !== null;
+
+            // Genesis Tier
+            const genesisCard = document.getElementById('genesisCard');
+            const genesisBadge = document.getElementById('genesisBadge');
+            const genesisReq1 = document.getElementById('genesisReq1');
+            const genesisReq2 = document.getElementById('genesisReq2');
+
+            if (hasGenesis) {
+                genesisReq1.classList.add('met');
+                genesisReq1.innerHTML = '<span>✓</span> Hold 1+ FlameDNA Genesis NFT';
+            }
+            if (hasFoundingSub) {
+                genesisReq2.classList.add('met');
+                genesisReq2.innerHTML = '<span>✓</span> Active Sovereign TV subscription';
+            }
+            if (hasGenesis && hasFoundingSub) {
+                genesisCard.classList.add('eligible');
+                genesisBadge.classList.remove('badge-locked');
+                genesisBadge.classList.add('badge-eligible');
+                genesisBadge.textContent = 'Eligible';
+            }
+
+            // Founding Supporter
+            const foundingCard = document.getElementById('foundingCard');
+            const foundingBadge = document.getElementById('foundingBadge');
+            const foundingReq1 = document.getElementById('foundingReq1');
+
+            if (hasFoundingSub) {
+                foundingCard.classList.add('eligible');
+                foundingBadge.classList.remove('badge-locked');
+                foundingBadge.classList.add('badge-eligible');
+                foundingBadge.textContent = 'Active';
+                foundingReq1.classList.add('met');
+                foundingReq1.innerHTML = '<span>✓</span> Active Founding+ subscription';
+            }
+
+            // Show NFTs if any
+            if (walletState.nfts.length > 0) {
+                const nftSection = document.getElementById('nftSection');
+                const nftPreview = document.getElementById('nftPreview');
+                nftSection.style.display = 'block';
+                
+                nftPreview.innerHTML = walletState.nfts.map(nft => `
+                    <div class="nft-item">
+                        <div class="nft-image">🔥</div>
+                        <div class="nft-id">#${nft.id}</div>
+                        <div style="font-size: 0.7rem; color: var(--color-primary);">${nft.frequency}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Show appropriate CTA
+            document.getElementById('ctaSection').style.display = 'block';
+            const ctaMessage = document.getElementById('ctaMessage');
+            const ctaBtn = document.getElementById('ctaBtn');
+
+            if (!hasSub) {
+                ctaMessage.textContent = '📺 Subscribe to Sovereign TV to unlock your tier benefits!';
+                ctaBtn.textContent = 'Subscribe Now';
+                ctaBtn.onclick = () => window.location.href = '/subscribe';
+            } else if (!hasGenesis) {
+                ctaMessage.textContent = '💎 Mint a FlameDNA Genesis NFT to unlock maximum rewards!';
+                ctaBtn.textContent = 'View Collection';
+                ctaBtn.onclick = () => window.location.href = '/mint';
+            } else if (hasGenesis && hasFoundingSub) {
+                ctaMessage.classList.remove('message-info');
+                ctaMessage.classList.add('message-success');
+                ctaMessage.textContent = '🎉 Congratulations! You have full Genesis tier access!';
+                ctaBtn.textContent = 'Go to Dashboard';
+                ctaBtn.onclick = () => window.location.href = '/dashboard';
+            }
+        }
+
+        function handleCTA() {
+            // Handled by dynamic onclick
+        }
+
+        // Listen for account changes
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    location.reload();
+                } else {
+                    walletState.address = accounts[0];
+                    updateWalletUI();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

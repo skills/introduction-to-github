@@ -1,0 +1,248 @@
+# ScrollVerse Services Deployment Manifest
+# SVC Manifest for deploying ScrollVerse Portfolio and CodexTV App
+
+apiVersion: v1
+kind: ServiceManifest
+metadata:
+  name: scrollverse-services
+  version: "1.0.0"
+  author: "Chais Hill - OmniTech1"
+  description: "Deployment manifest for ScrollVerse ecosystem services"
+
+services:
+  # ScrollVerse Portfolio Website
+  - name: scrollverse-portfolio
+    displayName: "ScrollVerse Portfolio"
+    description: "Flask-based portfolio website showcasing the ScrollVerse ecosystem"
+    type: web
+    runtime: python
+    version: "3.11"
+    
+    source:
+      directory: scrollverse-portfolio
+      entry: app.py
+      
+    dependencies:
+      - Flask==3.0.0
+      - Werkzeug==3.0.1
+      - gunicorn==21.2.0
+      - python-dotenv==1.0.0
+      
+    ports:
+      - name: http
+        port: 5000
+        protocol: TCP
+        
+    environment:
+      - name: FLASK_APP
+        value: app.py
+      - name: FLASK_ENV
+        value: production
+      - name: PORT
+        value: "5000"
+        
+    healthCheck:
+      path: /api/health
+      interval: 30s
+      timeout: 10s
+      
+    resources:
+      memory: 256Mi
+      cpu: 0.25
+      
+    scaling:
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilization: 70
+      
+    routes:
+      - path: /
+        name: index
+      - path: /about
+        name: about
+      - path: /projects
+        name: projects
+      - path: /blockchain
+        name: blockchain
+      - path: /api/*
+        name: api
+
+  # CodexTV App - Video Streaming
+  - name: codextv-app
+    displayName: "CodexTV"
+    description: "Dynamic video streaming platform with Flask Pass View"
+    type: web
+    runtime: python
+    version: "3.11"
+    
+    source:
+      directory: codextv-app
+      entry: app.py
+      
+    dependencies:
+      - Flask==3.0.0
+      - Werkzeug==3.0.1
+      - gunicorn==21.2.0
+      - python-dotenv==1.0.0
+      
+    ports:
+      - name: http
+        port: 5001
+        protocol: TCP
+        
+    environment:
+      - name: FLASK_APP
+        value: app.py
+      - name: FLASK_ENV
+        value: production
+      - name: PORT
+        value: "5001"
+        
+    healthCheck:
+      path: /api/health
+      interval: 30s
+      timeout: 10s
+      
+    resources:
+      memory: 512Mi
+      cpu: 0.5
+      
+    scaling:
+      minReplicas: 1
+      maxReplicas: 5
+      targetCPUUtilization: 60
+      
+    routes:
+      - path: /
+        name: index
+      - path: /watch/*
+        name: video-player
+      - path: /category/*
+        name: category
+      - path: /live
+        name: live-streams
+      - path: /stream/*
+        name: streaming
+      - path: /api/*
+        name: api
+
+  # Sovereign TV App (Existing Node.js Service)
+  - name: sovereign-tv-app
+    displayName: "Sovereign TV App"
+    description: "Node.js distribution channel for the OmniVerse"
+    type: web
+    runtime: node
+    version: "18"
+    
+    source:
+      directory: sovereign-tv-app
+      entry: src/index.js
+      
+    ports:
+      - name: http
+        port: 3000
+        protocol: TCP
+        
+    environment:
+      - name: NODE_ENV
+        value: production
+      - name: PORT
+        value: "3000"
+        
+    healthCheck:
+      path: /health
+      interval: 30s
+      timeout: 10s
+      
+    resources:
+      memory: 256Mi
+      cpu: 0.25
+      
+    scaling:
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilization: 70
+
+# Network Configuration
+network:
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    hosts:
+      - host: scrollverse.local
+        paths:
+          - path: /
+            service: scrollverse-portfolio
+            port: 5000
+      - host: codextv.local
+        paths:
+          - path: /
+            service: codextv-app
+            port: 5001
+      - host: sovereigntv.local
+        paths:
+          - path: /
+            service: sovereign-tv-app
+            port: 3000
+
+# Storage Configuration
+storage:
+  volumes:
+    - name: static-assets
+      type: persistent
+      size: 1Gi
+      mountPath: /app/static
+    - name: video-cache
+      type: persistent
+      size: 10Gi
+      mountPath: /app/cache
+
+# Secrets Configuration
+secrets:
+  - name: flask-secrets
+    keys:
+      - SECRET_KEY
+  - name: jwt-secrets
+    keys:
+      - JWT_SECRET
+      - JWT_EXPIRES_IN
+
+# Logging Configuration
+logging:
+  level: INFO
+  format: json
+  destinations:
+    - type: stdout
+    - type: file
+      path: /var/log/scrollverse
+
+# Monitoring Configuration
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+    path: /metrics
+  tracing:
+    enabled: true
+    samplingRate: 0.1
+
+# Deployment Strategy
+deployment:
+  strategy: rolling
+  maxSurge: 1
+  maxUnavailable: 0
+  revisionHistoryLimit: 3
+
+# Labels and Annotations
+labels:
+  app: scrollverse
+  environment: production
+  team: omnitech1
+  version: "1.0.0"
+
+annotations:
+  description: "ScrollVerse ecosystem services deployment"
+  documentation: "https://github.com/chaishillomnitech1/introduction-to-github"
+  support: "support@omniverse.io"

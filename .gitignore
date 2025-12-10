@@ -35,3 +35,58 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Python #
+##########
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+.venv/
+
+# Node.js #
+###########
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files #
+#####################
+.env
+.env.local
+.env.*.local
+
+# IDE #
+#######
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Hardhat #
+###########
+cache/
+artifacts/
+typechain/
+typechain-types/
+coverage/
+coverage.json

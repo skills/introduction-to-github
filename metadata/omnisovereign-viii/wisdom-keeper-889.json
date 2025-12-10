@@ -1,0 +1,105 @@
+{
+  "name": "Omnisovereign VIII Wisdom Keeper #889",
+  "description": "Wisdom Keeper Tier - The foundation of the Omnisovereign VIII collection. Wisdom Keepers preserve and nurture the seeds of generational prosperity, wielding 1.11x governance power. These uncommon artifacts form the bedrock of the sovereign lineage, ensuring the continuation of eternal health principles.",
+  "image": "ipfs://PLACEHOLDER_OS8_CID/wisdom-keeper-889.png",
+  "animation_url": "ipfs://PLACEHOLDER_OS8_ANIMATION_CID/wisdom-keeper-889.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/omnisovereign-viii/889",
+  "background_color": "2D1B4E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Wisdom Keeper"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 889,
+      "display_type": "number",
+      "max_value": 8888
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "888Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Simple Octagon"
+    },
+    {
+      "trait_type": "X-Pattern",
+      "value": "Keeper Mark"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Wisdom Band"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Soft White"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 1.11,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "9.11%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "111 days"
+    },
+    {
+      "trait_type": "Generational Nodes",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_KEEPER_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Light Cycle Phase",
+      "value": "Eternal Night"
+    },
+    {
+      "trait_type": "Sound Brilliance",
+      "value": "Dormant"
+    }
+  ],
+  "dynamicMetadata": {
+    "lightCycles": {
+      "frequency": "888Hz",
+      "currentPhase": "Eternal Night",
+      "phases": ["Dawn", "Zenith", "Dusk", "Eternal Night"],
+      "transitionDuration": "24h"
+    },
+    "soundBrilliance": {
+      "baseFrequency": "432Hz",
+      "harmonics": [],
+      "syncWithLight": true,
+      "status": "dormant"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "aura-glow",
+      "currentLevel": 50
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": false,
+      "generationalBased": false
+    }
+  },
+  "anthologicalEssence": "Keeper of wisdom, holder of light, guarding the legacy through the night."
+}

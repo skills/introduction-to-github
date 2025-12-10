@@ -1,0 +1,47 @@
+{
+  "name": "DragonQueen Collection",
+  "description": "Major ScrollVerse NFTs - The DragonQueen collection embodies divine feminine power, ancestral wisdom, and eternal protection. Each DragonQueen asset carries the sacred fire of transformation and the crown of sovereignty, representing the lineage of queens who nurture, protect, and empower their kingdoms with unwavering love and fierce grace.",
+  "image": "ipfs://PLACEHOLDER_DRAGONQUEEN_COLLECTION_CID/collection.png",
+  "banner_image": "ipfs://PLACEHOLDER_DRAGONQUEEN_BANNER_CID/banner.png",
+  "external_link": "https://sovereigntv.omniverse.io/collections/dragonqueen",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xPLACEHOLDER_ROYALTY_WALLET",
+  "collection_metadata": {
+    "themes": [
+      "Divine Feminine Power",
+      "Ancestral Wisdom",
+      "Eternal Protection",
+      "Sacred Fire",
+      "Crown of Sovereignty"
+    ],
+    "baseFrequency": "639Hz",
+    "harmonics": ["528Hz", "741Hz", "852Hz"],
+    "totalSupply": 8888,
+    "tierDistribution": {
+      "empressSupreme": 8,
+      "dragonMatriarch": 88,
+      "crownedGuardian": 888,
+      "flameBearer": 7904
+    },
+    "scrollVerseIntegration": {
+      "governance": true,
+      "staking": true,
+      "nftGating": true,
+      "familyChroniclesAccess": true,
+      "legacyNarrativeBonus": true
+    },
+    "narrativeAlignment": {
+      "scrollVerseConnections": [
+        "FamilyChronicles",
+        "DivineFeminine",
+        "AncestralLineage"
+      ],
+      "coreValues": [
+        "Love",
+        "Legacy",
+        "Divine Principles",
+        "Inclusive Community Storytelling"
+      ]
+    }
+  }
+}

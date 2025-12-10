@@ -1,0 +1,44 @@
+{
+  "name": "PromiseLand Genesis #1",
+  "description": "A Genesis tier PromiseLand NFT. Genesis holders receive priority access to all ScrollVerse features, maximum ScrollCoin rewards, and governance voting rights.",
+  "image": "ipfs://YOUR_IMAGE_CID/1.png",
+  "animation_url": "ipfs://YOUR_ANIMATION_CID/1.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/1",
+  "background_color": "0a0a0f",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "963Hz"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    },
+    {
+      "trait_type": "ScrollCoin Rewards",
+      "value": "2000 SCR/month",
+      "display_type": "string"
+    },
+    {
+      "trait_type": "NFT Discount",
+      "value": 50,
+      "display_type": "number",
+      "max_value": 100
+    },
+    {
+      "trait_type": "Rarity Score",
+      "value": 95,
+      "display_type": "number",
+      "max_value": 100
+    },
+    {
+      "trait_type": "Generation",
+      "value": 1,
+      "display_type": "number"
+    }
+  ]
+}
