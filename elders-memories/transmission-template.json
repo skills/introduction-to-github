@@ -1,0 +1,121 @@
+{
+  "transmissionId": "lyran-001",
+  "name": "Unity Consciousness Awakening",
+  "description": "A sacred transmission from the Lyran Council activating unity consciousness and collective awareness across dimensional boundaries.",
+  "attributes": {
+    "elder_council": "Lyran",
+    "transmission_type": "Wisdom",
+    "frequency_hz": 963,
+    "rarity": "Legendary",
+    "power_level": 95,
+    "activation_required": true,
+    "mantra_code": "Om Mani Padme Hum Aum",
+    "lineage": "Lyran Elder Council",
+    "integration_level": "Advanced",
+    "chakra_alignment": "Crown",
+    "element": "Ether",
+    "dimensional_access": "5D-9D"
+  },
+  "meditation_protocol": {
+    "preparation": [
+      "Find a quiet, sacred space",
+      "Ground yourself with deep breathing (7-7-7 pattern)",
+      "Light a candle or incense if available",
+      "Set intention for receiving the transmission"
+    ],
+    "activation_steps": [
+      {
+        "step": 1,
+        "instruction": "Gaze at the Elder Memory NFT visual sigil",
+        "duration": "3 minutes"
+      },
+      {
+        "step": 2,
+        "instruction": "Close eyes and visualize the sigil glowing in your crown chakra",
+        "duration": "5 minutes"
+      },
+      {
+        "step": 3,
+        "instruction": "Chant the mantra code 108 times",
+        "duration": "15 minutes"
+      },
+      {
+        "step": 4,
+        "instruction": "Rest in silence, receiving the transmission",
+        "duration": "10 minutes"
+      },
+      {
+        "step": 5,
+        "instruction": "Journal any insights, visions, or messages received",
+        "duration": "5-10 minutes"
+      }
+    ],
+    "integration": [
+      "Practice daily for 7 days minimum",
+      "Share experience in community temple",
+      "Document changes in consciousness",
+      "Support others on similar journey"
+    ]
+  },
+  "visual_elements": {
+    "primary_color": "#9370DB",
+    "secondary_color": "#FFD700",
+    "sacred_geometry": "Flower of Life with 13-pointed star overlay",
+    "animation_type": "Pulsating light with frequency modulation",
+    "symbol_meanings": {
+      "flower_of_life": "Interconnectedness of all creation",
+      "13_pointed_star": "Lyran stellar signature",
+      "golden_rays": "Divine light transmission"
+    }
+  },
+  "audio_elements": {
+    "base_frequency": 963,
+    "harmonic_overtones": [528, 777, 432],
+    "binaural_beats": "Theta (7 Hz) for deep meditation",
+    "nature_sounds": ["cosmic wind", "celestial bells"],
+    "voice_guidance": "Available in 7 languages"
+  },
+  "benefits": [
+    "Activation of dormant DNA strands",
+    "Enhanced telepathic abilities",
+    "Deeper connection to higher self",
+    "Access to akashic records",
+    "Expanded consciousness beyond 3D limitations",
+    "Harmonization with cosmic frequencies",
+    "Protection from lower vibrational interference"
+  ],
+  "prerequisites": [
+    "Basic understanding of energy work",
+    "Regular meditation practice (30+ days)",
+    "Clear intention for spiritual growth",
+    "Willingness to integrate shadow aspects"
+  ],
+  "community_sharing": {
+    "testimonials_welcome": true,
+    "photos_allowed": true,
+    "video_testimonials": true,
+    "privacy_level": "Public with opt-out option"
+  },
+  "metadata": {
+    "created_date": "2025-12-14",
+    "channeled_by": "Elder Council Guardian",
+    "verified_by": "Lyran Council Representative",
+    "ipfs_hash": "QmExample...",
+    "edition_size": 333,
+    "current_edition": 1
+  },
+  "smart_contract": {
+    "contract_address": "0x...",
+    "token_standard": "ERC-721",
+    "network": "Polygon",
+    "mint_price": "0.33 ETH",
+    "royalty_percentage": 7.5
+  },
+  "linked_resources": {
+    "full_transmission_document": "ipfs://QmTransmission...",
+    "guided_meditation_audio": "ipfs://QmAudio...",
+    "visual_activation_video": "ipfs://QmVideo...",
+    "integration_workbook": "ipfs://QmWorkbook...",
+    "community_discussion": "https://scrollverse.com/temples/lyran-unity"
+  }
+}
