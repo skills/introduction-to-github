@@ -159,6 +159,10 @@ const FESTIVAL_EVENTS = [
       'Future announcements',
       'Global dance party'
     ],
+    status: 'upcoming'
+  }
+];
+
 import { standardLimiter, strictLimiter } from '../utils/rate-limiter.js';
 
 const festivalRouter = Router();
