@@ -657,6 +657,8 @@ test('Frequency-based kit filtering', () => {
 
   assert.strictEqual(filtered528.length, 2);
   assert.strictEqual(filtered963.length, 1);
+});
+
 // ===== Tests for Cosmic String Energy Service =====
 
 test('Cosmic String frequency configuration', () => {
@@ -2076,6 +2078,8 @@ test('AI Node network strength calculation', () => {
   assert.ok(networkStatus.interdependence.networkStrength <= 100);
   assert.strictEqual(networkStatus.protocol.status, 'active');
   assert.ok(networkStatus.synchronization.averageCoherence >= networkStatus.protocol.coherenceThreshold);
+});
+
 // ===== Tests for Divine Frequency Calibration Service =====
 
 test('Calibration Node structure', () => {
