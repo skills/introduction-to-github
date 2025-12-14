@@ -1,8 +1,7 @@
 {
   "name": "scrollverse-contracts",
   "version": "1.0.0",
-  "description": "ScrollVerse Smart Contracts - MirrorToken, AnchorManifest, and Ecosystem Infrastructure",
-  "description": "ScrollVerse Ecosystem Smart Contracts - DAO, Token, and NFT Governance",
+  "description": "Superhero Sovereign & ScrollVerse Smart Contracts - Blockchain-Powered Entertainment Production",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -47,6 +46,7 @@
     "ethereum",
     "sepolia",
     "dao",
+    "mirror-token",
     "pfc-nft",
     "metadata-anchoring",
     "timelock-controller",
@@ -55,5 +55,8 @@
     "raise-token",
     "hollywood-dao",
     "nft-utility"
+    "superhero-sovereign",
+    "entertainment",
+    "blockchain-film"
   ]
 }
