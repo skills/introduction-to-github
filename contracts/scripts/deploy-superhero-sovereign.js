@@ -8,16 +8,23 @@ async function main() {
   console.log("Account balance:", (await deployer.getBalance()).toString());
   console.log();
 
-  // Define distribution addresses (replace with actual addresses in production)
+  // Load distribution addresses from environment variables
+  // Set these in .env file before deployment:
+  // COMMUNITY_TREASURY_ADDRESS, TEAM_ADDRESS, TALENT_POOL_ADDRESS, etc.
   const addresses = {
-    communityTreasury: "0x1234567890123456789012345678901234567890", // Replace
-    teamAddress: "0x2345678901234567890123456789012345678901", // Replace
-    talentPool: "0x3456789012345678901234567890123456789012", // Replace
-    publicSaleAddress: "0x4567890123456789012345678901234567890123", // Replace
-    industryPartners: "0x5678901234567890123456789012345678901234", // Replace
-    liquidityPool: "0x6789012345678901234567890123456789012345", // Replace
-    reserveFund: "0x7890123456789012345678901234567890123456" // Replace
+    communityTreasury: process.env.COMMUNITY_TREASURY_ADDRESS || deployer.address,
+    teamAddress: process.env.TEAM_ADDRESS || deployer.address,
+    talentPool: process.env.TALENT_POOL_ADDRESS || deployer.address,
+    publicSaleAddress: process.env.PUBLIC_SALE_ADDRESS || deployer.address,
+    industryPartners: process.env.INDUSTRY_PARTNERS_ADDRESS || deployer.address,
+    liquidityPool: process.env.LIQUIDITY_POOL_ADDRESS || deployer.address,
+    reserveFund: process.env.RESERVE_FUND_ADDRESS || deployer.address
   };
+
+  // Warning if using deployer address as fallback
+  if (!process.env.COMMUNITY_TREASURY_ADDRESS) {
+    console.warn("⚠️  WARNING: Using deployer address as fallback. Set proper addresses in .env for production!");
+  }
 
   // ============================================
   // 1. Deploy SuperSovereignToken (ERC-20)

@@ -123,9 +123,9 @@ contract SuperSovereignToken is ERC20, ERC20Burnable, ERC20Votes, Pausable, Acce
         uint256 burnAmount = (amount * transactionFeeBps) / 10000;
         uint256 transferAmount = amount - burnAmount;
         
-        // Burn the fee
+        // Burn the fee (properly reduces total supply)
         if (burnAmount > 0) {
-            super._transfer(from, address(0), burnAmount);
+            _burn(from, burnAmount);
         }
         
         // Transfer remaining amount
