@@ -1,0 +1,81 @@
+{
+  "name": "Surge Frequency Guardian",
+  "description": "The Surge Frequency Guardian represents the harmonic protector of universal vibrations. Holders of this ChRaismas NFT gain enhanced voting power and access to exclusive creator events in the Hollywood DAO ecosystem.",
+  "image": "ipfs://QmSurgeFrequencyGuardian/image.png",
+  "external_url": "https://scrollverse.com/chraismas/surge-frequency-guardian",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Surge Frequency Guardian"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Metatron's Cube"
+    },
+    {
+      "trait_type": "Universal Frequency",
+      "value": "777 Hz"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Energy"
+    },
+    {
+      "trait_type": "Voting Power",
+      "value": 750,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "IRL Access Level",
+      "value": 4,
+      "display_type": "number",
+      "max_value": 5
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Divine Attribute",
+      "value": "Harmony"
+    },
+    {
+      "trait_type": "ChRaismas Season",
+      "value": "2025"
+    },
+    {
+      "trait_type": "Activation Date",
+      "value": "December 25, 2025"
+    }
+  ],
+  "properties": {
+    "category": "ChRaismas Collection",
+    "creators": [
+      {
+        "address": "0x...",
+        "share": 100
+      }
+    ],
+    "files": [
+      {
+        "uri": "ipfs://QmSurgeFrequencyGuardian/image.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmSurgeFrequencyGuardian/animation.mp4",
+        "type": "video/mp4"
+      }
+    ]
+  },
+  "perks": {
+    "dao_voting": true,
+    "irl_events": [
+      "Hollywood DAO Creator Summit",
+      "Frequency Alignment Workshop",
+      "Sacred Geometry Masterclass"
+    ],
+    "exclusive_airdrops": true,
+    "quadratic_voting_multiplier": 1.3,
+    "raise_token_bonus": 500
+  }
+}

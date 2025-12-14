@@ -85,6 +85,31 @@ The `ScrollVerseDAO` contract implements OpenZeppelin's Governor pattern with Ti
 
 The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification.
 
+### ChRaismas Blueprint Contracts
+
+**New: Part of the ChRaismas celebration ecosystem (December 25, 2025)**
+
+#### RAISEToken ($RAISE)
+- ERC-20 token with kindness-based reward mechanics
+- 100M total supply (90M circulating, 10M charitable pool)
+- Configurable reward rates for community contributions
+- Transparent charitable fund distribution
+
+#### ChRaismasNFT
+- Sacred NFT collection with embedded utility
+- Max supply: 10,000 NFTs across 4 tiers
+- Voting rights in ScrollVerse DAOs
+- IRL exclusive access and perks
+- Sacred geometry and universal frequency attributes
+
+#### HollywoodDAO
+- Tokenized creative roles and royalty distribution
+- NFT-backed quadratic voting system
+- Automated royalty payments via smart contracts
+- 5 creative tiers: Directors, Producers, Writers, Cast, Crew
+
+📚 **Full Documentation:** See [chraismas/README.md](../chraismas/README.md)
+
 ---
 
 ## ScrollVerse Genesis Sequence
