@@ -1,0 +1,328 @@
+{
+  "api_version": "1.0.0",
+  "base_url": "https://api.scrollverse.com/v1/service-tracking",
+  "authentication": {
+    "type": "JWT",
+    "header": "Authorization",
+    "format": "Bearer {token}",
+    "token_expiry": 3600
+  },
+  "endpoints": {
+    "record_contribution": {
+      "method": "POST",
+      "path": "/record",
+      "description": "Record a new service contribution",
+      "requires_auth": true,
+      "requires_signature": true,
+      "rate_limit": {
+        "requests": 100,
+        "period": "hour"
+      },
+      "request_body": {
+        "type": "object",
+        "required": ["type", "details", "signature"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "CONTENT_CREATION",
+              "HEALING_SESSION",
+              "COMMUNITY_MODERATION",
+              "TEACHING",
+              "GOVERNANCE_PARTICIPATION",
+              "TECHNICAL_CONTRIBUTION",
+              "ATTUNEMENT_SESSION",
+              "EVENT_HOSTING"
+            ]
+          },
+          "details": {
+            "type": "object",
+            "description": "Contribution-specific details"
+          },
+          "signature": {
+            "type": "string",
+            "description": "Cryptographic signature proving authorship"
+          }
+        }
+      },
+      "response": {
+        "200": {
+          "recordId": "string",
+          "impactScore": "number",
+          "rewardsEarned": "number",
+          "timestamp": "number"
+        },
+        "400": {
+          "error": "Invalid contribution data"
+        },
+        "401": {
+          "error": "Unauthorized"
+        },
+        "429": {
+          "error": "Rate limit exceeded"
+        }
+      }
+    },
+    "get_stats": {
+      "method": "GET",
+      "path": "/stats/{address}",
+      "description": "Get lightworker statistics",
+      "requires_auth": false,
+      "rate_limit": {
+        "requests": 1000,
+        "period": "hour"
+      },
+      "path_parameters": {
+        "address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "description": "Ethereum address"
+        }
+      },
+      "response": {
+        "200": {
+          "address": "string",
+          "displayName": "string",
+          "totalImpactScore": "number",
+          "rank": "number",
+          "totalContributions": "number",
+          "currentStreak": "number",
+          "rewardsEarned": "object",
+          "contributionBreakdown": "object"
+        },
+        "404": {
+          "error": "Lightworker not found"
+        }
+      }
+    },
+    "get_leaderboard": {
+      "method": "GET",
+      "path": "/leaderboard",
+      "description": "Get top contributors leaderboard",
+      "requires_auth": false,
+      "rate_limit": {
+        "requests": 500,
+        "period": "hour"
+      },
+      "query_parameters": {
+        "period": {
+          "type": "string",
+          "enum": ["daily", "weekly", "monthly", "all-time"],
+          "default": "monthly"
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 50
+        },
+        "offset": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "service_type": {
+          "type": "string",
+          "enum": [
+            "all",
+            "CONTENT_CREATION",
+            "HEALING_SESSION",
+            "COMMUNITY_MODERATION",
+            "TEACHING",
+            "GOVERNANCE_PARTICIPATION",
+            "TECHNICAL_CONTRIBUTION",
+            "ATTUNEMENT_SESSION",
+            "EVENT_HOSTING"
+          ],
+          "default": "all"
+        }
+      },
+      "response": {
+        "200": {
+          "period": "string",
+          "total": "number",
+          "leaderboard": [
+            {
+              "rank": "number",
+              "address": "string",
+              "displayName": "string",
+              "impactScore": "number",
+              "change": "number"
+            }
+          ]
+        }
+      }
+    },
+    "get_history": {
+      "method": "GET",
+      "path": "/history/{address}",
+      "description": "Get contribution history",
+      "requires_auth": false,
+      "rate_limit": {
+        "requests": 500,
+        "period": "hour"
+      },
+      "path_parameters": {
+        "address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        }
+      },
+      "query_parameters": {
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 20
+        },
+        "offset": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "service_type": {
+          "type": "string",
+          "optional": true
+        }
+      },
+      "response": {
+        "200": {
+          "total": "number",
+          "contributions": [
+            {
+              "id": "string",
+              "type": "string",
+              "timestamp": "number",
+              "impactScore": "number",
+              "verified": "boolean",
+              "rewardAmount": "number",
+              "details": "object"
+            }
+          ]
+        }
+      }
+    },
+    "verify_contribution": {
+      "method": "POST",
+      "path": "/verify/{contributionId}",
+      "description": "Verify a contribution",
+      "requires_auth": true,
+      "requires_role": "verifier",
+      "rate_limit": {
+        "requests": 200,
+        "period": "hour"
+      },
+      "path_parameters": {
+        "contributionId": {
+          "type": "string",
+          "description": "Contribution record ID"
+        }
+      },
+      "request_body": {
+        "verifierSignature": "string",
+        "qualityScore": "number",
+        "notes": "string"
+      },
+      "response": {
+        "200": {
+          "verified": true,
+          "rewardDistributed": "number"
+        },
+        "403": {
+          "error": "Not authorized as verifier"
+        },
+        "404": {
+          "error": "Contribution not found"
+        }
+      }
+    },
+    "get_ecosystem_stats": {
+      "method": "GET",
+      "path": "/ecosystem/stats",
+      "description": "Get overall ecosystem statistics",
+      "requires_auth": false,
+      "rate_limit": {
+        "requests": 1000,
+        "period": "hour"
+      },
+      "response": {
+        "200": {
+          "totalLightworkers": "number",
+          "totalContributions": "number",
+          "totalImpactGenerated": "number",
+          "totalRewardsDistributed": {
+            "scrollCoin": "number",
+            "blessingCoin": "number"
+          },
+          "contributionsByType": "object",
+          "topContributors": "array",
+          "recentActivity": "array"
+        }
+      }
+    }
+  },
+  "webhook_events": {
+    "contribution_recorded": {
+      "description": "Fired when a new contribution is recorded",
+      "payload": {
+        "event": "contribution_recorded",
+        "data": {
+          "contributionId": "string",
+          "lightworker": "string",
+          "type": "string",
+          "impactScore": "number",
+          "timestamp": "number"
+        }
+      }
+    },
+    "contribution_verified": {
+      "description": "Fired when a contribution is verified",
+      "payload": {
+        "event": "contribution_verified",
+        "data": {
+          "contributionId": "string",
+          "lightworker": "string",
+          "verifier": "string",
+          "rewardAmount": "number",
+          "timestamp": "number"
+        }
+      }
+    },
+    "milestone_reached": {
+      "description": "Fired when a lightworker reaches a milestone",
+      "payload": {
+        "event": "milestone_reached",
+        "data": {
+          "lightworker": "string",
+          "milestone": "string",
+          "value": "number",
+          "timestamp": "number"
+        }
+      }
+    }
+  },
+  "error_codes": {
+    "1001": "Invalid contribution type",
+    "1002": "Missing required signature",
+    "1003": "Invalid signature",
+    "1004": "Contribution already exists",
+    "1005": "Lightworker not registered",
+    "1006": "Insufficient permissions",
+    "1007": "Rate limit exceeded",
+    "1008": "Invalid address format",
+    "1009": "Contribution not found",
+    "1010": "Verification failed"
+  },
+  "data_retention": {
+    "contribution_records": "permanent",
+    "user_profiles": "permanent",
+    "api_logs": "90 days",
+    "analytics_data": "2 years"
+  },
+  "security": {
+    "signature_algorithm": "ECDSA",
+    "hash_function": "keccak256",
+    "encryption": "AES-256-GCM",
+    "tls_version": "1.3"
+  }
+}
