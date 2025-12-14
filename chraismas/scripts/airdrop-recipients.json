@@ -1,0 +1,19 @@
+{
+  "recipients": [
+    {
+      "address": "0x0000000000000000000000000000000000000001",
+      "amount": "10000",
+      "reason": "Early ChRaismas supporter"
+    },
+    {
+      "address": "0x0000000000000000000000000000000000000002",
+      "amount": "5000",
+      "reason": "Community contributor"
+    },
+    {
+      "address": "0x0000000000000000000000000000000000000003",
+      "amount": "7500",
+      "reason": "ScrollVerse DAO member"
+    }
+  ]
+}
