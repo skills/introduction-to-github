@@ -146,9 +146,11 @@ export function logError(error, context = {}) {
   }
   
   // In production, send to monitoring service (Sentry, DataDog, etc.)
-  if (process.env.NODE_ENV === 'production' && error.statusCode >= 500) {
-    // Example: Sentry.captureException(error, { extra: context });
-  }
+  // To enable, install @sentry/node and uncomment:
+  // if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN && error.statusCode >= 500) {
+  //   const Sentry = require('@sentry/node');
+  //   Sentry.captureException(error, { extra: context });
+  // }
 }
 
 /**

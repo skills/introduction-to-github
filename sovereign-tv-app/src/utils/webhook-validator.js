@@ -182,9 +182,21 @@ export function webhookValidator(options = {}) {
       }
       
       // Get raw payload (must be Buffer or string)
-      const payload = req.body && typeof req.body === 'object' 
-        ? JSON.stringify(req.body)
-        : req.body;
+      let payload;
+      try {
+        payload = req.body && typeof req.body === 'object' 
+          ? JSON.stringify(req.body)
+          : req.body;
+      } catch (stringifyError) {
+        const error = new Error('Invalid webhook payload - cannot serialize');
+        error.statusCode = 400;
+        error.originalError = stringifyError;
+        if (onError) return onError(error, req, res, next);
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: 'Invalid webhook payload structure'
+        });
+      }
       
       if (!payload) {
         const error = new Error('Missing webhook payload');
@@ -302,15 +314,39 @@ export function webhookIdempotency(options = {}) {
 
 /**
  * Clean up expired webhook IDs periodically (every hour)
+ * In production, use a more robust cleanup mechanism (e.g., Redis TTL)
  */
-setInterval(() => {
-  const now = Date.now();
-  for (const [id, record] of webhookIdempotencyStore.entries()) {
-    if (now > record.expiresAt) {
-      webhookIdempotencyStore.delete(id);
+let cleanupInterval = null;
+
+export function startWebhookCleanup(intervalMs = 3600000) {
+  if (cleanupInterval) return; // Already running
+  
+  cleanupInterval = setInterval(() => {
+    const now = Date.now();
+    for (const [id, record] of webhookIdempotencyStore.entries()) {
+      if (now > record.expiresAt) {
+        webhookIdempotencyStore.delete(id);
+      }
     }
+  }, intervalMs);
+  
+  // Unref to allow process to exit
+  if (cleanupInterval.unref) {
+    cleanupInterval.unref();
   }
-}, 3600000);
+}
+
+export function stopWebhookCleanup() {
+  if (cleanupInterval) {
+    clearInterval(cleanupInterval);
+    cleanupInterval = null;
+  }
+}
+
+// Auto-start cleanup in non-test environments
+if (process.env.NODE_ENV !== 'test') {
+  startWebhookCleanup();
+}
 
 /**
  * Get webhook validation statistics
@@ -334,5 +370,7 @@ export default {
   webhookValidator,
   webhookIdempotency,
   getWebhookStats,
+  startWebhookCleanup,
+  stopWebhookCleanup,
   webhookConfig
 };
