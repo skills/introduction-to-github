@@ -17,7 +17,7 @@ async function main() {
     console.error("❌ Error: CHRAISMAS_NFT_ADDRESS environment variable not set");
     console.log("Please deploy ChRaismas NFT first and set the address:");
     console.log("export CHRAISMAS_NFT_ADDRESS=<address>");
-    process.exit(1);
+    throw new Error("CHRAISMAS_NFT_ADDRESS not set");
   }
   
   console.log("Using ChRaismas NFT at:", chRaismasNFTAddress);

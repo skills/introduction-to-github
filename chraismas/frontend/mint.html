@@ -206,9 +206,11 @@
         let userAccount = null;
         let contract = null;
         
-        // Contract configuration (update these with actual deployed addresses)
-        const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE";
-        const CONTRACT_ABI = []; // Add your contract ABI here
+        // Contract configuration
+        // TODO: Replace with actual deployed contract address and ABI
+        // Load from environment variables or configuration file in production
+        const CONTRACT_ADDRESS = process.env.CHRAISMAS_NFT_ADDRESS || "YOUR_CONTRACT_ADDRESS_HERE";
+        const CONTRACT_ABI = []; // Add your contract ABI here from artifacts/
         
         function selectNFT(tier) {
             // Remove previous selection

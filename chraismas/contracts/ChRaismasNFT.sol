@@ -133,7 +133,7 @@ contract ChRaismasNFT is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
      * @param newPower New voting power
      */
     function updateVotingPower(uint256 tokenId, uint256 newPower) external onlyOwner {
-        require(_ownerOf(tokenId) != address(0), "Token does not exist");
+        require(tokenId < _nextTokenId, "Token does not exist");
         votingPower[tokenId] = newPower;
         emit VotingPowerUpdated(tokenId, newPower);
     }
@@ -144,7 +144,7 @@ contract ChRaismasNFT is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable {
      * @param accessLevel New access level
      */
     function grantIRLAccess(uint256 tokenId, uint256 accessLevel) external onlyOwner {
-        require(_ownerOf(tokenId) != address(0), "Token does not exist");
+        require(tokenId < _nextTokenId, "Token does not exist");
         irlAccessLevel[tokenId] = accessLevel;
         emit IRLAccessGranted(tokenId, accessLevel);
     }

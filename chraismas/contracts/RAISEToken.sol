@@ -49,6 +49,9 @@ contract RAISEToken is ERC20, ERC20Burnable, Ownable {
         kindnessScores[recipient] += kindnessPoints;
         uint256 rewardAmount = kindnessPoints * rewardRate;
         
+        // Only mint if it doesn't exceed a reasonable cap (e.g., 10x initial supply)
+        require(totalSupply() + rewardAmount <= 1_000_000_000 * 10**decimals(), "Exceeds maximum supply cap");
+        
         _mint(recipient, rewardAmount);
         
         emit KindnessRewarded(recipient, kindnessPoints, rewardAmount);

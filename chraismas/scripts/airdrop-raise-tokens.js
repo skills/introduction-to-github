@@ -19,7 +19,7 @@ async function main() {
     console.error("❌ Error: RAISE_TOKEN_ADDRESS environment variable not set");
     console.log("Please deploy RAISE Token first and set the address:");
     console.log("export RAISE_TOKEN_ADDRESS=<address>");
-    process.exit(1);
+    throw new Error("RAISE_TOKEN_ADDRESS not set");
   }
   
   console.log("Using RAISE Token at:", raiseTokenAddress);
@@ -35,7 +35,7 @@ async function main() {
         { address: "0x...", amount: "1000", reason: "Early supporter" }
       ]
     }, null, 2));
-    process.exit(1);
+    throw new Error("airdrop-recipients.json not found");
   }
   
   const recipientsData = JSON.parse(fs.readFileSync(recipientsPath, "utf8"));
@@ -43,7 +43,7 @@ async function main() {
   
   if (!recipients || recipients.length === 0) {
     console.error("❌ Error: No recipients found in airdrop-recipients.json");
-    process.exit(1);
+    throw new Error("No recipients found");
   }
   
   console.log(`📋 Found ${recipients.length} recipients`);

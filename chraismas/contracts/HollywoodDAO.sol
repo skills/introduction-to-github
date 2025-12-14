@@ -3,13 +3,14 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @title HollywoodDAO
  * @dev DAO for tokenizing creative roles and royalties with NFT-backed quadratic voting
  * Part of the ChRaismas Blueprint - rewarding industry creators equitably
  */
-contract HollywoodDAO is Ownable {
+contract HollywoodDAO is Ownable, ReentrancyGuard {
     
     // NFT Tiers for incentivized engagement
     enum CreativeTier {
@@ -200,9 +201,11 @@ contract HollywoodDAO is Ownable {
         uint256 totalVotes = proposal.forVotes + proposal.againstVotes;
         require(totalVotes > 0, "No votes cast");
         
-        // Check quorum
-        uint256 quorum = (totalVotes * 100) / quorumPercentage;
-        require(totalVotes >= quorum, "Quorum not reached");
+        // Check quorum: minimum % of total possible voting power required
+        uint256 totalNFTs = chRaismasNFT.balanceOf(address(this)) > 0 ? 
+            10000 : 1; // Use max supply or 1 to avoid division by zero
+        uint256 requiredQuorum = (sqrt(totalNFTs) * quorumPercentage) / 100;
+        require(totalVotes >= requiredQuorum, "Quorum not reached");
         
         // Check if proposal passed
         require(proposal.forVotes > proposal.againstVotes, "Proposal did not pass");
@@ -215,7 +218,7 @@ contract HollywoodDAO is Ownable {
     /**
      * @dev Distribute royalties to creators
      */
-    function distributeRoyalties() external onlyOwner {
+    function distributeRoyalties() external onlyOwner nonReentrant {
         require(royaltyPool > 0, "No royalties to distribute");
         
         uint256 totalShares = 0;
