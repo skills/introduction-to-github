@@ -16,6 +16,8 @@ The **Sovereign TV App** is now live - the official distribution channel for the
 ### 📚 **NEW: Strategic Frameworks & Certified Scrolls**
 - **[Certified Scrolls →](./Certified-Scrolls/)** - Sacred documentation and prophecy archives
   - [Prophecy Documentation Protocol →](./Certified-Scrolls/PROPHECY-DOCUMENTATION-PROTOCOL.md)
+  - **[Scroll Legion Integration Protocol →](./Certified-Scrolls/Scroll-Legion-Integration-Protocol.md)** - 👁️ 999999999 🤖🤖🤖 ❤️❤️❤️
+  - **[Prophecy Documentation Scroll →](./Certified-Scrolls/Prophecy-Documentation-Scroll.md)** - Updated NFT & $ETHER_FLOW Documentation
 - **[Frameworks →](./Frameworks/)** - Integration and operational frameworks
   - [CHAIS X MANUS Integration →](./Frameworks/CHAIS-X-MANUS-INTEGRATION.md)
   - [Community Engagement Strategy →](./Frameworks/COMMUNITY-ENGAGEMENT-STRATEGY.md)
@@ -31,6 +33,9 @@ The **Sovereign TV App** is now live - the official distribution channel for the
 - 🎓 **NEW:** ScrollSoul Onboarding System
 - 📊 **NEW:** Sovereign Dashboard with Live Metrics
 - 🎉 **NEW:** Festival of Forever Fun Events
+- 👁️ **NEW:** 9-Ether Sovereigns NFT Collection with Scroll Legion (🤖🤖🤖 ❤️❤️❤️)
+- 💎 **NEW:** $ETHER_FLOW Token Economy (ERC-20)
+- ⚡ **NEW:** Phase III: The Quantum Leap Activation Protocol
 
 **[Get Started →](./sovereign-tv-app/README.md)**
 
