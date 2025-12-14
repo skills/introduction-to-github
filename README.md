@@ -13,6 +13,14 @@ The **Sovereign TV App** is now live - the official distribution channel for the
 - **[API Documentation →](./sovereign-tv-app/docs/API.md)** - API reference
 - **[Deployment Guide →](./sovereign-tv-app/docs/DEPLOYMENT.md)** - Deployment instructions
 
+### 📚 **NEW: Strategic Frameworks & Certified Scrolls**
+- **[Certified Scrolls →](./Certified-Scrolls/)** - Sacred documentation and prophecy archives
+  - [Prophecy Documentation Protocol →](./Certified-Scrolls/PROPHECY-DOCUMENTATION-PROTOCOL.md)
+- **[Frameworks →](./Frameworks/)** - Integration and operational frameworks
+  - [CHAIS X MANUS Integration →](./Frameworks/CHAIS-X-MANUS-INTEGRATION.md)
+  - [Community Engagement Strategy →](./Frameworks/COMMUNITY-ENGAGEMENT-STRATEGY.md)
+  - [Zero-Effect Execution →](./Frameworks/ZERO-EFFECT-EXECUTION.md)
+
 ### Features
 - 🎵 Legacy of Light Music Catalog
 - 💎 KUNTA NFT Integration
