@@ -3,9 +3,8 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 /**
  * @title CreatorInvitationNFT
@@ -19,12 +18,10 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * - Crew Collective: Fair profit sharing for crew
  */
 contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessControl {
-    using Counters for Counters.Counter;
-    
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     
-    Counters.Counter private _tokenIdCounter;
+    uint256 private _tokenIdCounter;
     
     // Creator type enum
     enum CreatorType {
@@ -90,8 +87,8 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
     ) external onlyRole(MINTER_ROLE) returns (uint256) {
         require(mintedPerType[CreatorType.Director] < MAX_DIRECTORS, "Max directors reached");
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
         mintedPerType[CreatorType.Director]++;
         
         _safeMint(to, tokenId);
@@ -126,8 +123,8 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
         require(revenueShareBps <= 1000, "Revenue share too high"); // Max 10%
         require(tokenAllocationBps <= 1000, "Token allocation too high"); // Max 10%
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
         mintedPerType[CreatorType.Actor]++;
         
         _safeMint(to, tokenId);
@@ -158,8 +155,8 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
     ) external onlyRole(MINTER_ROLE) returns (uint256) {
         require(mintedPerType[CreatorType.Writer] < MAX_WRITERS, "Max writers reached");
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
         mintedPerType[CreatorType.Writer]++;
         
         _safeMint(to, tokenId);
@@ -190,8 +187,8 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
     ) external onlyRole(MINTER_ROLE) returns (uint256) {
         require(mintedPerType[CreatorType.Composer] < MAX_COMPOSERS, "Max composers reached");
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
         mintedPerType[CreatorType.Composer]++;
         
         _safeMint(to, tokenId);
@@ -222,8 +219,8 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
     ) external onlyRole(MINTER_ROLE) returns (uint256) {
         require(mintedPerType[CreatorType.Crew] < MAX_CREW, "Max crew members reached");
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
         mintedPerType[CreatorType.Crew]++;
         
         _safeMint(to, tokenId);
@@ -292,7 +289,7 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
         uint256[] memory tokenIds = new uint256[](balance);
         
         uint256 index = 0;
-        for (uint256 i = 0; i < _tokenIdCounter.current(); i++) {
+        for (uint256 i = 0; i < _tokenIdCounter; i++) {
             if (_exists(i) && ownerOf(i) == owner) {
                 tokenIds[index] = i;
                 index++;
@@ -308,7 +305,7 @@ contract CreatorInvitationNFT is ERC721, ERC721URIStorage, Pausable, AccessContr
     function hasVetoRights(address owner) external view returns (bool) {
         uint256 balance = balanceOf(owner);
         
-        for (uint256 i = 0; i < _tokenIdCounter.current(); i++) {
+        for (uint256 i = 0; i < _tokenIdCounter; i++) {
             if (_exists(i) && ownerOf(i) == owner && tokens[i].hasVetoRights) {
                 return true;
             }

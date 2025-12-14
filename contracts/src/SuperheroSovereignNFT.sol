@@ -4,9 +4,8 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 /**
  * @title SuperheroSovereignNFT
@@ -19,12 +18,10 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * - Frequency Keeper (21001-50000): Basic privileges
  */
 contract SuperheroSovereignNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControl {
-    using Counters for Counters.Counter;
-    
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     
-    Counters.Counter private _tokenIdCounter;
+    uint256 private _tokenIdCounter;
     
     uint256 public constant MAX_SUPPLY = 50000;
     
@@ -95,7 +92,7 @@ contract SuperheroSovereignNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pa
      * @dev Get current mint price based on supply
      */
     function getCurrentMintPrice() public view returns (uint256) {
-        uint256 currentSupply = _tokenIdCounter.current();
+        uint256 currentSupply = _tokenIdCounter;
         
         if (currentSupply < FOUNDING_SOVEREIGN_MAX) return foundingSovereignPrice;
         if (currentSupply < SOVEREIGN_GUARDIAN_MAX) return sovereignGuardianPrice;
@@ -107,13 +104,13 @@ contract SuperheroSovereignNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pa
      * @dev Mint a new NFT
      */
     function mint(address to) public payable whenNotPaused {
-        require(_tokenIdCounter.current() < MAX_SUPPLY, "Max supply reached");
+        require(_tokenIdCounter < MAX_SUPPLY, "Max supply reached");
         
         uint256 mintPrice = getCurrentMintPrice();
         require(msg.value >= mintPrice, "Insufficient payment");
         
-        uint256 tokenId = _tokenIdCounter.current() + 1;
-        _tokenIdCounter.increment();
+        _tokenIdCounter++;
+        uint256 tokenId = _tokenIdCounter;
         
         _safeMint(to, tokenId);
         
@@ -134,11 +131,11 @@ contract SuperheroSovereignNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pa
      * @dev Batch mint for admin (used for team allocation)
      */
     function batchMint(address to, uint256 quantity) external onlyRole(MINTER_ROLE) {
-        require(_tokenIdCounter.current() + quantity <= MAX_SUPPLY, "Would exceed max supply");
+        require(_tokenIdCounter + quantity <= MAX_SUPPLY, "Would exceed max supply");
         
         for (uint256 i = 0; i < quantity; i++) {
-            uint256 tokenId = _tokenIdCounter.current() + 1;
-            _tokenIdCounter.increment();
+            _tokenIdCounter++;
+            uint256 tokenId = _tokenIdCounter;
             _safeMint(to, tokenId);
             _initializeTierBenefits(tokenId);
         }
