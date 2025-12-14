@@ -45,19 +45,15 @@
     "ipfs-cid",
     "smart-contracts",
     "ethereum",
-    "sepolia"
-    "dao",
-    "governance",
-    "mirror-token",
-    "pfc-nft",
-    "smart-contracts",
-    "ethereum",
     "sepolia",
-    "metadata-anchoring",
-    "scrollverse",
     "dao",
+    "pfc-nft",
+    "metadata-anchoring",
     "timelock-controller",
-    "governance"
-    "decentralized-governance"
+    "decentralized-governance",
+    "chraismas",
+    "raise-token",
+    "hollywood-dao",
+    "nft-utility"
   ]
 }
