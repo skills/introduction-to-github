@@ -23,6 +23,9 @@
     "deploy:dao:local": "hardhat run scripts/deploy-scrollverse-dao.js --network hardhat",
     "deploy:dao:sepolia": "hardhat run scripts/deploy-scrollverse-dao.js --network sepolia",
     "deploy:dao:mainnet": "hardhat run scripts/deploy-scrollverse-dao.js --network mainnet",
+    "deploy:prime:local": "hardhat run scripts/deploy-prime-ingenuity.js --network hardhat",
+    "deploy:prime:sepolia": "hardhat run scripts/deploy-prime-ingenuity.js --network sepolia",
+    "deploy:prime:mainnet": "hardhat run scripts/deploy-prime-ingenuity.js --network mainnet",
     "verify:sepolia": "hardhat verify --network sepolia",
     "verify:mainnet": "hardhat verify --network mainnet",
     "clean": "hardhat clean",
@@ -54,9 +57,16 @@
     "chraismas",
     "raise-token",
     "hollywood-dao",
-    "nft-utility"
+    "nft-utility",
     "superhero-sovereign",
     "entertainment",
-    "blockchain-film"
+    "blockchain-film",
+    "prime-ingenuity",
+    "innovation-nfts",
+    "royalty-nfts",
+    "erc2981",
+    "paired-nfts",
+    "staking",
+    "governance-voting"
   ]
 }
