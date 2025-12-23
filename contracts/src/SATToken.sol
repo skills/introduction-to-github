@@ -185,16 +185,21 @@ contract SATToken is ERC20, ERC20Burnable, ERC20Permit, ERC20Votes, Ownable, Ree
     /**
      * @notice Allows Genesis NFT holders to claim their token allocation
      * @dev Requires caller to hold Genesis NFT (verified through external contract)
-     * @param amount Amount of SAT tokens to claim from genesis pool
+     * @param amount Amount of SAT tokens to claim from genesis pool (currently unused, will be validated in production)
+     * 
+     * TODO: Production implementation should:
+     * 1. Verify NFT ownership via genesisNFTContract.balanceOf(msg.sender) > 0
+     * 2. Validate amount doesn't exceed holder's allocation
+     * 3. Transfer tokens from genesis pool to msg.sender
+     * 4. Update allocation tracking
      */
     function claimGenesisAllocation(uint256 amount) external nonReentrant {
         require(genesisNFTContract != address(0), "SAT: Genesis NFT contract not set");
         require(!genesisObjectClaimed[msg.sender], "SAT: Genesis allocation already claimed");
         require(genesisObjectsClaimedCount < GENESIS_OBJECTS, "SAT: All Genesis allocations claimed");
         
-        // In production, verify NFT ownership through genesisNFTContract
-        // For now, we'll allow the claim and mark it as claimed
-        // TODO: Integrate with actual Genesis NFT contract verification
+        // PLACEHOLDER: In production, verify NFT ownership through genesisNFTContract
+        // and transfer the specified amount from the genesis pool to the claimer
         
         genesisObjectClaimed[msg.sender] = true;
         genesisObjectsClaimedCount++;
