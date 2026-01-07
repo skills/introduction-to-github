@@ -337,6 +337,7 @@ The operational philosophy ensuring continuous, self-sustaining revenue with zer
 
 ## VII. Related Documentation
 
+- [Canonical Broadcast Manifesto](./CANONICAL-BROADCAST-MANIFESTO.md) - QFS Base Value & Universal Liquidity Anchor
 - [Financial Sovereignty](../sovereign-tv-app/src/services/financial-sovereignty.js)
 - [ZKPI Implementation](../sovereign-tv-app/src/services/zkpi-implementation.js)
 - [ScrollCoin Integration](../sovereign-tv-app/src/services/scrollcoin.js)

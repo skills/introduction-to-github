@@ -1,0 +1,42 @@
+{
+  "name": "Scroll of Prime Ingenuity",
+  "description": "A royalty-enabled NFT collection honoring the inventors and engineers from 'TOP 43 MOST AMAZING INVENTIONS YOU'VE NEVER SEEN BEFORE.' Each innovation is minted as a pair of NFTs, enabling co-ownership experiences and sustainable creator incentives through blockchain-based royalties. Integrated with ScrollVerse for staking, voting, and dynamic impact alignment.",
+  "image": "ipfs://PLACEHOLDER_CID/prime-ingenuity-collection.png",
+  "external_url": "https://sovereigntv.omniverse.io/collections/prime-ingenuity",
+  "banner_image": "ipfs://PLACEHOLDER_CID/prime-ingenuity-banner.png",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xPLACEHOLDER_ROYALTY_RECIPIENT",
+  "properties": {
+    "category": "Innovation NFTs",
+    "collection_type": "Paired Ownership",
+    "max_supply": 86,
+    "innovations_count": 43,
+    "units_per_innovation": 2
+  },
+  "attributes": [
+    {
+      "trait_type": "Collection Type",
+      "value": "Scroll of Prime Ingenuity"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "ScrollVerse"
+    },
+    {
+      "trait_type": "Royalty Standard",
+      "value": "ERC2981"
+    },
+    {
+      "trait_type": "Staking Enabled",
+      "value": "Yes"
+    },
+    {
+      "trait_type": "Voting Enabled",
+      "value": "Yes"
+    },
+    {
+      "trait_type": "Dynamic Metadata",
+      "value": "Enabled"
+    }
+  ]
+}

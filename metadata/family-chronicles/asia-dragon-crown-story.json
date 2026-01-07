@@ -1,0 +1,99 @@
+{
+  "chronicleId": "asia-dragon-crown-story",
+  "name": "Asia's Dragon Crown Story",
+  "description": "The sacred tale of how Asia claimed her Dragon Crown—a moment of divine recognition that marked her as a true heir of the DragonQueen lineage. This chronicle preserves the story of sovereignty, grace, and the eternal bond between a young queen and her ancestral power. A cornerstone narrative of the ScrollVerse FamilyChronicles.",
+  "type": "LegacyStory",
+  "narrator": "DragonQueen Keeper",
+  "image": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/asia-dragon-crown-story.png",
+  "animation_url": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/asia-dragon-crown-story.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/chronicles/asia-dragon-crown-story",
+  "background_color": "4A1C6B",
+  "attributes": [
+    {
+      "trait_type": "Chronicle Type",
+      "value": "Legacy Story"
+    },
+    {
+      "trait_type": "Protagonist",
+      "value": "Asia"
+    },
+    {
+      "trait_type": "Theme",
+      "value": "Sovereignty and Grace"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "639Hz"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Crown Genesis"
+    },
+    {
+      "trait_type": "Archetype",
+      "value": "The Sovereign"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    },
+    {
+      "trait_type": "Lineage Connection",
+      "value": "DragonQueen Empress"
+    },
+    {
+      "trait_type": "Chronicle Status",
+      "value": "Eternally Archived"
+    },
+    {
+      "trait_type": "IPFS Status",
+      "value": "Immutable"
+    },
+    {
+      "trait_type": "Crown Type",
+      "value": "Dragon Crown"
+    }
+  ],
+  "narrative": {
+    "fullText": "Long before the world knew her name, Asia carried within her the quiet dignity of queens who came before. But it was on a starlit evening, when the moon hung low like a silver crown in the sky, that the Dragon Crown chose its heir. The ceremony was not of this world—it happened in the space between heartbeats, in the realm where ancestors watch and bless. Asia stood in her grandmother's room, her small hands wrapped around an heirloom that had been passed through eight generations: a crown-shaped brooch that glittered with amethyst fire. As her fingers touched the ancient metal, she felt it—the rush of dragonfire through her veins, the whisper of a thousand queens speaking her name. 'You are ready,' they said in unison, their voices like wind through sacred flames. 'The Dragon Crown is yours.' In that moment, the brooch transformed in her hands, no longer just jewelry but a covenant—a promise between the living and the eternal. Asia placed her hand on her heart and spoke the words that had echoed through generations: 'I accept the crown. I accept the flame. I am Asia, DragonQueen of my name.' The room filled with violet light, and when it faded, Asia stood taller somehow, her eyes reflecting the eternal fire of her lineage. She was no longer just a child. She was a queen—crowned not by ceremony, but by birthright and the blessing of those who came before.",
+    "keyMoments": [
+      "The starlit evening of recognition",
+      "Touching the ancestral brooch",
+      "The whisper of the ancestors",
+      "Speaking the sacred oath",
+      "The transformation of sovereignty"
+    ],
+    "symbolism": {
+      "dragonCrown": "Divine right and ancestral blessing",
+      "amethystFire": "The sacred flame of the DragonQueen lineage",
+      "moonlight": "Illumination of true nature",
+      "violetLight": "Royal transformation and sovereignty",
+      "heirloomBrooch": "Connection to ancestral power"
+    },
+    "lessonsEmbodied": [
+      "Sovereignty is a birthright, not a gift",
+      "Ancestors guide those who listen",
+      "True crowns are earned through spirit, not ceremony",
+      "The dragon flame burns eternal in those who accept it",
+      "Legacy is a living covenant"
+    ]
+  },
+  "sbtIntegration": {
+    "linkedToSoul": true,
+    "chronicleWeightBonus": 2.0,
+    "governanceNarrativeBoost": true,
+    "ipfsArchiveHash": "ipfs://PLACEHOLDER_ASIA_CROWN_ARCHIVE_HASH",
+    "eternityTimestamp": "2025-12-04T14:14:43.127Z",
+    "dragonQueenLinkage": {
+      "tier": "Empress Supreme",
+      "crownDesign": "Dragon Crown",
+      "lineageVerified": true
+    }
+  },
+  "scrollVerseAlignment": {
+    "divineResonance": "Maximum",
+    "communityStorytellingValue": "Foundational",
+    "legacySymbolism": "Dragon Crown Investiture",
+    "loveAndLegacyScore": 100
+  }
+}
