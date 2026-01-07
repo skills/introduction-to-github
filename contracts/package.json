@@ -1,5 +1,7 @@
 {
   "name": "scrollverse-contracts",
+  "version": "1.0.0",
+  "description": "ScrollVerse Smart Contracts - AnchorManifest, MirrorToken, and PharaohConsciousnessFusion",
   "version": "1.1.0",
   "description": "ScrollVerse Ecosystem Smart Contracts - Protocol Registry, AnchorManifest, and More",
   "version": "1.0.0",
@@ -13,6 +15,9 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:pfc:local": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network hardhat",
+    "deploy:pfc:sepolia": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network sepolia",
+    "deploy:pfc:mainnet": "hardhat run scripts/deploy-pharaoh-consciousness-fusion.js --network mainnet",
     "deploy:registry:local": "hardhat run scripts/deploy-protocol-registry.js --network hardhat",
     "deploy:registry:sepolia": "hardhat run scripts/deploy-protocol-registry.js --network sepolia",
     "deploy:registry:mainnet": "hardhat run scripts/deploy-protocol-registry.js --network mainnet",
@@ -39,6 +44,8 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@openzeppelin/contracts": "^5.0.0",
+    "@openzeppelin/contracts-upgradeable": "^5.0.0",
+    "@openzeppelin/hardhat-upgrades": "^3.0.0",
     "hardhat": "^2.19.0",
     "dotenv": "^16.3.1"
   },
@@ -55,6 +62,13 @@
     "smart-contracts",
     "ethereum",
     "sepolia",
+    "metadata-anchoring",
+    "nft",
+    "pharaoh-consciousness-fusion",
+    "scrollverse",
+    "dao-governance",
+    "uups-proxy",
+    "erc721"
     "dao-governance"
     "dao",
     "mirror-token",
