@@ -1010,7 +1010,170 @@ a:hover {
     font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* Responsive Design - Mobile First Approach */
+/* Extra small devices (phones, 320px and up) */
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.2rem;
+        --spacing-sm: 0.4rem;
+        --spacing-md: 0.8rem;
+        --spacing-lg: 1.2rem;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .hero {
+        min-height: 60vh;
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-icon {
+        font-size: 2.5rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .section-icon {
+        font-size: 2rem;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+        flex-direction: column;
+    }
+    
+    .page-icon {
+        font-size: 2.5rem;
+    }
+    
+    /* Grid adjustments for extra small screens */
+    .about-grid,
+    .projects-grid,
+    .blockchain-grid,
+    .stats-grid,
+    .features-grid,
+    .nft-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .about-card,
+    .project-card,
+    .blockchain-card,
+    .stat-card {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Founder card mobile */
+    .founder-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .founder-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    /* Project header mobile */
+    .project-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .project-icon-large {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    /* Stats mobile */
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    /* Orb sizes for mobile - reduced for performance */
+    .orb-1 {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .orb-2 {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .orb-3 {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Small devices (phones in landscape, 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-icon {
+        font-size: 2.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    /* Two-column grid for tablets in portrait */
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Single column for complex cards */
+    .blockchain-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Medium devices (tablets, 768px and below - consolidated) */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -1019,6 +1182,8 @@ a:hover {
     
     .nav-links {
         gap: var(--spacing-md);
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     .hero-title {
@@ -1047,6 +1212,77 @@ a:hover {
         flex-direction: column;
         align-items: center;
         gap: var(--spacing-md);
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Features list mobile */
+    .features-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .hero {
+        min-height: 75vh;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    /* Three-column grids */
+    .about-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Reduced motion preference - accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+    
+    .orb {
+        animation: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --gold-primary: #ffd700;
+        --blue-primary: #00bfff;
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+    }
+    
+    .about-card,
+    .project-card,
+    .blockchain-card {
+        border-width: 2px;
     }
 }
 

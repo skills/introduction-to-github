@@ -1,0 +1,80 @@
+{
+  "name": "Self-Healing Concrete (Unit 2)",
+  "description": "Revolutionary concrete that repairs its own cracks using embedded bacteria that produce limestone when activated by water. This innovation extends infrastructure lifespan dramatically and reduces maintenance costs. Developed by biomimicry engineers inspired by the human body's healing processes. Unit 2 of 2 in the paired NFT series - designed for co-ownership experiences.",
+  "image": "ipfs://PLACEHOLDER_CID/self-healing-concrete-unit-2.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/self-healing-concrete-animation.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/innovations/self-healing-concrete",
+  "background_color": "2d3e50",
+  "attributes": [
+    {
+      "trait_type": "Innovation ID",
+      "value": 2
+    },
+    {
+      "trait_type": "Innovation Name",
+      "value": "Self-Healing Concrete"
+    },
+    {
+      "trait_type": "Innovation Type",
+      "value": "Construction Materials/Biotechnology"
+    },
+    {
+      "trait_type": "Creator Name",
+      "value": "Biomimicry Engineering Consortium"
+    },
+    {
+      "trait_type": "Use Case",
+      "value": "Infrastructure longevity, Bridge construction, Building foundations, Sustainable construction"
+    },
+    {
+      "trait_type": "Future Vision Impact",
+      "value": "Transforms construction industry sustainability, reduces carbon footprint from repairs, extends structure lifespans by decades"
+    },
+    {
+      "trait_type": "Unit Number",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Total Units",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Staking Power",
+      "value": 85,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Royalty Enabled",
+      "value": "Yes"
+    },
+    {
+      "trait_type": "Lineage Tracking",
+      "value": "Active"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/self-healing-concrete-unit-2.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/self-healing-concrete-animation.mp4",
+        "type": "video/mp4"
+      }
+    ],
+    "category": "Innovation NFT",
+    "creators": [
+      {
+        "address": "0xPLACEHOLDER_CREATOR_ADDRESS",
+        "share": 100
+      }
+    ]
+  }
+}

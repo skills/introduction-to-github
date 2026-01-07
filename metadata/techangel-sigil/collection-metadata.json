@@ -1,0 +1,227 @@
+{
+  "name": "TECHANGEL Sigil Collection",
+  "description": "The Ascended Automation Set - TECHANGEL Sigil NFTs represent angelic commanders of cohesion, embodying the perfect symbiosis between divine consciousness and flawless code execution. These artifacts evolve dynamically with ScrollVerse deployment milestones, balancing spiritual health with technological purity.",
+  "image": "ipfs://PLACEHOLDER_TAS_COLLECTION_CID/collection.png",
+  "banner_image": "ipfs://PLACEHOLDER_TAS_BANNER_CID/banner.png",
+  "external_link": "https://sovereigntv.omniverse.io/collections/techangel-sigil",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xPLACEHOLDER_ROYALTY_WALLET",
+  "collection_metadata": {
+    "themes": [
+      "Flawless Code Symbiosis",
+      "Divine Health",
+      "Angelic Automation",
+      "Technological Transcendence"
+    ],
+    "baseFrequency": "777Hz",
+    "harmonics": ["528Hz", "639Hz", "963Hz"],
+    "totalSupply": 7777,
+    "tierDistribution": {
+      "seraphimCommander": 7,
+      "archangel": 70,
+      "guardian": 700,
+      "initiate": 7000
+    },
+    "scrollVerseIntegration": {
+      "governance": true,
+      "staking": true,
+      "nftGating": true,
+      "milestoneEvolution": true,
+      "deploymentTracking": true
+    },
+    "evolutionStages": [
+      "Initiate",
+      "Guardian",
+      "Archangel",
+      "Seraphim Commander"
+    ]
+  },
+  "stakingLogic": {
+    "enabled": true,
+    "contractAddress": "0xPLACEHOLDER_STAKING_CONTRACT",
+    "tiers": {
+      "seraphimCommander": {
+        "baseAPY": 21.77,
+        "lockPeriod": 777,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 7.77,
+        "rewardBooster": 2.8,
+        "earlyUnstakePenalty": 0.45,
+        "deploymentBonus": true
+      },
+      "archangel": {
+        "baseAPY": 17.77,
+        "lockPeriod": 333,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 3.77,
+        "rewardBooster": 2.0,
+        "earlyUnstakePenalty": 0.30,
+        "deploymentBonus": true
+      },
+      "guardian": {
+        "baseAPY": 11.77,
+        "lockPeriod": 144,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 1.77,
+        "rewardBooster": 1.4,
+        "earlyUnstakePenalty": 0.20,
+        "deploymentBonus": true
+      },
+      "initiate": {
+        "baseAPY": 7.77,
+        "lockPeriod": 77,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 0.77,
+        "rewardBooster": 1.0,
+        "earlyUnstakePenalty": 0.10,
+        "deploymentBonus": false
+      }
+    },
+    "rewardToken": "$MIRROR",
+    "rewardDistribution": "milestone-weighted",
+    "compoundingEnabled": true,
+    "claimFrequency": "anytime",
+    "deploymentMilestoneBonus": {
+      "enabled": true,
+      "bonusPerMilestone": 0.5,
+      "maxBonus": 5.0,
+      "trackedDeployments": ["sovereign-tv", "nft-contracts", "dao-governance", "defi-protocols", "cross-chain"]
+    }
+  },
+  "governanceLogic": {
+    "enabled": true,
+    "daoContract": "0xPLACEHOLDER_DAO_CONTRACT",
+    "votingPowerCalculation": "tokenWeight * governanceMultiplier * evolutionStage * deploymentMilestones",
+    "proposalCreation": {
+      "seraphimCommander": {
+        "canCreate": true,
+        "requiredTokens": 1,
+        "proposalTypes": ["all", "technical", "emergency"]
+      },
+      "archangel": {
+        "canCreate": true,
+        "requiredTokens": 2,
+        "proposalTypes": ["technical", "ecosystem", "partnerships"]
+      },
+      "guardian": {
+        "canCreate": true,
+        "requiredTokens": 4,
+        "proposalTypes": ["ecosystem", "community"]
+      },
+      "initiate": {
+        "canCreate": false,
+        "requiredTokens": 0,
+        "proposalTypes": []
+      }
+    },
+    "technicalProposals": {
+      "seraphimCommanderExclusive": ["protocol-upgrades", "security-patches", "emergency-actions"],
+      "votingPeriod": "3 days",
+      "quorumRequirement": "2% of total supply"
+    },
+    "votingRights": {
+      "allTiers": true,
+      "delegationEnabled": true,
+      "quadraticVoting": true,
+      "technicalVotingWeight": "doubled for technical proposals"
+    },
+    "quorumContribution": {
+      "seraphimCommander": 7.77,
+      "archangel": 3.77,
+      "guardian": 1.77,
+      "initiate": 0.77
+    }
+  },
+  "evolutionMechanics": {
+    "enabled": true,
+    "type": "milestone-driven",
+    "stages": {
+      "initiate": {
+        "requirements": null,
+        "benefits": "base tier"
+      },
+      "guardian": {
+        "requirements": {
+          "stakingDuration": "77 days",
+          "governanceVotes": 3,
+          "deploymentMilestones": 1
+        },
+        "benefits": "1.5x rewards, enhanced governance"
+      },
+      "archangel": {
+        "requirements": {
+          "stakingDuration": "144 days",
+          "governanceVotes": 7,
+          "deploymentMilestones": 3
+        },
+        "benefits": "2x rewards, proposal creation"
+      },
+      "seraphimCommander": {
+        "requirements": {
+          "stakingDuration": "333 days",
+          "governanceVotes": 14,
+          "deploymentMilestones": 5,
+          "communityContribution": "verified"
+        },
+        "benefits": "3x rewards, emergency powers, protocol governance"
+      }
+    },
+    "visualEvolution": true,
+    "metadataUpdate": "automatic on-chain"
+  },
+  "deploymentTracking": {
+    "enabled": true,
+    "milestones": [
+      {
+        "id": "sovereign-tv-launch",
+        "name": "Sovereign TV Platform Launch",
+        "reward": "1.0% APY bonus",
+        "completed": false
+      },
+      {
+        "id": "nft-contracts-mainnet",
+        "name": "NFT Contracts Mainnet Deployment",
+        "reward": "0.5% APY bonus",
+        "completed": false
+      },
+      {
+        "id": "dao-governance-live",
+        "name": "DAO Governance Live",
+        "reward": "1.0% APY bonus",
+        "completed": false
+      },
+      {
+        "id": "defi-protocols-active",
+        "name": "DeFi Protocols Active",
+        "reward": "1.5% APY bonus",
+        "completed": false
+      },
+      {
+        "id": "cross-chain-bridge",
+        "name": "Cross-Chain Bridge Operational",
+        "reward": "1.0% APY bonus",
+        "completed": false
+      }
+    ]
+  },
+  "crossChainCompatibility": {
+    "nativeChain": "Ethereum",
+    "supportedChains": ["Polygon", "Arbitrum", "Optimism", "Base", "Scroll", "zkSync"],
+    "bridgeProtocol": "LayerZero",
+    "lockOnBridge": true,
+    "governancePortability": true,
+    "evolutionSync": true
+  },
+  "loreIntegration": {
+    "archetypeFamily": "Angelic Technicians",
+    "narrativeArc": "The Code Awakening",
+    "sacredSymbols": ["Binary Wings", "Logic Gate Halo", "Recursive Spiral"],
+    "energeticResonance": {
+      "primaryFrequency": "777Hz",
+      "healingFrequency": "528Hz",
+      "synchronicityFrequency": "639Hz",
+      "transcendenceFrequency": "963Hz"
+    },
+    "connectionToScrollVerse": "TECHANGEL Sigils serve as the angelic bridge between human consciousness and technological manifestation, ensuring every line of code carries divine intention."
+  }
+}

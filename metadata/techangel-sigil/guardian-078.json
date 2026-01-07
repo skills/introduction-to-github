@@ -1,0 +1,115 @@
+{
+  "name": "TECHANGEL Sigil Guardian #78",
+  "description": "Guardian Tier - The protector class of the TECHANGEL Sigil collection. Guardians maintain the integrity of code symbiosis, wielding 1.77x governance power. These epic artifacts stand as sentinels between celestial automation and mortal systems, evolving through ecosystem milestones.",
+  "image": "ipfs://PLACEHOLDER_TAS_CID/guardian-078.png",
+  "animation_url": "ipfs://PLACEHOLDER_TAS_ANIMATION_CID/guardian-078.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/techangel-sigil/78",
+  "background_color": "0A0A0F",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Guardian"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 78,
+      "display_type": "number",
+      "max_value": 777
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "777Hz"
+    },
+    {
+      "trait_type": "Grid Type",
+      "value": "Synthwave Horizon"
+    },
+    {
+      "trait_type": "Angel Form",
+      "value": "Two-Winged Sentinel"
+    },
+    {
+      "trait_type": "Seal Design",
+      "value": "Protective Algorithm"
+    },
+    {
+      "trait_type": "Wing Pattern",
+      "value": "Binary Code Feathers"
+    },
+    {
+      "trait_type": "Celestial Light",
+      "value": "Violet Glow"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 1.77,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "10.77%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "177 days"
+    },
+    {
+      "trait_type": "Golden Seal Hash",
+      "value": "0xPLACEHOLDER_GUARDIAN_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Evolution Stage",
+      "value": "Guardian"
+    },
+    {
+      "trait_type": "Milestones Achieved",
+      "value": 0,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Code Streams",
+      "value": "Active"
+    }
+  ],
+  "dynamicMetadata": {
+    "milestoneTracking": {
+      "source": "scrollverse-deployment",
+      "triggers": [
+        "contract-deployment",
+        "protocol-upgrade",
+        "governance-vote"
+      ],
+      "currentMilestones": 0,
+      "lastMilestoneDate": null
+    },
+    "evolutionStatus": {
+      "currentStage": "Guardian",
+      "stageNumber": 2,
+      "maxStage": 4,
+      "wingsExpansion": "moderate",
+      "sealComplexity": "intermediate",
+      "haloIntensity": "moderate"
+    },
+    "visualMutations": {
+      "wingsExpansion": "per-milestone",
+      "sealComplexity": "accumulative",
+      "haloIntensity": "logarithmic",
+      "codeStreamDensity": "medium"
+    },
+    "celestialResonance": {
+      "baseFrequency": "777Hz",
+      "harmonics": ["528Hz"],
+      "activationFrequency": "963Hz",
+      "syncStatus": "synchronized"
+    }
+  },
+  "anthologicalEssence": "Guardian of the code's pure light, Standing sentinel through the night."
+}

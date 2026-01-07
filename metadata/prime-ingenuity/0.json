@@ -1,0 +1,80 @@
+{
+  "name": "Triton - Flying Personal Submarine (Unit 1)",
+  "description": "The Triton represents a revolutionary convergence of aviation and submarine technology, designed by visionary engineer Pierre Paulo Latzarini. This personal flying submarine can seamlessly transition between underwater exploration and aerial flight, opening new frontiers for human mobility and marine research. Unit 1 of 2 in the paired NFT series.",
+  "image": "ipfs://PLACEHOLDER_CID/triton-unit-1.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/triton-animation.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/innovations/triton",
+  "background_color": "0a1f3d",
+  "attributes": [
+    {
+      "trait_type": "Innovation ID",
+      "value": 0
+    },
+    {
+      "trait_type": "Innovation Name",
+      "value": "Triton Flying Submarine"
+    },
+    {
+      "trait_type": "Innovation Type",
+      "value": "Transportation/Marine Technology"
+    },
+    {
+      "trait_type": "Creator Name",
+      "value": "Pierre Paulo Latzarini"
+    },
+    {
+      "trait_type": "Use Case",
+      "value": "Personal transportation, Marine exploration, Emergency rescue, Scientific research"
+    },
+    {
+      "trait_type": "Future Vision Impact",
+      "value": "Democratizes access to both underwater and aerial domains, enabling new forms of exploration and rescue operations"
+    },
+    {
+      "trait_type": "Unit Number",
+      "value": 1,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Total Units",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Staking Power",
+      "value": 100,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Royalty Enabled",
+      "value": "Yes"
+    },
+    {
+      "trait_type": "Lineage Tracking",
+      "value": "Active"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/triton-unit-1.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/triton-animation.mp4",
+        "type": "video/mp4"
+      }
+    ],
+    "category": "Innovation NFT",
+    "creators": [
+      {
+        "address": "0xPLACEHOLDER_CREATOR_ADDRESS",
+        "share": 100
+      }
+    ]
+  }
+}

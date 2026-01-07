@@ -1,0 +1,110 @@
+{
+  "name": "DragonQueen Dragon Matriarch #9",
+  "description": "Dragon Matriarch Tier - The guardian mothers of the DragonQueen collection. Dragon Matriarchs embody the nurturing strength and protective fire of divine motherhood. They hold council seats in the Dragon Circle, commanding 4.44x governance voting power and enhanced staking rewards. Each Matriarch carries the stories of her lineage in her heart.",
+  "image": "ipfs://PLACEHOLDER_DRAGONQUEEN_CID/dragon-matriarch-009.png",
+  "animation_url": "ipfs://PLACEHOLDER_DRAGONQUEEN_ANIMATION_CID/dragon-matriarch-009.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/dragonqueen/9",
+  "background_color": "3D1B5C",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Dragon Matriarch"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 9,
+      "display_type": "number",
+      "max_value": 88
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "639Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Mother's Embrace"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Matriarch's Circlet"
+    },
+    {
+      "trait_type": "Flame Color",
+      "value": "Nurturing Rose"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Protective Magenta"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 4.44,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "16.44%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "444 days"
+    },
+    {
+      "trait_type": "Ancestral Nodes",
+      "value": 4,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_MATRIARCH_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking, FamilyChronicles-Access"
+    },
+    {
+      "trait_type": "Flame Cycle Phase",
+      "value": "Full Blaze"
+    },
+    {
+      "trait_type": "Sound Resonance",
+      "value": "Active"
+    },
+    {
+      "trait_type": "FamilyChronicles Access",
+      "value": "Extended Archive"
+    }
+  ],
+  "dynamicMetadata": {
+    "flameCycles": {
+      "frequency": "639Hz",
+      "currentPhase": "Full Blaze",
+      "phases": ["Ember", "Rising Flame", "Full Blaze", "Eternal Blaze"],
+      "transitionDuration": "24h"
+    },
+    "soundResonance": {
+      "baseFrequency": "528Hz",
+      "harmonics": ["639Hz", "741Hz"],
+      "syncWithFlame": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "flame-aura",
+      "currentLevel": 88
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "lineageBased": true
+    }
+  },
+  "anthologicalEssence": "Guardian of the sacred flame, Mother's love that knows no shame. Through generations her fire burns bright, Protecting her children through darkest night.",
+  "familyChroniclesLink": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/dragon-matriarch-009-chronicles.json"
+}

@@ -1,0 +1,105 @@
+{
+  "name": "Omnisovereign VIII Legacy Bearer #89",
+  "description": "Legacy Bearer Tier - The carriers of generational wisdom in the Omnisovereign VIII collection. Legacy Bearers transmit the accumulated knowledge and prosperity across generations, wielding 2.22x governance power. These rare artifacts serve as vessels for the eternal health encoded within the ScrollVerse ecosystem.",
+  "image": "ipfs://PLACEHOLDER_OS8_CID/legacy-bearer-089.png",
+  "animation_url": "ipfs://PLACEHOLDER_OS8_ANIMATION_CID/legacy-bearer-089.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/omnisovereign-viii/89",
+  "background_color": "2D1B4E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Legacy Bearer"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 89,
+      "display_type": "number",
+      "max_value": 888
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "888Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Flowing Octahedron"
+    },
+    {
+      "trait_type": "X-Pattern",
+      "value": "Lineage Cross"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Bearer Circlet"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Silver Luminance"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 2.22,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "12.22%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "222 days"
+    },
+    {
+      "trait_type": "Generational Nodes",
+      "value": 4,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_BEARER_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Light Cycle Phase",
+      "value": "Dusk"
+    },
+    {
+      "trait_type": "Sound Brilliance",
+      "value": "Active"
+    }
+  ],
+  "dynamicMetadata": {
+    "lightCycles": {
+      "frequency": "888Hz",
+      "currentPhase": "Dusk",
+      "phases": ["Dawn", "Zenith", "Dusk", "Eternal Night"],
+      "transitionDuration": "24h"
+    },
+    "soundBrilliance": {
+      "baseFrequency": "432Hz",
+      "harmonics": ["888Hz"],
+      "syncWithLight": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "aura-glow",
+      "currentLevel": 70
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "generationalBased": false
+    }
+  },
+  "anthologicalEssence": "Legacy Bearer, Keeper wise, Wisdom flowing, ever rise."
+}

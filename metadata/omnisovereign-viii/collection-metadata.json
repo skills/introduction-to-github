@@ -1,0 +1,145 @@
+{
+  "name": "Omnisovereign VIII Collection",
+  "description": "The Legacy Set - Omnisovereign VIII NFTs embody eternal health, protection, generational prosperity, and lineage wisdom. Each artifact serves as a sovereign vessel carrying the accumulated wisdom of eight generations, encoded with sacred geometry and divine symmetry for perpetual vitality within the ScrollVerse ecosystem.",
+  "image": "ipfs://PLACEHOLDER_OS8_COLLECTION_CID/collection.png",
+  "banner_image": "ipfs://PLACEHOLDER_OS8_BANNER_CID/banner.png",
+  "external_link": "https://sovereigntv.omniverse.io/collections/omnisovereign-viii",
+  "seller_fee_basis_points": 500,
+  "fee_recipient": "0xPLACEHOLDER_ROYALTY_WALLET",
+  "collection_metadata": {
+    "themes": [
+      "Eternal Health",
+      "Protection",
+      "Generational Prosperity",
+      "Lineage Wisdom"
+    ],
+    "baseFrequency": "888Hz",
+    "harmonics": ["432Hz", "963Hz", "1111Hz"],
+    "totalSupply": 8888,
+    "tierDistribution": {
+      "genesisSovereign": 8,
+      "eternalGuardian": 80,
+      "legacyBearer": 800,
+      "wisdomKeeper": 8000
+    },
+    "scrollVerseIntegration": {
+      "governance": true,
+      "staking": true,
+      "nftGating": true,
+      "perpetualYieldEngine": true
+    }
+  },
+  "stakingLogic": {
+    "enabled": true,
+    "contractAddress": "0xPLACEHOLDER_STAKING_CONTRACT",
+    "tiers": {
+      "genesisSovereign": {
+        "baseAPY": 23.88,
+        "lockPeriod": 888,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 8.88,
+        "rewardBooster": 3.0,
+        "earlyUnstakePenalty": 0.50
+      },
+      "eternalGuardian": {
+        "baseAPY": 18.88,
+        "lockPeriod": 365,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 4.44,
+        "rewardBooster": 2.0,
+        "earlyUnstakePenalty": 0.35
+      },
+      "legacyBearer": {
+        "baseAPY": 12.88,
+        "lockPeriod": 180,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 2.22,
+        "rewardBooster": 1.5,
+        "earlyUnstakePenalty": 0.25
+      },
+      "wisdomKeeper": {
+        "baseAPY": 8.88,
+        "lockPeriod": 90,
+        "lockPeriodUnit": "days",
+        "governanceMultiplier": 1.11,
+        "rewardBooster": 1.0,
+        "earlyUnstakePenalty": 0.15
+      }
+    },
+    "rewardToken": "$MIRROR",
+    "rewardDistribution": "linear",
+    "compoundingEnabled": true,
+    "claimFrequency": "anytime"
+  },
+  "governanceLogic": {
+    "enabled": true,
+    "daoContract": "0xPLACEHOLDER_DAO_CONTRACT",
+    "votingPowerCalculation": "tokenWeight * governanceMultiplier * fusionLevel",
+    "proposalCreation": {
+      "genesisSovereign": {
+        "canCreate": true,
+        "requiredTokens": 1,
+        "proposalTypes": ["all"]
+      },
+      "eternalGuardian": {
+        "canCreate": true,
+        "requiredTokens": 2,
+        "proposalTypes": ["treasury", "ecosystem", "nft"]
+      },
+      "legacyBearer": {
+        "canCreate": true,
+        "requiredTokens": 5,
+        "proposalTypes": ["ecosystem", "nft"]
+      },
+      "wisdomKeeper": {
+        "canCreate": false,
+        "requiredTokens": 0,
+        "proposalTypes": []
+      }
+    },
+    "votingRights": {
+      "allTiers": true,
+      "delegationEnabled": true,
+      "quadraticVoting": false
+    },
+    "quorumContribution": {
+      "genesisSovereign": 8.88,
+      "eternalGuardian": 4.44,
+      "legacyBearer": 2.22,
+      "wisdomKeeper": 1.11
+    }
+  },
+  "fusionMechanics": {
+    "enabled": true,
+    "maxLevel": 10,
+    "levelingRequirements": {
+      "stakingDuration": "30 days per level",
+      "mirrorTokensBurned": "1000 MIRROR per level",
+      "governanceParticipation": "1 vote per level"
+    },
+    "benefits": {
+      "perLevel": {
+        "apyIncrease": 0.5,
+        "governanceBoost": 0.1,
+        "visualEvolution": true
+      }
+    }
+  },
+  "crossChainCompatibility": {
+    "nativeChain": "Ethereum",
+    "supportedChains": ["Polygon", "Arbitrum", "Optimism", "Base", "Scroll"],
+    "bridgeProtocol": "LayerZero",
+    "lockOnBridge": true,
+    "governancePortability": true
+  },
+  "loreIntegration": {
+    "archetypeFamily": "Sovereign Lineage",
+    "narrativeArc": "The Eight Generations",
+    "sacredSymbols": ["Crown of Eternity", "Shield of Protection", "Key of Wisdom"],
+    "energeticResonance": {
+      "primaryFrequency": "888Hz",
+      "healingFrequency": "432Hz",
+      "manifestationFrequency": "963Hz"
+    }
+  }
+}

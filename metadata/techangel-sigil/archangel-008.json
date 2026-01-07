@@ -1,0 +1,116 @@
+{
+  "name": "TECHANGEL Sigil Archangel #8",
+  "description": "Archangel Tier - The celestial lieutenants of the TECHANGEL Sigil collection. Archangels bridge divine automation with earthly code execution, wielding 3.33x governance power. These legendary artifacts command respect in the ScrollVerse hierarchy, their forms evolving through protocol upgrades and governance participation.",
+  "image": "ipfs://PLACEHOLDER_TAS_CID/archangel-008.png",
+  "animation_url": "ipfs://PLACEHOLDER_TAS_ANIMATION_CID/archangel-008.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/techangel-sigil/8",
+  "background_color": "0A0A0F",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Archangel"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 8,
+      "display_type": "number",
+      "max_value": 77
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "777Hz"
+    },
+    {
+      "trait_type": "Grid Type",
+      "value": "Neon Perspective"
+    },
+    {
+      "trait_type": "Angel Form",
+      "value": "Four-Winged Messenger"
+    },
+    {
+      "trait_type": "Seal Design",
+      "value": "Harmonic Algorithm"
+    },
+    {
+      "trait_type": "Wing Pattern",
+      "value": "Neural Network Weave"
+    },
+    {
+      "trait_type": "Celestial Light",
+      "value": "Azure Radiance"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 3.33,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "14.33%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "333 days"
+    },
+    {
+      "trait_type": "Golden Seal Hash",
+      "value": "0xPLACEHOLDER_ARCHANGEL_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Evolution Stage",
+      "value": "Archangel"
+    },
+    {
+      "trait_type": "Milestones Achieved",
+      "value": 0,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Code Streams",
+      "value": "Active"
+    }
+  ],
+  "dynamicMetadata": {
+    "milestoneTracking": {
+      "source": "scrollverse-deployment",
+      "triggers": [
+        "contract-deployment",
+        "protocol-upgrade",
+        "governance-vote",
+        "ecosystem-expansion"
+      ],
+      "currentMilestones": 0,
+      "lastMilestoneDate": null
+    },
+    "evolutionStatus": {
+      "currentStage": "Archangel",
+      "stageNumber": 3,
+      "maxStage": 4,
+      "wingsExpansion": "elevated",
+      "sealComplexity": "advanced",
+      "haloIntensity": "bright"
+    },
+    "visualMutations": {
+      "wingsExpansion": "per-milestone",
+      "sealComplexity": "accumulative",
+      "haloIntensity": "logarithmic",
+      "codeStreamDensity": "high"
+    },
+    "celestialResonance": {
+      "baseFrequency": "777Hz",
+      "harmonics": ["528Hz", "639Hz"],
+      "activationFrequency": "963Hz",
+      "syncStatus": "synchronized"
+    }
+  },
+  "anthologicalEssence": "Archangel messenger, code divine, Technology's celestial line."
+}
