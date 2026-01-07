@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChRaismas NFT Minting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .nft-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nft-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nft-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .nft-tier {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .nft-attribute {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .nft-power {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .wallet-info {
+            text-align: center;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 ChRaismas NFT Collection</h1>
+        <p class="subtitle">Mint your sacred NFT and unlock exclusive perks</p>
+        
+        <div class="wallet-info">
+            <div id="walletStatus">
+                <button onclick="connectWallet()">Connect Wallet</button>
+            </div>
+        </div>
+        
+        <div class="nft-grid">
+            <div class="nft-card" data-tier="1" onclick="selectNFT(1)">
+                <div class="nft-tier">Redeemer of Light</div>
+                <div class="nft-attribute">🌟 Flower of Life</div>
+                <div class="nft-attribute">📻 963 Hz</div>
+                <div class="nft-attribute">💎 Legendary</div>
+                <div class="nft-power">1000 Voting Power</div>
+            </div>
+            
+            <div class="nft-card" data-tier="2" onclick="selectNFT(2)">
+                <div class="nft-tier">Surge Frequency Guardian</div>
+                <div class="nft-attribute">🔮 Metatron's Cube</div>
+                <div class="nft-attribute">📻 777 Hz</div>
+                <div class="nft-attribute">⚡ Epic</div>
+                <div class="nft-power">750 Voting Power</div>
+            </div>
+            
+            <div class="nft-card" data-tier="3" onclick="selectNFT(3)">
+                <div class="nft-tier">Sacred Geometry Keeper</div>
+                <div class="nft-attribute">🕉️ Sri Yantra</div>
+                <div class="nft-attribute">📻 369 Hz</div>
+                <div class="nft-attribute">✨ Rare</div>
+                <div class="nft-power">500 Voting Power</div>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button id="mintButton" onclick="mintNFT()" disabled>Select an NFT to Mint</button>
+        </div>
+        
+        <div id="status" class="status"></div>
+    </div>
+    
+    <script>
+        let selectedTier = null;
+        let userAccount = null;
+        let contract = null;
+        
+        // Contract configuration
+        // TODO: Replace with actual deployed contract address and ABI
+        // Load from environment variables or configuration file in production
+        const CONTRACT_ADDRESS = process.env.CHRAISMAS_NFT_ADDRESS || "YOUR_CONTRACT_ADDRESS_HERE";
+        const CONTRACT_ABI = []; // Add your contract ABI here from artifacts/
+        
+        function selectNFT(tier) {
+            // Remove previous selection
+            document.querySelectorAll('.nft-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select new card
+            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+            selectedTier = tier;
+            
+            // Enable mint button if wallet is connected
+            if (userAccount) {
+                document.getElementById('mintButton').disabled = false;
+                document.getElementById('mintButton').textContent = 'Mint Selected NFT';
+            }
+        }
+        
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    showStatus('Connecting to wallet...', 'info');
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAccount = accounts[0];
+                    
+                    document.getElementById('walletStatus').innerHTML = `
+                        <strong>Connected:</strong> ${userAccount.substring(0, 6)}...${userAccount.substring(38)}
+                    `;
+                    
+                    showStatus('Wallet connected successfully!', 'success');
+                    
+                    if (selectedTier) {
+                        document.getElementById('mintButton').disabled = false;
+                        document.getElementById('mintButton').textContent = 'Mint Selected NFT';
+                    }
+                } catch (error) {
+                    showStatus('Failed to connect wallet: ' + error.message, 'error');
+                }
+            } else {
+                showStatus('Please install MetaMask or another Web3 wallet!', 'error');
+            }
+        }
+        
+        async function mintNFT() {
+            if (!userAccount) {
+                showStatus('Please connect your wallet first!', 'error');
+                return;
+            }
+            
+            if (!selectedTier) {
+                showStatus('Please select an NFT tier!', 'error');
+                return;
+            }
+            
+            try {
+                showStatus('Minting your ChRaismas NFT... Please confirm the transaction.', 'info');
+                
+                // This is a placeholder - in production, you would:
+                // 1. Initialize the contract with ethers.js or web3.js
+                // 2. Call the mint function with appropriate parameters
+                // 3. Wait for transaction confirmation
+                
+                // Simulated minting delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                showStatus(`🎉 Success! Your ChRaismas NFT (Tier ${selectedTier}) has been minted!`, 'success');
+                
+                // Reset selection
+                document.querySelectorAll('.nft-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                selectedTier = null;
+                document.getElementById('mintButton').disabled = true;
+                document.getElementById('mintButton').textContent = 'Select an NFT to Mint';
+                
+            } catch (error) {
+                showStatus('Minting failed: ' + error.message, 'error');
+            }
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'status ' + type;
+            statusDiv.style.display = 'block';
+            
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Check if wallet is already connected
+        window.addEventListener('load', async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+                    userAccount = accounts[0];
+                    document.getElementById('walletStatus').innerHTML = `
+                        <strong>Connected:</strong> ${userAccount.substring(0, 6)}...${userAccount.substring(38)}
+                    `;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

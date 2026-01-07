@@ -1,0 +1,110 @@
+{
+  "name": "DragonQueen Empress Supreme #1",
+  "description": "Empress Supreme Tier - The apex of the DragonQueen collection. This legendary artifact represents the ultimate embodiment of divine feminine power and ancestral sovereignty. Empress Supremes hold the founding flames of the Dragon Council, commanding 8.88x governance voting power and maximum staking rewards within the ScrollVerse ecosystem. She who wears the Dragon Crown carries the legacy of a thousand queens.",
+  "image": "ipfs://PLACEHOLDER_DRAGONQUEEN_CID/empress-supreme-001.png",
+  "animation_url": "ipfs://PLACEHOLDER_DRAGONQUEEN_ANIMATION_CID/empress-supreme-001.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/dragonqueen/1",
+  "background_color": "4A0E4E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Empress Supreme"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 1,
+      "display_type": "number",
+      "max_value": 8
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "639Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Spiral Infinity"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Dragon Crown"
+    },
+    {
+      "trait_type": "Flame Color",
+      "value": "Royal Amethyst"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Divine Violet"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 8.88,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "23.88%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "888 days"
+    },
+    {
+      "trait_type": "Ancestral Nodes",
+      "value": 8,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_EMPRESS_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking, FamilyChronicles-Access"
+    },
+    {
+      "trait_type": "Flame Cycle Phase",
+      "value": "Eternal Blaze"
+    },
+    {
+      "trait_type": "Sound Resonance",
+      "value": "Active"
+    },
+    {
+      "trait_type": "FamilyChronicles Access",
+      "value": "Full Archive"
+    }
+  ],
+  "dynamicMetadata": {
+    "flameCycles": {
+      "frequency": "639Hz",
+      "currentPhase": "Eternal Blaze",
+      "phases": ["Ember", "Rising Flame", "Full Blaze", "Eternal Blaze"],
+      "transitionDuration": "24h"
+    },
+    "soundResonance": {
+      "baseFrequency": "528Hz",
+      "harmonics": ["639Hz", "741Hz", "852Hz"],
+      "syncWithFlame": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "flame-aura",
+      "currentLevel": 100
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "lineageBased": true
+    }
+  },
+  "anthologicalEssence": "From the fires of creation she emerges, The DragonQueen who protects and nurtures. Her crown blazes with ancestral might, Guiding her lineage through eternal light.",
+  "familyChroniclesLink": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/empress-supreme-001-chronicles.json"
+}
