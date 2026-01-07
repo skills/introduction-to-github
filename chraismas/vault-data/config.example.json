@@ -1,0 +1,10 @@
+{
+  "creator_address": "0x0000000000000000000000000000000000000000",
+  "ipfs_gateway": "https://ipfs.io/ipfs/",
+  "base_uri": "ipfs://",
+  "notes": [
+    "Copy this file to config.json and update with actual values before deployment",
+    "Replace creator_address with the actual wallet address",
+    "Update IPFS CIDs after uploading assets"
+  ]
+}

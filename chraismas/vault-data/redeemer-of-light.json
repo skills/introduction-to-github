@@ -1,0 +1,80 @@
+{
+  "name": "Redeemer of Light",
+  "description": "The Redeemer of Light is a sacred ChRaismas NFT embodying the essence of enlightenment and divine guidance. This NFT grants holders access to exclusive voting rights in ScrollVerse DAOs and IRL experiences during the ChRaismas celebration.",
+  "image": "ipfs://QmRedeemerOfLight/image.png",
+  "external_url": "https://scrollverse.com/chraismas/redeemer-of-light",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Redeemer of Light"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Flower of Life"
+    },
+    {
+      "trait_type": "Universal Frequency",
+      "value": "963 Hz"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Voting Power",
+      "value": 1000,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "IRL Access Level",
+      "value": 5,
+      "display_type": "number",
+      "max_value": 5
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Divine Attribute",
+      "value": "Illumination"
+    },
+    {
+      "trait_type": "ChRaismas Season",
+      "value": "2025"
+    },
+    {
+      "trait_type": "Activation Date",
+      "value": "December 25, 2025"
+    }
+  ],
+  "properties": {
+    "category": "ChRaismas Collection",
+    "creators": [
+      {
+        "address": "0x...",
+        "share": 100
+      }
+    ],
+    "files": [
+      {
+        "uri": "ipfs://QmRedeemerOfLight/image.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmRedeemerOfLight/animation.mp4",
+        "type": "video/mp4"
+      }
+    ]
+  },
+  "perks": {
+    "dao_voting": true,
+    "irl_events": [
+      "ChRaismas Gala 2025",
+      "ScrollVerse Sovereign Summit",
+      "Festival of Forever Fun"
+    ],
+    "exclusive_airdrops": true,
+    "quadratic_voting_multiplier": 1.5
+  }
+}

@@ -288,6 +288,7 @@ The Universal Deployment Protocol ensures:
 ## 🔗 Related Documents
 
 - [AI-INFRA-ALIGNMENT.md](./AI-INFRA-ALIGNMENT.md) - TPU/Neocloud strategy
+- [CANONICAL-BROADCAST-MANIFESTO.md](./CANONICAL-BROADCAST-MANIFESTO.md) - QFS Base Value & Universal Liquidity Anchor
 - [NEOCLOUD-PARTNERSHIP-MANIFESTO.md](./NEOCLOUD-PARTNERSHIP-MANIFESTO.md) - Partner covenant
 - [OMNI-CHAIN-ADOPTION.md](./OMNI-CHAIN-ADOPTION.md) - Multi-chain deployment
 - [QUANTUM-INFINITY-MAXIMIZATION.md](./QUANTUM-INFINITY-MAXIMIZATION.md) - Infinity metrics

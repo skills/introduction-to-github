@@ -1,0 +1,76 @@
+name: ChRaismas NFT Metadata Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: 'NFT Tier'
+        required: true
+        type: choice
+        options:
+          - redeemer-of-light
+          - surge-frequency-guardian
+          - sacred-geometry-keeper
+          - universal-harmonizer
+      token_id:
+        description: 'Token ID'
+        required: true
+        type: number
+      recipient:
+        description: 'Recipient Address'
+        required: false
+        type: string
+
+jobs:
+  generate-metadata:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Generate NFT Metadata
+        run: |
+          echo "🎄 Generating ChRaismas NFT Metadata..."
+          echo "Tier: ${{ github.event.inputs.tier }}"
+          echo "Token ID: ${{ github.event.inputs.token_id }}"
+          
+          # Create metadata directory if it doesn't exist
+          mkdir -p chraismas/vault-data/generated
+          
+          # Load template based on tier
+          TEMPLATE_FILE="chraismas/vault-data/${{ github.event.inputs.tier }}.json"
+          OUTPUT_FILE="chraismas/vault-data/generated/${{ github.event.inputs.tier }}-${{ github.event.inputs.token_id }}.json"
+          
+          if [ -f "$TEMPLATE_FILE" ]; then
+            # Copy template and update token ID
+            cat "$TEMPLATE_FILE" | \
+            sed 's/"Activation Date", "value": "December 25, 2025"/"Token ID", "value": ${{ github.event.inputs.token_id }}/g' > "$OUTPUT_FILE"
+            
+            echo "✅ Metadata generated: $OUTPUT_FILE"
+            cat "$OUTPUT_FILE"
+          else
+            echo "❌ Template not found: $TEMPLATE_FILE"
+            exit 1
+          fi
+      
+      - name: Upload Metadata Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: nft-metadata-${{ github.event.inputs.token_id }}
+          path: chraismas/vault-data/generated/
+          retention-days: 30
+      
+      - name: Commit and Push (Optional)
+        if: github.event.inputs.recipient != ''
+        run: |
+          git config --global user.name "ChRaismas Bot"
+          git config --global user.email "chraismas@scrollverse.com"
+          git add chraismas/vault-data/generated/
+          git commit -m "Generated metadata for NFT #${{ github.event.inputs.token_id }} (${{ github.event.inputs.tier }})" || echo "No changes to commit"
+          git push || echo "Nothing to push"
