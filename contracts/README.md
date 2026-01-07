@@ -1,3 +1,6 @@
+# ScrollVerse Ecosystem Smart Contracts
+
+Smart contracts for the ScrollVerse ecosystem including Protocol Registry (Security Layer 2.0) and AnchorManifest.
 # ScrollVerse Smart Contracts
 
 Smart contracts powering the ScrollVerse ecosystem - a decentralized governance and NFT platform.
@@ -77,6 +80,20 @@ The `ScrollVerseDAO` contract implements OpenZeppelin's Governor pattern with Ti
 
 **Time-locked vesting contract for team tokens.**
 
+This repository contains the core smart contracts for the ScrollVerse ecosystem:
+
+### ProtocolRegistry (Security Layer 2.0)
+
+The `ProtocolRegistry` contract provides governance-controlled protocol management with:
+
+- **Lifecycle States**: Proposed → Vetted → Approved (with Revoked state)
+- **DAO Governance**: `onlyGovernor` modifier for critical operations
+- **Metadata Anchoring**: Security review hashes, risk classifications, and audit timestamps
+- **Governor Transfer**: Seamless transition from deployer EOA to DAO Timelock Controller
+
+### AnchorManifest
+
+The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification:
 - 1-year cliff period
 - 2-year linear vesting after cliff
 - Multi-beneficiary support
@@ -85,6 +102,34 @@ The `ScrollVerseDAO` contract implements OpenZeppelin's Governor pattern with Ti
 
 The `AnchorManifest` contract provides immutable on-chain anchoring for off-chain data integrity verification.
 
+### ProtocolRegistry
+
+| Feature | Description |
+|---------|-------------|
+| **Lifecycle Governance** | Multi-step protocol states (Proposed → Vetted → Approved) |
+| **DAO-Gated Operations** | Critical operations require governor approval |
+| **Security Metadata** | Store security review hashes, risk classes, and audit timestamps |
+| **Governor Transfer** | Transfer control to ScrollVerseDAO Timelock Controller |
+| **Reentrancy Protection** | Guards against reentrancy attacks |
+
+### AnchorManifest
+
+| Feature | Description |
+|---------|-------------|
+| **Merkle Root Anchoring** | Store and verify 32-byte Merkle roots |
+| **IPFS CID Storage** | Link off-chain IPFS content to on-chain records |
+| **Access Control** | Owner-only functions for administrative operations |
+| **Reentrancy Protection** | Guards against reentrancy attacks |
+| **Event Logging** | Comprehensive events for manifest lifecycle |
+
+## Contract Addresses
+
+### Sepolia Testnet
+
+| Contract | Address | Status |
+|----------|---------|--------|
+| ProtocolRegistry | *To be deployed* | Pending |
+| AnchorManifest | *To be deployed* | Pending |
 ### ChRaismas Blueprint Contracts
 
 **New: Part of the ChRaismas celebration ecosystem (December 25, 2025)**
@@ -169,11 +214,20 @@ npm run test
 
 ## Deployment
 
-### Local Development
+### ProtocolRegistry
+
 ```bash
-npm run node           # Start local node
-npm run deploy:local   # Deploy to local network
+# Local Development
+npm run deploy:registry:local
+
+# Sepolia Testnet
+npm run deploy:registry:sepolia
+
+# Mainnet
+npm run deploy:registry:mainnet
 ```
+
+### AnchorManifest
 
 ### Deploy ScrollVerse Genesis Sequence
 ```bash
@@ -183,11 +237,13 @@ npx hardhat run scripts/deploy-scrollverse-dao.js --network sepolia
 
 ### Individual Contract Deployment
 ```bash
-npm run deploy:sepolia
-```
+# Local Development
+npm run deploy:local
 
-### Mainnet
-```bash
+# Sepolia Testnet
+npm run deploy:sepolia
+
+# Mainnet
 npm run deploy:mainnet
 ```
 
@@ -196,36 +252,68 @@ npm run deploy:mainnet
 After deployment, verify on Etherscan:
 
 ```bash
+# ProtocolRegistry (no constructor args)
+npm run verify:sepolia -- <CONTRACT_ADDRESS>
+
+# AnchorManifest
 npm run verify:sepolia -- <CONTRACT_ADDRESS> <OWNER_ADDRESS>
 ```
 
 ## Usage
 
-### Anchoring a Manifest
+### ProtocolRegistry
 
+#### Proposing a Protocol
+```javascript
+const protocolId = await protocolRegistry.proposeProtocol(
+  "CHXTOKEN",                                           // name
+  "0x...",                                              // protocolAddress
+  ethers.keccak256(ethers.toUtf8Bytes("review-v1")),   // securityReviewHash
+  2                                                     // riskClass (1-5)
+);
+```
+
+#### Lifecycle Transitions (Governor Only)
+```javascript
+await protocolRegistry.vetProtocol(protocolId);     // Proposed → Vetted
+await protocolRegistry.approveProtocol(protocolId); // Vetted → Approved
+await protocolRegistry.revokeProtocol(protocolId);  // Any → Revoked
+```
+
+#### Transferring Governance to DAO
+```javascript
+// After initial bootstrap, transfer to DAO Timelock
+await protocolRegistry.transferGovernor(timelockAddress);
+```
+
+### AnchorManifest
+
+#### Anchoring a Manifest
 ```javascript
 const merkleRoot = ethers.keccak256(ethers.toUtf8Bytes("your-data"));
 const ipfsCid = "QmYwAPJzv5CZsnAzt8auVZRn7qWPjSXVEWpRJMuAxFpqhT";
 
 const tx = await anchorManifest.anchorManifest(merkleRoot, ipfsCid);
 const receipt = await tx.wait();
-// Get manifestId from ManifestAnchored event
 ```
 
-### Verifying a Manifest
-
+#### Verifying a Manifest
 ```javascript
 const isValid = await anchorManifest.verifyMerkleRoot(manifestId, merkleRoot);
 ```
 
-### Retrieving Manifest Data
+## Post-Deployment Steps (ProtocolRegistry)
 
-```javascript
-const { merkleRoot, ipfsCid, timestamp, anchor } = await anchorManifest.getManifest(manifestId);
-```
+1. **Bootstrap Native Protocols**: Register critical ScrollVerse protocols (e.g., CHXTOKEN)
+2. **Vet & Approve**: Complete lifecycle for initial protocols
+3. **Transfer Governance**: Call `transferGovernor()` to transfer control to ScrollVerseDAO Timelock Controller
 
-## Contract ABI
+## Security Considerations
 
+- The ProtocolRegistry uses `onlyGovernor` modifier for DAO-gated operations
+- Governor transfer is a one-way operation - ensure the new address is correct
+- Both contracts use OpenZeppelin's `ReentrancyGuard` for protection
+- Risk classifications (1-5) help categorize protocol security levels
 The contract ABIs are generated in `artifacts/src/` after compilation.
 
 ## Security Considerations
@@ -269,4 +357,4 @@ MIT License - See [LICENSE](../LICENSE) for details.
 
 ---
 
-**OmniTech1™** - Building the future of decentralized data integrity.
+**OmniTech1™** - ScrollVerse Ecosystem - Security Layer 2.0

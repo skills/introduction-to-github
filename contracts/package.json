@@ -1,5 +1,7 @@
 {
   "name": "scrollverse-contracts",
+  "version": "1.1.0",
+  "description": "ScrollVerse Ecosystem Smart Contracts - Protocol Registry, AnchorManifest, and More",
   "version": "1.0.0",
   "description": "Superhero Sovereign & ScrollVerse Smart Contracts - Blockchain-Powered Entertainment Production",
   "author": "OmniTech1™",
@@ -11,6 +13,9 @@
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:registry:local": "hardhat run scripts/deploy-protocol-registry.js --network hardhat",
+    "deploy:registry:sepolia": "hardhat run scripts/deploy-protocol-registry.js --network sepolia",
+    "deploy:registry:mainnet": "hardhat run scripts/deploy-protocol-registry.js --network mainnet",
     "deploy:timelock:local": "hardhat run scripts/deploy-timelock.js --network hardhat",
     "deploy:timelock:sepolia": "hardhat run scripts/deploy-timelock.js --network sepolia",
     "deploy:timelock:mainnet": "hardhat run scripts/deploy-timelock.js --network mainnet",
@@ -39,6 +44,8 @@
   },
   "keywords": [
     "scrollverse",
+    "protocol-registry",
+    "security-layer",
     "mirror-token",
     "erc20-votes",
     "governance",
@@ -48,6 +55,7 @@
     "smart-contracts",
     "ethereum",
     "sepolia",
+    "dao-governance"
     "dao",
     "mirror-token",
     "pfc-nft",
