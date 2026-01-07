@@ -1,0 +1,110 @@
+{
+  "name": "DragonQueen Crowned Guardian #97",
+  "description": "Crowned Guardian Tier - The warriors of the DragonQueen collection. Crowned Guardians stand as the protectors of family legacy, their flames forged in love and tempered by dedication. They serve in the Guardian Corps, commanding 2.22x governance voting power and steady staking rewards. Each Guardian is sworn to preserve the stories of her people.",
+  "image": "ipfs://PLACEHOLDER_DRAGONQUEEN_CID/crowned-guardian-097.png",
+  "animation_url": "ipfs://PLACEHOLDER_DRAGONQUEEN_ANIMATION_CID/crowned-guardian-097.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/dragonqueen/97",
+  "background_color": "2D1545",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Crowned Guardian"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 97,
+      "display_type": "number",
+      "max_value": 888
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "639Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Guardian Shield"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Warrior's Diadem"
+    },
+    {
+      "trait_type": "Flame Color",
+      "value": "Protective Azure"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Guardian Blue"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 2.22,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "12.22%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "222 days"
+    },
+    {
+      "trait_type": "Ancestral Nodes",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_GUARDIAN_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking, FamilyChronicles-Access"
+    },
+    {
+      "trait_type": "Flame Cycle Phase",
+      "value": "Rising Flame"
+    },
+    {
+      "trait_type": "Sound Resonance",
+      "value": "Active"
+    },
+    {
+      "trait_type": "FamilyChronicles Access",
+      "value": "Core Archive"
+    }
+  ],
+  "dynamicMetadata": {
+    "flameCycles": {
+      "frequency": "639Hz",
+      "currentPhase": "Rising Flame",
+      "phases": ["Ember", "Rising Flame", "Full Blaze", "Eternal Blaze"],
+      "transitionDuration": "24h"
+    },
+    "soundResonance": {
+      "baseFrequency": "528Hz",
+      "harmonics": ["639Hz"],
+      "syncWithFlame": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "flame-aura",
+      "currentLevel": 66
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "lineageBased": false
+    }
+  },
+  "anthologicalEssence": "With shield of love and sword of truth, She guards the tales of age and youth. A Crowned Guardian, fierce and true, Preserving stories for me and you.",
+  "familyChroniclesLink": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/crowned-guardian-097-chronicles.json"
+}

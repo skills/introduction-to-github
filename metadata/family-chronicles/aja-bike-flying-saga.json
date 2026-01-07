@@ -1,0 +1,87 @@
+{
+  "chronicleId": "aja-bike-flying-saga",
+  "name": "Aja's Bike-Flying Saga",
+  "description": "A legendary tale of fearless spirit and boundless imagination. This chronicle captures the moment when young Aja, filled with the audacity of youth and the fire of her DragonQueen lineage, believed so deeply in the impossible that her bicycle seemed to take flight. A testament to the power of belief and the magic that lives in a child's heart.",
+  "type": "MilestoneNarrative",
+  "narrator": "Family Historian",
+  "image": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/aja-bike-flying-saga.png",
+  "animation_url": "ipfs://PLACEHOLDER_FAMILY_CHRONICLES_CID/aja-bike-flying-saga.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/chronicles/aja-bike-flying-saga",
+  "background_color": "1E3A5F",
+  "attributes": [
+    {
+      "trait_type": "Chronicle Type",
+      "value": "Milestone Narrative"
+    },
+    {
+      "trait_type": "Protagonist",
+      "value": "Aja"
+    },
+    {
+      "trait_type": "Theme",
+      "value": "Fearless Spirit"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "528Hz"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Modern Genesis"
+    },
+    {
+      "trait_type": "Archetype",
+      "value": "The Dreamer"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Air"
+    },
+    {
+      "trait_type": "Lineage Connection",
+      "value": "DragonQueen"
+    },
+    {
+      "trait_type": "Chronicle Status",
+      "value": "Eternally Archived"
+    },
+    {
+      "trait_type": "IPFS Status",
+      "value": "Immutable"
+    }
+  ],
+  "narrative": {
+    "fullText": "In the golden hours of a summer afternoon, when the sun painted everything in hues of amber and possibility, young Aja stood at the top of the steepest hill in the neighborhood. Her bicycle—a trusted companion of countless adventures—gleamed beneath her. The other children had long since turned back, their cautious voices fading into whispers. But Aja had the fire of her ancestors burning in her heart, the same flame that had guided queens and matriarchs through impossible odds. 'If I believe hard enough,' she whispered to herself, 'I can fly.' And with a push, she was off—pedaling not with fear but with absolute conviction. For one magnificent moment, as she crested the hill and launched into the open air, time itself seemed to pause. Her hair streamed behind her like a dragon's mane, her eyes reflected the endless sky, and in her heart, she knew—truly knew—that she was flying. The landing was graceful, the triumph eternal. This is the legacy of Aja: the child who dared to believe that dragons could fly, and proved it with nothing but a bicycle and an unbreakable spirit.",
+    "keyMoments": [
+      "The decision at the hilltop",
+      "The moment of absolute belief",
+      "The flight of conviction",
+      "The graceful landing"
+    ],
+    "symbolism": {
+      "bicycle": "The vehicle of dreams",
+      "hill": "The challenge that separates dreamers from doers",
+      "flight": "Transcendence of limitations",
+      "sunlight": "Divine blessing and approval"
+    },
+    "lessonsEmbodied": [
+      "Belief transforms reality",
+      "Courage is the first step to greatness",
+      "The impossible is only impossible until it isn't",
+      "Legacy is written by those who dare"
+    ]
+  },
+  "sbtIntegration": {
+    "linkedToSoul": true,
+    "chronicleWeightBonus": 1.5,
+    "governanceNarrativeBoost": true,
+    "ipfsArchiveHash": "ipfs://PLACEHOLDER_AJA_SAGA_ARCHIVE_HASH",
+    "eternityTimestamp": "2025-12-04T14:14:43.127Z"
+  },
+  "scrollVerseAlignment": {
+    "divineResonance": "High",
+    "communityStorytellingValue": "Foundational",
+    "legacySymbolism": "Dragon Flight",
+    "loveAndLegacyScore": 100
+  }
+}
