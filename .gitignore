@@ -90,3 +90,7 @@ typechain/
 typechain-types/
 coverage/
 coverage.json
+
+# Backup files
+*.backup
+*.old

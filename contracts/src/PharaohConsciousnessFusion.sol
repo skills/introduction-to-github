@@ -327,7 +327,7 @@ contract PharaohConsciousnessFusion is
      * @param _allowlistActive Whether allowlist mint is active
      * @param _publicActive Whether public mint is active
      */
-    function setMintPhase(bool _allowlistActive, bool _publicActive) external onlyOwner {
+    function setMintPhases(bool _allowlistActive, bool _publicActive) external onlyOwner {
         allowlistMintActive = _allowlistActive;
         publicMintActive = _publicActive;
         emit MintPhaseUpdated(_allowlistActive, _publicActive);

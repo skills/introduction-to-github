@@ -966,4 +966,399 @@ describe("PharaohConsciousnessFusion", function () {
             expect(tokens.length).to.equal(5);
         });
     });
+
+  describe("Revenue Split Management", function () {
+    describe("Adding Beneficiaries", function () {
+      it("Should allow owner to add beneficiaries", async function () {
+        await expect(pharaoh.addBeneficiary(addr1.address, 1000))
+          .to.emit(pharaoh, "BeneficiaryAdded")
+          .withArgs(addr1.address, 1000, owner.address, await ethers.provider.getBlockNumber() + 1);
+
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(addresses.length).to.equal(1);
+        expect(addresses[0]).to.equal(addr1.address);
+        expect(shares[0]).to.equal(1000n);
+        expect(await pharaoh.totalAllocatedShare()).to.equal(1000n);
+      });
+
+      it("Should prevent non-owner from adding beneficiaries", async function () {
+        await expect(
+          pharaoh.connect(addr1).addBeneficiary(addr2.address, 1000)
+        ).to.be.revertedWithCustomError(pharaoh, "OwnableUnauthorizedAccount");
+      });
+
+      it("Should prevent adding zero address as beneficiary", async function () {
+        await expect(
+          pharaoh.addBeneficiary(ethers.ZeroAddress, 1000)
+        ).to.be.revertedWithCustomError(pharaoh, "InvalidAddress");
+      });
+
+      it("Should prevent adding beneficiary with zero share", async function () {
+        await expect(
+          pharaoh.addBeneficiary(addr1.address, 0)
+        ).to.be.revertedWithCustomError(pharaoh, "InvalidShare");
+      });
+
+      it("Should prevent adding beneficiary with share > 100%", async function () {
+        await expect(
+          pharaoh.addBeneficiary(addr1.address, 10001)
+        ).to.be.revertedWithCustomError(pharaoh, "InvalidShare");
+      });
+
+      it("Should prevent duplicate beneficiaries", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 1000);
+        await expect(
+          pharaoh.addBeneficiary(addr1.address, 2000)
+        ).to.be.revertedWithCustomError(pharaoh, "BeneficiaryAlreadyExists");
+      });
+
+      it("Should prevent total allocation from exceeding 100%", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 6000);
+        await pharaoh.addBeneficiary(addr2.address, 3000);
+        await expect(
+          pharaoh.addBeneficiary(addr3.address, 2000)
+        ).to.be.revertedWithCustomError(pharaoh, "TotalShareExceeds100Percent");
+      });
+
+      it("Should allow adding multiple beneficiaries up to 100%", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 5000); // 50%
+        await pharaoh.addBeneficiary(addr2.address, 3000); // 30%
+        await pharaoh.addBeneficiary(addr3.address, 2000); // 20%
+
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(addresses.length).to.equal(3);
+        expect(await pharaoh.totalAllocatedShare()).to.equal(10000n);
+      });
+    });
+
+    describe("Updating Beneficiary Shares", function () {
+      beforeEach(async function () {
+        await pharaoh.addBeneficiary(addr1.address, 3000);
+        await pharaoh.addBeneficiary(addr2.address, 2000);
+      });
+
+      it("Should allow owner to update beneficiary share", async function () {
+        await expect(pharaoh.updateBeneficiaryShare(addr1.address, 4000))
+          .to.emit(pharaoh, "BeneficiaryUpdated")
+          .withArgs(addr1.address, 3000, 4000, owner.address, await ethers.provider.getBlockNumber() + 1);
+
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(shares[0]).to.equal(4000n);
+        expect(await pharaoh.totalAllocatedShare()).to.equal(6000n);
+      });
+
+      it("Should prevent non-owner from updating shares", async function () {
+        await expect(
+          pharaoh.connect(addr1).updateBeneficiaryShare(addr1.address, 4000)
+        ).to.be.revertedWithCustomError(pharaoh, "OwnableUnauthorizedAccount");
+      });
+
+      it("Should prevent updating non-existent beneficiary", async function () {
+        await expect(
+          pharaoh.updateBeneficiaryShare(addr3.address, 1000)
+        ).to.be.revertedWithCustomError(pharaoh, "BeneficiaryNotFound");
+      });
+
+      it("Should prevent updating to invalid share", async function () {
+        await expect(
+          pharaoh.updateBeneficiaryShare(addr1.address, 0)
+        ).to.be.revertedWithCustomError(pharaoh, "InvalidShare");
+
+        await expect(
+          pharaoh.updateBeneficiaryShare(addr1.address, 10001)
+        ).to.be.revertedWithCustomError(pharaoh, "InvalidShare");
+      });
+
+      it("Should prevent update that would exceed 100% total", async function () {
+        await expect(
+          pharaoh.updateBeneficiaryShare(addr1.address, 9000)
+        ).to.be.revertedWithCustomError(pharaoh, "TotalShareExceeds100Percent");
+      });
+
+      it("Should allow update that reduces total allocation", async function () {
+        await pharaoh.updateBeneficiaryShare(addr1.address, 1000);
+        expect(await pharaoh.totalAllocatedShare()).to.equal(3000n);
+      });
+    });
+
+    describe("Removing Beneficiaries", function () {
+      beforeEach(async function () {
+        await pharaoh.addBeneficiary(addr1.address, 3000);
+        await pharaoh.addBeneficiary(addr2.address, 2000);
+      });
+
+      it("Should allow owner to remove beneficiary", async function () {
+        await expect(pharaoh.removeBeneficiary(addr1.address))
+          .to.emit(pharaoh, "BeneficiaryRemoved")
+          .withArgs(addr1.address, owner.address, await ethers.provider.getBlockNumber() + 1);
+
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(addresses.length).to.equal(1);
+        expect(addresses[0]).to.equal(addr2.address);
+        expect(await pharaoh.totalAllocatedShare()).to.equal(2000n);
+      });
+
+      it("Should prevent non-owner from removing beneficiaries", async function () {
+        await expect(
+          pharaoh.connect(addr1).removeBeneficiary(addr1.address)
+        ).to.be.revertedWithCustomError(pharaoh, "OwnableUnauthorizedAccount");
+      });
+
+      it("Should prevent removing non-existent beneficiary", async function () {
+        await expect(
+          pharaoh.removeBeneficiary(addr3.address)
+        ).to.be.revertedWithCustomError(pharaoh, "BeneficiaryNotFound");
+      });
+
+      it("Should prevent removing already removed beneficiary", async function () {
+        await pharaoh.removeBeneficiary(addr1.address);
+        await expect(
+          pharaoh.removeBeneficiary(addr1.address)
+        ).to.be.revertedWithCustomError(pharaoh, "BeneficiaryNotFound");
+      });
+    });
+
+    describe("Withdrawal with Revenue Splits", function () {
+      beforeEach(async function () {
+        // Enable public mint and mint some tokens to generate revenue
+        await pharaoh.setMintPhases(false, true);
+        await pharaoh.connect(addr1).publicMint(2, { value: mintPrice * 2n });
+        await pharaoh.connect(addr2).publicMint(1, { value: mintPrice });
+        // Contract now has 3 * mintPrice = 0.24 ETH
+      });
+
+      it("Should distribute revenue according to splits", async function () {
+        // Setup: 50% to addr1, 30% to addr2, 20% unallocated (goes to owner)
+        await pharaoh.addBeneficiary(addr1.address, 5000);
+        await pharaoh.addBeneficiary(addr2.address, 3000);
+
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const expectedAddr1 = contractBalance * 5000n / 10000n;
+        const expectedAddr2 = contractBalance * 3000n / 10000n;
+        const expectedOwner = contractBalance - expectedAddr1 - expectedAddr2;
+
+        const addr1BalanceBefore = await ethers.provider.getBalance(addr1.address);
+        const addr2BalanceBefore = await ethers.provider.getBalance(addr2.address);
+        const ownerBalanceBefore = await ethers.provider.getBalance(owner.address);
+
+        const tx = await pharaoh.withdraw();
+        const receipt = await tx.wait();
+        const gasCost = receipt.gasUsed * receipt.gasPrice;
+
+        const addr1BalanceAfter = await ethers.provider.getBalance(addr1.address);
+        const addr2BalanceAfter = await ethers.provider.getBalance(addr2.address);
+        const ownerBalanceAfter = await ethers.provider.getBalance(owner.address);
+
+        expect(addr1BalanceAfter - addr1BalanceBefore).to.equal(expectedAddr1);
+        expect(addr2BalanceAfter - addr2BalanceBefore).to.equal(expectedAddr2);
+        expect(ownerBalanceAfter - ownerBalanceBefore + gasCost).to.be.closeTo(expectedOwner, ethers.parseEther("0.0001"));
+      });
+
+      it("Should emit RevenueDistributed events", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 5000);
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const expectedAmount = contractBalance * 5000n / 10000n;
+
+        await expect(pharaoh.withdraw())
+          .to.emit(pharaoh, "RevenueDistributed")
+          .withArgs(addr1.address, expectedAmount, await ethers.provider.getBlockNumber() + 1);
+      });
+
+      it("Should send all to owner when no beneficiaries", async function () {
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const ownerBalanceBefore = await ethers.provider.getBalance(owner.address);
+
+        const tx = await pharaoh.withdraw();
+        const receipt = await tx.wait();
+        const gasCost = receipt.gasUsed * receipt.gasPrice;
+
+        const ownerBalanceAfter = await ethers.provider.getBalance(owner.address);
+        expect(ownerBalanceAfter - ownerBalanceBefore + gasCost).to.be.closeTo(contractBalance, ethers.parseEther("0.0001"));
+      });
+
+      it("Should handle 100% allocation correctly", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 6000);
+        await pharaoh.addBeneficiary(addr2.address, 4000);
+
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const expectedAddr1 = contractBalance * 6000n / 10000n;
+        const expectedAddr2 = contractBalance * 4000n / 10000n;
+
+        const addr1BalanceBefore = await ethers.provider.getBalance(addr1.address);
+        const addr2BalanceBefore = await ethers.provider.getBalance(addr2.address);
+
+        await pharaoh.withdraw();
+
+        const addr1BalanceAfter = await ethers.provider.getBalance(addr1.address);
+        const addr2BalanceAfter = await ethers.provider.getBalance(addr2.address);
+
+        expect(addr1BalanceAfter - addr1BalanceBefore).to.equal(expectedAddr1);
+        expect(addr2BalanceAfter - addr2BalanceBefore).to.equal(expectedAddr2);
+      });
+
+      it("Should not distribute to inactive beneficiaries", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 5000);
+        await pharaoh.addBeneficiary(addr2.address, 3000);
+        await pharaoh.removeBeneficiary(addr2.address);
+
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const addr2BalanceBefore = await ethers.provider.getBalance(addr2.address);
+
+        await pharaoh.withdraw();
+
+        const addr2BalanceAfter = await ethers.provider.getBalance(addr2.address);
+        expect(addr2BalanceAfter).to.equal(addr2BalanceBefore); // No change
+      });
+
+      it("Should prevent non-owner from withdrawing", async function () {
+        await expect(
+          pharaoh.connect(addr1).withdraw()
+        ).to.be.revertedWithCustomError(pharaoh, "OwnableUnauthorizedAccount");
+      });
+
+      it("Should revert when no funds to withdraw", async function () {
+        // Deploy fresh contract with no funds
+        const PharaohConsciousnessFusion = await ethers.getContractFactory("PharaohConsciousnessFusion");
+        const newPharaoh = await upgrades.deployProxy(
+          PharaohConsciousnessFusion,
+          [owner.address, baseURI, royaltyReceiver.address, mintPrice, allowlistPrice],
+          { kind: 'uups' }
+        );
+
+        await expect(
+          newPharaoh.withdraw()
+        ).to.be.revertedWithCustomError(newPharaoh, "NoFundsToWithdraw");
+      });
+    });
+
+    describe("Emergency Withdrawal", function () {
+      beforeEach(async function () {
+        await pharaoh.setMintPhases(false, true);
+        await pharaoh.connect(addr1).publicMint(2, { value: mintPrice * 2n });
+        await pharaoh.addBeneficiary(addr1.address, 5000);
+        await pharaoh.addBeneficiary(addr2.address, 3000);
+      });
+
+      it("Should bypass splits and send all to owner", async function () {
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const ownerBalanceBefore = await ethers.provider.getBalance(owner.address);
+        const addr1BalanceBefore = await ethers.provider.getBalance(addr1.address);
+
+        const tx = await pharaoh.emergencyWithdraw();
+        const receipt = await tx.wait();
+        const gasCost = receipt.gasUsed * receipt.gasPrice;
+
+        const ownerBalanceAfter = await ethers.provider.getBalance(owner.address);
+        const addr1BalanceAfter = await ethers.provider.getBalance(addr1.address);
+
+        expect(ownerBalanceAfter - ownerBalanceBefore + gasCost).to.be.closeTo(contractBalance, ethers.parseEther("0.0001"));
+        expect(addr1BalanceAfter).to.equal(addr1BalanceBefore); // No change for beneficiaries
+      });
+
+      it("Should emit Withdrawn event", async function () {
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        await expect(pharaoh.emergencyWithdraw())
+          .to.emit(pharaoh, "Withdrawn")
+          .withArgs(owner.address, contractBalance);
+      });
+
+      it("Should prevent non-owner from emergency withdrawal", async function () {
+        await expect(
+          pharaoh.connect(addr1).emergencyWithdraw()
+        ).to.be.revertedWithCustomError(pharaoh, "OwnableUnauthorizedAccount");
+      });
+    });
+
+    describe("View Functions", function () {
+      it("Should return empty arrays when no beneficiaries", async function () {
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(addresses.length).to.equal(0);
+        expect(shares.length).to.equal(0);
+      });
+
+      it("Should return correct beneficiary count", async function () {
+        expect(await pharaoh.getBeneficiaryCount()).to.equal(0);
+
+        await pharaoh.addBeneficiary(addr1.address, 3000);
+        expect(await pharaoh.getBeneficiaryCount()).to.equal(1);
+
+        await pharaoh.addBeneficiary(addr2.address, 2000);
+        expect(await pharaoh.getBeneficiaryCount()).to.equal(2);
+
+        await pharaoh.removeBeneficiary(addr1.address);
+        expect(await pharaoh.getBeneficiaryCount()).to.equal(2); // Still counts inactive
+      });
+
+      it("Should only return active beneficiaries", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 3000);
+        await pharaoh.addBeneficiary(addr2.address, 2000);
+        await pharaoh.addBeneficiary(addr3.address, 1000);
+        await pharaoh.removeBeneficiary(addr2.address);
+
+        const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+        expect(addresses.length).to.equal(2);
+        expect(addresses).to.include(addr1.address);
+        expect(addresses).to.include(addr3.address);
+        expect(addresses).to.not.include(addr2.address);
+      });
+    });
+
+    describe("Integration: Revenue Splits with Multiple Scenarios", function () {
+      it("Should handle complex scenario: Sovereign Chais and multiple creators", async function () {
+        // Scenario: Sovereign Chais 50%, Creator1 20%, Creator2 15%, Marketing 10%, Treasury 5%
+        const sovereignChais = owner;
+        const creator1 = addr1;
+        const creator2 = addr2;
+        const [,,,, marketing, treasury] = await ethers.getSigners();
+
+        await pharaoh.addBeneficiary(sovereignChais.address, 5000);
+        await pharaoh.addBeneficiary(creator1.address, 2000);
+        await pharaoh.addBeneficiary(creator2.address, 1500);
+        await pharaoh.addBeneficiary(marketing.address, 1000);
+        await pharaoh.addBeneficiary(treasury.address, 500);
+
+        // Generate revenue
+        await pharaoh.setMintPhases(false, true);
+        await pharaoh.connect(creator1).publicMint(5, { value: mintPrice * 5n });
+
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const creator1BalanceBefore = await ethers.provider.getBalance(creator1.address);
+
+        await pharaoh.withdraw();
+
+        const creator1BalanceAfter = await ethers.provider.getBalance(creator1.address);
+        const creator1Share = creator1BalanceAfter - creator1BalanceBefore;
+
+        expect(creator1Share).to.equal(contractBalance * 2000n / 10000n);
+      });
+
+      it("Should allow dynamic adjustment of splits over time", async function () {
+        await pharaoh.addBeneficiary(addr1.address, 5000);
+        await pharaoh.addBeneficiary(addr2.address, 3000);
+
+        // Generate revenue
+        await pharaoh.setMintPhases(false, true);
+        await pharaoh.connect(addr3).publicMint(2, { value: mintPrice * 2n });
+
+        // First distribution
+        await pharaoh.withdraw();
+
+        // Adjust splits
+        await pharaoh.updateBeneficiaryShare(addr1.address, 4000);
+        await pharaoh.updateBeneficiaryShare(addr2.address, 4000);
+
+        // Generate more revenue
+        await pharaoh.connect(addr3).publicMint(2, { value: mintPrice * 2n });
+
+        // Second distribution with new splits
+        const contractBalance = await ethers.provider.getBalance(pharaoh.target);
+        const addr1BalanceBefore = await ethers.provider.getBalance(addr1.address);
+
+        await pharaoh.withdraw();
+
+        const addr1BalanceAfter = await ethers.provider.getBalance(addr1.address);
+        expect(addr1BalanceAfter - addr1BalanceBefore).to.equal(contractBalance * 4000n / 10000n);
+      });
+    });
+  });
 });
