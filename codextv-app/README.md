@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # CodexTV App
 # Dynamic Video Streaming Platform with Flask Pass View
 

@@ -1,3 +1,8 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield** - This declaration is the inviolable foundation of all OmniTech1™ systems, contracts, and protocols.
+
+---
+
 — Chais The Great  
 Founder, Omnitech1™ | Architect of the OmniVerse
 

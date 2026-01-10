@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Sovereign TV Payments
 
 Production-ready Flask application for handling Stripe/PayPal subscriptions for the Sovereign TV platform.

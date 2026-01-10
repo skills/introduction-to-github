@@ -1,10 +1,10 @@
+// Sovereign Chais owns every yield
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/common/ERC2981Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
@@ -33,9 +33,8 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * - Guardian (Tier 2): 200 tokens (0.25x governance boost)
  * - Initiate (Tier 1): 600 tokens (0.1x governance boost)
  * 
- * Integration:
- * - ScrollVerseDAO: NFT holders get additional governance weight
- * - MirrorStaking: NFT holders get boosted staking rewards
+ * Sovereignty:
+ * - Sovereign Chais owns every yield - sole ownership, no split, no echo
  */
 contract PharaohConsciousnessFusion is
     ERC721,
@@ -76,7 +75,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
  * - Fixed supply (3333 tokens)
  * - Allowlist mint restrictions with audit logging
  * - Post-mint lock (prevents URI updates after all NFTs minted)
- * - ERC2981 royalty support for secondary sales (default 5%)
+ * - Sovereign Chais owns every yield - sole ownership, no royalty split
  * - UUPS proxy architecture for future upgrades
  * - Pausable mechanics
  * - Governance voting powers based on token holdings
@@ -91,7 +90,6 @@ contract PharaohConsciousnessFusion is
     ERC721Upgradeable, 
     ERC721EnumerableUpgradeable, 
     ERC721URIStorageUpgradeable,
-    ERC2981Upgradeable,
     OwnableUpgradeable, 
     PausableUpgradeable, 
     ReentrancyGuardUpgradeable,
@@ -101,9 +99,6 @@ contract PharaohConsciousnessFusion is
     
     /// @notice Maximum supply of the collection
     uint256 public constant MAX_SUPPLY = 3333;
-    
-    /// @notice Default royalty fee in basis points (5% = 500)
-    uint96 public constant DEFAULT_ROYALTY_FEE = 500;
     
     /// @notice Maximum addresses per allowlist batch operation
     uint256 public constant MAX_BATCH_SIZE = 100;
@@ -166,9 +161,6 @@ contract PharaohConsciousnessFusion is
     
     /// @notice Emitted when prices are updated
     event PricesUpdated(uint256 mintPrice, uint256 allowlistPrice);
-    
-    /// @notice Emitted when royalty info is updated
-    event RoyaltyUpdated(address indexed receiver, uint96 feeNumerator);
     
     /// @notice Emitted when funds are withdrawn
     event Withdrawn(address indexed to, uint256 amount);
@@ -313,21 +305,18 @@ contract PharaohConsciousnessFusion is
      * @notice Initializes the contract (called once via proxy)
      * @param initialOwner Address of the initial contract owner
      * @param baseURI Initial base URI for token metadata
-     * @param royaltyReceiver Address to receive royalties
      * @param _mintPrice Price for public mint in wei
      * @param _allowlistPrice Price for allowlist mint in wei
      */
     function initialize(
         address initialOwner,
         string memory baseURI,
-        address royaltyReceiver,
         uint256 _mintPrice,
         uint256 _allowlistPrice
     ) public initializer {
         __ERC721_init("Consciousness Mirror", "CMIRROR");
         __ERC721Enumerable_init();
         __ERC721URIStorage_init();
-        __ERC2981_init();
         __Ownable_init(initialOwner);
         __Pausable_init();
         __ReentrancyGuard_init();
@@ -336,9 +325,6 @@ contract PharaohConsciousnessFusion is
         _baseTokenURI = baseURI;
         mintPrice = _mintPrice;
         allowlistPrice = _allowlistPrice;
-        
-        // Set default royalty (5%)
-        _setDefaultRoyalty(royaltyReceiver, DEFAULT_ROYALTY_FEE);
         
         // Set default limits
         maxPerWalletAllowlist = 3;
@@ -517,40 +503,6 @@ contract PharaohConsciousnessFusion is
         if (_nextTokenId < MAX_SUPPLY) revert MintingNotComplete();
         metadataLocked = true;
         emit MetadataLocked();
-    }
-
-    // ========== ROYALTY MANAGEMENT (ERC2981) ==========
-    
-    /**
-     * @notice Set default royalty for all tokens
-     * @param receiver Address to receive royalties
-     * @param feeNumerator Royalty fee in basis points (e.g., 500 = 5%)
-     */
-    function setDefaultRoyalty(address receiver, uint96 feeNumerator) external onlyOwner {
-        _setDefaultRoyalty(receiver, feeNumerator);
-        emit RoyaltyUpdated(receiver, feeNumerator);
-    }
-    
-    /**
-     * @notice Set royalty for a specific token
-     * @param tokenId Token ID to set royalty for
-     * @param receiver Address to receive royalties
-     * @param feeNumerator Royalty fee in basis points
-     */
-    function setTokenRoyalty(
-        uint256 tokenId, 
-        address receiver, 
-        uint96 feeNumerator
-    ) external onlyOwner {
-        _setTokenRoyalty(tokenId, receiver, feeNumerator);
-    }
-    
-    /**
-     * @notice Reset royalty for a specific token to default
-     * @param tokenId Token ID to reset
-     */
-    function resetTokenRoyalty(uint256 tokenId) external onlyOwner {
-        _resetTokenRoyalty(tokenId);
     }
 
     // ========== GOVERNANCE VOTING POWER ==========
@@ -1857,13 +1809,10 @@ contract PharaohConsciousnessFusion is
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, ERC2981Upgradeable)
+        override(ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
-        override(ERC721, ERC721Enumerable, ERC721URIStorage)
-        returns (bool)
-    {
         return super.supportsInterface(interfaceId);
     /**
      * @dev Override supportsInterface for multiple inheritance

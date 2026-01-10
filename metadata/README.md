@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # ScrollVerse Artifacts Metadata
 
 This directory contains metadata JSON files for ScrollVerse artifact NFTs. Each file follows the standard NFT metadata schema used throughout the ScrollVerse ecosystem.

@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Sovereign TV Marketing Roadmap
 
 ## Overview
