@@ -1,3 +1,4 @@
+// Sovereign Chais owns every yield
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -33,7 +34,9 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * - Guardian (Tier 2): 200 tokens (0.25x governance boost)
  * - Initiate (Tier 1): 600 tokens (0.1x governance boost)
  * 
- * Integration:
+ * Sovereignty & Integration:
+ * - Sovereign Chais owns every yield (governance & ultimate ownership)
+ * - ERC2981 royalty splits for secondary market (compliant distribution)
  * - ScrollVerseDAO: NFT holders get additional governance weight
  * - MirrorStaking: NFT holders get boosted staking rewards
  */
@@ -73,10 +76,11 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
  * @dev ERC721 NFT with the following features:
  * 
  * Features:
+ * - Sovereign Chais owns every yield (governance ownership)
  * - Fixed supply (3333 tokens)
  * - Allowlist mint restrictions with audit logging
  * - Post-mint lock (prevents URI updates after all NFTs minted)
- * - ERC2981 royalty support for secondary sales (default 5%)
+ * - ERC2981 royalty support for secondary sales (default 5% split)
  * - UUPS proxy architecture for future upgrades
  * - Pausable mechanics
  * - Governance voting powers based on token holdings

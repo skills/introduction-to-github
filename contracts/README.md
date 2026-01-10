@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # ScrollVerse Smart Contracts
 
 Smart contracts powering the ScrollVerse ecosystem, including data anchoring, governance tokens, and NFT fusion mechanisms.

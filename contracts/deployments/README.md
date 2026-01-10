@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Deployment Records
 
 This directory contains deployment records for ScrollVerse smart contracts.

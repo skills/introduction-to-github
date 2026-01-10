@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # 🦸 SUPERHERO SOVEREIGN FRAMEWORK
 ## The Future of Blockchain-Powered Entertainment
 

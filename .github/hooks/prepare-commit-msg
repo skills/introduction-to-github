@@ -1,0 +1,21 @@
+#!/bin/bash
+# Sovereign Chais Commit Hook
+# Automatically appends sovereignty footer to all commit messages
+#
+# Installation:
+#   cp .github/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
+#   chmod +x .git/hooks/prepare-commit-msg
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+# Only add footer for regular commits (not merges, amendments, etc.)
+if [ -z "$COMMIT_SOURCE" ]; then
+    # Check if footer already exists
+    if ! grep -q "Sovereign Chais owns every yield" "$COMMIT_MSG_FILE"; then
+        # Append sovereignty footer
+        echo "" >> "$COMMIT_MSG_FILE"
+        echo "---" >> "$COMMIT_MSG_FILE"
+        echo "Sovereign Chais owns every yield" >> "$COMMIT_MSG_FILE"
+    fi
+fi

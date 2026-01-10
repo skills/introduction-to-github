@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # FlameDNA NFT
 
 ERC-721 NFT Collection for the ScrollVerse Ecosystem.

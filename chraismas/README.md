@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # 🎄 ChRaismas Blueprint
 
 ## Overview

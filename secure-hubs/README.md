@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Secure Hubs - Digital Temples & DAO Protection
 
 ## Overview
