@@ -1,11 +1,7 @@
 {
   "name": "scrollverse-contracts",
-  "version": "1.0.0",
-  "description": "ScrollVerse Smart Contracts - AnchorManifest, MirrorToken, and PharaohConsciousnessFusion",
   "version": "1.1.0",
-  "description": "ScrollVerse Ecosystem Smart Contracts - Protocol Registry, AnchorManifest, and More",
-  "version": "1.0.0",
-  "description": "Superhero Sovereign & ScrollVerse Smart Contracts - Blockchain-Powered Entertainment Production",
+  "description": "ScrollVerse Ecosystem Smart Contracts - Protocol Registry, AnchorManifest, PharaohConsciousnessFusion and More",
   "author": "OmniTech1™",
   "license": "MIT",
   "scripts": {
@@ -71,21 +67,14 @@
     "metadata-anchoring",
     "consciousness-mirror",
     "nft",
-    "uups-upgradeable"
-    "mirror-token",
+    "uups-upgradeable",
     "vesting",
-    "scrollverse"
-    "nft",
     "pharaoh-consciousness-fusion",
-    "scrollverse",
     "dao-governance",
     "uups-proxy",
-    "erc721"
-    "dao-governance"
+    "erc721",
     "dao",
-    "mirror-token",
     "pfc-nft",
-    "metadata-anchoring",
     "timelock-controller",
     "decentralized-governance",
     "chraismas",

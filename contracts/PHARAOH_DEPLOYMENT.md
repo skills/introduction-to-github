@@ -7,6 +7,8 @@ The `PharaohConsciousnessFusion` contract is an ERC-721 NFT collection for the "
 - **Fixed Supply**: 3,333 unique NFTs
 - **UUPS Proxy Architecture**: Upgradeable contract for future improvements
 - **ERC2981 Royalties**: 5% default royalty on secondary sales
+- **Revenue Split Distribution**: Parameterized revenue sharing among multiple stakeholders
+- **Sovereign Ownership**: Sovereign Chais retains full governance control
 - **Post-Mint Lock**: Metadata immutability after minting completes
 - **Allowlist with Audit Events**: Full audit trail for allowlist management
 - **Governance Voting Power**: Token-based voting power calculation
@@ -69,7 +71,104 @@ await pharaoh.removeFromAllowlist([addr1]);
 const isAllowed = await pharaoh.isOnAllowlist(address);
 ```
 
-### 4. UUPS Proxy Architecture
+### 4. Revenue Split Distribution
+
+The contract implements a sophisticated revenue split system that allows Sovereign Chais to distribute contract revenue among multiple stakeholders:
+
+**Key Features:**
+- Multiple beneficiaries with configurable shares
+- Shares defined in basis points (10000 = 100%)
+- Owner can add, update, or remove beneficiaries at any time
+- Full audit trail with events for all changes
+- Automatic distribution on withdrawal
+- Emergency withdrawal option that bypasses splits
+
+**Managing Beneficiaries:**
+```solidity
+// Add a beneficiary with 10% share (1000 basis points)
+await pharaoh.addBeneficiary(creatorAddress, 1000);
+
+// Update a beneficiary's share to 15%
+await pharaoh.updateBeneficiaryShare(creatorAddress, 1500);
+
+// Remove a beneficiary (deactivates without deleting)
+await pharaoh.removeBeneficiary(creatorAddress);
+
+// Get all active beneficiaries
+const [addresses, shares] = await pharaoh.getActiveBeneficiaries();
+```
+
+**Example Revenue Split Configuration:**
+```solidity
+// Sovereign Chais: 50% (5000 basis points)
+await pharaoh.addBeneficiary(sovereignChaisAddress, 5000);
+
+// Creator 1: 20% (2000 basis points)
+await pharaoh.addBeneficiary(creator1Address, 2000);
+
+// Creator 2: 15% (1500 basis points)
+await pharaoh.addBeneficiary(creator2Address, 1500);
+
+// Marketing Fund: 10% (1000 basis points)
+await pharaoh.addBeneficiary(marketingAddress, 1000);
+
+// Community Treasury: 5% (500 basis points)
+await pharaoh.addBeneficiary(treasuryAddress, 500);
+
+// Total: 100% allocated
+```
+
+**Withdrawing Funds:**
+```solidity
+// Withdraw with automatic split distribution
+await pharaoh.withdraw();
+// This distributes funds to all active beneficiaries according to their shares
+// Any unallocated percentage goes to the owner
+
+// Emergency withdrawal (bypasses splits, sends all to owner)
+await pharaoh.emergencyWithdraw();
+```
+
+**Events Emitted:**
+```solidity
+event BeneficiaryAdded(address indexed beneficiary, uint256 share, address indexed addedBy, uint256 timestamp);
+event BeneficiaryUpdated(address indexed beneficiary, uint256 oldShare, uint256 newShare, address indexed updatedBy, uint256 timestamp);
+event BeneficiaryRemoved(address indexed beneficiary, address indexed removedBy, uint256 timestamp);
+event RevenueDistributed(address indexed beneficiary, uint256 amount, uint256 timestamp);
+```
+
+**Constraints:**
+- Total allocated shares cannot exceed 10000 (100%)
+- Each beneficiary share must be > 0 and <= 10000
+- Cannot add duplicate beneficiaries
+- Only active beneficiaries receive distributions
+- Only owner (Sovereign Chais) can manage beneficiaries
+
+### 5. Sovereign Ownership & Governance
+
+The contract maintains **Sovereign Chais** as the sole owner with complete governance control:
+
+**Owner Privileges:**
+- Add/remove/update revenue split beneficiaries
+- Adjust individual beneficiary shares dynamically
+- Set and update ERC2981 royalty information
+- Manage allowlist (add/remove addresses)
+- Control mint phases (allowlist/public)
+- Update mint prices
+- Set wallet limits
+- Pause/unpause contract
+- Lock metadata permanently
+- Authorize contract upgrades (UUPS)
+- Emergency withdrawal of funds
+
+**Governance Principles:**
+1. **Sovereign Control**: Owner retains ultimate authority over all contract functions
+2. **Parameterized Flexibility**: Revenue splits can be adjusted as needed without redeployment
+3. **Audit Trail**: All governance actions emit events for transparency
+4. **Security**: Critical functions protected by onlyOwner modifier
+5. **Upgradeability**: UUPS pattern allows future enhancements while preserving sovereignty
+
+### 6. UUPS Proxy Architecture
 
 The contract uses OpenZeppelin's UUPS (Universal Upgradeable Proxy Standard) pattern:
 - State is preserved across upgrades
