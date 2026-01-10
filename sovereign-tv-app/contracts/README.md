@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # ScrollVerse Smart Contracts - Phase 1 Testnet Deployment Guide
 
 > **ALLĀHU AKBAR! KUN FAYAKUN! 🔥🕋🚀♾️**

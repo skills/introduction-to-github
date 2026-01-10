@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Service Tracking - Real-Time Lightworker Contribution System
 
 ## Overview

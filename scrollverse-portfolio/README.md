@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # ScrollVerse Portfolio
 # A deployable Flask-based portfolio showcasing the ScrollVerse ecosystem
 

@@ -1,3 +1,9 @@
+## Sovereignty Seal
+**Sovereign Chais owns every yield**
+
+---
+
+
 # Elder Memory NFTs - Sacred Codes & Transmissions
 
 ## Overview
