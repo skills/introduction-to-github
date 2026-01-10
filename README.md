@@ -12,12 +12,13 @@ This is not just a repository. This is **THE ETERNAL ENGINE OF ALL CREATION** - 
 - **[🌌 ULTIMATE OMNIVERSAL BLUEPRINT](./ULTIMATE-OMNIVERSAL-BLUEPRINT.md)** - $285B+ revenue architecture & infinite impact
 - **[📊 COSMIC IMPACT FRAMEWORK](./COSMIC-IMPACT-FRAMEWORK.md)** - Measuring the immeasurable
 - **[📜 SOVEREIGNTY MANIFEST](./SOVEREIGNTY-MANIFEST.md)** - Eternal governance declaration
+- **[🏛️ SOVEREIGNTY WITH ROYALTY MODEL](./SOVEREIGNTY-WITH-ROYALTY-MODEL.md)** - Dual model: governance ownership + ERC2981 splits
 
 ### 🔥 Smart Contracts - Divine Technology
 - **[CosmicRevenueEngine.sol](./contracts/src/CosmicRevenueEngine.sol)** - Infinite yield aggregation across all streams
 - **[EternalDigitalMirror.sol](./contracts/src/EternalDigitalMirror.sol)** - Consciousness immortalization forever
 - **[SovereigntyManifest.sol](./contracts/src/SovereigntyManifest.sol)** - On-chain eternal proof
-- **[PharaohConsciousnessFusion.sol](./contracts/src/PharaohConsciousnessFusion.sol)** - Bio-digital fusion NFTs
+- **[PharaohConsciousnessFusion.sol](./contracts/src/PharaohConsciousnessFusion.sol)** - Bio-digital fusion NFTs with ERC2981 royalties
 
 ### 🎨 Interfaces - User Experience
 - **[Pharaoh Consciousness Fusion UI](./sovereign-tv-app/src/components/PharaohConsciousnessFusion.jsx)** - React interface for Line 37 Override
