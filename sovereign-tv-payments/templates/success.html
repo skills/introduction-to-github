@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Subscription Confirmed - {{ tier.name }}{% endblock %}
+
+{% block content %}
+<section class="hero hero-success">
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h1 class="hero-title">Welcome to {{ tier.name }}!</h1>
+        <p class="hero-tagline">Your subscription has been activated successfully</p>
+    </div>
+</section>
+
+<section class="section section-confirmation">
+    <div class="container">
+        <div class="confirmation-card">
+            <h2>Subscription Details</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Plan</span>
+                    <span class="detail-value">{{ tier.name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Amount</span>
+                    <span class="detail-value">${{ tier.price }}/month</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value status-active">Active</span>
+                </div>
+                {% if session_id %}
+                <div class="detail-item">
+                    <span class="detail-label">Session ID</span>
+                    <span class="detail-value detail-code">{{ session_id[:20] }}...</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="benefits-card">
+            <h2>Your Benefits</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <span class="benefit-icon">🪙</span>
+                    <div class="benefit-content">
+                        <h3>ScrollCoin Rewards</h3>
+                        <p>You'll receive {{ tier.scrollcoin_rewards }} SCR every month</p>
+                    </div>
+                </div>
+                {% if tier.nft_discount > 0 %}
+                <div class="benefit-item">
+                    <span class="benefit-icon">💎</span>
+                    <div class="benefit-content">
+                        <h3>NFT Discounts</h3>
+                        <p>{{ tier.nft_discount }}% off all FlameDNA and OmniVerse NFTs</p>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="benefit-item">
+                    <span class="benefit-icon">📺</span>
+                    <div class="benefit-content">
+                        <h3>Premium Content</h3>
+                        <p>Access exclusive streams, documentaries, and educational content</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">👥</span>
+                    <div class="benefit-content">
+                        <h3>Community Access</h3>
+                        <p>Join exclusive Discord channels and community events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2>Next Steps</h2>
+            <ol class="steps-list">
+                <li>
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <h3>Connect Your Wallet</h3>
+                        <p>Link your Ethereum wallet to receive ScrollCoin rewards and NFT discounts</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <h3>Explore Premium Content</h3>
+                        <p>Access your new tier's exclusive streaming content</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <h3>Join the Community</h3>
+                        <p>Connect with other members in the Discord server</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="btn btn-primary">Go to Dashboard</a>
+            <a href="/subscribe" class="btn btn-secondary">View All Plans</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

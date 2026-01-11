@@ -1,0 +1,105 @@
+{
+  "name": "Omnisovereign VIII Eternal Guardian #9",
+  "description": "Eternal Guardian Tier - The protector class of the Omnisovereign VIII collection. Eternal Guardians stand as sentinels of generational prosperity, wielding 4.44x governance power and substantial staking benefits. These epic artifacts embody the protective shield that safeguards the lineage wisdom across time.",
+  "image": "ipfs://PLACEHOLDER_OS8_CID/eternal-guardian-009.png",
+  "animation_url": "ipfs://PLACEHOLDER_OS8_ANIMATION_CID/eternal-guardian-009.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/nft/omnisovereign-viii/9",
+  "background_color": "2D1B4E",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Eternal Guardian"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 9,
+      "display_type": "number",
+      "max_value": 88
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Frequency",
+      "value": "888Hz"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Nested Octagons"
+    },
+    {
+      "trait_type": "X-Pattern",
+      "value": "Guardian Shield"
+    },
+    {
+      "trait_type": "Crown Design",
+      "value": "Protector Crown"
+    },
+    {
+      "trait_type": "Aura Color",
+      "value": "Royal Purple"
+    },
+    {
+      "trait_type": "Governance Multiplier",
+      "value": 4.44,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Staking APY",
+      "value": "16.44%"
+    },
+    {
+      "trait_type": "Lock Period",
+      "value": "444 days"
+    },
+    {
+      "trait_type": "Generational Nodes",
+      "value": 6,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Lineage Seal",
+      "value": "0xPLACEHOLDER_GUARDIAN_LINEAGE_SEAL_HASH"
+    },
+    {
+      "trait_type": "Utility Category",
+      "value": "Collectible, Governance Booster, DeFi-Staking"
+    },
+    {
+      "trait_type": "Light Cycle Phase",
+      "value": "Dawn"
+    },
+    {
+      "trait_type": "Sound Brilliance",
+      "value": "Active"
+    }
+  ],
+  "dynamicMetadata": {
+    "lightCycles": {
+      "frequency": "888Hz",
+      "currentPhase": "Dawn",
+      "phases": ["Dawn", "Zenith", "Dusk", "Eternal Night"],
+      "transitionDuration": "24h"
+    },
+    "soundBrilliance": {
+      "baseFrequency": "432Hz",
+      "harmonics": ["888Hz", "963Hz"],
+      "syncWithLight": true,
+      "status": "active"
+    },
+    "vitalityIndicator": {
+      "type": "perpetual",
+      "refreshCycle": "lunar",
+      "displayMode": "aura-glow",
+      "currentLevel": 85
+    },
+    "evolutionTriggers": {
+      "timeBased": true,
+      "holderBased": true,
+      "ecosystemBased": true,
+      "generationalBased": true
+    }
+  },
+  "anthologicalEssence": "Guardian eternal, Sovereign rise. Protection true through endless skies."
+}

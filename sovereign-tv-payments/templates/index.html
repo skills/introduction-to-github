@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Sovereign TV - Subscription Plans{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1 class="hero-title">
+            <span class="hero-icon">💎</span>
+            Join the OmniVerse
+        </h1>
+        <p class="hero-tagline">Unlock exclusive content, earn ScrollCoin rewards, and access FlameDNA NFTs</p>
+    </div>
+</section>
+
+<section class="section section-tiers">
+    <div class="container">
+        <h2 class="section-title">Choose Your Path</h2>
+        <div class="tiers-grid">
+            {% for tier_id, tier in tiers.items() %}
+            <div class="tier-card {% if tier_id == 'genesis' %}tier-featured{% endif %}">
+                {% if tier_id == 'genesis' %}
+                <span class="featured-badge">Most Popular</span>
+                {% endif %}
+                <div class="tier-header">
+                    <h3 class="tier-name">{{ tier.name }}</h3>
+                    <div class="tier-price">
+                        {% if tier.price == 0 %}
+                        <span class="price-amount">Free</span>
+                        {% else %}
+                        <span class="price-currency">$</span>
+                        <span class="price-amount">{{ tier.price }}</span>
+                        <span class="price-period">/month</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <ul class="tier-features">
+                    {% for feature in tier.features %}
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        {{ feature }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="tier-rewards">
+                    {% if tier.scrollcoin_rewards > 0 %}
+                    <span class="reward-badge">🪙 {{ tier.scrollcoin_rewards }} SCR/month</span>
+                    {% endif %}
+                    {% if tier.nft_discount > 0 %}
+                    <span class="reward-badge">💎 {{ tier.nft_discount }}% NFT discount</span>
+                    {% endif %}
+                </div>
+                <div class="tier-action">
+                    {% if tier.price == 0 %}
+                    <a href="/subscribe?tier=free" class="btn btn-secondary">Get Started Free</a>
+                    {% else %}
+                    <a href="/subscribe?tier={{ tier_id }}" class="btn btn-primary">Subscribe Now</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-faq">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>What payment methods are accepted?</h3>
+                <p>We accept credit/debit cards via Stripe, PayPal, and ScrollCoin (SCR) for premium tiers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I upgrade my subscription?</h3>
+                <p>Yes! You can upgrade at any time. The difference will be prorated for the current billing period.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What are ScrollCoin rewards?</h3>
+                <p>ScrollCoin (SCR) is the native currency of the ScrollVerse ecosystem. Earn rewards monthly based on your tier.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do NFT discounts work?</h3>
+                <p>Subscribers receive exclusive discounts on FlameDNA and other OmniVerse NFT collections.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

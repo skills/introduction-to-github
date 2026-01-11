@@ -1,0 +1,108 @@
+{
+  "network": {
+    "name": "sepolia",
+    "chainId": 11155111,
+    "rpcUrl": "https://rpc.sepolia.org",
+    "explorer": "https://sepolia.etherscan.io"
+  },
+  "deployment": {
+    "gasLimit": 8000000,
+    "gasPrice": "auto",
+    "confirmations": 2,
+    "deploymentDelay": 5000
+  },
+  "alliance": {
+    "initialAdmin": "DEPLOYER_ADDRESS",
+    "governanceToken": {
+      "name": "Alliance Governance Token",
+      "symbol": "AGT",
+      "initialSupply": "1000000000000000000000000",
+      "votingDelay": 1,
+      "votingPeriod": 50400,
+      "proposalThreshold": 0
+    },
+    "registry": {
+      "roles": {
+        "allianceCreator": ["DEPLOYER_ADDRESS"],
+        "partnerVerifier": ["DEPLOYER_ADDRESS"],
+        "assetManager": ["DEPLOYER_ADDRESS"]
+      }
+    },
+    "assetBridge": {
+      "supportedAssetTypes": [
+        "RealEstate",
+        "Commodity",
+        "Equity",
+        "IntellectualProperty",
+        "Infrastructure",
+        "Other"
+      ],
+      "valuationDecimals": 6,
+      "verificationRequired": true
+    },
+    "governance": {
+      "quorum": 4,
+      "proposalCategories": [
+        "General",
+        "PartnerAddition",
+        "AssetBridge",
+        "Treasury",
+        "Governance",
+        "Emergency"
+      ]
+    }
+  },
+  "integration": {
+    "ipfsGateway": "https://ipfs.io/ipfs/",
+    "apiEndpoint": "https://api.scrollverse.io/alliances",
+    "webhookUrl": "https://webhooks.scrollverse.io/alliance-events"
+  },
+  "verification": {
+    "etherscan": {
+      "enabled": true,
+      "apiKey": "ETHERSCAN_API_KEY"
+    },
+    "sourcify": {
+      "enabled": true
+    }
+  },
+  "monitoring": {
+    "enabled": true,
+    "alarmThresholds": {
+      "gasPrice": 100,
+      "failedTransactions": 3
+    }
+  },
+  "testnet": {
+    "faucets": [
+      "https://sepoliafaucet.com",
+      "https://www.alchemy.com/faucets/ethereum-sepolia"
+    ],
+    "testAddresses": {
+      "partner1": "0x1111111111111111111111111111111111111111",
+      "partner2": "0x2222222222222222222222222222222222222222",
+      "assetCustodian": "0x3333333333333333333333333333333333333333"
+    },
+    "testAssets": {
+      "realEstate": {
+        "identifier": "TEST-RE-001",
+        "valuation": 1000000000000
+      },
+      "commodity": {
+        "identifier": "TEST-COM-001",
+        "valuation": 500000000000
+      }
+    }
+  },
+  "security": {
+    "multisigRequired": false,
+    "timelockDelay": 0,
+    "upgradeDelay": 86400,
+    "pausable": true
+  },
+  "documentation": {
+    "baseUrl": "https://docs.scrollverse.io/alliances",
+    "apiDocs": "https://api-docs.scrollverse.io/alliances",
+    "tutorialUrl": "https://learn.scrollverse.io/alliances/getting-started"
+  }
+}

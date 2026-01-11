@@ -1,0 +1,624 @@
+{% extends "base.html" %}
+
+{% block title %}Mint FlameDNA NFT - ScrollVerse Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h1 class="page-title">
+        <span class="page-icon">🔥</span>
+        FlameDNA NFT Minting
+    </h1>
+    <p class="page-subtitle">Mint Your Sacred NFT from the ScrollVerse</p>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Minting Card -->
+        <div class="mint-card">
+            <div class="mint-header">
+                <span class="mint-icon">💎</span>
+                <h2>{{ flamedna.name }}</h2>
+                <span class="mint-symbol">{{ flamedna.contract.symbol }}</span>
+            </div>
+            
+            <p class="mint-description">{{ flamedna.description }}</p>
+            
+            <div class="mint-details">
+                <div class="mint-info-grid">
+                    <div class="mint-info-item">
+                        <span class="info-label">Contract</span>
+                        <span class="info-value">{{ flamedna.contract.name }}</span>
+                    </div>
+                    <div class="mint-info-item">
+                        <span class="info-label">Max Supply</span>
+                        <span class="info-value">{{ flamedna.contract.maxSupply }}</span>
+                    </div>
+                    <div class="mint-info-item">
+                        <span class="info-label">Mint Price</span>
+                        <span class="info-value mint-price">{{ flamedna.contract.mintPrice }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mint Controls -->
+            <div class="mint-controls">
+                <div class="quantity-selector">
+                    <button class="qty-btn" id="decreaseQty">-</button>
+                    <span class="quantity" id="mintQuantity">1</span>
+                    <button class="qty-btn" id="increaseQty">+</button>
+                </div>
+                
+                <div class="total-price">
+                    Total: <span id="totalPrice">0.05 ETH</span>
+                </div>
+
+                <button class="mint-button" id="mintButton">
+                    <span class="btn-icon">🔥</span>
+                    Connect Wallet & Mint
+                </button>
+                
+                <p class="mint-note">
+                    Requires MetaMask or compatible Web3 wallet
+                </p>
+            </div>
+        </div>
+
+        <!-- Rarity Distribution -->
+        <div class="rarity-section">
+            <h2 class="section-title">
+                <span class="section-icon">🎲</span>
+                Rarity Distribution
+            </h2>
+            <div class="rarities-grid">
+                {% for rarity, info in flamedna.rarities.items() %}
+                <div class="rarity-card rarity-{{ rarity|lower }}">
+                    <div class="rarity-header">
+                        <span class="rarity-gem">💠</span>
+                        <h3>{{ rarity }}</h3>
+                    </div>
+                    <div class="rarity-probability">{{ info.probability }}</div>
+                    <div class="rarity-benefits">{{ info.benefits }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <h2 class="section-title">
+                <span class="section-icon">⚡</span>
+                NFT Features
+            </h2>
+            <div class="features-grid">
+                {% for feature in flamedna.features %}
+                <div class="feature-card">
+                    <span class="feature-bullet">◆</span>
+                    <span>{{ feature }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .mint-card {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 2px solid #ffd700;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .mint-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .mint-icon {
+        font-size: 2.5rem;
+    }
+
+    .mint-symbol {
+        background: #ffd700;
+        color: #1a1a2e;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.875rem;
+    }
+
+    .mint-description {
+        color: #b0b0b0;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mint-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .mint-info-item {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .info-label {
+        display: block;
+        color: #888;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+        display: block;
+        color: #fff;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .mint-price {
+        color: #ffd700 !important;
+    }
+
+    .mint-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+    }
+
+    .qty-btn {
+        background: #ffd700;
+        color: #1a1a2e;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .qty-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .quantity {
+        font-size: 1.5rem;
+        font-weight: bold;
+        min-width: 40px;
+        text-align: center;
+    }
+
+    .total-price {
+        font-size: 1.25rem;
+        color: #ffd700;
+    }
+
+    .mint-button {
+        background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+        color: #1a1a2e;
+        border: none;
+        padding: 1rem 3rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mint-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    }
+
+    .mint-note {
+        color: #888;
+        font-size: 0.875rem;
+    }
+
+    .rarity-section, .features-section {
+        margin-top: 3rem;
+    }
+
+    .rarities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .rarity-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .rarity-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .rarity-common { border: 2px solid #808080; }
+    .rarity-rare { border: 2px solid #0080ff; }
+    .rarity-epic { border: 2px solid #9932cc; }
+    .rarity-legendary { border: 2px solid #ffd700; }
+    .rarity-divine { border: 2px solid #ff0080; box-shadow: 0 0 20px rgba(255, 0, 128, 0.3); }
+
+    .rarity-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .rarity-gem {
+        font-size: 1.5rem;
+    }
+
+    .rarity-probability {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffd700;
+    }
+
+    .rarity-benefits {
+        color: #888;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .feature-card {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .feature-bullet {
+        color: #ffd700;
+    }
+
+    .mint-status {
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mint-status-info {
+        background: rgba(0, 123, 255, 0.2);
+        border: 1px solid #007bff;
+        color: #6bb3ff;
+    }
+
+    .mint-status-success {
+        background: rgba(40, 167, 69, 0.2);
+        border: 1px solid #28a745;
+        color: #5dd879;
+    }
+
+    .mint-status-error {
+        background: rgba(220, 53, 69, 0.2);
+        border: 1px solid #dc3545;
+        color: #ff6b7a;
+    }
+
+    .network-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        font-size: 0.875rem;
+    }
+
+    .network-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff4444;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .mint-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    @media (max-width: 768px) {
+        .mint-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    // FlameDNA Minting Interface
+    const CONFIG = {
+        mintPrice: 0.05,
+        whitelistPrice: 0.04,
+        maxQuantity: 10,
+        contractAddress: null, // Set after deployment
+        chainId: {
+            mainnet: '0x1',
+            sepolia: '0xaa36a7'
+        }
+    };
+
+    let quantity = 1;
+    let isWhitelisted = false;
+    let walletConnected = false;
+    let currentAccount = null;
+
+    // DOM Elements
+    const mintButton = document.getElementById('mintButton');
+    const quantityDisplay = document.getElementById('mintQuantity');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+    const increaseBtn = document.getElementById('increaseQty');
+    const decreaseBtn = document.getElementById('decreaseQty');
+
+    // Status indicator element
+    const statusDiv = document.createElement('div');
+    statusDiv.id = 'mintStatus';
+    statusDiv.className = 'mint-status';
+    if (mintButton && mintButton.parentNode) {
+        mintButton.parentNode.insertBefore(statusDiv, mintButton.nextSibling);
+    }
+
+    // Add network indicator
+    const networkDiv = document.createElement('div');
+    networkDiv.id = 'networkStatus';
+    networkDiv.className = 'network-status';
+    networkDiv.innerHTML = '<span class="network-dot"></span> <span id="networkName">Not Connected</span>';
+    const mintControls = document.querySelector('.mint-controls');
+    if (mintControls && mintButton) {
+        mintControls.insertBefore(networkDiv, mintButton);
+    }
+
+    // Centralized function to update mint button text
+    function updateMintButtonText() {
+        if (!mintButton) return;
+        
+        if (walletConnected && currentAccount) {
+            mintButton.innerHTML = `<span class="btn-icon">🔥</span> Mint ${quantity} NFT(s)`;
+        } else {
+            mintButton.innerHTML = '<span class="btn-icon">🔥</span> Connect Wallet & Mint';
+        }
+    }
+
+    // Quantity controls
+    if (increaseBtn) {
+        increaseBtn.addEventListener('click', () => {
+            if (quantity < CONFIG.maxQuantity) {
+                quantity++;
+                updateDisplay();
+            }
+        });
+    }
+
+    if (decreaseBtn) {
+        decreaseBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                updateDisplay();
+            }
+        });
+    }
+
+    function updateDisplay() {
+        const price = isWhitelisted ? CONFIG.whitelistPrice : CONFIG.mintPrice;
+        if (quantityDisplay) quantityDisplay.textContent = quantity;
+        if (totalPriceDisplay) totalPriceDisplay.textContent = (quantity * price).toFixed(2) + ' ETH';
+        updateMintButtonText();
+    }
+
+    function updateStatus(message, type = 'info') {
+        statusDiv.textContent = message;
+        statusDiv.className = `mint-status mint-status-${type}`;
+        statusDiv.style.display = message ? 'block' : 'none';
+    }
+
+    function updateNetworkStatus(connected, networkName = 'Not Connected') {
+        const dot = document.querySelector('.network-dot');
+        const name = document.getElementById('networkName');
+        
+        if (connected) {
+            dot.style.background = '#00ff00';
+            name.textContent = networkName;
+        } else {
+            dot.style.background = '#ff4444';
+            name.textContent = networkName;
+        }
+    }
+
+    async function checkNetwork() {
+        if (typeof window.ethereum === 'undefined') return false;
+        
+        try {
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            
+            if (chainId === CONFIG.chainId.mainnet) {
+                updateNetworkStatus(true, 'Ethereum Mainnet');
+                return true;
+            } else if (chainId === CONFIG.chainId.sepolia) {
+                updateNetworkStatus(true, 'Sepolia Testnet');
+                return true;
+            } else {
+                updateNetworkStatus(false, 'Wrong Network');
+                return false;
+            }
+        } catch (error) {
+            console.error('Network check failed:', error);
+            return false;
+        }
+    }
+
+    async function connectWallet() {
+        if (typeof window.ethereum === 'undefined') {
+            updateStatus('Please install MetaMask to mint NFTs!', 'error');
+            return false;
+        }
+
+        try {
+            updateStatus('Connecting wallet...', 'info');
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
+            if (accounts.length > 0) {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateMintButtonText();
+                
+                await checkNetwork();
+                updateStatus(`Connected: ${shortAddress}`, 'success');
+                
+                return true;
+            }
+        } catch (error) {
+            console.error('Wallet connection failed:', error);
+            updateStatus('Failed to connect wallet', 'error');
+            return false;
+        }
+        
+        return false;
+    }
+
+    async function mintNFT() {
+        if (!walletConnected) {
+            const connected = await connectWallet();
+            if (!connected) return;
+        }
+
+        const networkOk = await checkNetwork();
+        if (!networkOk) {
+            updateStatus('Please switch to Ethereum Mainnet or Sepolia', 'error');
+            return;
+        }
+
+        try {
+            updateStatus('Preparing transaction...', 'info');
+            
+            const price = isWhitelisted ? CONFIG.whitelistPrice : CONFIG.mintPrice;
+            const totalEth = price * quantity;
+            
+            // In production with ethers.js: ethers.parseEther(totalEth.toString())
+            // For simulation, calculate wei value
+            const valueInWei = Math.floor(totalEth * 1e18);
+
+            // In production, this would call the actual contract
+            // For now, simulate the transaction
+            updateStatus(`Minting ${quantity} FlameDNA NFT(s) for ${totalEth.toFixed(2)} ETH...`, 'info');
+            
+            // Simulate transaction delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            updateStatus(`🎉 Successfully minted ${quantity} FlameDNA NFT(s)!`, 'success');
+            
+            // In production:
+            // const tx = await contract.mint({ value: valueInWei });
+            // await tx.wait();
+            
+        } catch (error) {
+            console.error('Minting failed:', error);
+            if (error.code === 4001) {
+                updateStatus('Transaction cancelled by user', 'error');
+            } else {
+                updateStatus('Minting failed. Please try again.', 'error');
+            }
+        }
+    }
+
+    // Main mint button click handler
+    if (mintButton) {
+        mintButton.addEventListener('click', mintNFT);
+    }
+
+    // Listen for account changes
+    if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.on('accountsChanged', (accounts) => {
+            if (accounts.length === 0) {
+                walletConnected = false;
+                currentAccount = null;
+                updateMintButtonText();
+                updateStatus('Wallet disconnected', 'info');
+                updateNetworkStatus(false);
+            } else {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                updateMintButtonText();
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateStatus(`Switched to: ${shortAddress}`, 'success');
+            }
+        });
+
+        window.ethereum.on('chainChanged', () => {
+            checkNetwork();
+        });
+
+        // Check if already connected
+        window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
+            if (accounts.length > 0) {
+                currentAccount = accounts[0];
+                walletConnected = true;
+                updateMintButtonText();
+                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                updateStatus(`Connected: ${shortAddress}`, 'success');
+                checkNetwork();
+            }
+        });
+    }
+
+    // Initialize display
+    updateDisplay();
+</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+{
+  "name": "LIFT Aircraft HEXA - Personal Flying Vehicle (Unit 1)",
+  "description": "LIFT Aircraft's HEXA is the world's first fully electric vertical takeoff and landing (eVTOL) aircraft designed for recreational flight. This revolutionary aircraft requires no pilot's license and features autonomous safety systems, making personal flight accessible to everyone. LIFT Aircraft is pioneering the future of urban air mobility and personal aviation. Unit 1 of 2 in the paired NFT series.",
+  "image": "ipfs://PLACEHOLDER_CID/hexa-unit-1.png",
+  "animation_url": "ipfs://PLACEHOLDER_CID/hexa-animation.mp4",
+  "external_url": "https://sovereigntv.omniverse.io/innovations/lift-hexa",
+  "background_color": "1a2f4a",
+  "attributes": [
+    {
+      "trait_type": "Innovation ID",
+      "value": 1
+    },
+    {
+      "trait_type": "Innovation Name",
+      "value": "LIFT Aircraft HEXA"
+    },
+    {
+      "trait_type": "Innovation Type",
+      "value": "Electric Aviation/Personal Transport"
+    },
+    {
+      "trait_type": "Creator Name",
+      "value": "LIFT Aircraft Team"
+    },
+    {
+      "trait_type": "Use Case",
+      "value": "Personal recreational flight, Urban air mobility, Pilot training, Tourism experiences"
+    },
+    {
+      "trait_type": "Future Vision Impact",
+      "value": "Makes personal flight accessible without pilot license requirements, revolutionizing urban transportation and recreational aviation"
+    },
+    {
+      "trait_type": "Unit Number",
+      "value": 1,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Total Units",
+      "value": 2,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Staking Power",
+      "value": 100,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Royalty Enabled",
+      "value": "Yes"
+    },
+    {
+      "trait_type": "Lineage Tracking",
+      "value": "Active"
+    },
+    {
+      "trait_type": "Power Source",
+      "value": "Electric"
+    },
+    {
+      "trait_type": "Autonomous Features",
+      "value": "Yes"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/hexa-unit-1.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://PLACEHOLDER_CID/hexa-animation.mp4",
+        "type": "video/mp4"
+      }
+    ],
+    "category": "Innovation NFT",
+    "creators": [
+      {
+        "address": "0xPLACEHOLDER_CREATOR_ADDRESS",
+        "share": 100
+      }
+    ]
+  }
+}

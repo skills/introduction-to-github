@@ -1,0 +1,76 @@
+{
+  "name": "Sacred Geometry Keeper",
+  "description": "The Sacred Geometry Keeper embodies the mathematical perfection of the universe. This ChRaismas NFT provides holders with foundational voting rights and access to educational workshops on sacred patterns.",
+  "image": "ipfs://QmSacredGeometryKeeper/image.png",
+  "external_url": "https://scrollverse.com/chraismas/sacred-geometry-keeper",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Sacred Geometry Keeper"
+    },
+    {
+      "trait_type": "Sacred Geometry",
+      "value": "Sri Yantra"
+    },
+    {
+      "trait_type": "Universal Frequency",
+      "value": "369 Hz"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Structure"
+    },
+    {
+      "trait_type": "Voting Power",
+      "value": 500,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "IRL Access Level",
+      "value": 3,
+      "display_type": "number",
+      "max_value": 5
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Divine Attribute",
+      "value": "Balance"
+    },
+    {
+      "trait_type": "ChRaismas Season",
+      "value": "2025"
+    },
+    {
+      "trait_type": "Activation Date",
+      "value": "December 25, 2025"
+    }
+  ],
+  "properties": {
+    "category": "ChRaismas Collection",
+    "creators": [
+      {
+        "address": "0x...",
+        "share": 100
+      }
+    ],
+    "files": [
+      {
+        "uri": "ipfs://QmSacredGeometryKeeper/image.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "perks": {
+    "dao_voting": true,
+    "irl_events": [
+      "Sacred Geometry Workshop",
+      "ChRaismas Community Gathering"
+    ],
+    "exclusive_airdrops": true,
+    "quadratic_voting_multiplier": 1.1,
+    "raise_token_bonus": 250
+  }
+}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ video.title }} - CodexTV{% endblock %}
+
+{% block content %}
+<section class="player-section">
+    <div class="player-container">
+        <div class="video-player" id="videoPlayer">
+            <div class="player-placeholder">
+                <div class="player-content">
+                    <span class="player-icon">▶</span>
+                    <h2>{{ video.title }}</h2>
+                    <p>Prototype Stream - Flask Pass View</p>
+                    <div class="frequency-display">
+                        <span class="freq-label">Frequency:</span>
+                        <span class="freq-value">{{ video.frequency }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn" id="playBtn">▶ Play</button>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="duration">{{ video.duration }}</span>
+                <select class="quality-select" id="qualitySelect">
+                    <option value="480p">480p</option>
+                    <option value="720p">720p</option>
+                    <option value="1080p" selected>1080p</option>
+                    <option value="4K">4K</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="video-details">
+            <h1 class="video-title-full">{{ video.title }}</h1>
+            <div class="video-badges">
+                <span class="badge badge-category">{{ video.category }}</span>
+                <span class="badge badge-frequency">{{ video.frequency }}</span>
+                {% if video.status == 'live' %}
+                <span class="badge badge-live">🔴 LIVE</span>
+                {% endif %}
+            </div>
+            <p class="video-description-full">{{ video.description }}</p>
+            
+            <div class="stream-info">
+                <h3>Stream Information</h3>
+                <div class="stream-details" id="streamDetails">
+                    <div class="stream-stat">
+                        <span class="stat-label">Video ID:</span>
+                        <span class="stat-value">{{ video.id }}</span>
+                    </div>
+                    <div class="stream-stat">
+                        <span class="stat-label">Duration:</span>
+                        <span class="stat-value">{{ video.duration }}</span>
+                    </div>
+                    <div class="stream-stat">
+                        <span class="stat-label">Protocol:</span>
+                        <span class="stat-value">HLS</span>
+                    </div>
+                    <div class="stream-stat">
+                        <span class="stat-label">Status:</span>
+                        <span class="stat-value status-active">Streaming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <a href="/" class="btn btn-secondary">&larr; Back to Home</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize stream on load
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoId = '{{ video.id }}';
+        
+        // Initialize streaming session
+        fetch(`/api/stream/init/${videoId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Stream initialized:', data);
+            })
+            .catch(err => console.error('Stream init error:', err));
+        
+        // Quality change handler
+        document.getElementById('qualitySelect').addEventListener('change', function() {
+            const quality = this.value;
+            fetch(`/api/stream/quality/${videoId}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({quality: quality})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Quality updated:', data);
+            });
+        });
+        
+        // Play button simulation
+        document.getElementById('playBtn').addEventListener('click', function() {
+            this.textContent = this.textContent === '▶ Play' ? '⏸ Pause' : '▶ Play';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{
+  "name": "FamilyChronicles Eternal Archive",
+  "description": "FamilyChronicles - The eternal archive of family narratives preserved on-chain through ScrollBound Tokens (SBTs). Each chronicle captures key moments of love, legacy, and divine guidance that resonate across generations. These narratives are immutably stored using IPFS, ensuring that family stories live forever within the ScrollVerse ecosystem.",
+  "version": "1.0.0",
+  "archiveType": "SBT-Linked",
+  "storageProtocol": "IPFS",
+  "collection_metadata": {
+    "purpose": "Eternal archiving of family narratives within ScrollVerse SBTs",
+    "themes": [
+      "Family Love",
+      "Divine Guidance",
+      "Legacy Preservation",
+      "Generational Wisdom",
+      "ScrollVerse Community Storytelling"
+    ],
+    "baseFrequency": "528Hz",
+    "harmonics": ["432Hz", "639Hz", "963Hz"],
+    "integrations": {
+      "scrollSoulSBT": true,
+      "dragonQueenNFT": true,
+      "governanceWeight": true,
+      "ipfsStorage": true
+    },
+    "chronicleTypes": [
+      "MilestoneNarrative",
+      "LegacyStory",
+      "DivineTestimony",
+      "GenerationalWisdom",
+      "CommunityTale"
+    ],
+    "coreValues": [
+      "Love and Legacy",
+      "Divine Principles",
+      "Inclusive Community Storytelling",
+      "Symbols Resonating with ScrollVerse"
+    ]
+  },
+  "narrativeIndex": {
+    "totalChronicles": 2,
+    "featuredNarratives": [
+      {
+        "chronicleId": "aja-bike-flying-saga",
+        "title": "Aja's Bike-Flying Saga",
+        "narrator": "Family Historian",
+        "sbtLinked": true
+      },
+      {
+        "chronicleId": "asia-dragon-crown-story",
+        "title": "Asia's Dragon Crown Story",
+        "narrator": "DragonQueen Keeper",
+        "sbtLinked": true
+      }
+    ]
+  }
+}

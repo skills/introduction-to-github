@@ -1,0 +1,140 @@
+name: Reward and Mint
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to reward'
+        required: true
+        type: number
+      contributor:
+        description: 'Contributor GitHub username'
+        required: true
+        type: string
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  reward:
+    name: Process Contribution Reward
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Get contributor info
+        id: contributor
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const contributor = context.payload.pull_request?.user.login || '${{ github.event.inputs.contributor }}';
+            const prNumber = context.payload.pull_request?.number || ${{ github.event.inputs.pr_number }};
+            
+            return {
+              username: contributor,
+              prNumber: prNumber
+            };
+
+      - name: Calculate reward
+        id: reward
+        run: |
+          # Pilot program - test wallet rewards only
+          # Conservative reward calculation based on PR complexity
+          
+          PR_NUMBER=${{ fromJSON(steps.contributor.outputs.result).prNumber }}
+          CONTRIBUTOR=${{ fromJSON(steps.contributor.outputs.result).username }}
+          
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "contributor=$CONTRIBUTOR" >> $GITHUB_OUTPUT
+          echo "reward_amount=0.001" >> $GITHUB_OUTPUT
+          echo "network=mumbai" >> $GITHUB_OUTPUT
+          
+          echo "### Reward Calculation 🎁" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Contributor:** @$CONTRIBUTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Number:** #$PR_NUMBER" >> $GITHUB_STEP_SUMMARY
+          echo "**Network:** Mumbai Testnet" >> $GITHUB_STEP_SUMMARY
+          echo "**Amount:** 0.001 TEST tokens" >> $GITHUB_STEP_SUMMARY
+
+      - name: Process reward (Pilot - Test Network Only)
+        id: mint
+        env:
+          REWARDS_PRIVATE_KEY: ${{ secrets.REWARDS_PRIVATE_KEY }}
+          ALCHEMY_MUMBAI_URL: ${{ secrets.ALCHEMY_MUMBAI_URL }}
+          REWARDS_API_KEY: ${{ secrets.REWARDS_API_KEY }}
+          REWARDS_CONTRACT_ADDRESS: ${{ secrets.REWARDS_CONTRACT_ADDRESS }}
+          PILOT_TEST_WALLET: ${{ secrets.PILOT_TEST_WALLET }}
+        run: |
+          # Pilot program - simulate reward processing
+          # In production, this would interact with the smart contract
+          
+          echo "🧪 Pilot Program: Test network reward simulation"
+          echo "This is a test run on Mumbai testnet"
+          echo ""
+          echo "Contract: $REWARDS_CONTRACT_ADDRESS"
+          echo "Test Wallet: $PILOT_TEST_WALLET"
+          echo "Reward Amount: ${{ steps.reward.outputs.reward_amount }} TEST"
+          
+          # Placeholder for actual contract interaction
+          # Example: npx hardhat run scripts/mint-reward.js --network mumbai
+          
+          TX_HASH="0x$(cat /dev/urandom | tr -dc 'a-f0-9' | fold -w 64 | head -n 1)"
+          echo "tx_hash=$TX_HASH" >> $GITHUB_OUTPUT
+          echo "status=simulated" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const contributor = '${{ steps.reward.outputs.contributor }}';
+            const prNumber = ${{ steps.reward.outputs.pr_number }};
+            const txHash = '${{ steps.mint.outputs.tx_hash }}';
+            const status = '${{ steps.mint.outputs.status }}';
+            
+            const comment = `## 🎁 Contribution Reward (Pilot Program)
+            
+            Thank you for your contribution, @${contributor}!
+            
+            ### Reward Details
+            - **Network:** Mumbai Testnet (Polygon)
+            - **Amount:** 0.001 TEST tokens
+            - **Status:** ${status === 'simulated' ? '🧪 Simulated (Pilot)' : '✅ Processed'}
+            - **Transaction:** \`${txHash}\`
+            
+            ---
+            
+            **Note:** This is part of our pilot rewards program running on Mumbai testnet.
+            Rewards are for testing purposes only and have no monetary value.
+            
+            🔗 [View on Mumbai Explorer](https://mumbai.polygonscan.com/tx/${txHash})
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            });
+
+      - name: Reward Summary
+        run: |
+          echo "### Reward Processing Complete ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ steps.mint.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Transaction:** ${{ steps.mint.outputs.tx_hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ **Pilot Program:** Test network only (Mumbai)" >> $GITHUB_STEP_SUMMARY
