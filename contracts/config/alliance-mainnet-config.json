@@ -1,0 +1,166 @@
+{
+  "network": {
+    "name": "mainnet",
+    "chainId": 1,
+    "rpcUrl": "https://eth.llamarpc.com",
+    "explorer": "https://etherscan.io"
+  },
+  "deployment": {
+    "gasLimit": 8000000,
+    "gasPrice": "auto",
+    "confirmations": 5,
+    "deploymentDelay": 15000,
+    "maxFeePerGas": "50000000000",
+    "maxPriorityFeePerGas": "2000000000"
+  },
+  "alliance": {
+    "initialAdmin": "MULTISIG_ADDRESS",
+    "governanceToken": {
+      "name": "ScrollVerse Alliance Governance",
+      "symbol": "SVAG",
+      "initialSupply": "100000000000000000000000000",
+      "votingDelay": 7200,
+      "votingPeriod": 50400,
+      "proposalThreshold": "1000000000000000000000"
+    },
+    "registry": {
+      "roles": {
+        "allianceCreator": ["MULTISIG_ADDRESS", "DAO_ADDRESS"],
+        "partnerVerifier": ["KYC_PROVIDER_ADDRESS"],
+        "assetManager": ["ASSET_BRIDGE_ADDRESS"]
+      }
+    },
+    "assetBridge": {
+      "supportedAssetTypes": [
+        "RealEstate",
+        "Commodity",
+        "Equity",
+        "IntellectualProperty",
+        "Infrastructure",
+        "Other"
+      ],
+      "valuationDecimals": 6,
+      "verificationRequired": true,
+      "minimumValuation": 100000000000
+    },
+    "governance": {
+      "quorum": 10,
+      "proposalCategories": [
+        "General",
+        "PartnerAddition",
+        "AssetBridge",
+        "Treasury",
+        "Governance",
+        "Emergency"
+      ],
+      "timelockDelay": 172800
+    }
+  },
+  "integration": {
+    "ipfsGateway": "https://gateway.pinata.cloud/ipfs/",
+    "apiEndpoint": "https://api.scrollverse.io/alliances",
+    "webhookUrl": "https://webhooks.scrollverse.io/alliance-events",
+    "oracleProviders": {
+      "chainlink": {
+        "enabled": true,
+        "priceFeeds": []
+      },
+      "una": {
+        "enabled": true
+      }
+    }
+  },
+  "verification": {
+    "etherscan": {
+      "enabled": true,
+      "apiKey": "ETHERSCAN_API_KEY"
+    },
+    "sourcify": {
+      "enabled": true
+    },
+    "auditors": [
+      {
+        "name": "OpenZeppelin",
+        "contact": "security@openzeppelin.com"
+      },
+      {
+        "name": "Trail of Bits",
+        "contact": "info@trailofbits.com"
+      }
+    ]
+  },
+  "monitoring": {
+    "enabled": true,
+    "services": {
+      "tenderly": {
+        "enabled": true,
+        "projectSlug": "scrollverse-alliances"
+      },
+      "defender": {
+        "enabled": true,
+        "apiKey": "DEFENDER_API_KEY"
+      }
+    },
+    "alarmThresholds": {
+      "gasPrice": 200,
+      "failedTransactions": 1,
+      "largeTransfers": "1000000000000000000000000"
+    },
+    "notifications": {
+      "email": ["security@scrollverse.io", "ops@scrollverse.io"],
+      "slack": "SLACK_WEBHOOK_URL",
+      "telegram": "TELEGRAM_BOT_TOKEN"
+    }
+  },
+  "security": {
+    "multisigRequired": true,
+    "multisigThreshold": "3/5",
+    "timelockDelay": 172800,
+    "upgradeDelay": 604800,
+    "pausable": true,
+    "emergencyContacts": [
+      "security@scrollverse.io",
+      "emergency@scrollverse.io"
+    ],
+    "bugBounty": {
+      "enabled": true,
+      "platform": "Immunefi",
+      "maxReward": "1000000"
+    }
+  },
+  "compliance": {
+    "kycProvider": "KYC_PROVIDER_ADDRESS",
+    "regulatoryJurisdictions": ["USA", "EU", "UK"],
+    "amlChecks": true,
+    "sanctionsScreening": true,
+    "dataProtection": {
+      "gdprCompliant": true,
+      "ccpaCompliant": true
+    }
+  },
+  "legal": {
+    "termsOfService": "https://legal.scrollverse.io/alliance-terms",
+    "privacyPolicy": "https://legal.scrollverse.io/privacy",
+    "governanceFramework": "https://docs.scrollverse.io/alliance-governance",
+    "jurisdictionalCompliance": "https://legal.scrollverse.io/compliance"
+  },
+  "documentation": {
+    "baseUrl": "https://docs.scrollverse.io/alliances",
+    "apiDocs": "https://api-docs.scrollverse.io/alliances",
+    "tutorialUrl": "https://learn.scrollverse.io/alliances/mainnet-deployment",
+    "auditReports": "https://audits.scrollverse.io/alliances"
+  },
+  "backup": {
+    "enabled": true,
+    "frequency": "daily",
+    "retention": 90,
+    "offchainStorage": {
+      "ipfs": true,
+      "arweave": true,
+      "s3": {
+        "bucket": "scrollverse-alliance-backups",
+        "region": "us-east-1"
+      }
+    }
+  }
+}
