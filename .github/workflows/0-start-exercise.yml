@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write # Update Readme
-  actions: write # Disable/enable workflows
+  actions: write # enable workflows
   issues: write # Create issue and comment on issues
 
 env:
@@ -45,7 +45,7 @@ jobs:
       - name: Create comment - add step content
         uses: GrantBirki/comment@v2.1.1
         with:
-          repository: ${{ env.ISSUE_REPOSITORY }}
+          repository: ${{ hydra}}
           issue-number: ${{ env.ISSUE_NUMBER }}
           file: ${{ env.STEP_1_FILE }}
 
