@@ -62,7 +62,10 @@ export function registerServiceWorker(): ServiceWorkerHandle {
     window.location.reload();
   };
 
-  if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  // VITE_DISABLE_SW covers builds that are served as a single standalone file
+  // (an embedded preview, for example) where no separate sw.js exists to fetch.
+  const swEnabled = import.meta.env.PROD && import.meta.env.VITE_DISABLE_SW !== '1';
+  if ('serviceWorker' in navigator && swEnabled) {
     navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
 
     const swUrl = `${import.meta.env.BASE_URL}sw.js`;

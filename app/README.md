@@ -196,9 +196,24 @@ From inside a session (the download icon in the top bar):
   the action checklist.
 - **Copy as Markdown** — the same content straight to the clipboard.
 
+Both dialogs also offer **Copy as JSON / Markdown**, which puts the same content
+on the clipboard. That is the way out on iOS, in locked-down browsers, and on
+hosts that block file downloads: paste it into a file and import it back later.
+
 The importer is defensive: unknown or corrupt entries are dropped rather than
 failing the whole import, and a file from a newer version of the app is refused
 with a clear message instead of being partially applied.
+
+### Single-file build
+
+```bash
+VITE_DISABLE_SW=1 npm run build
+node scripts/build-single-file.mjs dist/sparkboard-standalone.html
+```
+
+Inlines the CSS and JS into one self-contained HTML file, for hosts that can only
+serve a single document. Everything works except offline caching and PWA
+installation, both of which need a separately served service worker.
 
 ## Optional AI assistance
 

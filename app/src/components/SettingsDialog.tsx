@@ -3,7 +3,7 @@ import { clearRemoteSettings, readRemoteSettings, writeRemoteSettings } from '..
 import type { RemoteSettings } from '../ai';
 import { clearAllData, loadAllBundles } from '../lib/repository';
 import { buildExport, exportFileName, parseImport } from '../lib/exchange';
-import { downloadText, readFileAsText } from '../lib/download';
+import { copyToClipboard, downloadText, readFileAsText } from '../lib/download';
 import { useApp } from '../state/hooks';
 import type { ThemeMode } from '../lib/types';
 import { Button, Dialog } from './primitives';
@@ -44,6 +44,27 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
         'application/json',
       );
       pushToast({ message: `Exported ${bundles.length} brainstorm(s).`, tone: 'neutral' });
+    } catch (error) {
+      pushToast({ message: (error as Error).message, tone: 'danger' });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  /** Escape hatch for browsers and hosts that block file downloads. */
+  const copyEverything = async () => {
+    setBusy(true);
+    try {
+      const bundles = await loadAllBundles();
+      if (bundles.length === 0) {
+        pushToast({ message: 'There is nothing to export yet.', tone: 'neutral' });
+        return;
+      }
+      const ok = await copyToClipboard(JSON.stringify(buildExport(bundles), null, 2));
+      pushToast({
+        message: ok ? 'Backup copied to the clipboard.' : 'Could not access the clipboard.',
+        tone: ok ? 'neutral' : 'danger',
+      });
     } catch (error) {
       pushToast({ message: (error as Error).message, tone: 'danger' });
     } finally {
@@ -116,6 +137,9 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
             <Button icon="upload" onClick={() => fileInput.current?.click()} disabled={busy}>
               Import from file
             </Button>
+            <Button icon="copy" onClick={() => void copyEverything()} disabled={busy}>
+              Copy everything as JSON
+            </Button>
             <input
               ref={fileInput}
               type="file"
@@ -127,7 +151,10 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
               }}
             />
           </div>
-          <p className="field__hint">Imported brainstorms are added as copies — nothing is overwritten.</p>
+          <p className="field__hint">
+            Imported brainstorms are added as copies — nothing is overwritten. If your browser blocks
+            downloads, copy the backup instead and paste it into a file.
+          </p>
         </section>
 
         <section className="stack">

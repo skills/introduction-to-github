@@ -563,9 +563,23 @@ export function WorkspaceView({ onOpenSettings }: { onOpenSettings: () => void }
             >
               Copy as Markdown
             </Button>
+            <Button
+              block
+              icon="copy"
+              onClick={async () => {
+                const ok = await copyToClipboard(JSON.stringify(buildExport([bundle]), null, 2));
+                pushToast({
+                  message: ok ? 'JSON copied to the clipboard.' : 'Could not access the clipboard.',
+                  tone: ok ? 'neutral' : 'danger',
+                });
+              }}
+            >
+              Copy as JSON
+            </Button>
             <p className="field__hint">
               JSON keeps positions, groups, tags and actions and can be imported again. Markdown is
-              for reading and pasting elsewhere.
+              for reading and pasting elsewhere. The copy options are there for browsers and hosts
+              that block file downloads — paste into a file and import it back later.
             </p>
           </div>
         </Dialog>
