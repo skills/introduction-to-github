@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5"
+    />
+    <title>Sparkboard — brainstorming that stays on your device</title>
+    <meta
+      name="description"
+      content="Sparkboard is a fast, calm, local-first brainstorming workspace. Capture, connect and refine ideas offline on any device."
+    />
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+
+    <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Sparkboard" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <script>
+      // Applied before first paint so the app never flashes the wrong theme.
+      (function () {
+        try {
+          var stored = localStorage.getItem('sparkboard.theme');
+          var mode = stored === 'light' || stored === 'dark' ? stored : null;
+          var resolved =
+            mode ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = resolved;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font: 16px/1.6 system-ui; padding: 2rem">
+        Sparkboard needs JavaScript to run. It stores everything locally in your browser and never
+        requires an account.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

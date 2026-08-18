@@ -1,0 +1,34 @@
+{
+  "id": "/?source=pwa",
+  "name": "Sparkboard — Brainstorming",
+  "short_name": "Sparkboard",
+  "description": "A fast, calm, local-first brainstorming workspace. Capture, connect and refine ideas — offline, on any device.",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#faf9f7",
+  "theme_color": "#4f46e5",
+  "categories": ["productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New brainstorm",
+      "short_name": "New",
+      "url": "./?action=new",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+/* Design tokens. Both themes define the full set so no colour is ever
+   only-defined inside a media query. */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg: #faf9f7;
+  --bg-subtle: #f2f0ed;
+  --surface: #ffffff;
+  --surface-2: #f7f6f4;
+  --surface-raised: #ffffff;
+  --overlay: rgb(28 26 24 / 42%);
+
+  /* Ink */
+  --text: #17161a;
+  --text-muted: #6a6875;
+  --text-subtle: #8e8c99;
+  --text-inverse: #ffffff;
+
+  /* Lines */
+  --border: #e5e2dd;
+  --border-strong: #d3cfc8;
+  --ring: color-mix(in srgb, var(--accent) 55%, transparent);
+
+  /* Brand */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #eef0ff;
+  --accent-text: #ffffff;
+  --danger: #c02a3a;
+  --danger-soft: #fdecee;
+  --success: #0f7a52;
+  --warning: #a86a00;
+
+  /* Card accents — token per colour so dark mode can restate them */
+  --c-default-bg: #ffffff;
+  --c-default-line: #e5e2dd;
+  --c-amber-bg: #fff6e3;
+  --c-amber-line: #f0d193;
+  --c-rose-bg: #ffeef1;
+  --c-rose-line: #f3bcc5;
+  --c-violet-bg: #f2eeff;
+  --c-violet-line: #cfc3f7;
+  --c-teal-bg: #e5f7f2;
+  --c-teal-line: #a8ddcd;
+  --c-blue-bg: #e9f2ff;
+  --c-blue-line: #b4cdf5;
+  --c-lime-bg: #eef8e0;
+  --c-lime-line: #c3dfa0;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgb(23 22 26 / 6%), 0 1px 3px rgb(23 22 26 / 5%);
+  --shadow-2: 0 2px 4px rgb(23 22 26 / 5%), 0 6px 16px rgb(23 22 26 / 8%);
+  --shadow-3: 0 8px 20px rgb(23 22 26 / 10%), 0 24px 48px rgb(23 22 26 / 12%);
+  --shadow-drag: 0 12px 24px rgb(23 22 26 / 16%), 0 2px 6px rgb(23 22 26 / 10%);
+
+  /* Geometry */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* Type */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Inter, Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.6rem;
+  --text-2xl: 2.1rem;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur: 180ms;
+  --dur-slow: 280ms;
+
+  /* Controls — 44px minimum on touch, tighter on pointer devices */
+  --control-h: 40px;
+  --touch-h: 44px;
+
+  --z-canvas: 1;
+  --z-sticky: 20;
+  --z-panel: 40;
+  --z-overlay: 60;
+  --z-toast: 80;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0e0f13;
+  --bg-subtle: #121319;
+  --surface: #171922;
+  --surface-2: #1c1f29;
+  --surface-raised: #1e212c;
+  --overlay: rgb(4 4 8 / 62%);
+
+  --text: #eceef5;
+  --text-muted: #a1a4b4;
+  --text-subtle: #767a8c;
+  --text-inverse: #10121a;
+
+  --border: #272b38;
+  --border-strong: #3a3f52;
+
+  --accent: #8b8cf7;
+  --accent-hover: #a3a4fa;
+  --accent-soft: #1e2038;
+  --accent-text: #0d0e16;
+  --danger: #ff8b96;
+  --danger-soft: #2c1519;
+  --success: #56d6a4;
+  --warning: #e5b25c;
+
+  --c-default-bg: #1b1e28;
+  --c-default-line: #2c3140;
+  --c-amber-bg: #2c2313;
+  --c-amber-line: #6b5527;
+  --c-rose-bg: #2f171d;
+  --c-rose-line: #74404c;
+  --c-violet-bg: #241f3c;
+  --c-violet-line: #554a86;
+  --c-teal-bg: #122a26;
+  --c-teal-line: #2f6459;
+  --c-blue-bg: #16233a;
+  --c-blue-line: #37547f;
+  --c-lime-bg: #1e2a15;
+  --c-lime-line: #4a6432;
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-2: 0 2px 6px rgb(0 0 0 / 45%), 0 10px 24px rgb(0 0 0 / 35%);
+  --shadow-3: 0 12px 28px rgb(0 0 0 / 55%), 0 32px 64px rgb(0 0 0 / 45%);
+  --shadow-drag: 0 16px 32px rgb(0 0 0 / 60%);
+}
