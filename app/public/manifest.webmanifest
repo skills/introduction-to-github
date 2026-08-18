@@ -1,21 +1,37 @@
 {
-  "id": "/?source=pwa",
-  "name": "Sparkboard — Brainstorming",
+  "name": "Sparkboard \u2014 Brainstorming",
   "short_name": "Sparkboard",
-  "description": "A fast, calm, local-first brainstorming workspace. Capture, connect and refine ideas — offline, on any device.",
+  "description": "A fast, calm, local-first brainstorming workspace. Capture, connect and refine ideas \u2014 offline, on any device.",
   "start_url": "./?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
   "background_color": "#faf9f7",
   "theme_color": "#4f46e5",
-  "categories": ["productivity", "utilities"],
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
   "lang": "en",
   "dir": "ltr",
   "icons": [
-    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "./icons/icon-maskable-512.png",
       "sizes": "512x512",
@@ -28,7 +44,12 @@
       "name": "New brainstorm",
       "short_name": "New",
       "url": "./?action=new",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

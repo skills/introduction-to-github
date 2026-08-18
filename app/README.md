@@ -80,11 +80,34 @@ npm run preview   # serve the production build locally
 The service worker is only registered in production builds, so `npm run dev` never
 serves stale code.
 
-To host the app under a sub-path (GitHub Pages, for example):
+To host the app under a sub-path:
 
 ```bash
 VITE_BASE=/introduction-to-github/ npm run build
 ```
+
+### Publishing to GitHub Pages
+
+`.github/workflows/deploy-sparkboard.yml` builds and publishes the app whenever
+`app/**` changes on `main`. It enables Pages on its first run and passes the
+correct base path automatically, so there is nothing to configure by hand.
+
+The site then lives at:
+
+```
+https://<your-github-username>.github.io/<repository-name>/
+```
+
+Two things to know:
+
+- The repository must be **public**, or the account must have GitHub Pages on a
+  paid plan — Pages is not available for private repositories on the free tier.
+- The `github-pages` deployment environment only accepts deploys from the default
+  branch, which is why the workflow triggers on `main` rather than on a feature
+  branch. Merge first, then it deploys.
+
+You can also run it by hand from the repository's **Actions** tab
+(*Deploy Sparkboard to Pages* → *Run workflow*).
 
 ### Checks
 

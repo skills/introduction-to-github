@@ -1,0 +1,76 @@
+# Publishes the Sparkboard PWA to GitHub Pages.
+#
+# Pages serves the site from https://<owner>.github.io/<repo>/, so the build
+# needs a matching base path — hence VITE_BASE below. `enablement: true` turns
+# Pages on the first time this runs, so no manual repository setting is needed.
+name: Deploy Sparkboard to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - '.github/workflows/deploy-sparkboard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-flight deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci
+
+      - name: Typecheck, lint and test
+        working-directory: app
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run test
+
+      - uses: actions/configure-pages@v5
+        id: pages
+        with:
+          enablement: true
+
+      - name: Build
+        working-directory: app
+        run: |
+          # base_path is "/<repo>" normally, or "/" behind a custom domain.
+          BASE="${{ steps.pages.outputs.base_path }}"
+          [ -z "$BASE" ] && BASE="/"
+          case "$BASE" in */) ;; *) BASE="$BASE/" ;; esac
+          echo "Building with base path $BASE"
+          VITE_BASE="$BASE" npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
