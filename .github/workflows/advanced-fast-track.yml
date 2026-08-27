@@ -1,0 +1,184 @@
+name: Advanced Fast Track
+
+on:
+  create:
+  delete:
+  push:
+    branches:
+      - my-first-branch
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+      - closed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+concurrency:
+  group: advanced-fast-track
+  cancel-in-progress: false
+
+jobs:
+  find_exercise:
+    name: Find Exercise Issue
+    uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
+
+  evaluate:
+    name: Evaluate exercise progress
+    needs: find_exercise
+    if: ${{ !github.event.repository.is_template }}
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_NUMBER: ${{ needs.find_exercise.outputs.issue-number }}
+    steps:
+      - name: Checkout task list
+        uses: actions/checkout@v4
+
+      - name: Evaluate tasks and update progress
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const stateMarker = '<!-- advanced-fast-track-state -->';
+            const taskFile = '.github/steps/advanced-task-list.md';
+            const tasks = require('fs')
+              .readFileSync(taskFile, 'utf8')
+              .split('\n')
+              .filter((line) => line.startsWith('- '))
+              .map((line) => line.slice(2));
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number: issueNumber,
+              per_page: 100,
+            });
+            const stateComment = comments.find((comment) => comment.body?.includes(stateMarker));
+            let frontier = 0;
+
+            if (stateComment) {
+              const match = stateComment.body.match(/frontier:\s*(\d+)/);
+              frontier = match ? Number(match[1]) : 0;
+            }
+
+            async function branchExists(branch) {
+              try {
+                await github.rest.repos.getBranch({ owner, repo, branch });
+                return true;
+              } catch (error) {
+                if (error.status === 404) return false;
+                throw error;
+              }
+            }
+
+            async function profileContentIsCorrect() {
+              try {
+                const response = await github.rest.repos.getContent({
+                  owner,
+                  repo,
+                  path: 'PROFILE.md',
+                  ref: 'my-first-branch',
+                });
+                return response.data.type === 'file' &&
+                  Buffer.from(response.data.content, 'base64').toString('utf8').trim() ===
+                    'Welcome to my GitHub profile!';
+              } catch (error) {
+                if (error.status === 404) return false;
+                throw error;
+              }
+            }
+
+            async function profileCommitExists() {
+              if (!(await branchExists('my-first-branch'))) return false;
+              const commits = await github.paginate(github.rest.repos.listCommits, {
+                owner,
+                repo,
+                sha: 'my-first-branch',
+                path: 'PROFILE.md',
+                per_page: 100,
+              });
+              return commits.some((commit) => commit.commit.message.trim() === 'Add PROFILE.md');
+            }
+
+            async function findPullRequest() {
+              const response = await github.rest.pulls.list({
+                owner,
+                repo,
+                state: 'all',
+                base: 'main',
+                head: `${owner}:my-first-branch`,
+                per_page: 100,
+              });
+              return response.data[0];
+            }
+
+            async function taskIsComplete(taskNumber) {
+              if (taskNumber === 1) return branchExists('my-first-branch');
+              if (taskNumber === 2) return profileContentIsCorrect();
+              if (taskNumber === 3) return profileContentIsCorrect();
+              if (taskNumber === 4) return profileCommitExists();
+
+              const pullRequest = await findPullRequest();
+              if (taskNumber === 5) return Boolean(pullRequest);
+              if (taskNumber === 6) {
+                return Boolean(pullRequest?.title.toLowerCase().includes('add my first file'));
+              }
+              if (taskNumber === 7) return Boolean(pullRequest?.body?.trim());
+              if (taskNumber === 8) return Boolean(pullRequest?.merged_at);
+              if (taskNumber === 9) return Boolean(pullRequest?.merged_at) &&
+                !(await branchExists('my-first-branch'));
+              return false;
+            }
+
+            while (frontier < tasks.length && await taskIsComplete(frontier + 1)) {
+              frontier += 1;
+            }
+
+            const progress = tasks.map((task, index) =>
+              `${index < frontier ? '- [x]' : '- [ ]'} ${task}`
+            ).join('\n');
+            const body = [
+              stateMarker,
+              `frontier: ${frontier}`,
+              '',
+              '### Advanced Fast Track progress',
+              '',
+              progress,
+            ].join('\n');
+
+            if (stateComment) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: stateComment.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body,
+              });
+            }
+
+            if (frontier === tasks.length) {
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                state: 'closed',
+              });
+            }
+
+            core.info(`Advanced Fast Track frontier: ${frontier}/${tasks.length}`);
