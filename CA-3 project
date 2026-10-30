@@ -1,0 +1,112 @@
+
+# Open-Source Repository Management and Contribution Workflow
+
+## Student Details
+- Name: Rutvij Maharaul
+- PRN: 24070123089
+- Course: B.Tech Electronics and Telecommunication
+- Semester: 5
+- Subject: Open Source Technologies
+- Project: CA-3 Individual Case Study
+
+## 1. Introduction
+This case study explores Git and GitHub as tools for version control and collaborative software development.
+
+The reference repository is GitHub Skills - Introduction to GitHub:
+https://github.com/skills/introduction-to-github
+
+## 2. Objectives
+1. Understand Git and GitHub.
+2. Study repositories and branches.
+3. Understand commits and version history.
+4. Learn forking and pull requests.
+5. Study open-source collaboration.
+6. Demonstrate a repository contribution workflow.
+
+## 3. Repository Investigation
+The selected repository is a beginner-friendly GitHub Skills learning project.
+
+Its learning activities introduce:
+- Repository creation
+- Branch management
+- Making commits
+- Opening pull requests
+- Reviewing and merging changes
+
+## 4. Important Concepts
+
+### Git
+Git is a distributed version control system that tracks changes in files.
+
+### GitHub
+GitHub is a platform for hosting Git repositories and collaborating with developers.
+
+### Repository
+A repository stores project files and their version history.
+
+### Branch
+A branch allows independent development without directly changing the main branch.
+
+### Commit
+A commit records a set of changes in the repository.
+
+### Fork
+A fork is a personal copy of another repository.
+
+### Pull Request
+A pull request proposes changes for review before they are merged.
+
+### Issue
+An issue is used to report bugs, suggest features and discuss improvements.
+
+## 5. Git Commands
+
+```bash
+git clone <repository-url>
+git status
+git branch
+git switch -c feature-branch
+git add .
+git commit -m "Add project documentation"
+git push origin feature-branch
+git log --oneline
+```
+
+## 6. Contribution Workflow
+
+1. Identify an open-source repository.
+2. Fork the repository.
+3. Create a new branch.
+4. Make changes.
+5. Review the changes.
+6. Commit the changes.
+7. Push the branch.
+8. Create a pull request.
+9. Participate in code review.
+10. Merge after approval.
+
+## 7. Practical Work Performed
+
+- Selected the GitHub Skills Introduction to GitHub repository.
+- Created a personal fork.
+- Created the branch `Rutvij_089`.
+- Added this CA-3 documentation.
+- Created a commit.
+- Submitted Pull Request #2363 for review.
+
+## 8. Findings
+The investigation demonstrates how branching, commits, forks and pull requests support collaborative development.
+
+Version control also helps maintain a traceable history of modifications.
+
+No specific software defect is claimed to have been reproduced.
+
+## 9. Conclusion
+Git and GitHub are essential tools in modern software development. This case study demonstrates their role in version control, repository management and open-source collaboration.
+
+## 10. References
+1. https://github.com/skills/introduction-to-github
+2. https://docs.github.com/en/get-started
+3. https://docs.github.com/en/pull-requests
+4. https://git-scm.com/docs
+
