@@ -12,7 +12,7 @@ People use GitHub to build some of the most advanced technologies in the world. 
 - **Prerequisites**: None. This exercise is a great introduction for your first day on GitHub.
 - **How long**: This exercise takes less than one hour to complete.
 
-In this exercise, you will:
+In this exercise, you will:-
 
 1. Create a branch
 2. Commit a file
